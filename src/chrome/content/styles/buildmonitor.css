@@ -1,0 +1,18 @@
+.info {
+	text-align: right;
+}
+.title {
+	font-weight: bold;
+}
+.success {
+	color: #3465A4;
+}
+.failure {
+	color: #EF2929;
+}
+.warning {
+	color: #FEB738;
+}
+.unknown {
+	color: #626262;
+}

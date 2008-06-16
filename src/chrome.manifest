@@ -1,0 +1,2 @@
+content     buildmonitor    chrome/content/
+overlay chrome://browser/content/browser.xul chrome://buildmonitor/content/main.xul

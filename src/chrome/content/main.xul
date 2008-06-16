@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<overlay id="buildmonitor-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<?xml-stylesheet href="chrome://buildmonitor/content/styles/buildmonitor.css" type="text/css"?>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-core.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/pretty.js"/>
+
+	<statusbar id="status-bar">
+		<tooltip id="buildmonitor-tooltip" class="info" noautohide="true">
+			<vbox id="buildmonitor-box">
+				<label class="title" value="Hudson Build Monitor"/>
+				<label value="Please configure the Feed URL via Preferences menu."/>
+			</vbox>
+		</tooltip>
+		<menupopup id="buildmonitor-menu">
+			<menuitem label="Hudson Dashboard" oncommand="goToDashboard();"/>
+		    <menuseparator/>
+			<menuitem label="Preferences" oncommand="window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');"/>
+		    <menuseparator/>
+		    <menuitem label="Refresh" oncommand="processFeed();"/>
+		</menupopup>
+		<menupopup id="buildmonitor-builds" class="info"/>
+		<statusbarpanel id="buildmonitor-panel" class="statusbarpanel-menu-iconic" src="chrome://buildmonitor/content/images/icon_16.png" popup="buildmonitor-builds" context="buildmonitor-menu" tooltip="buildmonitor-tooltip"/>
+	</statusbar>
+
+</overlay>

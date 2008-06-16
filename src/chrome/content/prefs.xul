@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+
+<dialog xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      onload="loadPreferences();"
+      ondialogaccept="return savePreferences();"
+      buttons="accept,cancel"
+      title="Hudson Build Monitor preferences">
+
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-util.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-core.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/pretty.js"/>
+
+    <vbox>
+		<label value="Feed URL:"/>
+		<textbox id="buildmonitor-prefs-url" size="50"/>
+		<label value="Poll Interval (in minutes):"/>
+		<textbox id="buildmonitor-prefs-interval" size="5"/>
+		<label value="Number of builds to display:"/>
+		<textbox id="buildmonitor-prefs-size" size="5"/>
+		<hbox>
+			<label value="Enable Debug"/>
+			<checkbox id="buildmonitor-prefs-debug" checked="false"/>
+		</hbox>
+	</vbox>
+
+</dialog>

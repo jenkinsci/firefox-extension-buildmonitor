@@ -1,0 +1,18 @@
+<project name="buildmon" default="package" basedir=".">
+
+	<tstamp><format property="TSTAMP" pattern="yyyyMMddhhmm"/></tstamp>
+	<property name="package.name" value="hudsonbuildmonitor"/>
+	<property name="source.dir" value="src"/>
+	<property name="stage.dir" value="stage"/>
+	<!--<property name="version" value="${TSTAMP}"/>-->
+	<property name="version" value="0.4"/>
+
+	<target name="clean">
+		<delete dir="${stage.dir}"/>
+	</target>
+	<target name="package">
+		<mkdir dir="${stage.dir}"/>
+		<zip destfile="${stage.dir}/${package.name}-${version}.xpi" basedir="${source.dir}"/>
+	</target>
+
+</project>
