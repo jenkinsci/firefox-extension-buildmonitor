@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
+<?xml-stylesheet href="chrome://buildmonitor/content/styles/buildmonitor.css" type="text/css"?>
 <overlay id="buildmonitor-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<?xml-stylesheet href="chrome://buildmonitor/content/styles/buildmonitor.css" type="text/css"?>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-util.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-core.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor.js"/>
