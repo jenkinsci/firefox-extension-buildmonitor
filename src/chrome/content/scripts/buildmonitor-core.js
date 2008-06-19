@@ -6,7 +6,7 @@ function UIMgr(logMgr) {
 }
 UIMgr.prototype.setPanelIcon = function(status) {
     this.logMgr.debug("Setting panel icon. status: " + status);
-    document.getElementById("buildmonitor-panel").setAttribute("src", "chrome://buildmonitor/content/images/" + status + ".png");
+    document.getElementById("buildmonitor-panel").setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
 }
 UIMgr.prototype.setTooltipContent = function(title, items) {
 	var box = document.getElementById("buildmonitor-box");

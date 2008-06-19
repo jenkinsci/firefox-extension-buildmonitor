@@ -1,5 +1,6 @@
-<?xml version="1.0"?>
-<?xml-stylesheet href="chrome://buildmonitor/content/styles/buildmonitor.css" type="text/css"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://buildmonitor/skin/buildmonitor.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
 <overlay id="buildmonitor-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -16,14 +17,14 @@
 			</vbox>
 		</tooltip>
 		<menupopup id="buildmonitor-menu">
-			<menuitem label="Hudson Dashboard" oncommand="goToDashboard();"/>
+			<menuitem label="&buildmonitor.menu.dashboard;" oncommand="goToDashboard();"/>
 		    <menuseparator/>
-			<menuitem label="Preferences" oncommand="window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');"/>
+			<menuitem label="&buildmonitor.menu.preferences;" oncommand="window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');"/>
 		    <menuseparator/>
-		    <menuitem label="Refresh" oncommand="processFeed();"/>
+		    <menuitem label="&buildmonitor.menu.refresh;" oncommand="processFeed();"/>
 		</menupopup>
 		<menupopup id="buildmonitor-builds" class="info"/>
-		<statusbarpanel id="buildmonitor-panel" class="statusbarpanel-menu-iconic" src="chrome://buildmonitor/content/images/icon_16.png" popup="buildmonitor-builds" context="buildmonitor-menu" tooltip="buildmonitor-tooltip"/>
+		<statusbarpanel id="buildmonitor-panel" class="statusbarpanel-menu-iconic" src="chrome://buildmonitor/skin/icon_16.png" popup="buildmonitor-builds" context="buildmonitor-menu" tooltip="buildmonitor-tooltip"/>
 	</statusbar>
 
 </overlay>
