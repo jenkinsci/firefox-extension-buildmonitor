@@ -20,12 +20,12 @@ function prettyDateUTC(time, textMgr) {
 	return day_diff == 0 && (
 			diff < 60 && textMgr.get("date.now") ||
 			diff < 120 && textMgr.get("date.minute") ||
-			diff < 3600 && Math.floor( diff / 60 ) + " " + textMgr.get("date.minutes") ||
+			diff < 3600 && textMgr.get("date.minutes", [Math.floor( diff / 60 )]) ||
 			diff < 7200 && textMgr.get("date.hour") ||
-			diff < 86400 && Math.floor( diff / 3600 ) + " " + textMgr.get("date.hours")) ||
+			diff < 86400 && textMgr.get("date.hours", [Math.floor( diff / 3600 )])) ||
 		day_diff == 1 && textMgr.get("date.day") ||
-		day_diff < 7 && day_diff + " " + textMgr.get("date.days") ||
-		day_diff < 31 && Math.ceil( day_diff / 7 ) + " " + textMgr.get("date.weeks");
+		day_diff < 7 && textMgr.get("date.days", [day_diff]) ||
+		day_diff < 31 && textMgr.get("date.weeks", [Math.ceil( day_diff / 7 )]);
 }
 function getCurrentDateUTC() {
 	var date = new Date();
