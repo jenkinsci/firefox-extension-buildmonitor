@@ -133,7 +133,7 @@ FeedMgr.prototype.parse = function(text) {
 	        var buildDetails = new Array(size);
 	        for (var i = 0; i < size; i++) {
 				var text = entries[i].getElementsByTagName("title")[0].childNodes[0].nodeValue + " - "
-						+ prettyDateUTC(entries[i].getElementsByTagName("published")[0].childNodes[0].nodeValue);
+						+ prettyDateUTC(entries[i].getElementsByTagName("published")[0].childNodes[0].nodeValue, this.textMgr);
 				var link = entries[i].getElementsByTagName("link")[0].attributes.getNamedItem("href").value;
 				buildDetails[i] = new BuildDetail(text, link);
 				if (buildDetails[i].getText().indexOf("SUCCESS") == -1) {
