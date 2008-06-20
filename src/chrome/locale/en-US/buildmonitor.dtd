@@ -1,3 +1,10 @@
-<!ENTITY buildmonitor.menu.dashboard "Hudson Dashboard">
-<!ENTITY buildmonitor.menu.preferences "Preferences">
-<!ENTITY buildmonitor.menu.refresh "Refresh">
+<!ENTITY init.title "Hudson Build Monitor">
+<!ENTITY init.message "Please configure the Feed URL via Preferences menu.">
+<!ENTITY menu.dashboard "Hudson Dashboard">
+<!ENTITY menu.preferences "Preferences">
+<!ENTITY menu.refresh "Refresh">
+<!ENTITY prefs.title "Hudson Build Monitor preferences">
+<!ENTITY prefs.url "Feed URL:">
+<!ENTITY prefs.interval "Poll Interval (in minutes):">
+<!ENTITY prefs.size "Number of builds to display:">
+<!ENTITY prefs.debug "Enable Debug">

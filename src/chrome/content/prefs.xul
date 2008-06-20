@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
-
+<!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
 <dialog xmlns:html="http://www.w3.org/1999/xhtml"
       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
       onload="loadPreferences();"
       ondialogaccept="return savePreferences();"
       buttons="accept,cancel"
-      title="Hudson Build Monitor preferences">
+      title="&prefs.title;">
 
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-util.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-core.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/pretty.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-util.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-core.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
+
+	<stringbundleset>
+		<stringbundle id="buildmonitor-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+	</stringbundleset>
 
     <vbox>
-		<label value="Feed URL:"/>
+		<label value="&prefs.url;"/>
 		<textbox id="buildmonitor-prefs-url" size="50"/>
-		<label value="Poll Interval (in minutes):"/>
+		<label value="&prefs.interval;"/>
 		<textbox id="buildmonitor-prefs-interval" size="5"/>
-		<label value="Number of builds to display:"/>
+		<label value="&prefs.size;"/>
 		<textbox id="buildmonitor-prefs-size" size="5"/>
 		<hbox>
-			<label value="Enable Debug"/>
+			<label value="&prefs.debug;"/>
 			<checkbox id="buildmonitor-prefs-debug" checked="false"/>
 		</hbox>
 	</vbox>

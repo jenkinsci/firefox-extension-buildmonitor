@@ -25,7 +25,7 @@ PrefMgr.prototype.getUrl = function() {
 }
 
 /*
- * DateMgr provides data manipulation convenience methods.
+ * DateMgr provides date manipulation convenience methods.
  */
 function DateMgr() {
 }

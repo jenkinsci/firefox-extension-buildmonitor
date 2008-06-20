@@ -4,24 +4,27 @@
 <overlay id="buildmonitor-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-util.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor-core.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/buildmonitor.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/scripts/pretty.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-core.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
 
 	<statusbar id="status-bar">
+		<stringbundleset>
+			<stringbundle id="buildmonitor-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+		</stringbundleset>
 		<tooltip id="buildmonitor-tooltip" class="info" noautohide="true">
 			<vbox id="buildmonitor-box">
-				<label class="title" value="Hudson Build Monitor"/>
-				<label value="Please configure the Feed URL via Preferences menu."/>
+				<label class="title" value="&init.title;"/>
+				<label value="&init.message;"/>
 			</vbox>
 		</tooltip>
 		<menupopup id="buildmonitor-menu">
-			<menuitem label="&buildmonitor.menu.dashboard;" oncommand="goToDashboard();"/>
+			<menuitem label="&menu.dashboard;" oncommand="goToDashboard();"/>
 		    <menuseparator/>
-			<menuitem label="&buildmonitor.menu.preferences;" oncommand="window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');"/>
+			<menuitem label="&menu.preferences;" oncommand="window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');"/>
 		    <menuseparator/>
-		    <menuitem label="&buildmonitor.menu.refresh;" oncommand="processFeed();"/>
+		    <menuitem label="&menu.refresh;" oncommand="processFeed();"/>
 		</menupopup>
 		<menupopup id="buildmonitor-builds" class="info"/>
 		<statusbarpanel id="buildmonitor-panel" class="statusbarpanel-menu-iconic" src="chrome://buildmonitor/skin/icon_16.png" popup="buildmonitor-builds" context="buildmonitor-menu" tooltip="buildmonitor-tooltip"/>

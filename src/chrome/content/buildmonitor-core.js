@@ -1,11 +1,28 @@
 /*
+ * TextMgr retrieves text from string bundle.
+ */
+function TextMgr() {
+}
+TextMgr.prototype.get = function(key, args) {
+	var texts = document.getElementById("buildmonitor-stringbundle");
+	var text;
+	if (args) {
+		text = texts.getFormattedString(key, args);
+	} else {
+		text = texts.getString(key);
+	}
+	return text;
+}
+
+/*
  * UIMgr is responsible for updating user interface components.
  */
-function UIMgr(logMgr) {
+function UIMgr(logMgr, textMgr) {
 	this.logMgr = logMgr;
+	this.textMgr = textMgr;
 }
 UIMgr.prototype.setPanelIcon = function(status) {
-    this.logMgr.debug("Setting panel icon. status: " + status);
+    this.logMgr.debug(textMgr.get("ui.setpanelicon") + " status: " + status);
     document.getElementById("buildmonitor-panel").setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
 }
 UIMgr.prototype.setTooltipContent = function(title, items) {
@@ -64,10 +81,11 @@ UIMgr.prototype.getStatus = function(value) {
 /*
  * FeedMgr takes care of asynchronous feed retrieval, and parses the XML feed.
  */
-function FeedMgr(prefMgr, logMgr, uiMgr) {
+function FeedMgr(prefMgr, logMgr, uiMgr, textMgr) {
 	this.prefMgr = prefMgr;
 	this.logMgr = logMgr;
 	this.uiMgr = uiMgr;
+	this.textMgr = textMgr;
 
 }
 FeedMgr.prototype.process = function(url) {
@@ -75,31 +93,32 @@ FeedMgr.prototype.process = function(url) {
 	var aliasPrefMgr = this.prefMgr;
 	var aliasLogMgr = this.logMgr;
 	var aliasUIMgr = this.uiMgr;
+	var aliasTextMgr = this.textMgr;
 	var aliasFeedMgr = this;
 	var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
-                aliasLogMgr.debug("Successfully retrieved feed. responseText: " + request.responseText.substring(0, 20) + "...");
+                aliasLogMgr.debug(aliasTextMgr.get("feed.process.ready.success") + " responseText: " + request.responseText.substring(0, 20) + "...");
                 aliasFeedMgr.parse(request.responseText);
             }
             else {
-                aliasLogMgr.debug("Failed to retrieve feed.");
+                aliasLogMgr.debug(aliasTextMgr.get("feed.process.ready.failure"));
                 aliasUIMgr.reset();
-				aliasUIMgr.setTooltipContent("Error", new Array("An error occured while retrieving feed.", "Please check the feed URL via Preferences menu."));
+				aliasUIMgr.setTooltipContent(aliasTextMgr.get("feed.process.ready.failure.title"), new Array(aliasTextMgr.get("feed.process.ready.failure.message1"), aliasTextMgr.get("feed.process.ready.failure.message2")));
                 aliasUIMgr.setPanelIcon("error");
             }
         }
     };
     request.onerror = function () {
-        aliasLogMgr.debug("Failed to retrieve feed.");
+        aliasLogMgr.debug(aliasTextMgr.get("feed.process.error"));
         aliasUIMgr.reset();
-		aliasUIMgr.setTooltipContent("Error", new Array("An error occured while retrieving feed.", "Please check the feed URL via Preferences menu."));
+		aliasUIMgr.setTooltipContent(aliasTextMgr.get("feed.process.error.title"), new Array(aliasTextMgr.get("feed.process.error.message1"), aliasTextMgr.get("feed.process.error.message2")));
         aliasUIMgr.setPanelIcon("error");
     };
     this.uiMgr.reset();
-    this.uiMgr.setTooltipContent("Loading", new Array("Retrieving feed. url: " + url, "Speed varies depending on network connection and feed size."));
+    this.uiMgr.setTooltipContent(this.textMgr.get("feed.process.loading.title"), new Array(this.textMgr.get("feed.process.loading.message1") + " url: " + url, this.textMgr.get("feed.process.loading.message2")));
     this.uiMgr.setPanelIcon("processing");
     request.send(null);
 }
@@ -117,7 +136,7 @@ FeedMgr.prototype.parse = function(text) {
 						+ prettyDateUTC(entries[i].getElementsByTagName("published")[0].childNodes[0].nodeValue);
 				var link = entries[i].getElementsByTagName("link")[0].attributes.getNamedItem("href").value;
 				buildDetails[i] = new BuildDetail(text, link);
-				if (buildDetails[i].getText().indexOf("FAILURE") >= 0) {
+				if (buildDetails[i].getText().indexOf("SUCCESS") == -1) {
 					hasFailure = true;
 				}
 	        }
@@ -134,14 +153,14 @@ FeedMgr.prototype.parse = function(text) {
 			this.uiMgr.setPanelIcon(panelIcon);
 	    } else {
 	    	this.uiMgr.reset();
-	    	this.uiMgr.setTooltipContent(title, new Array("No build status found."));
+	    	this.uiMgr.setTooltipContent(title, new Array(this.textMgr.get("feed.nobuild")));
 	    	this.uiMgr.setPanelIcon("unknown");
 	    }
     } catch (e) {
-    	var message = "An unexpected error has occured while parsing response text.";
+    	var message = this.textMgr.get("feed.exception.message1");
         this.logMgr.debug(message + " Exception: " + e);
         this.uiMgr.reset();
-		this.uiMgr.setTooltipContent("Error", new Array(message, " Please enable debug and check the log via Error Console."));
+		this.uiMgr.setTooltipContent(this.textMgr.get("feed.exception.title"), new Array(message, this.textMgr.get("feed.exception.message2")));
         this.uiMgr.setPanelIcon("error");
     }
 }
