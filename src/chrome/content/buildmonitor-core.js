@@ -55,6 +55,9 @@ UIMgr.prototype.setBuildsMenuContent = function(buildDetails) {
 	    item.setAttribute("label", buildDetails[i].getText());
 	   	item.setAttribute("value", buildDetails[i].getLink());
 	   	item.setAttribute("oncommand", "getBrowser().addTab(this.value)");
+	   	item.setAttribute("class", "menuitem-iconic");
+	   	item.setAttribute("image", "chrome://buildmonitor/skin/" + this.getStatus(buildDetails[i].getText()) + ".png");
+	   	item.setAttribute("maxwidth", "1000");
 	   	menu.appendChild(item);
 	}
 }
