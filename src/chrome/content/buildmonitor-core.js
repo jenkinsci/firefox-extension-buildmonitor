@@ -38,11 +38,11 @@ UIMgr.prototype.setTooltipContent = function(title, items) {
 		var text;
 		if (typeof items[i] == "object") {
 		    text = items[i].getText();
+		    itemLabel.setAttribute("class", items[i].getStatus());
 		} else {
 		    text = items[i];
 		}
 	    itemLabel.setAttribute("value", text);
-	   	itemLabel.setAttribute("class", this.getStatus(text));
 	   	box.appendChild(itemLabel);
 	}
 	var tooltip = document.getElementById("buildmonitor-tooltip");
@@ -56,7 +56,7 @@ UIMgr.prototype.setBuildsMenuContent = function(buildDetails) {
 	   	item.setAttribute("value", buildDetails[i].getLink());
 	   	item.setAttribute("oncommand", "getBrowser().addTab(this.value)");
 	   	item.setAttribute("class", "menuitem-iconic");
-	   	item.setAttribute("image", "chrome://buildmonitor/skin/" + this.getStatus(buildDetails[i].getText()) + ".png");
+	   	item.setAttribute("image", "chrome://buildmonitor/skin/" + buildDetails[i].getStatus() + ".png");
 	   	item.setAttribute("maxwidth", "1000");
 	   	menu.appendChild(item);
 	}
@@ -70,15 +70,6 @@ UIMgr.prototype.reset = function() {
 	while (menu.firstChild) {
 		menu.removeChild(menu.firstChild);
 	}
-}
-UIMgr.prototype.getStatus = function(value) {
-	var status = "";
-	if (value.indexOf("SUCCESS") >= 0) {
-		status = "success";
-	} else if (value.indexOf("FAILURE") >= 0 || value.indexOf("NOT_BUILT") >= 0 || value.indexOf("UNSTABLE") >= 0) {
-		status = "failure";
-	}
-	return status;
 }
 
 /*
@@ -180,4 +171,17 @@ BuildDetail.prototype.getText = function() {
 }
 BuildDetail.prototype.getLink = function() {
     return this.link;
+}
+BuildDetail.prototype.getStatus = function() {
+	var status = "unknown";
+	if (this.text.indexOf("SUCCESS") >= 0) {
+		status = "success";
+	} else if (this.text.indexOf("FAILURE") >= 0) {
+		status = "failure";
+	} else if (this.text.indexOf("ABORTED") >= 0 ||
+			this.text.indexOf("NOT_BUILT") >= 0 ||
+			this.text.indexOf("UNSTABLE") >= 0) {
+		status = "warning";
+	}
+	return status;
 }
