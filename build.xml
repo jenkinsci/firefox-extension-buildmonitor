@@ -5,7 +5,7 @@
 	<property name="source.dir" value="src"/>
 	<property name="stage.dir" value="stage"/>
 	<!--<property name="version" value="${TSTAMP}"/>-->
-	<property name="version" value="0.5"/>
+	<property name="version" value="0.6-SNAPSHOT"/>
 
 	<target name="clean">
 		<delete dir="${stage.dir}"/>
