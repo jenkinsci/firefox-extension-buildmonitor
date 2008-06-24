@@ -173,14 +173,14 @@ BuildDetail.prototype.getLink = function() {
     return this.link;
 }
 BuildDetail.prototype.getStatus = function() {
-	var status = "unknown";
+	var status = "";
 	if (this.text.indexOf("SUCCESS") >= 0) {
 		status = "success";
 	} else if (this.text.indexOf("FAILURE") >= 0) {
 		status = "failure";
-	} else if (this.text.indexOf("ABORTED") >= 0 ||
-			this.text.indexOf("NOT_BUILT") >= 0 ||
-			this.text.indexOf("UNSTABLE") >= 0) {
+	} else if (this.text.indexOf("ABORTED") >= 0 || this.text.indexOf("NOT_BUILT") >= 0) {
+		status = "unknown";
+	} else if (this.text.indexOf("UNSTABLE") >= 0) {
 		status = "warning";
 	}
 	return status;

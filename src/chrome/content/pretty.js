@@ -14,18 +14,23 @@ function prettyDateUTC(time, textMgr) {
 		diff = (((getCurrentDateUTC()).getTime() - date.getTime()) / 1000),
 		day_diff = Math.floor(diff / 86400);
 
-	if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
-		return;
-
-	return day_diff == 0 && (
-			diff < 60 && textMgr.get("date.now") ||
-			diff < 120 && textMgr.get("date.minute") ||
-			diff < 3600 && textMgr.get("date.minutes", [Math.floor( diff / 60 )]) ||
-			diff < 7200 && textMgr.get("date.hour") ||
-			diff < 86400 && textMgr.get("date.hours", [Math.floor( diff / 3600 )])) ||
-		day_diff == 1 && textMgr.get("date.day") ||
-		day_diff < 7 && textMgr.get("date.days", [day_diff]) ||
-		day_diff < 31 && textMgr.get("date.weeks", [Math.ceil( day_diff / 7 )]);
+	if (isNaN(day_diff)) {
+		return (textMgr.get("date.isnan"));
+	} else if (day_diff < 0) {
+		return (textMgr.get("date.invalid"));
+	} else if (day_diff >= 31) {
+		return (textMgr.get("date.morethanamonth"));
+	} else {
+		return day_diff == 0 && (
+				diff < 60 && textMgr.get("date.now") ||
+				diff < 120 && textMgr.get("date.minute") ||
+				diff < 3600 && textMgr.get("date.minutes", [Math.floor( diff / 60 )]) ||
+				diff < 7200 && textMgr.get("date.hour") ||
+				diff < 86400 && textMgr.get("date.hours", [Math.floor( diff / 3600 )])) ||
+			day_diff == 1 && textMgr.get("date.day") ||
+			day_diff < 7 && textMgr.get("date.days", [day_diff]) ||
+			day_diff < 31 && textMgr.get("date.weeks", [Math.ceil( day_diff / 7 )]);
+	}
 }
 function getCurrentDateUTC() {
 	var date = new Date();
