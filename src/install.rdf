@@ -5,7 +5,7 @@
 	<Description about="urn:mozilla:install-manifest">
 
 		<em:id>{33f32632-14bd-6211-fa3b-760976b5ee10}</em:id>
-		<em:version>0.6-SNAPSHOT</em:version>
+		<em:version>0.6</em:version>
 		<em:type>2</em:type>
 
 		<em:targetApplication>
@@ -17,7 +17,7 @@
 		</em:targetApplication>
 
 		<em:name>Hudson Build Monitor</em:name>
-		<em:description>Firefox Add-on Build Monitor displays the status of your Hudson builds on Firefox status bar panel.</em:description>
+		<em:description>Build Monitor displays the status of your Hudson builds on Firefox status bar panel.</em:description>
 		<em:creator>Cliffano Subagio</em:creator>
 		<em:homepageURL>http://hudson.gotdns.com/wiki/display/HUDSON/Firefox+Add-on+Build+Monitor</em:homepageURL>
 		<em:iconURL>chrome://buildmonitor/skin/icon_32.png</em:iconURL>
