@@ -1,15 +1,15 @@
-<!ENTITY init.title "Hudson Build Monitor">
-<!ENTITY init.message "Please configure the Feed URL via Preferences menu.">
-<!ENTITY menu.dashboard "Hudson Dashboard">
-<!ENTITY menu.preferences "Preferences">
+<!ENTITY init.title "Monitor Build Hudson">
+<!ENTITY init.message "Silakan mengkonfigurasi URL Feed dengan menggunakan menu Preferensi.">
+<!ENTITY menu.dashboard "Dashboard Hudson">
+<!ENTITY menu.preferences "Preferensi">
 <!ENTITY menu.refresh "Refresh">
-<!ENTITY prefs.title "Hudson Build Monitor preferences">
-<!ENTITY prefs.url "Feed URL:">
-<!ENTITY prefs.interval "Poll Interval (in minutes):">
-<!ENTITY prefs.size "Number of builds to display:">
-<!ENTITY prefs.debug "Enable Debug">
-<!ENTITY prefs.help.url1 "The URL of the Hudson feed that you want to monitor,">
-<!ENTITY prefs.help.url2 "you can find this URL from Hudson dashboard/job pages.">
-<!ENTITY prefs.help.interval "How often do you want the add-on to check the feed, value is in minutes.">
-<!ENTITY prefs.help.size "How many latest builds do you want to monitor.">
-<!ENTITY prefs.help.debug "Ticking the checkbox allows debug messages to be written to Firefox Error Console.">
+<!ENTITY prefs.title "Preferensi Monitor Build Hudson">
+<!ENTITY prefs.url "URL Feed:">
+<!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit):">
+<!ENTITY prefs.size "Jumlah builds untuk ditampilkan:">
+<!ENTITY prefs.debug "Aktifkan Debug">
+<!ENTITY prefs.help.url1 "URL feed Hudson yang ingin anda monitor.">
+<!ENTITY prefs.help.url2 "anda dapat menemukan URL ini di halaman dashboard Hudson.">
+<!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">
+<!ENTITY prefs.help.size "Berapa banyak builds terbaru yang ingin anda monitor.">
+<!ENTITY prefs.help.debug "Jika checkbox ditandai, maka pesan debug akan ditulis ke Firefox Error Console.">
