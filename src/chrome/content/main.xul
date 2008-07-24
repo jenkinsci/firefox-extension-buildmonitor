@@ -27,7 +27,7 @@
 		    <menuitem label="&menu.refresh;" oncommand="processFeed();" class="menuitem-iconic" image="chrome://buildmonitor/skin/refresh.png"/>
 		</menupopup>
 		<menupopup id="buildmonitor-builds" class="info"/>
-		<statusbarpanel id="buildmonitor-panel" class="statusbarpanel-menu-iconic" src="chrome://buildmonitor/skin/icon_16.png" popup="buildmonitor-builds" context="buildmonitor-menu" tooltip="buildmonitor-tooltip"/>
+		<statusbarpanel id="buildmonitor-panel-history" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" popup="buildmonitor-builds" context="buildmonitor-menu" tooltip="buildmonitor-tooltip"/>
 	</statusbar>
 
 </overlay>

@@ -48,7 +48,7 @@ var monitor = {
         } else {
         	uiMgr.reset();
             uiMgr.setTooltipContent(textMgr.get("monitor.processfeed.failure.title"), new Array(textMgr.get("monitor.processfeed.failure.message1"), textMgr.get("monitor.processfeed.failure.message2")));
-            uiMgr.setPanelIcon("nourl");
+            uiMgr.setStatusPanel("nourl");
         }
     },
     goToDashboard: function() {
@@ -57,7 +57,7 @@ var monitor = {
 			getBrowser().addTab(url.match("^.+/"));
 		} else {
 			uiMgr.setTooltipContent(textMgr.get("monitor.gotodashboard.failure.title"), new Array(textMgr.get("monitor.gotodashboard.failure.message1"), textMgr.get("monitor.gotodashboard.failure.message2")));
-			uiMgr.setPanelIcon("error");
+			uiMgr.setStatusPanel("error");
 		}
     }
 }

@@ -21,9 +21,15 @@ function UIMgr(logMgr, textMgr) {
 	this.logMgr = logMgr;
 	this.textMgr = textMgr;
 }
-UIMgr.prototype.setPanelIcon = function(status) {
-    this.logMgr.debug(textMgr.get("ui.setpanelicon") + " status: " + status);
-    document.getElementById("buildmonitor-panel").setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
+UIMgr.prototype.setStatusPanel = function(status, failureCount) {
+    this.logMgr.debug(textMgr.get("ui.setstatuspanel") + " status: " + status + ", failure count: " + failureCount);
+    var historyPanel = document.getElementById("buildmonitor-panel-history");
+    historyPanel.setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
+    var historyPanelLabel = "";
+    if (failureCount && failureCount > 0) {
+	    historyPanelLabel = "(" + failureCount + ")";
+	}
+	historyPanel.setAttribute("label", historyPanelLabel);
 }
 UIMgr.prototype.setTooltipContent = function(title, items) {
 	var box = document.getElementById("buildmonitor-box");
@@ -101,7 +107,7 @@ FeedMgr.prototype.process = function(url) {
                 aliasLogMgr.debug(aliasTextMgr.get("feed.process.ready.failure"));
                 aliasUIMgr.reset();
 				aliasUIMgr.setTooltipContent(aliasTextMgr.get("feed.process.ready.failure.title"), new Array(aliasTextMgr.get("feed.process.ready.failure.message1"), aliasTextMgr.get("feed.process.ready.failure.message2")));
-                aliasUIMgr.setPanelIcon("error");
+                aliasUIMgr.setStatusPanel("error");
             }
         }
     };
@@ -109,11 +115,11 @@ FeedMgr.prototype.process = function(url) {
         aliasLogMgr.debug(aliasTextMgr.get("feed.process.error"));
         aliasUIMgr.reset();
 		aliasUIMgr.setTooltipContent(aliasTextMgr.get("feed.process.error.title"), new Array(aliasTextMgr.get("feed.process.error.message1"), aliasTextMgr.get("feed.process.error.message2")));
-        aliasUIMgr.setPanelIcon("error");
+        aliasUIMgr.setStatusPanel("error");
     };
     this.uiMgr.reset();
     this.uiMgr.setTooltipContent(this.textMgr.get("feed.process.loading.title"), new Array(this.textMgr.get("feed.process.loading.message1") + " url: " + url, this.textMgr.get("feed.process.loading.message2")));
-    this.uiMgr.setPanelIcon("processing");
+    this.uiMgr.setStatusPanel("processing");
     request.send(null);
 }
 FeedMgr.prototype.parse = function(text) {
@@ -123,6 +129,7 @@ FeedMgr.prototype.parse = function(text) {
         var entries = xml.getElementsByTagName("entry");
         if (entries.length > 0) {
         	var hasFailure = false;
+        	var failureCount = 0;
         	var size = Math.min(this.prefMgr.getSize(), entries.length);
 	        var buildDetails = new Array(size);
 	        for (var i = 0; i < size; i++) {
@@ -132,6 +139,7 @@ FeedMgr.prototype.parse = function(text) {
 				buildDetails[i] = new BuildDetail(text, link);
 				if (buildDetails[i].getText().indexOf("SUCCESS") == -1) {
 					hasFailure = true;
+					failureCount = failureCount + 1;
 				}
 	        }
 	        this.uiMgr.reset();
@@ -144,18 +152,18 @@ FeedMgr.prototype.parse = function(text) {
 			} else if (hasFailure) {
 				panelIcon = "warning";
 			}
-			this.uiMgr.setPanelIcon(panelIcon);
+			this.uiMgr.setStatusPanel(panelIcon, failureCount);
 	    } else {
 	    	this.uiMgr.reset();
 	    	this.uiMgr.setTooltipContent(title, new Array(this.textMgr.get("feed.nobuild")));
-	    	this.uiMgr.setPanelIcon("unknown");
+	    	this.uiMgr.setStatusPanel("unknown");
 	    }
     } catch (e) {
     	var message = this.textMgr.get("feed.exception.message1");
         this.logMgr.debug(message + " Exception: " + e);
         this.uiMgr.reset();
 		this.uiMgr.setTooltipContent(this.textMgr.get("feed.exception.title"), new Array(message, this.textMgr.get("feed.exception.message2")));
-        this.uiMgr.setPanelIcon("error");
+        this.uiMgr.setStatusPanel("error");
     }
 }
 
