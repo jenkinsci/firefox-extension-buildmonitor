@@ -21,15 +21,13 @@ function UIMgr(logMgr, textMgr) {
 	this.logMgr = logMgr;
 	this.textMgr = textMgr;
 }
-UIMgr.prototype.setStatusPanel = function(status, failureCount) {
-    this.logMgr.debug(textMgr.get("ui.setstatuspanel") + " status: " + status + ", failure count: " + failureCount);
+UIMgr.prototype.setStatusPanel = function(historyStatus, historyCount) {
+    this.logMgr.debug(textMgr.get("ui.setstatuspanel") + " history status: " + historyStatus + ", history count: " + historyCount);
     var historyPanel = document.getElementById("buildmonitor-panel-history");
-    historyPanel.setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
-    var historyPanelLabel = "";
-    if (failureCount && failureCount > 0) {
-	    historyPanelLabel = "(" + failureCount + ")";
-	}
-	historyPanel.setAttribute("label", historyPanelLabel);
+    historyPanel.setAttribute("src", "chrome://buildmonitor/skin/" + historyStatus + ".png");
+    //if (historyCount && historyCount > 0) {
+	//    historyPanel.setAttribute("label", historyCount);
+	//}
 }
 UIMgr.prototype.setTooltipContent = function(title, items) {
 	var box = document.getElementById("buildmonitor-box");
@@ -76,6 +74,7 @@ UIMgr.prototype.reset = function() {
 	while (menu.firstChild) {
 		menu.removeChild(menu.firstChild);
 	}
+	document.getElementById("buildmonitor-panel-history").setAttribute("label", null);
 }
 
 /*
