@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://buildmonitor/skin/buildmonitor.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
+<overlay id="buildmonitor-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-model.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-core.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
+
+	<statusbar id="status-bar">
+		<stringbundleset>
+			<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+		</stringbundleset>
+		<tooltip id="hudson-tooltip-main" class="info" noautohide="true" maxwidth="1000">
+			<vbox id="buildmonitor-box">
+				<label class="title" value="&init.title;"/>
+				<label value="&init.message;"/>
+			</vbox>
+		</tooltip>
+		<div id="hudson-tooltip-feeds">
+		</div>
+		<div id="hudson-menupopup-feeds">
+		</div>
+		<!--
+		<menupopup id="hudson-menupopup" class="info"/>
+		-->
+		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="buildmonitor-tooltip-main"/>
+		<div id="hudson-panel-feeds">
+		</div>
+	</statusbar>
+
+</overlay>
