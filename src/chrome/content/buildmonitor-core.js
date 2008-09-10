@@ -9,18 +9,24 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 	
 	var feedsPanel = document.getElementById("hudson-panel-feeds");
 	var feedsTooltip = document.getElementById("hudson-tooltip-feeds");
-	var feedsMenupopup = document.getElementById("hudson-menupopup-feeds");
+	var feedsBuildsMenupopup = document.getElementById("hudson-menupopup-builds-feeds");
+	var feedsPrefsMenupopup = document.getElementById("hudson-menupopup-prefs-feeds");
 	
 	this.clear(feedsPanel);
 	this.clear(feedsTooltip);
-	this.clear(feedsMenupopup);
+	this.clear(feedsBuildsMenupopup);
+	this.clear(feedsPrefsMenupopup);
 	
     for(var i = 0; i < feeds.length; i++) {
 
-		var menupopup = document.createElement("menupopup");
-		menupopup.setAttribute("id", this.getMenupopupId(feeds[i]));
-		menupopup.setAttribute("class", "info");
-		feedsMenupopup.appendChild(menupopup);
+		var prefsMenupopup = document.createElement("menupopup");
+		prefsMenupopup.setAttribute("id", this.getPrefsMenupopupId(feeds[i]));
+		prefsMenupopup.setAttribute("class", "info");
+		feedsPrefsMenupopup.appendChild(prefsMenupopup);
+		
+		var buildsMenupopup = document.createElement("menupopup");
+		buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(feeds[i]));
+		feedsBuildsMenupopup.appendChild(buildsMenupopup);
 		
 		var tooltip = document.createElement("tooltip");
 		tooltip.setAttribute("id", this.getTooltipId(feeds[i]));
@@ -67,7 +73,7 @@ UIMgr.prototype.setStatusProcessed = function(feed, title, status, builds, respo
 	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 20) + "...", feed);
 	this.setPanel(status, feed);
 	this.setTooltip(builds, title, feed);
-	this.setMenupopup(builds, title, feed);
+	this.setBuildsMenupopup(builds, title, feed);
 }
 UIMgr.prototype.setPanel = function(status, feed) {
 	this.getPanelElement(feed).setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
@@ -100,8 +106,8 @@ UIMgr.prototype.setTooltip = function(items, title, feed) {
 	
 	this.getPanelElement(feed).setAttribute("tooltip", this.getTooltipId(feed));
 }
-UIMgr.prototype.setMenupopup = function(builds, title, feed) {
-	var menupopup = this.getMenupopupElement(feed);
+UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
+	var menupopup = this.getBuildsMenupopupElement(feed);
 	for (i = 0; i < builds.length; i++) {
 		var menuitem = document.createElement("menuitem");
 	    menuitem.setAttribute("label", builds[i].getDetails());
@@ -112,7 +118,7 @@ UIMgr.prototype.setMenupopup = function(builds, title, feed) {
 	   	menuitem.setAttribute("maxwidth", "1000");
 	   	menupopup.appendChild(menuitem);
 	}
-	this.getPanelElement(feed).setAttribute("popup", this.getMenupopupId(feed));
+	this.getPanelElement(feed).setAttribute("popup", this.getBuildsMenupopupId(feed));
 }
 UIMgr.prototype.getPanelElement = function(feed) {
 	return document.getElementById(this.getPanelId(feed));
@@ -126,11 +132,17 @@ UIMgr.prototype.getTooltipElement = function(feed) {
 UIMgr.prototype.getTooltipId = function(feed) {
 	return "hudson-tooltip-" + this.getFeedId(feed);
 }
-UIMgr.prototype.getMenupopupElement = function(feed) {
-	return document.getElementById(this.getMenupopupId(feed));
+UIMgr.prototype.getBuildsMenupopupElement = function(feed) {
+	return document.getElementById(this.getBuildsMenupopupId(feed));
 }
-UIMgr.prototype.getMenupopupId = function(feed) {
-	return "hudson-menupopup-" + this.getFeedId(feed);
+UIMgr.prototype.getBuildsMenupopupId = function(feed) {
+	return "hudson-menupopup-builds-" + this.getFeedId(feed);
+}
+UIMgr.prototype.getPrefsMenupopupElement = function(feed) {
+	return document.getElementById(this.getPrefsMenupopupId(feed));
+}
+UIMgr.prototype.getPrefsMenupopupId = function(feed) {
+	return "hudson-menupopup-prefs-" + this.getFeedId(feed);
 }
 UIMgr.prototype.getFeedId = function(feed) {
 	var id = "main";

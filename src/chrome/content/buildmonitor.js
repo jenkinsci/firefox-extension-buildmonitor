@@ -18,12 +18,12 @@ var monitor = {
     },
     schedule: function() {
 		var feeds = new Array(
-			new Feed(0, "netb", "", true),
-			new Feed(1, "n/a", "http://na", true),
-			new Feed(2, "jbos", "http://", true),
-			new Feed(3, "dumm", "ftp://hohoho", true),
-			new Feed(4, "s-db", "http://"),
-			new Feed(5, "prot", "ftpx://hohoho", true)
+			new Feed(0, "netb", "http://deadlock.netbeans.org/hudson/rssAll", true),
+			new Feed(1, "n/a", "http://gaadadeh", true),
+			new Feed(2, "jbos", "http://hudson.jboss.org/hudson/rssAll", true),
+			new Feed(3, "dumm", "ftp://hoho", true),
+			new Feed(4, "s-db", "http://hudson.jboss.org/hudson/job/hibernate-testsuite-db/rssAll"),
+			new Feed(5, "prot", "ftpx://hoho", true)
 			);
 		uiMgr.initFeedsPanel(feeds);
 		feedMgr.process(feeds);

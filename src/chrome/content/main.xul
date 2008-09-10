@@ -22,7 +22,9 @@
 		</tooltip>
 		<div id="hudson-tooltip-feeds">
 		</div>
-		<div id="hudson-menupopup-feeds">
+		<div id="hudson-menupopup-builds-feeds">
+		</div>
+		<div id="hudson-menupopup-prefs-feeds">
 		</div>
 		<!--
 		<menupopup id="hudson-menupopup" class="info"/>
