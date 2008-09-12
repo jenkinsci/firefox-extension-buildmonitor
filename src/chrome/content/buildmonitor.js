@@ -1,3 +1,5 @@
+var feeds;
+
 var console = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
 var preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
@@ -17,16 +19,21 @@ var monitor = {
         schedule();
     },
     schedule: function() {
-		var feeds = new Array(
+		feeds = new Array(
 			new Feed(0, "netb", "http://deadlock.netbeans.org/hudson/rssAll", true),
-			new Feed(1, "n/a", "http://gaadadeh", true),
+			new Feed(1, "n/a", "http://inexistant", true),
 			new Feed(2, "jbos", "http://hudson.jboss.org/hudson/rssAll", true),
 			new Feed(3, "dumm", "ftp://hoho", true),
 			new Feed(4, "s-db", "http://hudson.jboss.org/hudson/job/hibernate-testsuite-db/rssAll"),
 			new Feed(5, "prot", "ftpx://hoho", true)
 			);
 		uiMgr.initFeedsPanel(feeds);
-		feedMgr.process(feeds);
+		for(var i = 0; i < feeds.length; i++) {
+			feedMgr.process(feeds[i]);
+		}
+    },
+    processFeed: function(i) {
+    	feedMgr.process(feeds[i]);
     }
 }
 /*****************************************************************
@@ -37,5 +44,8 @@ function initialise() {
 }
 function schedule() {
     monitor.schedule();
+}
+function processFeed(i) {
+    monitor.processFeed(i);
 }
 window.addEventListener("load", function() {initialise();}, false);

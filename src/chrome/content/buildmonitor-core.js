@@ -21,11 +21,11 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 
 		var prefsMenupopup = document.createElement("menupopup");
 		prefsMenupopup.setAttribute("id", this.getPrefsMenupopupId(feeds[i]));
-		prefsMenupopup.setAttribute("class", "info");
 		feedsPrefsMenupopup.appendChild(prefsMenupopup);
 		
 		var buildsMenupopup = document.createElement("menupopup");
 		buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(feeds[i]));
+		buildsMenupopup.setAttribute("class", "info");
 		feedsBuildsMenupopup.appendChild(buildsMenupopup);
 		
 		var tooltip = document.createElement("tooltip");
@@ -44,6 +44,8 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 		panel.setAttribute("tooltip", "buildmonitor-tooltip");
 		feedsPanel.appendChild(panel);
 		this.setStatusQueued(feeds[i]);
+		
+		this.setPrefsMenupopup(feeds[i]);
     }
 }
 UIMgr.prototype.setStatusQueued = function(feed) {
@@ -120,6 +122,18 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	}
 	this.getPanelElement(feed).setAttribute("popup", this.getBuildsMenupopupId(feed));
 }
+UIMgr.prototype.setPrefsMenupopup = function(feed) {
+	var menupopup = this.getPrefsMenupopupElement(feed);
+	
+	var refreshMenuitem = document.createElement("menuitem");
+	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh"));
+	refreshMenuitem.setAttribute("oncommand", "processFeed(" + feed.getId() + ");");
+	refreshMenuitem.setAttribute("class", "menuitem-iconic");
+	refreshMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");
+	menupopup.appendChild(refreshMenuitem);
+	   	
+	this.getPanelElement(feed).setAttribute("context", this.getPrefsMenupopupId(feed));
+}
 UIMgr.prototype.getPanelElement = function(feed) {
 	return document.getElementById(this.getPanelId(feed));
 }
@@ -164,10 +178,8 @@ function FeedMgr(uiMgr, prefMgr) {
 	this.uiMgr = uiMgr;
 	this.prefMgr = prefMgr;
 }
-FeedMgr.prototype.process = function(feeds) {
-	for(var i = 0; i < feeds.length; i++) {
-		feedMgr.downloadHistory(feeds[i]);
-	}
+FeedMgr.prototype.process = function(feed) {
+	feedMgr.downloadHistory(feed);
 }
 FeedMgr.prototype.downloadHistory = function(feed) {
 	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
