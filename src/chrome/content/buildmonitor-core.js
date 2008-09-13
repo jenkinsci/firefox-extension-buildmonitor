@@ -110,6 +110,7 @@ UIMgr.prototype.setTooltip = function(items, title, feed) {
 }
 UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	var menupopup = this.getBuildsMenupopupElement(feed);
+	this.clear(menupopup);
 	for (i = 0; i < builds.length; i++) {
 		var menuitem = document.createElement("menuitem");
 	    menuitem.setAttribute("label", builds[i].getDetails());
@@ -124,10 +125,33 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 }
 UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	var menupopup = this.getPrefsMenupopupElement(feed);
+
+	var preferencesMenuItem = document.createElement("menuitem");
+	preferencesMenuItem.setAttribute("label", textMgr.get("menu.preferences"));
+	preferencesMenuItem.setAttribute("oncommand", "alert(" + feed.getId() + ");");
+	preferencesMenuItem.setAttribute("class", "menuitem-iconic");
+	preferencesMenuItem.setAttribute("image", "chrome://buildmonitor/skin/preferences.png");
+	menupopup.appendChild(preferencesMenuItem);
 	
+	var refreshAllMenuitem = document.createElement("menuitem");
+	refreshAllMenuitem.setAttribute("label", textMgr.get("menu.refresh.all"));
+	refreshAllMenuitem.setAttribute("oncommand", "processAll();");
+	refreshAllMenuitem.setAttribute("class", "menuitem-iconic");
+	refreshAllMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");
+	menupopup.appendChild(refreshAllMenuitem);
+	
+	menupopup.appendChild(document.createElement("menuseparator"));
+
+	var dashboardMenuItem = document.createElement("menuitem");
+	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard"));
+	dashboardMenuItem.setAttribute("oncommand", "goToDashboard(" + feed.getId() + ");");
+	dashboardMenuItem.setAttribute("class", "menuitem-iconic");
+	dashboardMenuItem.setAttribute("image", "chrome://buildmonitor/skin/dashboard.png");
+	menupopup.appendChild(dashboardMenuItem);
+		
 	var refreshMenuitem = document.createElement("menuitem");
 	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh"));
-	refreshMenuitem.setAttribute("oncommand", "processFeed(" + feed.getId() + ");");
+	refreshMenuitem.setAttribute("oncommand", "process(" + feed.getId() + ");");
 	refreshMenuitem.setAttribute("class", "menuitem-iconic");
 	refreshMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");
 	menupopup.appendChild(refreshMenuitem);
@@ -178,8 +202,13 @@ function FeedMgr(uiMgr, prefMgr) {
 	this.uiMgr = uiMgr;
 	this.prefMgr = prefMgr;
 }
+FeedMgr.prototype.processAll = function(feeds) {
+	for(var i = 0; i < feeds.length; i++) {
+		this.process(feeds[i]);
+	}
+}
 FeedMgr.prototype.process = function(feed) {
-	feedMgr.downloadHistory(feed);
+	this.downloadHistory(feed);
 }
 FeedMgr.prototype.downloadHistory = function(feed) {
 	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.

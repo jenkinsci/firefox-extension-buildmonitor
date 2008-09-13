@@ -28,12 +28,16 @@ var monitor = {
 			new Feed(5, "prot", "ftpx://hoho", true)
 			);
 		uiMgr.initFeedsPanel(feeds);
-		for(var i = 0; i < feeds.length; i++) {
-			feedMgr.process(feeds[i]);
-		}
+		feedMgr.processAll(feeds);
     },
-    processFeed: function(i) {
+    processAll: function() {
+    	feedMgr.processAll(feeds);
+    },
+    process: function(i) {
     	feedMgr.process(feeds[i]);
+    },
+    goToDashboard: function(i) {
+		getBrowser().addTab(feeds[i].getUrl().match("^.+/"));
     }
 }
 /*****************************************************************
@@ -45,7 +49,13 @@ function initialise() {
 function schedule() {
     monitor.schedule();
 }
-function processFeed(i) {
-    monitor.processFeed(i);
+function processAll() {
+    monitor.processAll();
+}
+function process(i) {
+    monitor.process(i);
+}
+function goToDashboard(i) {
+	monitor.goToDashboard(i);
 }
 window.addEventListener("load", function() {initialise();}, false);
