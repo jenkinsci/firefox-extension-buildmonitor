@@ -10,7 +10,7 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 	var feedsPanel = document.getElementById("hudson-panel-feeds");
 	var feedsTooltip = document.getElementById("hudson-tooltip-feeds");
 	var feedsBuildsMenupopup = document.getElementById("hudson-menupopup-builds-feeds");
-	var feedsPrefsMenupopup = document.getElementById("hudson-menupopup-prefs-feeds");
+	var feedsPrefsMenupopup = document.getElementById("hudson-menupopup-menus-feeds");
 	
 	this.clear(feedsPanel);
 	this.clear(feedsTooltip);
@@ -20,7 +20,7 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
     for(var i = 0; i < feeds.length; i++) {
 
 		var prefsMenupopup = document.createElement("menupopup");
-		prefsMenupopup.setAttribute("id", this.getPrefsMenupopupId(feeds[i]));
+		prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feeds[i]));
 		feedsPrefsMenupopup.appendChild(prefsMenupopup);
 		
 		var buildsMenupopup = document.createElement("menupopup");
@@ -84,6 +84,9 @@ UIMgr.prototype.setTooltip = function(items, title, feed) {
 	var vbox = document.createElement("vbox");
 	if (title) {
 		var titleLabel = document.createElement("label");
+		if (feed) {
+			title += " [" + feed.getCode() + "]";
+		}
 		titleLabel.setAttribute("value", title);
 		titleLabel.setAttribute("class", "title");
 		vbox.appendChild(titleLabel);
@@ -124,11 +127,11 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	this.getPanelElement(feed).setAttribute("popup", this.getBuildsMenupopupId(feed));
 }
 UIMgr.prototype.setPrefsMenupopup = function(feed) {
-	var menupopup = this.getPrefsMenupopupElement(feed);
+	var menupopup = this.getMenusMenupopupElement(feed);
 
 	var preferencesMenuItem = document.createElement("menuitem");
 	preferencesMenuItem.setAttribute("label", textMgr.get("menu.preferences"));
-	preferencesMenuItem.setAttribute("oncommand", "alert(" + feed.getId() + ");");
+	preferencesMenuItem.setAttribute("oncommand", "openPreferences();");
 	preferencesMenuItem.setAttribute("class", "menuitem-iconic");
 	preferencesMenuItem.setAttribute("image", "chrome://buildmonitor/skin/preferences.png");
 	menupopup.appendChild(preferencesMenuItem);
@@ -143,20 +146,20 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	menupopup.appendChild(document.createElement("menuseparator"));
 
 	var dashboardMenuItem = document.createElement("menuitem");
-	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard"));
+	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard") + " [" + feed.getCode() + "]");
 	dashboardMenuItem.setAttribute("oncommand", "goToDashboard(" + feed.getId() + ");");
 	dashboardMenuItem.setAttribute("class", "menuitem-iconic");
 	dashboardMenuItem.setAttribute("image", "chrome://buildmonitor/skin/dashboard.png");
 	menupopup.appendChild(dashboardMenuItem);
 		
 	var refreshMenuitem = document.createElement("menuitem");
-	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh"));
+	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh") + " [" + feed.getCode() + "]");
 	refreshMenuitem.setAttribute("oncommand", "process(" + feed.getId() + ");");
 	refreshMenuitem.setAttribute("class", "menuitem-iconic");
 	refreshMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");
 	menupopup.appendChild(refreshMenuitem);
 	   	
-	this.getPanelElement(feed).setAttribute("context", this.getPrefsMenupopupId(feed));
+	this.getPanelElement(feed).setAttribute("context", this.getMenusMenupopupId(feed));
 }
 UIMgr.prototype.getPanelElement = function(feed) {
 	return document.getElementById(this.getPanelId(feed));
@@ -176,11 +179,11 @@ UIMgr.prototype.getBuildsMenupopupElement = function(feed) {
 UIMgr.prototype.getBuildsMenupopupId = function(feed) {
 	return "hudson-menupopup-builds-" + this.getFeedId(feed);
 }
-UIMgr.prototype.getPrefsMenupopupElement = function(feed) {
-	return document.getElementById(this.getPrefsMenupopupId(feed));
+UIMgr.prototype.getMenusMenupopupElement = function(feed) {
+	return document.getElementById(this.getMenusMenupopupId(feed));
 }
-UIMgr.prototype.getPrefsMenupopupId = function(feed) {
-	return "hudson-menupopup-prefs-" + this.getFeedId(feed);
+UIMgr.prototype.getMenusMenupopupId = function(feed) {
+	return "hudson-menupopup-menus-" + this.getFeedId(feed);
 }
 UIMgr.prototype.getFeedId = function(feed) {
 	var id = "main";

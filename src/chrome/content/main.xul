@@ -20,16 +20,16 @@
 				<label value="&init.message;"/>
 			</vbox>
 		</tooltip>
+		<menupopup id="hudson-menupopup-menus-main">
+			<menuitem label="&menu.preferences;" oncommand="openPreferences();" class="menuitem-iconic" image="chrome://buildmonitor/skin/preferences.png"/>
+		</menupopup>
+		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="hudson-tooltip-main" context="hudson-menupopup-menus-main"/>
 		<div id="hudson-tooltip-feeds">
 		</div>
 		<div id="hudson-menupopup-builds-feeds">
 		</div>
-		<div id="hudson-menupopup-prefs-feeds">
+		<div id="hudson-menupopup-menus-feeds">
 		</div>
-		<!--
-		<menupopup id="hudson-menupopup" class="info"/>
-		-->
-		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="buildmonitor-tooltip-main"/>
 		<div id="hudson-panel-feeds">
 		</div>
 	</statusbar>

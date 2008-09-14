@@ -30,6 +30,28 @@ var monitor = {
 		uiMgr.initFeedsPanel(feeds);
 		feedMgr.processAll(feeds);
     },
+    openPrefs: function() {
+    	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
+    },
+    loadPrefs: function() {
+        var debug = prefMgr.getDebug();
+        var interval = prefMgr.getInterval();
+        var size = prefMgr.getSize();
+        var url = prefMgr.getUrl();
+        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size + ", url: " + url);
+        document.getElementById("buildmonitor-prefs-debug").checked = debug;
+        document.getElementById("buildmonitor-prefs-interval").value = interval;
+        document.getElementById("buildmonitor-prefs-size").value = size;
+        document.getElementById("buildmonitor-prefs-url").value = url;
+    },
+    savePrefs: function() {
+        var debug = document.getElementById("buildmonitor-prefs-debug").checked;
+        var interval = document.getElementById("buildmonitor-prefs-interval").value;
+        var size = document.getElementById("buildmonitor-prefs-size").value;
+        var url = document.getElementById("buildmonitor-prefs-url").value;
+        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size + ", url: " + url);
+        prefMgr.set(debug, interval, size, url);
+    },
     processAll: function() {
     	feedMgr.processAll(feeds);
     },
@@ -48,6 +70,16 @@ function initialise() {
 }
 function schedule() {
     monitor.schedule();
+}
+function openPreferences() {
+	monitor.openPrefs();
+}
+function loadPreferences() {
+    monitor.loadPrefs();
+}
+function savePreferences() {
+    monitor.savePrefs();
+    return true;
 }
 function processAll() {
     monitor.processAll();
