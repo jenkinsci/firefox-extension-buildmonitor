@@ -5,7 +5,7 @@ var preferences = Components.classes["@mozilla.org/preferences-service;1"].getSe
 
 var dateMgr = new DateMgr();
 var textMgr = new TextMgr();
-var prefMgr = new PrefMgr(preferences);
+var prefMgr = new PrefMgr(preferences, feeds);
 var logMgr = new LogMgr(console, prefMgr, dateMgr);
 var uiMgr = new UIMgr(logMgr, textMgr);
 var feedMgr = new FeedMgr(uiMgr, prefMgr);
@@ -33,7 +33,8 @@ var monitor = {
     openPrefs: function() {
     	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
     },
-    loadPrefs: function() {
+    initPrefs: function() {
+    	prefMgr.setFeeds();
         var debug = prefMgr.getDebug();
         var interval = prefMgr.getInterval();
         var size = prefMgr.getSize();
@@ -74,8 +75,8 @@ function schedule() {
 function openPreferences() {
 	monitor.openPrefs();
 }
-function loadPreferences() {
-    monitor.loadPrefs();
+function initPreferences() {
+    monitor.initPrefs();
 }
 function savePreferences() {
     monitor.savePrefs();

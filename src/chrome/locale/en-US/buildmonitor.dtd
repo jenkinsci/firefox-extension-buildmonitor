@@ -2,6 +2,9 @@
 <!ENTITY init.message "Please configure the Feeds via Preferences menu.">
 <!ENTITY menu.preferences "Preferences">
 <!ENTITY prefs.title "Hudson Build Monitor preferences">
+<!ENTITY prefs.feeds.code "Code">
+<!ENTITY prefs.feeds.url "Feed URL">
+<!ENTITY prefs.feeds.isEnabled "Enabled">
 <!ENTITY prefs.url "Feed URL:">
 <!ENTITY prefs.interval "Poll Interval (in minutes):">
 <!ENTITY prefs.size "Number of builds to display:">

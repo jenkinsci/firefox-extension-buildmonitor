@@ -18,8 +18,36 @@ TextMgr.prototype.get = function(key, args) {
  * PrefMgr handles preferences saving and loading to and from Firefox configuration
  * (type about:config in Firefox url bar to view all Firefox configuration values).
  */
-function PrefMgr(preferences) {
+function PrefMgr(preferences, feeds) {
     this.preferences = preferences;
+    this.feeds = feeds;
+}
+PrefMgr.prototype.setFeeds = function() {
+	var treeView = {
+	    rowCount : 10000,
+	    getCellText : function(row, column) {
+	    	var text;
+	    	if (column.id == "hudson-prefs-feeds-code") {
+	    		text = feeds[0].getCode();
+	    	} else if (column.id == "hudson-prefs-feeds-url") {
+	    		text = feeds[0].getUrl();
+	    	} else if (column.id == "hudson-prefs-feeds-isenabled") {
+	    		text = feeds[0].isEnabled();
+	    	}
+	    	return text;
+	    },
+	    setTree: function(treebox){ this.treebox = treebox; },
+	    isContainer: function(row){ return false; },
+	    isSeparator: function(row){ return false; },
+	    isSorted: function(){ return false; },
+	    isEditable: function(){ return true; },
+	    getLevel: function(row){ return 0; },
+	    getImageSrc: function(row,col){ return null; },
+	    getRowProperties: function(row,props){},
+	    getCellProperties: function(row,col,props){},
+	    getColumnProperties: function(colid,col,props){}
+	};
+    document.getElementById('hudson-prefs-feeds').view = treeView;
 }
 PrefMgr.prototype.set = function(debug, interval, size, url) {
     this.preferences.setBoolPref("hudson.debug", debug);
