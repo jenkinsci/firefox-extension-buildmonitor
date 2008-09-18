@@ -1,11 +1,10 @@
 /*****************************************************************
  * Feed to be monitored.
  */
-function Feed(id, code, url, isEnabled) {
+function Feed(id, code, url) {
 	this.id = id;
 	this.code = code;
 	this.url = url;
-	this.isEnabled = isEnabled;
 }
 Feed.prototype.getId = function() {
 	return this.id;
@@ -16,8 +15,11 @@ Feed.prototype.getCode = function() {
 Feed.prototype.getUrl = function() {
 	return this.url;
 }
-Feed.prototype.isEnabled = function() {
-	return this.isEnabled;
+Feed.prototype.setCode = function(code) {
+	this.code = code;
+}
+Feed.prototype.setUrl = function(url) {
+	this.url = url;
 }
 
 /*****************************************************************

@@ -19,14 +19,14 @@ var monitor = {
         schedule();
     },
     schedule: function() {
-		feeds = new Array(
-			new Feed(0, "netb", "http://deadlock.netbeans.org/hudson/rssAll", true),
-			new Feed(1, "n/a", "http://inexistant", true),
-			new Feed(2, "jbos", "http://hudson.jboss.org/hudson/rssAll", true),
-			new Feed(3, "dumm", "ftp://hoho", true),
-			new Feed(4, "s-db", "http://hudson.jboss.org/hudson/job/hibernate-testsuite-db/rssAll"),
-			new Feed(5, "prot", "ftpx://hoho", true)
-			);
+		feeds = new Array();
+		feeds[0] = new Feed(0, "netb", "http://deadlock.netbeans.org/hudson/rssAll", true);
+		feeds[1] = new Feed(1, "n/a", "http://inexistant", true);
+		feeds[2] = new Feed(2, "jbos", "http://hudson.jboss.org/hudson/rssAll", true);
+		feeds[3] = new Feed(3, "dumm", "ftp://hoho", true);
+		feeds[4] = new Feed(4, "s-db", "http://hudson.jboss.org/hudson/job/hibernate-testsuite-db/rssAll");
+		feeds[5] = new Feed(5, "prot", "ftpx://hoho", true);
+		feeds[6] = new Feed(6, "", "");
 		uiMgr.initFeedsPanel(feeds);
 		feedMgr.processAll(feeds);
     },
@@ -34,24 +34,21 @@ var monitor = {
     	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
     },
     initPrefs: function() {
-    	prefMgr.setFeeds();
+    	prefMgr.loadFeeds();
         var debug = prefMgr.getDebug();
         var interval = prefMgr.getInterval();
         var size = prefMgr.getSize();
-        var url = prefMgr.getUrl();
-        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size + ", url: " + url);
+        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size);
         document.getElementById("buildmonitor-prefs-debug").checked = debug;
         document.getElementById("buildmonitor-prefs-interval").value = interval;
         document.getElementById("buildmonitor-prefs-size").value = size;
-        document.getElementById("buildmonitor-prefs-url").value = url;
     },
     savePrefs: function() {
         var debug = document.getElementById("buildmonitor-prefs-debug").checked;
         var interval = document.getElementById("buildmonitor-prefs-interval").value;
         var size = document.getElementById("buildmonitor-prefs-size").value;
-        var url = document.getElementById("buildmonitor-prefs-url").value;
-        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size + ", url: " + url);
-        prefMgr.set(debug, interval, size, url);
+        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size);
+        prefMgr.set(debug, interval, size);
     },
     processAll: function() {
     	feedMgr.processAll(feeds);

@@ -4,11 +4,10 @@
 <!ENTITY prefs.title "Hudson Build Monitor preferences">
 <!ENTITY prefs.feeds.code "Code">
 <!ENTITY prefs.feeds.url "Feed URL">
-<!ENTITY prefs.feeds.isEnabled "Enabled">
 <!ENTITY prefs.url "Feed URL:">
-<!ENTITY prefs.interval "Poll Interval (in minutes):">
-<!ENTITY prefs.size "Number of builds to display:">
-<!ENTITY prefs.debug "Enable Debug">
+<!ENTITY prefs.interval "Poll Interval (in minutes).">
+<!ENTITY prefs.size "Number of builds to display.">
+<!ENTITY prefs.debug "Enable Debug.">
 <!ENTITY prefs.help.url1 "The URL of the Hudson feed that you want to monitor,">
 <!ENTITY prefs.help.url2 "you can find this URL from Hudson dashboard/job pages.">
 <!ENTITY prefs.help.interval "How often do you want the add-on to check the feed, value is in minutes.">

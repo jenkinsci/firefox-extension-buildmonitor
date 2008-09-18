@@ -4,11 +4,10 @@
 <!ENTITY prefs.title "Preferensi Monitor Build Hudson">
 <!ENTITY prefs.feeds.code "Kode">
 <!ENTITY prefs.feeds.url "URL Feed">
-<!ENTITY prefs.feeds.isEnabled "Aktif">
 <!ENTITY prefs.url "URL Feed:">
-<!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit):">
-<!ENTITY prefs.size "Jumlah builds untuk ditampilkan:">
-<!ENTITY prefs.debug "Aktifkan Debug">
+<!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit).">
+<!ENTITY prefs.size "Jumlah builds untuk ditampilkan.">
+<!ENTITY prefs.debug "Aktifkan Debug.">
 <!ENTITY prefs.help.url1 "URL feed Hudson yang ingin anda monitor.">
 <!ENTITY prefs.help.url2 "anda dapat menemukan URL ini di halaman dashboard Hudson.">
 <!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">

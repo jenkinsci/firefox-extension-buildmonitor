@@ -21,39 +21,44 @@ TextMgr.prototype.get = function(key, args) {
 function PrefMgr(preferences, feeds) {
     this.preferences = preferences;
     this.feeds = feeds;
+    this.treeView = null;
 }
-PrefMgr.prototype.setFeeds = function() {
-	var treeView = {
-	    rowCount : 10000,
+PrefMgr.prototype.loadFeeds = function() {
+	this.treeView = {
+	    rowCount : 15,
 	    getCellText : function(row, column) {
-	    	var text;
-	    	if (column.id == "hudson-prefs-feeds-code") {
-	    		text = feeds[0].getCode();
-	    	} else if (column.id == "hudson-prefs-feeds-url") {
-	    		text = feeds[0].getUrl();
-	    	} else if (column.id == "hudson-prefs-feeds-isenabled") {
-	    		text = feeds[0].isEnabled();
-	    	}
-	    	return text;
+	    	if (row < feeds.length) {
+		    	var text = "???";
+		    	if (column.id == "hudson-prefs-feeds-code") {
+		    		text = feeds[row].getCode();
+		    	} else if (column.id == "hudson-prefs-feeds-url") {
+		    		text = feeds[row].getUrl();
+		    	}
+		    	return text;
+		    }
 	    },
-	    setTree: function(treebox){ this.treebox = treebox; },
-	    isContainer: function(row){ return false; },
-	    isSeparator: function(row){ return false; },
-	    isSorted: function(){ return false; },
-	    isEditable: function(){ return true; },
-	    getLevel: function(row){ return 0; },
-	    getImageSrc: function(row,col){ return null; },
-	    getRowProperties: function(row,props){},
-	    getCellProperties: function(row,col,props){},
-	    getColumnProperties: function(colid,col,props){}
+	    isEditable: function isEditable(row, column) {
+    		return true;
+	    },
+	    setCellText : function(row, column, value) {
+	    	if (column.id == "hudson-prefs-feeds-code") {
+	    		feeds[row].setCode(value);
+	    	} else if (column.id == "hudson-prefs-feeds-url") {
+	    		feeds[row].setUrl(value);
+	    	}
+	    }
 	};
-    document.getElementById('hudson-prefs-feeds').view = treeView;
+    document.getElementById('hudson-prefs-feeds').view = this.treeView;
 }
-PrefMgr.prototype.set = function(debug, interval, size, url) {
+PrefMgr.prototype.set = function(debug, interval, size) {
     this.preferences.setBoolPref("hudson.debug", debug);
     this.preferences.setIntPref("hudson.interval", interval);
     this.preferences.setIntPref("hudson.size", size);
-    this.preferences.setCharPref("hudson.url", url);
+    this.preferences.deleteBranch("hudson.feeds.");
+    for (var i = 0; i < feeds.length; i++) {
+    	this.preferences.setCharPref("hudson.feeds." + i + ".code", feeds[i].getCode());
+    	this.preferences.setCharPref("hudson.feeds." + i + ".url", feeds[i].getUrl());
+    }
 }
 PrefMgr.prototype.getDebug = function() {
     return this.preferences.getBoolPref("hudson.debug");
@@ -63,9 +68,6 @@ PrefMgr.prototype.getInterval = function() {
 }
 PrefMgr.prototype.getSize = function() {
     return this.preferences.getIntPref("hudson.size");
-}
-PrefMgr.prototype.getUrl = function() {
-    return this.preferences.getCharPref("hudson.url");
 }
 
 /*****************************************************************
