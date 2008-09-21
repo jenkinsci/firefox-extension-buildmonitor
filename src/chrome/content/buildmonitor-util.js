@@ -29,8 +29,8 @@ PrefMgr.prototype.loadFeeds = function() {
 	    getCellText : function(row, column) {
 	    	if (row < feeds.length) {
 		    	var text = "???";
-		    	if (column.id == "hudson-prefs-feeds-code") {
-		    		text = feeds[row].getCode();
+		    	if (column.id == "hudson-prefs-feeds-name") {
+		    		text = feeds[row].getName();
 		    	} else if (column.id == "hudson-prefs-feeds-url") {
 		    		text = feeds[row].getUrl();
 		    	}
@@ -41,8 +41,8 @@ PrefMgr.prototype.loadFeeds = function() {
     		return true;
 	    },
 	    setCellText : function(row, column, value) {
-	    	if (column.id == "hudson-prefs-feeds-code") {
-	    		feeds[row].setCode(value);
+	    	if (column.id == "hudson-prefs-feeds-name") {
+	    		feeds[row].setName(value);
 	    	} else if (column.id == "hudson-prefs-feeds-url") {
 	    		feeds[row].setUrl(value);
 	    	}
@@ -56,7 +56,7 @@ PrefMgr.prototype.set = function(debug, interval, size) {
     this.preferences.setIntPref("hudson.size", size);
     this.preferences.deleteBranch("hudson.feeds.");
     for (var i = 0; i < feeds.length; i++) {
-    	this.preferences.setCharPref("hudson.feeds." + i + ".code", feeds[i].getCode());
+    	this.preferences.setCharPref("hudson.feeds." + i + ".name", feeds[i].getName());
     	this.preferences.setCharPref("hudson.feeds." + i + ".url", feeds[i].getUrl());
     }
 }
@@ -92,7 +92,7 @@ LogMgr.prototype.debug = function(message, feed) {
     if (this.prefMgr.getDebug() == true) {
     	var id = "main";
     	if (feed) {
-    		id = feed.getId() + "-" + feed.getCode();
+    		id = feed.getId() + "-" + feed.getName();
     	}
         this.console.logStringMessage("BuildMonitor [" + this.dateMgr.getDebugDate() + "][" + id + "]: " + message);
     }

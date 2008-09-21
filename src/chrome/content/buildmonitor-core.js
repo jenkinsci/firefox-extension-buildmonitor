@@ -38,7 +38,7 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 		var panel = document.createElement("statusbarpanel");
 		panel.setAttribute("id", this.getPanelId(feeds[i]));
 		panel.setAttribute("class", "statusbarpanel-iconic-text");
-		panel.setAttribute("label", feeds[i].getCode());
+		panel.setAttribute("label", feeds[i].getName());
 		panel.setAttribute("popup", "buildmonitor-builds");
 		panel.setAttribute("context", "buildmonitor-menu");
 		panel.setAttribute("tooltip", "buildmonitor-tooltip");
@@ -85,7 +85,7 @@ UIMgr.prototype.setTooltip = function(items, title, feed) {
 	if (title) {
 		var titleLabel = document.createElement("label");
 		if (feed) {
-			title += " [" + feed.getCode() + "]";
+			title += " [" + feed.getName() + "]";
 		}
 		titleLabel.setAttribute("value", title);
 		titleLabel.setAttribute("class", "title");
@@ -146,14 +146,14 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	menupopup.appendChild(document.createElement("menuseparator"));
 
 	var dashboardMenuItem = document.createElement("menuitem");
-	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard") + " [" + feed.getCode() + "]");
+	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard") + " [" + feed.getName() + "]");
 	dashboardMenuItem.setAttribute("oncommand", "goToDashboard(" + feed.getId() + ");");
 	dashboardMenuItem.setAttribute("class", "menuitem-iconic");
 	dashboardMenuItem.setAttribute("image", "chrome://buildmonitor/skin/dashboard.png");
 	menupopup.appendChild(dashboardMenuItem);
 		
 	var refreshMenuitem = document.createElement("menuitem");
-	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh") + " [" + feed.getCode() + "]");
+	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh") + " [" + feed.getName() + "]");
 	refreshMenuitem.setAttribute("oncommand", "process(" + feed.getId() + ");");
 	refreshMenuitem.setAttribute("class", "menuitem-iconic");
 	refreshMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");

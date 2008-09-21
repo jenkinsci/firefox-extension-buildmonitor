@@ -1,22 +1,22 @@
 /*****************************************************************
  * Feed to be monitored.
  */
-function Feed(id, code, url) {
+function Feed(id, name, url) {
 	this.id = id;
-	this.code = code;
+	this.name = name;
 	this.url = url;
 }
 Feed.prototype.getId = function() {
 	return this.id;
 }
-Feed.prototype.getCode = function() {
-	return this.code;
+Feed.prototype.getName = function() {
+	return this.name;
 }
 Feed.prototype.getUrl = function() {
 	return this.url;
 }
-Feed.prototype.setCode = function(code) {
-	this.code = code;
+Feed.prototype.setName = function(name) {
+	this.name = name;
 }
 Feed.prototype.setUrl = function(url) {
 	this.url = url;

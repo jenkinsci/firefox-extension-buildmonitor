@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://buildmonitor/skin/buildmonitor.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
+<dialog xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      onload="initPreferences();"
+      ondialogaccept="return savePreferences();"
+      buttons="accept,cancel"
+      title="&prefs.title;">
+
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-model.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-core.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
+	
+	<stringbundleset>
+		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+	</stringbundleset>
+
+	<tooltip id="prefs-url-tooltip">
+		<vbox>
+			<label value="&prefs.help.url1;"/>
+			<label value="&prefs.help.url2;"/>
+		</vbox>
+	</tooltip>
+
+	<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true">
+		<treecols>
+			<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="1"/>
+			<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="3"/>
+		</treecols>
+		<treechildren/>
+	</tree>
+	<separator/>
+	<hbox>
+		<vbox>
+			<hbox>
+				<textbox id="buildmonitor-prefs-interval" size="3"/>
+				<label value="&prefs.interval;" tooltiptext="&prefs.help.interval;"/>
+			</hbox>
+			<hbox>
+				<textbox id="buildmonitor-prefs-size" size="3"/>
+				<label value="&prefs.size;" tooltiptext="&prefs.help.size;"/>
+			</hbox>
+		</vbox>
+		<vbox>
+			<hbox>
+				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
+				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
+			</hbox>
+		</vbox>
+	</hbox>
+<!--
+    <vbox>
+  		<label value="&prefs.url;" tooltip="prefs-url-tooltip"/>
+		<textbox id="buildmonitor-prefs-url" size="50"/>
+	</vbox>
+-->
+</dialog>
