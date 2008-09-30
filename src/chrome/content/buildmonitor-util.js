@@ -47,7 +47,16 @@ PrefMgr.prototype.initView = function() {
 	    	} else if (column.id == "hudson-prefs-feeds-url") {
 	    		feeds[row].setUrl(value);
 	    	}
-	    }
+	    },
+	    setTree: function(treebox) { this.treebox = treebox; },
+	    isContainer: function(row) { return false; },
+	    isSeparator: function(row) { return false; },
+	    isSorted: function() { return false; },
+	    getLevel: function(row) { return 0; },
+	    getImageSrc: function(row, col) { return null; },
+	    getRowProperties: function(row, props) {},
+	    getCellProperties: function(row, col, props) {},
+	    getColumnProperties: function(colid, col, props) {}
 	};
     document.getElementById('hudson-prefs-feeds').view = this.treeView;
 }

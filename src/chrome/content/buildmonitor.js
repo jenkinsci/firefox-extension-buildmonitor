@@ -22,6 +22,10 @@ var monitor = {
 		feeds = prefMgr.getFeeds();
 		uiMgr.initFeedsPanel(feeds);
 		feedMgr.processAll(feeds);
+		
+		var interval = prefMgr.getInterval();
+		logMgr.debug(textMgr.get("monitor.schedule", [interval]));
+		setTimeout("schedule()", interval * 60 * 1000);
     },
     openPrefs: function() {
     	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');

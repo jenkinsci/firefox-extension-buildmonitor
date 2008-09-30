@@ -210,7 +210,9 @@ function FeedMgr(uiMgr, prefMgr) {
 }
 FeedMgr.prototype.processAll = function(feeds) {
 	for(var i = 0; i < feeds.length; i++) {
-		this.process(feeds[i]);
+		if (!feeds[i].isIgnored()) {
+			this.process(feeds[i]);
+		}
 	}
 }
 FeedMgr.prototype.process = function(feed) {
