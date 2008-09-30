@@ -21,6 +21,13 @@ Feed.prototype.setName = function(name) {
 Feed.prototype.setUrl = function(url) {
 	this.url = url;
 }
+Feed.prototype.isIgnored = function() {
+	var isIgnored = true;
+	if (this.url != null && this.url.length > 0) {
+		isIgnored = false;
+	}
+	return isIgnored;
+}
 
 /*****************************************************************
  * Build information from build history feed.

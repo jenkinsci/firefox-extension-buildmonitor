@@ -18,34 +18,37 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 	this.clear(feedsPrefsMenupopup);
 	
     for(var i = 0; i < feeds.length; i++) {
-
-		var prefsMenupopup = document.createElement("menupopup");
-		prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feeds[i]));
-		feedsPrefsMenupopup.appendChild(prefsMenupopup);
-		
-		var buildsMenupopup = document.createElement("menupopup");
-		buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(feeds[i]));
-		buildsMenupopup.setAttribute("class", "info");
-		feedsBuildsMenupopup.appendChild(buildsMenupopup);
-		
-		var tooltip = document.createElement("tooltip");
-		tooltip.setAttribute("id", this.getTooltipId(feeds[i]));
-		tooltip.setAttribute("class", "info");
-		tooltip.setAttribute("noautohide", "true");
-		tooltip.setAttribute("maxwidth", "1000");
-		feedsTooltip.appendChild(tooltip);
-				
-		var panel = document.createElement("statusbarpanel");
-		panel.setAttribute("id", this.getPanelId(feeds[i]));
-		panel.setAttribute("class", "statusbarpanel-iconic-text");
-		panel.setAttribute("label", feeds[i].getName());
-		panel.setAttribute("popup", "buildmonitor-builds");
-		panel.setAttribute("context", "buildmonitor-menu");
-		panel.setAttribute("tooltip", "buildmonitor-tooltip");
-		feedsPanel.appendChild(panel);
-		this.setStatusQueued(feeds[i]);
-		
-		this.setPrefsMenupopup(feeds[i]);
+    
+    	if (!feeds[i].isIgnored()) {
+	
+			var prefsMenupopup = document.createElement("menupopup");
+			prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feeds[i]));
+			feedsPrefsMenupopup.appendChild(prefsMenupopup);
+			
+			var buildsMenupopup = document.createElement("menupopup");
+			buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(feeds[i]));
+			buildsMenupopup.setAttribute("class", "info");
+			feedsBuildsMenupopup.appendChild(buildsMenupopup);
+			
+			var tooltip = document.createElement("tooltip");
+			tooltip.setAttribute("id", this.getTooltipId(feeds[i]));
+			tooltip.setAttribute("class", "info");
+			tooltip.setAttribute("noautohide", "true");
+			tooltip.setAttribute("maxwidth", "1000");
+			feedsTooltip.appendChild(tooltip);
+					
+			var panel = document.createElement("statusbarpanel");
+			panel.setAttribute("id", this.getPanelId(feeds[i]));
+			panel.setAttribute("class", "statusbarpanel-iconic-text");
+			panel.setAttribute("label", feeds[i].getName());
+			panel.setAttribute("popup", "buildmonitor-builds");
+			panel.setAttribute("context", "buildmonitor-menu");
+			panel.setAttribute("tooltip", "buildmonitor-tooltip");
+			feedsPanel.appendChild(panel);
+			this.setStatusQueued(feeds[i]);
+			
+			this.setPrefsMenupopup(feeds[i]);
+		}
     }
 }
 UIMgr.prototype.setStatusQueued = function(feed) {

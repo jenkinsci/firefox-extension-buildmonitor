@@ -22,10 +22,11 @@ function PrefMgr(preferences, feeds) {
     this.preferences = preferences;
     this.feeds = feeds;
     this.treeView = null;
+    NUM_OF_FEEDS = 15;
 }
-PrefMgr.prototype.loadFeeds = function() {
+PrefMgr.prototype.initView = function() {
 	this.treeView = {
-	    rowCount : 15,
+	    rowCount : NUM_OF_FEEDS,
 	    getCellText : function(row, column) {
 	    	if (row < feeds.length) {
 		    	var text = "???";
@@ -68,6 +69,15 @@ PrefMgr.prototype.getInterval = function() {
 }
 PrefMgr.prototype.getSize = function() {
     return this.preferences.getIntPref("hudson.size");
+}
+PrefMgr.prototype.getFeeds = function() {
+	var feeds = new Array();
+    for (var i = 0; i < NUM_OF_FEEDS; i++) {
+    	var name = this.preferences.getCharPref("hudson.feeds." + i + ".name");
+    	var url = this.preferences.getCharPref("hudson.feeds." + i + ".url");
+    	feeds[i] = new Feed(i, name, url);
+    }
+    return feeds;
 }
 
 /*****************************************************************

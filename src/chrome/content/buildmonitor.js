@@ -19,14 +19,7 @@ var monitor = {
         schedule();
     },
     schedule: function() {
-		feeds = new Array();
-		feeds[0] = new Feed(0, "netb", "http://deadlock.netbeans.org/hudson/rssAll", true);
-		feeds[1] = new Feed(1, "n/a", "http://inexistant", true);
-		feeds[2] = new Feed(2, "jbos", "http://hudson.jboss.org/hudson/rssAll", true);
-		feeds[3] = new Feed(3, "dumm", "ftp://hoho", true);
-		feeds[4] = new Feed(4, "s-db", "http://hudson.jboss.org/hudson/job/hibernate-testsuite-db/rssAll");
-		feeds[5] = new Feed(5, "prot", "ftpx://hoho", true);
-		feeds[6] = new Feed(6, "", "");
+		feeds = prefMgr.getFeeds();
 		uiMgr.initFeedsPanel(feeds);
 		feedMgr.processAll(feeds);
     },
@@ -34,7 +27,7 @@ var monitor = {
     	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
     },
     initPrefs: function() {
-    	prefMgr.loadFeeds();
+    	prefMgr.initView();
         var debug = prefMgr.getDebug();
         var interval = prefMgr.getInterval();
         var size = prefMgr.getSize();
