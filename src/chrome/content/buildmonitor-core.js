@@ -247,7 +247,8 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
         var title = xml.getElementsByTagName("title")[0].childNodes[0].nodeValue;
         var entries = xml.getElementsByTagName("entry");
         if (entries.length > 0) {
-        	var hasFailure = false;
+        	var hasNonSuccess = false;
+        	var nonSuccessCount = 0;
         	var size = Math.min(this.prefMgr.getSize(), entries.length);
 	        var builds = new Array(size);
 	        for (var i = 0; i < size; i++) {
@@ -256,14 +257,30 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
 				var date = entries[i].getElementsByTagName("published")[0].childNodes[0].nodeValue;
 				builds[i] = new HistoryBuild(text, link, date);
 				if (!builds[i].isSuccess()) {
-					hasFailure = true;
+					hasNonSuccess = true;
+					nonSuccessCount++;
 				}
 	        }
+	        /*
 	        var status = "success";
 			if (!builds[0].isSuccess()) {
 				status = "failure";
-			} else if (hasFailure) {
+			} else if (hasNonSuccess) {
 				status = "warning";
+			}
+			*/
+			var status = null;
+			var healthRate = (size - nonSuccessCount) * 100 / size;
+			if (healthRate >= 80) {
+				status = "health_80";
+			} else if (healthRate >= 60) {
+				status = "health_60";
+			} else if (healthRate >= 40) {
+				status = "health_40";
+			} else if (healthRate >= 20) {
+				status = "health_20";
+			} else {
+				status = "health_00";
 			}
 			this.uiMgr.setStatusProcessed(feed, title, status, builds, responseText);
 	    } else {
