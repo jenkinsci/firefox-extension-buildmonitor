@@ -48,6 +48,10 @@
 		</vbox>
 		<vbox>
 			<hbox>
+				<checkbox id="buildmonitor-prefs-newtab" checked="false"/>
+				<label value="&prefs.newtab;" tooltiptext="&prefs.help.newtab;"/>
+			</hbox>
+			<hbox>
 				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
 				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
 			</hbox>

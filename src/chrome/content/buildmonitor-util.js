@@ -60,9 +60,10 @@ PrefMgr.prototype.initView = function() {
 	};
     document.getElementById('hudson-prefs-feeds').view = this.treeView;
 }
-PrefMgr.prototype.set = function(debug, interval, size) {
+PrefMgr.prototype.set = function(debug, interval, newTab, size) {
     this.preferences.setBoolPref("hudson.debug", debug);
     this.preferences.setIntPref("hudson.interval", interval);
+    this.preferences.setBoolPref("hudson.newtab", newTab);
     this.preferences.setIntPref("hudson.size", size);
     this.preferences.deleteBranch("hudson.feeds.");
     for (var i = 0; i < feeds.length; i++) {
@@ -75,6 +76,9 @@ PrefMgr.prototype.getDebug = function() {
 }
 PrefMgr.prototype.getInterval = function() {
     return this.preferences.getIntPref("hudson.interval");
+}
+PrefMgr.prototype.getNewTab = function() {
+    return this.preferences.getBoolPref("hudson.newtab");
 }
 PrefMgr.prototype.getSize = function() {
     return this.preferences.getIntPref("hudson.size");

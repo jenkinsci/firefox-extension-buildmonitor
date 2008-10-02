@@ -7,9 +7,11 @@
 <!ENTITY prefs.url "URL Feed:">
 <!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit).">
 <!ENTITY prefs.size "Jumlah builds untuk ditampilkan.">
-<!ENTITY prefs.debug "Aktifkan Debug.">
+<!ENTITY prefs.newtab "Buka halaman build di tab baru.">
+<!ENTITY prefs.debug "Aktifkan debug.">
 <!ENTITY prefs.help.url1 "URL feed Hudson yang ingin anda monitor.">
 <!ENTITY prefs.help.url2 "anda dapat menemukan URL ini di halaman dashboard Hudson.">
 <!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">
 <!ENTITY prefs.help.size "Berapa banyak builds terbaru yang ingin anda monitor.">
+<!ENTITY prefs.help.newtab "Buka halaman build di tab baru jika checkbox ditandai. Jika tidak, halaman akan dibuka di tab yang aktif.">
 <!ENTITY prefs.help.debug "Jika checkbox ditandai, maka pesan debug akan ditulis ke Firefox Error Console.">

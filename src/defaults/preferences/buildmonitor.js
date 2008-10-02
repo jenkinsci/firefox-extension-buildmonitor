@@ -1,5 +1,6 @@
 pref("hudson.debug", false);
 pref("hudson.interval", 5);
+pref("hudson.newtab", true);
 pref("hudson.size", 20);
 pref("hudson.feeds.1.name", "");
 pref("hudson.feeds.1.url", "");

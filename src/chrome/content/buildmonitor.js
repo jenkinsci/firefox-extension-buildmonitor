@@ -34,18 +34,21 @@ var monitor = {
     	prefMgr.initView();
         var debug = prefMgr.getDebug();
         var interval = prefMgr.getInterval();
+        var newTab = prefMgr.getNewTab();
         var size = prefMgr.getSize();
-        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size);
+        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size);
         document.getElementById("buildmonitor-prefs-debug").checked = debug;
         document.getElementById("buildmonitor-prefs-interval").value = interval;
+        document.getElementById("buildmonitor-prefs-newtab").checked = newTab;
         document.getElementById("buildmonitor-prefs-size").value = size;
     },
     savePrefs: function() {
         var debug = document.getElementById("buildmonitor-prefs-debug").checked;
         var interval = document.getElementById("buildmonitor-prefs-interval").value;
+        var newTab = document.getElementById("buildmonitor-prefs-newtab").checked;
         var size = document.getElementById("buildmonitor-prefs-size").value;
-        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", size: " + size);
-        prefMgr.set(debug, interval, size);
+        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size);
+        prefMgr.set(debug, interval, newTab, size);
     },
     processAll: function() {
     	feedMgr.processAll(feeds);
@@ -54,7 +57,14 @@ var monitor = {
     	feedMgr.process(feeds[i]);
     },
     goToDashboard: function(i) {
-		getBrowser().addTab(feeds[i].getUrl().match("^.+/"));
+    	goTo(feeds[i].getUrl().match("^.+/"));
+    },
+    goTo: function(url) {
+    	if (prefMgr.getNewTab()) {
+			getBrowser().addTab(url);
+		} else {
+			getBrowser().loadURI(url);
+		}
     }
 }
 /*****************************************************************
@@ -84,5 +94,8 @@ function process(i) {
 }
 function goToDashboard(i) {
 	monitor.goToDashboard(i);
+}
+function goTo(url) {
+	monitor.goTo(url);
 }
 window.addEventListener("load", function() {initialise();}, false);

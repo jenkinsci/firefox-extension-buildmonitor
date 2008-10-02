@@ -121,7 +121,7 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 		var menuitem = document.createElement("menuitem");
 	    menuitem.setAttribute("label", builds[i].getDetails());
 	   	menuitem.setAttribute("value", builds[i].getLink());
-	   	menuitem.setAttribute("oncommand", "getBrowser().addTab(this.value)");
+	   	menuitem.setAttribute("oncommand", "goTo(this.value)");
 	   	menuitem.setAttribute("class", "menuitem-iconic");
 	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + builds[i].getStatus() + ".png");
 	   	menuitem.setAttribute("maxwidth", "1000");
