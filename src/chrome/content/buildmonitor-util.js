@@ -65,7 +65,6 @@ PrefMgr.prototype.set = function(debug, interval, newTab, size) {
     this.preferences.setIntPref("hudson.interval", interval);
     this.preferences.setBoolPref("hudson.newtab", newTab);
     this.preferences.setIntPref("hudson.size", size);
-    this.preferences.deleteBranch("hudson.feeds.");
     for (var i = 0; i < feeds.length; i++) {
     	this.preferences.setCharPref("hudson.feeds." + i + ".name", feeds[i].getName());
     	this.preferences.setCharPref("hudson.feeds." + i + ".url", feeds[i].getUrl());
