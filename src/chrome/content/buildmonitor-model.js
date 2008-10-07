@@ -62,6 +62,13 @@ HistoryBuild.prototype.getStatus = function() {
 	}
 	return status;
 }
+HistoryBuild.prototype.isFailure = function() {
+	var isFailure = false;
+	if (this.getStatus() == "failure") {
+		isFailure = true;
+	}
+	return isFailure;
+}
 HistoryBuild.prototype.isSuccess = function() {
 	var isSuccess = false;
 	if (this.getStatus() == "success") {

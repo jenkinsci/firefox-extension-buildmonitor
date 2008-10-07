@@ -1,14 +1,17 @@
 var feeds;
 
 var console = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
+var io = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 var preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+var sound = Components.classes["@mozilla.org/sound;1"].createInstance(Components.interfaces.nsISound);
 
 var dateMgr = new DateMgr();
 var textMgr = new TextMgr();
+var notificationMgr = new NotificationMgr(sound, io);
 var prefMgr = new PrefMgr(preferences, feeds);
 var logMgr = new LogMgr(console, prefMgr, dateMgr);
 var uiMgr = new UIMgr(logMgr, textMgr);
-var feedMgr = new FeedMgr(uiMgr, prefMgr);
+var feedMgr = new FeedMgr(uiMgr, notificationMgr, prefMgr);
 
 /*****************************************************************
  * Build Monitor main functionalities, interfaces with the manager classes.
@@ -36,19 +39,22 @@ var monitor = {
         var interval = prefMgr.getInterval();
         var newTab = prefMgr.getNewTab();
         var size = prefMgr.getSize();
-        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size);
+        var sound = prefMgr.getSound();
+        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size + ", sound: " + sound);
         document.getElementById("buildmonitor-prefs-debug").checked = debug;
         document.getElementById("buildmonitor-prefs-interval").value = interval;
         document.getElementById("buildmonitor-prefs-newtab").checked = newTab;
         document.getElementById("buildmonitor-prefs-size").value = size;
+        document.getElementById("buildmonitor-prefs-sound").checked = sound;
     },
     savePrefs: function() {
         var debug = document.getElementById("buildmonitor-prefs-debug").checked;
         var interval = document.getElementById("buildmonitor-prefs-interval").value;
         var newTab = document.getElementById("buildmonitor-prefs-newtab").checked;
         var size = document.getElementById("buildmonitor-prefs-size").value;
-        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size);
-        prefMgr.set(debug, interval, newTab, size);
+        var sound = document.getElementById("buildmonitor-prefs-sound").checked;
+        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size + ", sound: " + sound);
+        prefMgr.set(debug, interval, newTab, size, sound);
     },
     processAll: function() {
     	feedMgr.processAll(feeds);

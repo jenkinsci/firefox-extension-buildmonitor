@@ -52,6 +52,10 @@
 				<label value="&prefs.newtab;" tooltiptext="&prefs.help.newtab;"/>
 			</hbox>
 			<hbox>
+				<checkbox id="buildmonitor-prefs-sound" checked="false"/>
+				<label value="&prefs.sound;" tooltiptext="&prefs.help.sound;"/>
+			</hbox>
+			<hbox>
 				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
 				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
 			</hbox>

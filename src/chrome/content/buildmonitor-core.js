@@ -204,8 +204,9 @@ UIMgr.prototype.clear = function(elem) {
 /*****************************************************************
  * FeedMgr takes care of asynchronous feed retrieval, and parses the XML feed.
  */
-function FeedMgr(uiMgr, prefMgr) {
+function FeedMgr(uiMgr, notificationMgr, prefMgr) {
 	this.uiMgr = uiMgr;
+	this.notificationMgr = notificationMgr;
 	this.prefMgr = prefMgr;
 }
 FeedMgr.prototype.processAll = function(feeds) {
@@ -259,6 +260,9 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
 				if (!builds[i].isSuccess()) {
 					hasNonSuccess = true;
 					nonSuccessCount++;
+					if (builds[i].isFailure()) {
+						this.handleFailureNotification(feed, date);
+					}
 				}
 	        }
 	        /*
@@ -269,19 +273,7 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
 				status = "warning";
 			}
 			*/
-			var status = null;
-			var healthRate = (size - nonSuccessCount) * 100 / size;
-			if (healthRate >= 80) {
-				status = "health_80";
-			} else if (healthRate >= 60) {
-				status = "health_60";
-			} else if (healthRate >= 40) {
-				status = "health_40";
-			} else if (healthRate >= 20) {
-				status = "health_20";
-			} else {
-				status = "health_00";
-			}
+			var status = this.getSummaryStatus(size, nonSuccessCount);
 			this.uiMgr.setStatusProcessed(feed, title, status, builds, responseText);
 	    } else {
 	    	this.uiMgr.setStatusNoBuild(feed, title);
@@ -289,4 +281,40 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
     } catch (e) {
     	this.uiMgr.setStatusParseError(feed, e);
     }
+}
+FeedMgr.prototype.handleFailureNotification = function(feed, date) {
+	var lastFail = this.prefMgr.getLastFail(feed);
+	if (lastFail == null || lastFail == "" || lastFail < date) {
+		this.prefMgr.setLastFail(feed, date);
+		if (prefMgr.getSound()) {
+			this.notificationMgr.playSound("failure");
+		}
+	}
+}
+FeedMgr.prototype.getSummaryStatus = function(size, nonSuccessCount) {
+	var status = null;
+	var healthRate = (size - nonSuccessCount) * 100 / size;
+	if (healthRate >= 80) {
+		status = "health_80";
+	} else if (healthRate >= 60) {
+		status = "health_60";
+	} else if (healthRate >= 40) {
+		status = "health_40";
+	} else if (healthRate >= 20) {
+		status = "health_20";
+	} else {
+		status = "health_00";
+	}
+	return status;
+}
+
+/*****************************************************************
+ * NotificationMgr handles non-successful build notification.
+ */
+function NotificationMgr(sound, io) {
+	this.sound = sound;
+	this.io = io;
+}
+NotificationMgr.prototype.playSound = function(status) {
+	this.sound.play(io.newURI("chrome://buildmonitor/skin/" + status + ".wav", null, null));
 }
