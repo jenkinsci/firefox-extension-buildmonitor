@@ -1,9 +1,10 @@
 /*****************************************************************
  * UIMgr is responsible for updating user interface components.
  */
-function UIMgr(logMgr, textMgr) {
+function UIMgr(logMgr, textMgr, prefMgr) {
 	this.logMgr = logMgr;
 	this.textMgr = textMgr;
+	this.prefMgr = prefMgr;
 }
 UIMgr.prototype.initFeedsPanel = function(feeds) {
 	
@@ -100,7 +101,7 @@ UIMgr.prototype.setTooltip = function(items, title, feed) {
 		var text;
 		if (typeof items[i] == "object") {
 		    text = items[i].getDetails();
-		    itemLabel.setAttribute("class", items[i].getStatus());
+		    itemLabel.setAttribute("class", this.getDisplayStatus(items[i].getStatus()));
 		} else {
 		    text = items[i];
 		}
@@ -123,7 +124,7 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	   	menuitem.setAttribute("value", builds[i].getLink());
 	   	menuitem.setAttribute("oncommand", "goTo(this.value)");
 	   	menuitem.setAttribute("class", "menuitem-iconic");
-	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + builds[i].getStatus() + ".png");
+	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + this.getDisplayStatus(builds[i].getStatus()) + ".png");
 	   	menuitem.setAttribute("maxwidth", "1000");
 	   	menupopup.appendChild(menuitem);
 	}
@@ -199,6 +200,15 @@ UIMgr.prototype.clear = function(elem) {
 	while (elem.firstChild) {
 		elem.removeChild(elem.firstChild);
 	}
+}
+UIMgr.prototype.getDisplayStatus = function(status) {
+	var displayStatus;
+	if (status == "success" && this.prefMgr.getSuccessColor() == "green") {
+		displayStatus = "success_g";
+	} else {
+		displayStatus = status;
+	}
+	return displayStatus;
 }
 
 /*****************************************************************

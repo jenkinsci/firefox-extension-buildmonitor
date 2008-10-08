@@ -5,6 +5,10 @@
 <!ENTITY prefs.feeds.name "Nama">
 <!ENTITY prefs.feeds.url "URL Feed">
 <!ENTITY prefs.url "URL Feed:">
+<!ENTITY prefs.successcolor.1 "Gunakan">
+<!ENTITY prefs.successcolor.2 "untuk menandakan sukses.">
+<!ENTITY prefs.successcolor.blue "biru">
+<!ENTITY prefs.successcolor.green "hijau">
 <!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit).">
 <!ENTITY prefs.size "Jumlah builds untuk ditampilkan.">
 <!ENTITY prefs.newtab "Buka halaman build di tab baru.">
@@ -12,6 +16,7 @@
 <!ENTITY prefs.sound "Aktifkan suara.">
 <!ENTITY prefs.help.url1 "URL feed Hudson yang ingin anda monitor.">
 <!ENTITY prefs.help.url2 "anda dapat menemukan URL ini di halaman dashboard Hudson.">
+<!ENTITY prefs.help.successcolor "Warna yang digunakan untuk menandakan build sukses, Hudson menggunakan biru sebagai default.">
 <!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">
 <!ENTITY prefs.help.size "Berapa banyak builds terbaru yang ingin anda monitor.">
 <!ENTITY prefs.help.newtab "Buka halaman build di tab baru jika checkbox ditandai. Jika tidak, halaman akan dibuka di tab yang aktif.">

@@ -1,4 +1,5 @@
 pref("hudson.debug", false);
+pref("hudson.successcolor", "blue");
 pref("hudson.interval", 5);
 pref("hudson.newtab", true);
 pref("hudson.size", 20);
