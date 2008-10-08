@@ -66,6 +66,16 @@
 				<label value="&prefs.successcolor.2;" tooltiptext="&prefs.help.successcolor;"/>
 			</hbox>
 			<hbox>
+				<label value="&prefs.feedstatustype.1;" tooltiptext="&prefs.help.feedstatustype;"/>
+				<menulist id="buildmonitor-prefs-feedstatustype">
+					<menupopup>
+						<menuitem label="&prefs.feedstatustype.health;" value="health" selected="true"/>
+						<menuitem label="&prefs.feedstatustype.latest;" value="latest"/>
+					</menupopup>
+				</menulist>
+				<label value="&prefs.feedstatustype.2;" tooltiptext="&prefs.help.feedstatustype;"/>
+			</hbox>
+			<hbox>
 				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
 				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
 			</hbox>

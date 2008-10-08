@@ -275,15 +275,12 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
 					}
 				}
 	        }
-	        /*
-	        var status = "success";
-			if (!builds[0].isSuccess()) {
-				status = "failure";
-			} else if (hasNonSuccess) {
-				status = "warning";
+			var status;
+			if (this.prefMgr.getFeedStatusType() == "latest") {
+				status = builds[0].getStatus();
+			} else {
+				status = this.getHealthStatus(size, nonSuccessCount);
 			}
-			*/
-			var status = this.getSummaryStatus(size, nonSuccessCount);
 			this.uiMgr.setStatusProcessed(feed, title, status, builds, responseText);
 	    } else {
 	    	this.uiMgr.setStatusNoBuild(feed, title);
@@ -301,7 +298,7 @@ FeedMgr.prototype.handleFailureNotification = function(feed, date) {
 		}
 	}
 }
-FeedMgr.prototype.getSummaryStatus = function(size, nonSuccessCount) {
+FeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
 	var status = null;
 	var healthRate = (size - nonSuccessCount) * 100 / size;
 	if (healthRate >= 80) {

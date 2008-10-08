@@ -9,6 +9,10 @@
 <!ENTITY prefs.successcolor.2 "to indicate success.">
 <!ENTITY prefs.successcolor.blue "blue">
 <!ENTITY prefs.successcolor.green "green">
+<!ENTITY prefs.feedstatustype.1 "Display">
+<!ENTITY prefs.feedstatustype.2 "icon on the statusbar.">
+<!ENTITY prefs.feedstatustype.health "feed health">
+<!ENTITY prefs.feedstatustype.latest "latest build">
 <!ENTITY prefs.interval "Poll Interval (in minutes).">
 <!ENTITY prefs.size "Number of builds to display.">
 <!ENTITY prefs.newtab "Open page on new tab.">
@@ -17,6 +21,7 @@
 <!ENTITY prefs.help.url1 "The URL of the Hudson feed that you want to monitor,">
 <!ENTITY prefs.help.url2 "you can find this URL from Hudson dashboard/job pages.">
 <!ENTITY prefs.help.successcolor "The color used for successful build, by default Hudson uses blue.">
+<!ENTITY prefs.help.feedstatustype "The icon to display on Firefox statusbar. Feed health uses weather icon to indicate the overall health of the feed. Latest build uses the orb icon with the color indicating the build status.">
 <!ENTITY prefs.help.interval "How often do you want the add-on to check the feed, value is in minutes.">
 <!ENTITY prefs.help.size "How many latest builds do you want to monitor.">
 <!ENTITY prefs.help.newtab "Open build page on a new tab if the checkbox is ticked. Otherwise the page will be opened on the current tab.">
