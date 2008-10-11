@@ -82,7 +82,7 @@ UIMgr.prototype.setStatusProcessed = function(feed, title, status, builds, respo
 	this.setBuildsMenupopup(builds, title, feed);
 }
 UIMgr.prototype.setPanel = function(status, feed) {
-	this.getPanelElement(feed).setAttribute("src", "chrome://buildmonitor/skin/" + status + ".png");
+	this.getPanelElement(feed).setAttribute("src", "chrome://buildmonitor/skin/" + this.getVisualStatus(status) + ".png");
 }
 UIMgr.prototype.setTooltip = function(items, title, feed) {
 	var vbox = document.createElement("vbox");
@@ -101,7 +101,7 @@ UIMgr.prototype.setTooltip = function(items, title, feed) {
 		var text;
 		if (typeof items[i] == "object") {
 		    text = items[i].getDetails();
-		    itemLabel.setAttribute("class", this.getDisplayStatus(items[i].getStatus()));
+		    itemLabel.setAttribute("class", this.getVisualStatus(items[i].getStatus()));
 		} else {
 		    text = items[i];
 		}
@@ -124,7 +124,7 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	   	menuitem.setAttribute("value", builds[i].getLink());
 	   	menuitem.setAttribute("oncommand", "goTo(this.value)");
 	   	menuitem.setAttribute("class", "menuitem-iconic");
-	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + this.getDisplayStatus(builds[i].getStatus()) + ".png");
+	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + this.getVisualStatus(builds[i].getStatus()) + ".png");
 	   	menuitem.setAttribute("maxwidth", "1000");
 	   	menupopup.appendChild(menuitem);
 	}
@@ -201,7 +201,7 @@ UIMgr.prototype.clear = function(elem) {
 		elem.removeChild(elem.firstChild);
 	}
 }
-UIMgr.prototype.getDisplayStatus = function(status) {
+UIMgr.prototype.getVisualStatus = function(status) {
 	var displayStatus;
 	if (status == "success" && this.prefMgr.getSuccessColor() == "green") {
 		displayStatus = "success_g";
