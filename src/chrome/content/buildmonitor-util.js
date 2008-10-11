@@ -60,12 +60,12 @@ PrefMgr.prototype.initView = function() {
 	};
     document.getElementById('hudson-prefs-feeds').view = this.treeView;
 }
-PrefMgr.prototype.set = function(debug, successColor, feedStatusType, interval, newTab, size, sound) {
+PrefMgr.prototype.set = function(debug, successColor, feedStatusType, interval, openPage, size, sound) {
     this.preferences.setBoolPref("hudson.debug", debug);
     this.preferences.setCharPref("hudson.successcolor", successColor);
     this.preferences.setCharPref("hudson.feedstatustype", feedStatusType);
     this.preferences.setIntPref("hudson.interval", interval);
-    this.preferences.setBoolPref("hudson.newtab", newTab);
+    this.preferences.setCharPref("hudson.openpage", openPage);
     this.preferences.setIntPref("hudson.size", size);
     this.preferences.setBoolPref("hudson.sound", sound);
     for (var i = 0; i < feeds.length; i++) {
@@ -89,8 +89,8 @@ PrefMgr.prototype.getFeedStatusType = function() {
 PrefMgr.prototype.getInterval = function() {
     return this.preferences.getIntPref("hudson.interval");
 }
-PrefMgr.prototype.getNewTab = function() {
-    return this.preferences.getBoolPref("hudson.newtab");
+PrefMgr.prototype.getOpenPage = function() {
+    return this.preferences.getCharPref("hudson.openpage");
 }
 PrefMgr.prototype.getSize = function() {
     return this.preferences.getIntPref("hudson.size");

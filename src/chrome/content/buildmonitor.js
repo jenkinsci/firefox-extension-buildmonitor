@@ -41,15 +41,15 @@ var monitor = {
         var successColor = prefMgr.getSuccessColor();
         var feedStatusType = prefMgr.getFeedStatusType();
         var interval = prefMgr.getInterval();
-        var newTab = prefMgr.getNewTab();
+        var openPage = prefMgr.getOpenPage();
         var size = prefMgr.getSize();
         var sound = prefMgr.getSound();
-        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size + ", sound: " + sound);
+        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", openPage: " + openPage + ", size: " + size + ", sound: " + sound);
         document.getElementById("buildmonitor-prefs-debug").checked = debug;
         document.getElementById("buildmonitor-prefs-successcolor").value = successColor;
         document.getElementById("buildmonitor-prefs-feedstatustype").value = feedStatusType;
         document.getElementById("buildmonitor-prefs-interval").value = interval;
-        document.getElementById("buildmonitor-prefs-newtab").checked = newTab;
+        document.getElementById("buildmonitor-prefs-openpage").value = openPage;
         document.getElementById("buildmonitor-prefs-size").value = size;
         document.getElementById("buildmonitor-prefs-sound").checked = sound;
     },
@@ -58,11 +58,11 @@ var monitor = {
         var successColor = document.getElementById("buildmonitor-prefs-successcolor").value;
 		var feedStatusType = document.getElementById("buildmonitor-prefs-feedstatustype").value;
         var interval = document.getElementById("buildmonitor-prefs-interval").value;
-        var newTab = document.getElementById("buildmonitor-prefs-newtab").checked;
+        var openPage = document.getElementById("buildmonitor-prefs-openpage").value;
         var size = document.getElementById("buildmonitor-prefs-size").value;
         var sound = document.getElementById("buildmonitor-prefs-sound").checked;
-        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", newTab: " + newTab + ", size: " + size + ", sound: " + sound);
-        prefMgr.set(debug, successColor, feedStatusType, interval, newTab, size, sound);
+        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", openPage: " + openPage + ", size: " + size + ", sound: " + sound);
+        prefMgr.set(debug, successColor, feedStatusType, interval, openPage, size, sound);
     },
     processAll: function() {
     	feedMgr.processAll(feeds);
@@ -74,7 +74,7 @@ var monitor = {
     	goTo(feeds[i].getUrl().match("^.+/"));
     },
     goTo: function(url) {
-    	if (prefMgr.getNewTab()) {
+    	if (prefMgr.getOpenPage() == "newtab") {
 			getBrowser().addTab(url);
 		} else {
 			getBrowser().loadURI(url);

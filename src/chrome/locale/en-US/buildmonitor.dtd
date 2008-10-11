@@ -16,7 +16,9 @@
 <!ENTITY prefs.feedstatustype.latest "latest build">
 <!ENTITY prefs.interval "Poll Interval (in minutes).">
 <!ENTITY prefs.size "Number of builds to display.">
-<!ENTITY prefs.newtab "Open page on new tab.">
+<!ENTITY prefs.openpage "Open page on">
+<!ENTITY prefs.openpage.newtab "new tab">
+<!ENTITY prefs.openpage.currenttab "current tab">
 <!ENTITY prefs.debug "Enable debug.">
 <!ENTITY prefs.sound "Enable sound.">
 <!ENTITY prefs.help.url1 "The URL of the Hudson feed that you want to monitor,">
@@ -25,6 +27,6 @@
 <!ENTITY prefs.help.feedstatustype "The icon to display on Firefox statusbar. Feed health uses weather icon to indicate the overall health of the feed. Latest build uses the orb icon with the color indicating the build status.">
 <!ENTITY prefs.help.interval "How often do you want the add-on to check the feed, value is in minutes.">
 <!ENTITY prefs.help.size "How many latest builds do you want to monitor.">
-<!ENTITY prefs.help.newtab "Open build page on a new tab if the checkbox is ticked. Otherwise the page will be opened on the current tab.">
+<!ENTITY prefs.help.openpage "Open build page on a new tab or the current tab.">
 <!ENTITY prefs.help.debug "Ticking the checkbox allows debug messages to be written to Firefox Error Console.">
 <!ENTITY prefs.help.sound "When activated, sound notification will be played when there's a build failure.">

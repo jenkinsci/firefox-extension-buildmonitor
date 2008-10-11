@@ -45,25 +45,25 @@
 				<textbox id="buildmonitor-prefs-size" size="3"/>
 				<label value="&prefs.size;" tooltiptext="&prefs.help.size;"/>
 			</hbox>
-		</vbox>
-		<vbox>
-			<hbox>
-				<checkbox id="buildmonitor-prefs-newtab" checked="false"/>
-				<label value="&prefs.newtab;" tooltiptext="&prefs.help.newtab;"/>
-			</hbox>
 			<hbox>
 				<checkbox id="buildmonitor-prefs-sound" checked="false"/>
 				<label value="&prefs.sound;" tooltiptext="&prefs.help.sound;"/>
 			</hbox>
 			<hbox>
-				<label value="&prefs.successcolor.1;" tooltiptext="&prefs.help.successcolor;"/>
-				<menulist id="buildmonitor-prefs-successcolor">
+				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
+				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
+			</hbox>
+		</vbox>
+		<vbox>
+			<hbox>
+				<label value="&prefs.openpage;" tooltiptext="&prefs.help.openpage;"/>
+				<menulist id="buildmonitor-prefs-openpage">
 					<menupopup>
-						<menuitem label="&prefs.successcolor.blue;" value="blue" selected="true"/>
-						<menuitem label="&prefs.successcolor.green;" value="green"/>
+						<menuitem label="&prefs.openpage.newtab;" value="newtab" selected="true"/>
+						<menuitem label="&prefs.openpage.currenttab;" value="currentab"/>
 					</menupopup>
 				</menulist>
-				<label value="&prefs.successcolor.2;" tooltiptext="&prefs.help.successcolor;"/>
+				.
 			</hbox>
 			<hbox>
 				<label value="&prefs.feedstatustype.1;" tooltiptext="&prefs.help.feedstatustype;"/>
@@ -76,8 +76,14 @@
 				<label value="&prefs.feedstatustype.2;" tooltiptext="&prefs.help.feedstatustype;"/>
 			</hbox>
 			<hbox>
-				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
-				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
+				<label value="&prefs.successcolor.1;" tooltiptext="&prefs.help.successcolor;"/>
+				<menulist id="buildmonitor-prefs-successcolor">
+					<menupopup>
+						<menuitem label="&prefs.successcolor.blue;" value="blue" selected="true"/>
+						<menuitem label="&prefs.successcolor.green;" value="green"/>
+					</menupopup>
+				</menulist>
+				<label value="&prefs.successcolor.2;" tooltiptext="&prefs.help.successcolor;"/>
 			</hbox>
 		</vbox>
 	</hbox>

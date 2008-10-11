@@ -2,7 +2,7 @@ pref("hudson.debug", false);
 pref("hudson.successcolor", "blue");
 pref("hudson.feedstatustype", "health");
 pref("hudson.interval", 5);
-pref("hudson.newtab", true);
+pref("hudson.openpage", "newtab");
 pref("hudson.size", 20);
 pref("hudson.sound", false);
 pref("hudson.feeds.0.name", "");
