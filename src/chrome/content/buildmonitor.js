@@ -21,11 +21,13 @@ var monitor = {
         logMgr.debug(textMgr.get("monitor.init"));
         schedule();
     },
-    schedule: function() {
+    run: function() {
 		feeds = prefMgr.getFeeds();
 		uiMgr.initFeedsPanel(feeds);
 		feedMgr.processAll(feeds);
-		
+	},
+    schedule: function() {
+		run();
 		var interval = prefMgr.getInterval();
 		logMgr.debug(textMgr.get("monitor.schedule", [interval]));
 		setTimeout("schedule()", interval * 60 * 1000);
@@ -84,6 +86,9 @@ var monitor = {
  */
 function initialise() {
     monitor.init();
+}
+function run() {
+    monitor.run();
 }
 function schedule() {
     monitor.schedule();

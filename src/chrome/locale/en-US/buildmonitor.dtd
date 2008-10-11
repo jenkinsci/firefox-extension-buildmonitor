@@ -1,6 +1,7 @@
 <!ENTITY init.title "Hudson Build Monitor">
 <!ENTITY init.message "Please configure the Feeds via Preferences menu.">
 <!ENTITY menu.preferences "Preferences">
+<!ENTITY menu.refresh.all "Refresh All">
 <!ENTITY prefs.title "Hudson Build Monitor preferences">
 <!ENTITY prefs.feeds.name "Name">
 <!ENTITY prefs.feeds.url "Feed URL">

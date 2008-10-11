@@ -142,9 +142,9 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	
 	var refreshAllMenuitem = document.createElement("menuitem");
 	refreshAllMenuitem.setAttribute("label", textMgr.get("menu.refresh.all"));
-	refreshAllMenuitem.setAttribute("oncommand", "processAll();");
+	refreshAllMenuitem.setAttribute("oncommand", "run();");
 	refreshAllMenuitem.setAttribute("class", "menuitem-iconic");
-	refreshAllMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");
+	refreshAllMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refreshall.png");
 	menupopup.appendChild(refreshAllMenuitem);
 	
 	menupopup.appendChild(document.createElement("menuseparator"));
