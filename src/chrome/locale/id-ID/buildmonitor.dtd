@@ -22,6 +22,10 @@
 <!ENTITY prefs.debug "Aktifkan debug.">
 <!ENTITY prefs.sound "Aktifkan suara.">
 <!ENTITY prefs.alert "Aktifkan alert.">
+<!ENTITY prefs.group.feeds "Feeds">
+<!ENTITY prefs.group.display "Tampilan">
+<!ENTITY prefs.group.notification "Notifikasi">
+<!ENTITY prefs.group.misc "Lain-lain">
 <!ENTITY prefs.help.url1 "URL feed Hudson yang ingin anda monitor.">
 <!ENTITY prefs.help.url2 "anda dapat menemukan URL ini di halaman dashboard Hudson.">
 <!ENTITY prefs.help.successcolor "Warna yang digunakan untuk menandakan build sukses, Hudson menggunakan biru sebagai default.">
