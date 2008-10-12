@@ -21,6 +21,7 @@
 <!ENTITY prefs.openpage.currenttab "current tab">
 <!ENTITY prefs.debug "Enable debug.">
 <!ENTITY prefs.sound "Enable sound.">
+<!ENTITY prefs.alert "Enable alert.">
 <!ENTITY prefs.help.url1 "The URL of the Hudson feed that you want to monitor,">
 <!ENTITY prefs.help.url2 "you can find this URL from Hudson dashboard/job pages.">
 <!ENTITY prefs.help.successcolor "The color used for successful build, by default Hudson uses blue.">
@@ -30,3 +31,4 @@
 <!ENTITY prefs.help.openpage "Open build page on a new tab or the current tab.">
 <!ENTITY prefs.help.debug "Ticking the checkbox allows debug messages to be written to Firefox Error Console.">
 <!ENTITY prefs.help.sound "When activated, sound notification will be played when there's a build failure.">
+<!ENTITY prefs.help.alert "Displays alert window at the bottom right corner of your desktop, showing the failure build information.">

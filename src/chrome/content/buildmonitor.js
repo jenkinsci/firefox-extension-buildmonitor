@@ -1,5 +1,6 @@
 var feeds;
 
+var alerts = Components.classes["@mozilla.org/alerts-service;1"].getService(Components.interfaces.nsIAlertsService);
 var console = Components.classes["@mozilla.org/consoleservice;1"].getService(Components.interfaces.nsIConsoleService);
 var io = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 var preferences = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
@@ -7,7 +8,7 @@ var sound = Components.classes["@mozilla.org/sound;1"].createInstance(Components
 
 var dateMgr = new DateMgr();
 var textMgr = new TextMgr();
-var notificationMgr = new NotificationMgr(sound, io);
+var notificationMgr = new NotificationMgr(sound, io, alerts);
 var prefMgr = new PrefMgr(preferences, feeds);
 var logMgr = new LogMgr(console, prefMgr, dateMgr);
 var uiMgr = new UIMgr(logMgr, textMgr, prefMgr);
@@ -44,7 +45,8 @@ var monitor = {
         var openPage = prefMgr.getOpenPage();
         var size = prefMgr.getSize();
         var sound = prefMgr.getSound();
-        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", openPage: " + openPage + ", size: " + size + ", sound: " + sound);
+        var alert = prefMgr.getAlert();
+        logMgr.debug(textMgr.get("monitor.loadprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", openPage: " + openPage + ", size: " + size + ", sound: " + sound + ", alert: " + alert);
         document.getElementById("buildmonitor-prefs-debug").checked = debug;
         document.getElementById("buildmonitor-prefs-successcolor").value = successColor;
         document.getElementById("buildmonitor-prefs-feedstatustype").value = feedStatusType;
@@ -52,6 +54,7 @@ var monitor = {
         document.getElementById("buildmonitor-prefs-openpage").value = openPage;
         document.getElementById("buildmonitor-prefs-size").value = size;
         document.getElementById("buildmonitor-prefs-sound").checked = sound;
+        document.getElementById("buildmonitor-prefs-alert").checked = alert;
     },
     savePrefs: function() {
         var debug = document.getElementById("buildmonitor-prefs-debug").checked;
@@ -61,8 +64,9 @@ var monitor = {
         var openPage = document.getElementById("buildmonitor-prefs-openpage").value;
         var size = document.getElementById("buildmonitor-prefs-size").value;
         var sound = document.getElementById("buildmonitor-prefs-sound").checked;
-        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", openPage: " + openPage + ", size: " + size + ", sound: " + sound);
-        prefMgr.set(debug, successColor, feedStatusType, interval, openPage, size, sound);
+        var alert = document.getElementById("buildmonitor-prefs-alert").checked;
+        logMgr.debug(textMgr.get("monitor.saveprefs") + " debug: " + debug + ", successColor: " + successColor + ", feedStatusType: " + feedStatusType + ", interval: " + interval + ", openPage: " + openPage + ", size: " + size + ", sound: " + sound + ", alert: " + alert);
+        prefMgr.set(debug, successColor, feedStatusType, interval, openPage, size, sound, alert);
     },
     processAll: function() {
     	feedMgr.processAll(feeds);

@@ -50,6 +50,10 @@
 				<label value="&prefs.sound;" tooltiptext="&prefs.help.sound;"/>
 			</hbox>
 			<hbox>
+				<checkbox id="buildmonitor-prefs-alert" checked="false"/>
+				<label value="&prefs.alert;" tooltiptext="&prefs.help.alert;"/>
+			</hbox>
+			<hbox>
 				<checkbox id="buildmonitor-prefs-debug" checked="false"/>
 				<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
 			</hbox>

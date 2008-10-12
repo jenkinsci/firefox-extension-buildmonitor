@@ -21,6 +21,7 @@
 <!ENTITY prefs.openpage.currenttab "tab yang aktif">
 <!ENTITY prefs.debug "Aktifkan debug.">
 <!ENTITY prefs.sound "Aktifkan suara.">
+<!ENTITY prefs.alert "Aktifkan alert.">
 <!ENTITY prefs.help.url1 "URL feed Hudson yang ingin anda monitor.">
 <!ENTITY prefs.help.url2 "anda dapat menemukan URL ini di halaman dashboard Hudson.">
 <!ENTITY prefs.help.successcolor "Warna yang digunakan untuk menandakan build sukses, Hudson menggunakan biru sebagai default.">
@@ -30,3 +31,4 @@
 <!ENTITY prefs.help.openpage "Buka halaman build di tab baru atau di tab yang aktif.">
 <!ENTITY prefs.help.debug "Jika checkbox ditandai, maka pesan debug akan ditulis ke Firefox Error Console.">
 <!ENTITY prefs.help.sound "Jika diaktifkan, notifikasi suara akan dimainkan jika ada build yang gagal.">
+<!ENTITY prefs.help.alert "Tampilkan window alert di ujung kanan bawah desktop anda, dengan informasi tentang build yang gagal.">

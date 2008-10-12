@@ -271,7 +271,7 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
 					hasNonSuccess = true;
 					nonSuccessCount++;
 					if (builds[i].isFailure()) {
-						this.handleFailureNotification(feed, date);
+						this.handleFailureNotification(feed, title, builds[i], date);
 					}
 				}
 	        }
@@ -289,12 +289,15 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
     	this.uiMgr.setStatusParseError(feed, e);
     }
 }
-FeedMgr.prototype.handleFailureNotification = function(feed, date) {
+FeedMgr.prototype.handleFailureNotification = function(feed, title, build, date) {
 	var lastFail = this.prefMgr.getLastFail(feed);
 	if (lastFail == null || lastFail == "" || lastFail < date) {
 		this.prefMgr.setLastFail(feed, date);
 		if (prefMgr.getSound()) {
 			this.notificationMgr.playSound("failure");
+		}
+		if (prefMgr.getAlert()) {
+			this.notificationMgr.displayAlert(feed, title, build);
 		}
 	}
 }
@@ -318,10 +321,14 @@ FeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
 /*****************************************************************
  * NotificationMgr handles non-successful build notification.
  */
-function NotificationMgr(sound, io) {
+function NotificationMgr(sound, io, alerts) {
 	this.sound = sound;
 	this.io = io;
+	this.alerts = alerts;
 }
 NotificationMgr.prototype.playSound = function(status) {
 	this.sound.play(io.newURI("chrome://buildmonitor/skin/" + status + ".wav", null, null));
+}
+NotificationMgr.prototype.displayAlert = function(feed, title, build) {
+	this.alerts.showAlertNotification("chrome://buildmonitor/skin/" + build.getStatus() + ".png", title + "[" + feed.getName() + "]", build.getDetails(), false);
 }
