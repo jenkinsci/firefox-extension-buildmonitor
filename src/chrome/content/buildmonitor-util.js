@@ -114,6 +114,13 @@ PrefMgr.prototype.getFeeds = function() {
 PrefMgr.prototype.getLastFail = function(feed) {
 	return this.preferences.getCharPref("hudson.feeds." + feed.getId() + ".lastfail");
 }
+PrefMgr.prototype.foo = function() {
+	// upgrade from 0.7 or older
+	if (preferences.prefHasUserValue("hudson.url")) {
+		this.preferences.setCharPref("hudson.feeds.0.url", this.preferences.getCharPref("hudson.url"));
+		this.preferences.clearUserPref("hudson.url");
+	}
+}
 
 /*****************************************************************
  * DateMgr provides date manipulation convenience methods.

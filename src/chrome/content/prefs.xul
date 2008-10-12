@@ -19,21 +19,14 @@
 	<stringbundleset>
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
 	</stringbundleset>
-
-	<tooltip id="prefs-url-tooltip">
-		<vbox>
-			<label value="&prefs.help.url1;"/>
-			<label value="&prefs.help.url2;"/>
-		</vbox>
-	</tooltip>
 	
 	<groupbox>
 		<caption label="&prefs.group.feeds;"/>
 		<vbox>
 			<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true">
 				<treecols>
-					<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="1"/>
-					<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="3"/>
+					<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="1" tooltiptext="&prefs.help.feeds.name;"/>
+					<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="3" tooltiptext="&prefs.help.feeds.url;"/>
 				</treecols>
 				<treechildren/>
 			</tree>

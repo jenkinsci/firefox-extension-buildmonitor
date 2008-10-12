@@ -20,6 +20,7 @@ var feedMgr = new FeedMgr(uiMgr, notificationMgr, prefMgr);
 var monitor = {
     init: function() {
         logMgr.debug(textMgr.get("monitor.init"));
+        prefMgr.foo();
         schedule();
     },
     run: function() {
