@@ -135,7 +135,7 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 
 	var preferencesMenuItem = document.createElement("menuitem");
 	preferencesMenuItem.setAttribute("label", textMgr.get("menu.preferences"));
-	preferencesMenuItem.setAttribute("oncommand", "openPreferences();");
+	preferencesMenuItem.setAttribute("oncommand", "hudson_openPreferences();");
 	preferencesMenuItem.setAttribute("class", "menuitem-iconic");
 	preferencesMenuItem.setAttribute("image", "chrome://buildmonitor/skin/preferences.png");
 	menupopup.appendChild(preferencesMenuItem);

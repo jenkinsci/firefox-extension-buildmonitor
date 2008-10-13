@@ -98,7 +98,7 @@ function run() {
 function schedule() {
     monitor.schedule();
 }
-function openPreferences() {
+function hudson_openPreferences() {
 	monitor.openPrefs();
 }
 function initPreferences() {

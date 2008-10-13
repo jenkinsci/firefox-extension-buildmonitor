@@ -10,9 +10,9 @@
 <!ENTITY prefs.successcolor.2 "untuk menandakan sukses.">
 <!ENTITY prefs.successcolor.blue "biru">
 <!ENTITY prefs.successcolor.green "hijau">
-<!ENTITY prefs.feedstatustype.1 "Tampilkan ikon">
-<!ENTITY prefs.feedstatustype.2 "di statusbar.">
-<!ENTITY prefs.feedstatustype.health "kesehatan feed">
+<!ENTITY prefs.feedstatustype.1 "Tampilkan status">
+<!ENTITY prefs.feedstatustype.2 "di status bar.">
+<!ENTITY prefs.feedstatustype.health "keseluruhan feed">
 <!ENTITY prefs.feedstatustype.latest "build terkini">
 <!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit).">
 <!ENTITY prefs.size "Jumlah builds untuk ditampilkan.">

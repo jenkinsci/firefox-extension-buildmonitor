@@ -11,8 +11,8 @@
 <!ENTITY prefs.successcolor.blue "blue">
 <!ENTITY prefs.successcolor.green "green">
 <!ENTITY prefs.feedstatustype.1 "Display">
-<!ENTITY prefs.feedstatustype.2 "icon on the statusbar.">
-<!ENTITY prefs.feedstatustype.health "feed health">
+<!ENTITY prefs.feedstatustype.2 "status on the status bar.">
+<!ENTITY prefs.feedstatustype.health "overall health">
 <!ENTITY prefs.feedstatustype.latest "latest build">
 <!ENTITY prefs.interval "Poll Interval (in minutes).">
 <!ENTITY prefs.size "Number of builds to display.">
