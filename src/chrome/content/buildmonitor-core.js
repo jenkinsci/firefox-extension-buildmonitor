@@ -122,7 +122,7 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 		var menuitem = document.createElement("menuitem");
 	    menuitem.setAttribute("label", builds[i].getDetails());
 	   	menuitem.setAttribute("value", builds[i].getLink());
-	   	menuitem.setAttribute("oncommand", "goTo(this.value)");
+	   	menuitem.setAttribute("oncommand", "hudson_goTo(this.value)");
 	   	menuitem.setAttribute("class", "menuitem-iconic");
 	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + this.getVisualStatus(builds[i].getStatus()) + ".png");
 	   	menuitem.setAttribute("maxwidth", "1000");
@@ -142,7 +142,7 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	
 	var refreshAllMenuitem = document.createElement("menuitem");
 	refreshAllMenuitem.setAttribute("label", textMgr.get("menu.refresh.all"));
-	refreshAllMenuitem.setAttribute("oncommand", "run();");
+	refreshAllMenuitem.setAttribute("oncommand", "hudson_run();");
 	refreshAllMenuitem.setAttribute("class", "menuitem-iconic");
 	refreshAllMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refreshall.png");
 	menupopup.appendChild(refreshAllMenuitem);
@@ -151,14 +151,14 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 
 	var dashboardMenuItem = document.createElement("menuitem");
 	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard") + " [" + feed.getName() + "]");
-	dashboardMenuItem.setAttribute("oncommand", "goToDashboard(" + feed.getId() + ");");
+	dashboardMenuItem.setAttribute("oncommand", "hudson_goToDashboard(" + feed.getId() + ");");
 	dashboardMenuItem.setAttribute("class", "menuitem-iconic");
 	dashboardMenuItem.setAttribute("image", "chrome://buildmonitor/skin/dashboard.png");
 	menupopup.appendChild(dashboardMenuItem);
 		
 	var refreshMenuitem = document.createElement("menuitem");
 	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh") + " [" + feed.getName() + "]");
-	refreshMenuitem.setAttribute("oncommand", "process(" + feed.getId() + ");");
+	refreshMenuitem.setAttribute("oncommand", "hudson_process(" + feed.getId() + ");");
 	refreshMenuitem.setAttribute("class", "menuitem-iconic");
 	refreshMenuitem.setAttribute("image", "chrome://buildmonitor/skin/refresh.png");
 	menupopup.appendChild(refreshMenuitem);

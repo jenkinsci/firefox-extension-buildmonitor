@@ -21,7 +21,7 @@ var monitor = {
     init: function() {
         logMgr.debug(textMgr.get("monitor.init"));
         prefMgr.foo();
-        schedule();
+        hudson_schedule();
     },
     run: function() {
 		feeds = prefMgr.getFeeds();
@@ -29,10 +29,10 @@ var monitor = {
 		feedMgr.processAll(feeds);
 	},
     schedule: function() {
-		run();
+		hudson_run();
 		var interval = prefMgr.getInterval();
 		logMgr.debug(textMgr.get("monitor.schedule", [interval]));
-		setTimeout("schedule()", interval * 60 * 1000);
+		setTimeout("hudson_schedule()", interval * 60 * 1000);
     },
     openPrefs: function() {
     	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
@@ -76,7 +76,7 @@ var monitor = {
     	feedMgr.process(feeds[i]);
     },
     goToDashboard: function(i) {
-    	goTo(feeds[i].getUrl().match("^.+/"));
+    	hudson_goTo(feeds[i].getUrl().match("^.+/"));
     },
     goTo: function(url) {
     	if (prefMgr.getOpenPage() == "newtab") {
@@ -89,35 +89,35 @@ var monitor = {
 /*****************************************************************
  * Convenient functions for XUL components to call.
  */
-function initialise() {
+function hudson_initialise() {
     monitor.init();
 }
-function run() {
+function hudson_run() {
     monitor.run();
 }
-function schedule() {
+function hudson_schedule() {
     monitor.schedule();
 }
 function hudson_openPreferences() {
 	monitor.openPrefs();
 }
-function initPreferences() {
+function hudson_initPreferences() {
     monitor.initPrefs();
 }
-function savePreferences() {
+function hudson_savePreferences() {
     monitor.savePrefs();
     return true;
 }
-function processAll() {
+function hudson_processAll() {
     monitor.processAll();
 }
-function process(i) {
+function hudson_process(i) {
     monitor.process(i);
 }
-function goToDashboard(i) {
+function hudson_goToDashboard(i) {
 	monitor.goToDashboard(i);
 }
-function goTo(url) {
+function hudson_goTo(url) {
 	monitor.goTo(url);
 }
-window.addEventListener("load", function() {initialise();}, false);
+window.addEventListener("load", function() {hudson_initialise();}, false);

@@ -22,7 +22,7 @@
 		</tooltip>
 		<menupopup id="hudson-menupopup-menus-main">
 			<menuitem label="&menu.preferences;" oncommand="hudson_openPreferences();" class="menuitem-iconic" image="chrome://buildmonitor/skin/preferences.png"/>
-			<menuitem label="&menu.refresh.all;" oncommand="run();" class="menuitem-iconic" image="chrome://buildmonitor/skin/refreshall.png"/>
+			<menuitem label="&menu.refresh.all;" oncommand="hudson_run();" class="menuitem-iconic" image="chrome://buildmonitor/skin/refreshall.png"/>
 		</menupopup>
 		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="hudson-tooltip-main" context="hudson-menupopup-menus-main"/>
 		<div id="hudson-tooltip-feeds">
