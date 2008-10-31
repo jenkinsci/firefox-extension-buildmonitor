@@ -1,32 +1,31 @@
 <!ENTITY init.title "Hudson Build Monitor">
-<!ENTITY init.message "Please configure the Feeds via Preferences menu.">
+<!ENTITY init.message "Please configure the feeds via Preferences menu.">
 <!ENTITY menu.preferences "Preferences">
 <!ENTITY menu.refresh.all "Refresh All">
 <!ENTITY prefs.title "Hudson Build Monitor preferences">
 <!ENTITY prefs.feeds.name "Name">
 <!ENTITY prefs.feeds.url "Feed URL">
-<!ENTITY prefs.url "Feed URL:">
 <!ENTITY prefs.successcolor.1 "Use">
-<!ENTITY prefs.successcolor.2 "to indicate success.">
+<!ENTITY prefs.successcolor.2 "to indicate success">
 <!ENTITY prefs.successcolor.blue "blue">
 <!ENTITY prefs.successcolor.green "green">
 <!ENTITY prefs.feedstatustype.1 "Display">
-<!ENTITY prefs.feedstatustype.2 "status on the status bar.">
+<!ENTITY prefs.feedstatustype.2 "on status bar">
 <!ENTITY prefs.feedstatustype.health "overall health">
 <!ENTITY prefs.feedstatustype.latest "latest build">
-<!ENTITY prefs.interval "Poll Interval (in minutes).">
-<!ENTITY prefs.size "Number of builds to display.">
+<!ENTITY prefs.interval "Poll Interval (in minutes)">
+<!ENTITY prefs.size "Number of builds to display">
 <!ENTITY prefs.openpage "Open page in">
 <!ENTITY prefs.openpage.newtab "new tab">
 <!ENTITY prefs.openpage.currenttab "current tab">
-<!ENTITY prefs.debug "Enable debug.">
-<!ENTITY prefs.sound "Enable sound.">
-<!ENTITY prefs.alert "Enable alert.">
+<!ENTITY prefs.debug "Enable debug">
+<!ENTITY prefs.sound "Enable sound">
+<!ENTITY prefs.alert "Enable alert">
 <!ENTITY prefs.group.feeds "Feeds">
 <!ENTITY prefs.group.display "Display">
 <!ENTITY prefs.group.notification "Notification">
 <!ENTITY prefs.group.misc "Misc">
-<!ENTITY prefs.help.feeds.name "The feed name that will be displayed on the statusbar and tooltips.">
+<!ENTITY prefs.help.feeds.name "The feed name that will be displayed on the status bar and tooltips.">
 <!ENTITY prefs.help.feeds.url "The URL of the Hudson feed that you want to monitor, you can find this URL from Hudson dashboard/job pages.">
 <!ENTITY prefs.help.successcolor "The color used for successful build, by default Hudson uses blue.">
 <!ENTITY prefs.help.feedstatustype "The icon to display on Firefox statusbar. Feed health uses weather icon to indicate the overall health of the feed. Latest build uses the orb icon with the color indicating the build status.">

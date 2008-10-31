@@ -1,35 +1,34 @@
 <!ENTITY init.title "Monitor Build Hudson">
-<!ENTITY init.message "Silakan mengkonfigurasi Feed dengan menggunakan menu Preferensi.">
+<!ENTITY init.message "Harap mengkonfigurasi feed melalui menu Preferensi.">
 <!ENTITY menu.preferences "Preferensi">
 <!ENTITY menu.refresh.all "Refresh Semua">
 <!ENTITY prefs.title "Preferensi Monitor Build Hudson">
 <!ENTITY prefs.feeds.name "Nama">
 <!ENTITY prefs.feeds.url "URL Feed">
-<!ENTITY prefs.url "URL Feed:">
 <!ENTITY prefs.successcolor.1 "Gunakan">
-<!ENTITY prefs.successcolor.2 "untuk menandakan sukses.">
+<!ENTITY prefs.successcolor.2 "untuk menandakan sukses">
 <!ENTITY prefs.successcolor.blue "biru">
 <!ENTITY prefs.successcolor.green "hijau">
-<!ENTITY prefs.feedstatustype.1 "Tampilkan status">
-<!ENTITY prefs.feedstatustype.2 "di status bar.">
-<!ENTITY prefs.feedstatustype.health "keseluruhan feed">
+<!ENTITY prefs.feedstatustype.1 "Tampilkan">
+<!ENTITY prefs.feedstatustype.2 "di status bar">
+<!ENTITY prefs.feedstatustype.health "kesehatan feed">
 <!ENTITY prefs.feedstatustype.latest "build terkini">
-<!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit).">
-<!ENTITY prefs.size "Jumlah builds untuk ditampilkan.">
+<!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit)">
+<!ENTITY prefs.size "Jumlah build untuk ditampilkan">
 <!ENTITY prefs.openpage "Buka halaman build di">
 <!ENTITY prefs.openpage.newtab "tab baru">
 <!ENTITY prefs.openpage.currenttab "tab yang aktif">
-<!ENTITY prefs.debug "Aktifkan debug.">
-<!ENTITY prefs.sound "Aktifkan suara.">
-<!ENTITY prefs.alert "Aktifkan alert.">
-<!ENTITY prefs.group.feeds "Feeds">
+<!ENTITY prefs.debug "Aktifkan debug">
+<!ENTITY prefs.sound "Aktifkan suara">
+<!ENTITY prefs.alert "Aktifkan alert">
+<!ENTITY prefs.group.feeds "Feed">
 <!ENTITY prefs.group.display "Tampilan">
 <!ENTITY prefs.group.notification "Notifikasi">
 <!ENTITY prefs.group.misc "Lain-lain">
 <!ENTITY prefs.help.feeds.name "Nama feed yang akan ditampilkan di statusbar dan tooltip.">
 <!ENTITY prefs.help.feeds.url "URL feed Hudson yang ingin anda monitor, anda dapat menemukan URL ini di halaman dashboard Hudson.">
 <!ENTITY prefs.help.successcolor "Warna yang digunakan untuk menandakan build sukses, Hudson menggunakan biru sebagai default.">
-<!ENTITY prefs.help.feedstatustype "Ikon yang akan ditampilkan di statusbar Firefox. Kesehatan feed akan menggunakan ikon cuaca yang menandakan kesehatan dari keseluruhan feed. Build terkini menggunakan ikon bola dengan warna yang mengindikasikan status build.">
+<!ENTITY prefs.help.feedstatustype "Ikon yang akan ditampilkan di status bar Firefox. Kesehatan feed akan menggunakan ikon cuaca yang menandakan kesehatan dari keseluruhan feed. Build terkini menggunakan ikon bola dengan warna yang mengindikasikan status build.">
 <!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">
 <!ENTITY prefs.help.size "Berapa banyak builds terbaru yang ingin anda monitor.">
 <!ENTITY prefs.help.openpage "Buka halaman build di tab baru atau di tab yang aktif.">
