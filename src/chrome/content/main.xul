@@ -16,10 +16,15 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
 
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+	</stringbundleset>
+	
+	<popup id="contentAreaContextMenu"> 
+		<menuitem id="hudson-context-menu-addfeed" label="&menu.add.feed;" oncommand="alert('TODO');" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-bookmarklink"/>
+	</popup>
+	
 	<statusbar id="status-bar">
-		<stringbundleset>
-			<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
-		</stringbundleset>
 		<tooltip id="hudson-tooltip-main" class="info" noautohide="true" maxwidth="1000">
 			<vbox id="buildmonitor-box">
 				<label class="title" value="&init.title;"/>

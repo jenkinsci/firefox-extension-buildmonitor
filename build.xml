@@ -3,7 +3,7 @@
 	<property name="package.name" value="buildmonitor"/>
 	<property name="source.dir" value="src"/>
 	<property name="stage.dir" value="stage"/>
-	<property name="version" value="0.8.2-SNAPSHOT"/>
+	<property name="version" value="0.9-SNAPSHOT"/>
 
 	<target name="clean">
 		<delete dir="${stage.dir}"/>

@@ -6,6 +6,14 @@ function UIMgr(logMgr, textMgr, prefMgr) {
 	this.textMgr = textMgr;
 	this.prefMgr = prefMgr;
 }
+UIMgr.prototype.initControlMenus = function() {
+	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing", function() {this.setupControlMenus();}, false);
+}
+UIMgr.prototype.setupControlMenus = function() {
+	if (gContextMenu) {
+		gContextMenu.showItem("hudson-popup-menus-addfeed", gContextMenu.onLink && !gContextMenu.onMailtoLink);
+	}
+}
 UIMgr.prototype.initFeedsPanel = function(feeds) {
 	
 	var feedsPanel = document.getElementById("hudson-panel-feeds");

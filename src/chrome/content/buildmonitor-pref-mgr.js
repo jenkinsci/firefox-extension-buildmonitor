@@ -2,22 +2,23 @@
  * PrefMgr handles preferences saving and loading to and from Firefox configuration
  * (type about:config in Firefox url bar to view all Firefox configuration values).
  */
-function PrefMgr(preferences, feeds) {
-    this.preferences = preferences;
-    this.feeds = feeds;
-    this.treeView = null;
+function PrefMgr(preferences) {
     NUM_OF_FEEDS = 15;
+    this.preferences = preferences;
+    this.treeFeeds = null;
+    this.treeView = null;
 }
 PrefMgr.prototype.initView = function() {
+	treeFeeds = this.getFeeds();
 	this.treeView = {
 	    rowCount : NUM_OF_FEEDS,
 	    getCellText : function(row, column) {
-	    	if (row < feeds.length) {
+	    	if (row < treeFeeds.length) {
 		    	var text = "???";
 		    	if (column.id == "hudson-prefs-feeds-name") {
-		    		text = feeds[row].getName();
+		    		text = treeFeeds[row].getName();
 		    	} else if (column.id == "hudson-prefs-feeds-url") {
-		    		text = feeds[row].getUrl();
+		    		text = treeFeeds[row].getUrl();
 		    	}
 		    	return text;
 		    }
@@ -27,9 +28,9 @@ PrefMgr.prototype.initView = function() {
 	    },
 	    setCellText : function(row, column, value) {
 	    	if (column.id == "hudson-prefs-feeds-name") {
-	    		feeds[row].setName(value);
+	    		treeFeeds[row].setName(value);
 	    	} else if (column.id == "hudson-prefs-feeds-url") {
-	    		feeds[row].setUrl(value);
+	    		treeFeeds[row].setUrl(value);
 	    	}
 	    },
 	    setTree: function(treebox) { this.treebox = treebox; },
@@ -42,19 +43,11 @@ PrefMgr.prototype.initView = function() {
 	    getCellProperties: function(row, col, props) {},
 	    getColumnProperties: function(colid, col, props) {}
 	};
-    document.getElementById('hudson-prefs-feeds').view = this.treeView;
+    document.getElementById("hudson-prefs-feeds").view = this.treeView;
 }
-PrefMgr.prototype.set = function(debug, successColor, feedStatusType, interval, openPage, size, sound, alert) {
-    this.preferences.setBoolPref("hudson.debug", debug);
-    this.preferences.setCharPref("hudson.successcolor", successColor);
-    this.preferences.setCharPref("hudson.feedstatustype", feedStatusType);
-    this.preferences.setIntPref("hudson.interval", interval);
-    this.preferences.setCharPref("hudson.openpage", openPage);
-    this.preferences.setIntPref("hudson.size", size);
-    this.preferences.setBoolPref("hudson.sound", sound);
-    this.preferences.setBoolPref("hudson.alert", alert);
-    for (var i = 0; i < feeds.length; i++) {
-    	this.setFeed(feeds[i], "");
+PrefMgr.prototype.saveView = function() {
+    for (var i = 0; i < treeFeeds.length; i++) {
+    	this.setFeed(treeFeeds[i], "");
     }
 }
 PrefMgr.prototype.removeFeed = function(feed) {

@@ -1,5 +1,6 @@
 <!ENTITY init.title "Monitor Build Hudson">
 <!ENTITY init.message "Harap mengkonfigurasi feed melalui menu Preferensi.">
+<!ENTITY menu.add.feed "Tambahkan Tautan Di Monitor Build Hudson">
 <!ENTITY menu.preferences "Preferensi">
 <!ENTITY menu.refresh.all "Refresh Semua">
 <!ENTITY prefs.title "Preferensi Monitor Build Hudson">
