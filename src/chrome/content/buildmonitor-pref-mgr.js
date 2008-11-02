@@ -54,13 +54,26 @@ PrefMgr.prototype.set = function(debug, successColor, feedStatusType, interval, 
     this.preferences.setBoolPref("hudson.sound", sound);
     this.preferences.setBoolPref("hudson.alert", alert);
     for (var i = 0; i < feeds.length; i++) {
-    	this.preferences.setCharPref("hudson.feeds." + i + ".name", feeds[i].getName());
-    	this.preferences.setCharPref("hudson.feeds." + i + ".url", feeds[i].getUrl());
-    	this.preferences.setCharPref("hudson.feeds." + i + ".lastfail", "");
+    	this.setFeed(feeds[i], "");
     }
 }
-PrefMgr.prototype.setLastFail = function(feed, date) {
-	this.preferences.setCharPref("hudson.feeds." + feed.getId() + ".lastfail", date);
+PrefMgr.prototype.removeFeed = function(feed) {
+    for (var i = feed.getId(); i < feeds.length - 1; i++) {
+    	feeds[i].setName(feeds[i + 1].getName());
+    	feeds[i].setUrl(feeds[i + 1].getUrl());
+    	this.setFeed(feeds[i], this.getLastFail(feeds[i + 1]));
+    }
+    feeds[feeds.length - 1].clear();
+    this.setFeed(feeds[feeds.length - 1], "");
+}
+PrefMgr.prototype.setFeed = function(feed, lastFail) {
+	var id = feed.getId();
+	this.preferences.setCharPref("hudson.feeds." + id + ".name", feed.getName());
+	this.preferences.setCharPref("hudson.feeds." + id + ".url", feed.getUrl());
+	this.preferences.setCharPref("hudson.feeds." + id + ".lastfail", lastFail);
+}
+PrefMgr.prototype.setLastFail = function(feed, lastFail) {
+	this.preferences.setCharPref("hudson.feeds." + feed.getId() + ".lastfail", lastFail);
 }
 PrefMgr.prototype.getDebug = function() {
     return this.preferences.getBoolPref("hudson.debug");
@@ -98,7 +111,7 @@ PrefMgr.prototype.getFeeds = function() {
 PrefMgr.prototype.getLastFail = function(feed) {
 	return this.preferences.getCharPref("hudson.feeds." + feed.getId() + ".lastfail");
 }
-PrefMgr.prototype.foo = function() {
+PrefMgr.prototype.upgrade = function() {
 	// upgrade from 0.7 or older
 	if (preferences.prefHasUserValue("hudson.url")) {
 		this.preferences.setCharPref("hudson.feeds.0.url", this.preferences.getCharPref("hudson.url"));

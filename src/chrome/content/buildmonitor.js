@@ -20,7 +20,7 @@ var feedMgr = new FeedMgr(uiMgr, notificationMgr, prefMgr);
 var monitor = {
     init: function() {
         logMgr.debug(textMgr.get("monitor.init"));
-        prefMgr.foo();
+        prefMgr.upgrade();
         hudson_schedule();
     },
     run: function() {
@@ -75,6 +75,10 @@ var monitor = {
     process: function(i) {
     	feedMgr.process(feeds[i]);
     },
+    removeFeed: function(i) {
+    	prefMgr.removeFeed(feeds[i]);
+    	uiMgr.removePanel(feeds[i]);
+    },
     goToDashboard: function(i) {
     	hudson_goTo(feeds[i].getUrl().match("^.+/"));
     },
@@ -113,6 +117,9 @@ function hudson_processAll() {
 }
 function hudson_process(i) {
     monitor.process(i);
+}
+function hudson_removeFeed(i) {
+	monitor.removeFeed(i);
 }
 function hudson_goToDashboard(i) {
 	monitor.goToDashboard(i);

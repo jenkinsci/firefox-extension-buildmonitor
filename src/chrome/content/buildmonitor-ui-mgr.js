@@ -149,6 +149,13 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	
 	menupopup.appendChild(document.createElement("menuseparator"));
 
+	var removeMenuItem = document.createElement("menuitem");
+	removeMenuItem.setAttribute("label", textMgr.get("menu.remove") + " [" + feed.getName() + "]");
+	removeMenuItem.setAttribute("oncommand", "hudson_removeFeed(" + feed.getId() + ");");
+	removeMenuItem.setAttribute("class", "menuitem-iconic");
+	removeMenuItem.setAttribute("image", "chrome://buildmonitor/skin/remove.png");
+	menupopup.appendChild(removeMenuItem);
+	
 	var dashboardMenuItem = document.createElement("menuitem");
 	dashboardMenuItem.setAttribute("label", textMgr.get("menu.dashboard") + " [" + feed.getName() + "]");
 	dashboardMenuItem.setAttribute("oncommand", "hudson_goToDashboard(" + feed.getId() + ");");
@@ -188,6 +195,9 @@ UIMgr.prototype.getMenusMenupopupElement = function(feed) {
 }
 UIMgr.prototype.getMenusMenupopupId = function(feed) {
 	return "hudson-menupopup-menus-" + this.getFeedId(feed);
+}
+UIMgr.prototype.removePanel = function(feed) {
+	document.getElementById("hudson-panel-feeds").removeChild(this.getPanelElement(feed));
 }
 UIMgr.prototype.getFeedId = function(feed) {
 	var id = "main";
