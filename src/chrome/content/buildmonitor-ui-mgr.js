@@ -7,11 +7,14 @@ function UIMgr(logMgr, textMgr, prefMgr) {
 	this.prefMgr = prefMgr;
 }
 UIMgr.prototype.initControlMenus = function() {
-	document.getElementById("contentAreaContextMenu").addEventListener("popupshowing", function() {this.setupControlMenus();}, false);
+	var contextMenu = document.getElementById("contentAreaContextMenu");
+	if (contextMenu) {
+		contextMenu.addEventListener("popupshowing", this.setupControlMenus, false);
+	}
 }
 UIMgr.prototype.setupControlMenus = function() {
 	if (gContextMenu) {
-		gContextMenu.showItem("hudson-popup-menus-addfeed", gContextMenu.onLink && !gContextMenu.onMailtoLink);
+		document.getElementById("hudson-context-menu-addfeed").hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink);
 	}
 }
 UIMgr.prototype.initFeedsPanel = function(feeds) {
