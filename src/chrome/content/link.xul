@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://buildmonitor/skin/buildmonitor.css" type="text/css"?>
 <!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
-<overlay id="buildmonitor-overlay"
-         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<dialog xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      onload="hudson_initLink();"
+      ondialogaccept="hudson_saveLink();"
+      buttons="accept,cancel"
+      title="&link.title;">
 
     <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-feed.js"/>
     <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-historybuild.js"/>
@@ -16,35 +22,25 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-notification-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
-
-	<stringbundleset id="stringbundleset">
+	
+	<stringbundleset>
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
 	</stringbundleset>
-	
-	<popup id="contentAreaContextMenu">
-		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_openLink(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
-	</popup>
-	
-	<statusbar id="status-bar">
-		<tooltip id="hudson-tooltip-main" class="info" noautohide="true" maxwidth="1000">
-			<vbox id="buildmonitor-box">
-				<label class="title" value="&init.title;"/>
-				<label value="&init.message;"/>
-			</vbox>
-		</tooltip>
-		<menupopup id="hudson-menupopup-menus-main">
-			<menuitem label="&menu.preferences;" oncommand="hudson_openPreferences();" class="menuitem-iconic" image="chrome://buildmonitor/skin/preferences.png"/>
-			<menuitem label="&menu.refresh.all;" oncommand="hudson_run();" class="menuitem-iconic" image="chrome://buildmonitor/skin/refreshall.png"/>
-		</menupopup>
-		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="hudson-tooltip-main" context="hudson-menupopup-menus-main"/>
-		<div id="hudson-tooltip-feeds">
-		</div>
-		<div id="hudson-menupopup-builds-feeds">
-		</div>
-		<div id="hudson-menupopup-menus-feeds">
-		</div>
-		<div id="hudson-panel-feeds">
-		</div>
-	</statusbar>
 
-</overlay>
+	<vbox id="hudson-link-add">
+		<hbox>
+			<vbox>
+				<label value="&link.url;"/>
+				<label value="&link.name;" tooltiptext="&link.help.name;"/>
+			</vbox>
+			<vbox>
+				<label id="hudson-link-url"/>
+				<textbox id="hudson-link-name" size="25"/>
+			</vbox>
+		</hbox>
+	</vbox>
+	<vbox id="hudson-link-full">
+		<label value="&link.full.1;"/>
+		<label value="&link.full.2;"/>
+	</vbox>
+</dialog>

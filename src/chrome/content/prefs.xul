@@ -17,6 +17,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-pref-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-date-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-log-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-link-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-ui-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-feed-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-notification-mgr.js"/>
@@ -37,9 +38,6 @@
 	    	<preference id="hudson-prefs-size" name="hudson.size" type="int"/>
 	    	<preference id="hudson-prefs-sound" name="hudson.sound" type="bool"/>
 	    	<preference id="hudson-prefs-alert" name="hudson.alert" type="bool"/>
-	    	<preference id="hudson-pref-feeds-0-name" name="hudson.feeds.0.name" type="string"/>
-	    	<preference id="hudson-pref-feeds-0-url" name="hudson.feeds.0.url" type="string"/>
-	    	<preference id="hudson-pref-feeds-0-lastfail" name="hudson.feeds.0.lastfail" type="string"/>
 		</preferences>
 		<groupbox>
 			<caption label="&prefs.group.feeds;"/>

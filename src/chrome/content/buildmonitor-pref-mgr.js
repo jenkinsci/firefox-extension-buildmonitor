@@ -50,6 +50,30 @@ PrefMgr.prototype.saveView = function() {
     	this.setFeed(treeFeeds[i], "");
     }
 }
+PrefMgr.prototype.getEmptyFeedIndex = function() {
+	var emptyFeedIndex = -1;
+	for (var i = 0; i < feeds.length; i++) {
+		if (feeds[i].isEmpty()) {
+			emptyFeedIndex = i;
+			break;
+		}
+	}
+	return emptyFeedIndex;
+}
+PrefMgr.prototype.addFeed = function(name, url) {
+	var feed = null;
+	var i = this.getEmptyFeedIndex();
+	if (i != -1) {
+		feeds[i].setName(name);
+		feeds[i].setUrl(url);
+		this.setFeed(feeds[i], "");
+		feed = feeds[i];
+	}
+	return feed;
+}
+PrefMgr.prototype.iCanHazFeedburger = function() {
+	return (this.getEmptyFeedIndex() != -1);
+}
 PrefMgr.prototype.removeFeed = function(feed) {
     for (var i = feed.getId(); i < feeds.length - 1; i++) {
     	feeds[i].setName(feeds[i + 1].getName());

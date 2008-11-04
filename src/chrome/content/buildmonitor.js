@@ -13,6 +13,7 @@ var prefMgr = new PrefMgr(preferences);
 var logMgr = new LogMgr(console, prefMgr, dateMgr);
 var uiMgr = new UIMgr(logMgr, textMgr, prefMgr);
 var feedMgr = new FeedMgr(uiMgr, notificationMgr, prefMgr);
+var linkMgr = new LinkMgr(uiMgr, feedMgr, prefMgr);
 
 /*****************************************************************
  * Build Monitor main functionalities, interfaces with the manager classes.
@@ -21,7 +22,7 @@ var monitor = {
     init: function() {
         logMgr.debug(textMgr.get("monitor.init"));
         prefMgr.upgrade();
-        uiMgr.initControlMenus();
+        linkMgr.initMenu();
         hudson_schedule();
     },
     run: function() {
@@ -34,6 +35,15 @@ var monitor = {
 		var interval = prefMgr.getInterval();
 		logMgr.debug(textMgr.get("monitor.schedule", [interval]));
 		setTimeout("hudson_schedule()", interval * 60 * 1000);
+    },
+    openLink: function(url) {
+    	window.openDialog('chrome://buildmonitor/content/link.xul', 'link', 'centerscreen,chrome,modal', url);
+    },
+    initLink: function() {
+    	linkMgr.initLink();
+    },
+    saveLink: function() {
+    	linkMgr.saveLink();
     },
     openPrefs: function() {
     	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
@@ -76,6 +86,15 @@ function hudson_run() {
 }
 function hudson_schedule() {
     monitor.schedule();
+}
+function hudson_openLink(url) {
+	monitor.openLink(url);
+}
+function hudson_initLink() {
+	monitor.initLink();
+}
+function hudson_saveLink() {
+	monitor.saveLink();
 }
 function hudson_openPreferences() {
 	monitor.openPrefs();

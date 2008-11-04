@@ -6,62 +6,52 @@ function UIMgr(logMgr, textMgr, prefMgr) {
 	this.textMgr = textMgr;
 	this.prefMgr = prefMgr;
 }
-UIMgr.prototype.initControlMenus = function() {
-	var contextMenu = document.getElementById("contentAreaContextMenu");
-	if (contextMenu) {
-		contextMenu.addEventListener("popupshowing", this.setupControlMenus, false);
-	}
-}
-UIMgr.prototype.setupControlMenus = function() {
-	if (gContextMenu) {
-		document.getElementById("hudson-context-menu-addfeed").hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink);
-	}
-}
 UIMgr.prototype.initFeedsPanel = function(feeds) {
-	
-	var feedsPanel = document.getElementById("hudson-panel-feeds");
-	var feedsTooltip = document.getElementById("hudson-tooltip-feeds");
-	var feedsBuildsMenupopup = document.getElementById("hudson-menupopup-builds-feeds");
-	var feedsPrefsMenupopup = document.getElementById("hudson-menupopup-menus-feeds");
-	
-	this.clear(feedsPanel);
-	this.clear(feedsTooltip);
-	this.clear(feedsBuildsMenupopup);
-	this.clear(feedsPrefsMenupopup);
+
+	this.feedsPanel = document.getElementById("hudson-panel-feeds");
+	this.feedsTooltip = document.getElementById("hudson-tooltip-feeds");
+	this.feedsBuildsMenupopup = document.getElementById("hudson-menupopup-builds-feeds");
+	this.feedsPrefsMenupopup = document.getElementById("hudson-menupopup-menus-feeds");
+		
+	this.clear(this.feedsPanel);
+	this.clear(this.feedsTooltip);
+	this.clear(this.feedsBuildsMenupopup);
+	this.clear(this.feedsPrefsMenupopup);
 	
     for(var i = 0; i < feeds.length; i++) {
-    
     	if (!feeds[i].isIgnored()) {
-	
-			var prefsMenupopup = document.createElement("menupopup");
-			prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feeds[i]));
-			feedsPrefsMenupopup.appendChild(prefsMenupopup);
-			
-			var buildsMenupopup = document.createElement("menupopup");
-			buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(feeds[i]));
-			buildsMenupopup.setAttribute("class", "info");
-			feedsBuildsMenupopup.appendChild(buildsMenupopup);
-			
-			var tooltip = document.createElement("tooltip");
-			tooltip.setAttribute("id", this.getTooltipId(feeds[i]));
-			tooltip.setAttribute("class", "info");
-			tooltip.setAttribute("noautohide", "true");
-			tooltip.setAttribute("maxwidth", "1000");
-			feedsTooltip.appendChild(tooltip);
-					
-			var panel = document.createElement("statusbarpanel");
-			panel.setAttribute("id", this.getPanelId(feeds[i]));
-			panel.setAttribute("class", "statusbarpanel-iconic-text");
-			panel.setAttribute("label", feeds[i].getName());
-			panel.setAttribute("popup", "buildmonitor-builds");
-			panel.setAttribute("context", "buildmonitor-menu");
-			panel.setAttribute("tooltip", "buildmonitor-tooltip");
-			feedsPanel.appendChild(panel);
-			this.setStatusQueued(feeds[i]);
-			
-			this.setPrefsMenupopup(feeds[i]);
+			this.addFeedPanel(feeds[i]);
 		}
     }
+}
+UIMgr.prototype.addFeedPanel = function(feed) {
+	var prefsMenupopup = document.createElement("menupopup");
+	prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feed));
+	this.feedsPrefsMenupopup.appendChild(prefsMenupopup);
+	
+	var buildsMenupopup = document.createElement("menupopup");
+	buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(feed));
+	buildsMenupopup.setAttribute("class", "info");
+	this.feedsBuildsMenupopup.appendChild(buildsMenupopup);
+	
+	var tooltip = document.createElement("tooltip");
+	tooltip.setAttribute("id", this.getTooltipId(feed));
+	tooltip.setAttribute("class", "info");
+	tooltip.setAttribute("noautohide", "true");
+	tooltip.setAttribute("maxwidth", "1000");
+	this.feedsTooltip.appendChild(tooltip);
+			
+	var panel = document.createElement("statusbarpanel");
+	panel.setAttribute("id", this.getPanelId(feed));
+	panel.setAttribute("class", "statusbarpanel-iconic-text");
+	panel.setAttribute("label", feed.getName());
+	panel.setAttribute("popup", "buildmonitor-builds");
+	panel.setAttribute("context", "buildmonitor-menu");
+	panel.setAttribute("tooltip", "buildmonitor-tooltip");
+	this.feedsPanel.appendChild(panel);
+	this.setStatusQueued(feed);
+	
+	this.setPrefsMenupopup(feed);
 }
 UIMgr.prototype.setStatusQueued = function(feed) {
 	this.setPanel("queued", feed);

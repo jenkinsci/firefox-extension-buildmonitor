@@ -32,3 +32,10 @@ Feed.prototype.isIgnored = function() {
 	}
 	return isIgnored;
 }
+Feed.prototype.isEmpty = function() {
+	var isEmpty = false;
+	if ((this.name == null || this.name.length == 0) && (this.url == null || this.url.length == 0)) {
+		isEmpty = true;
+	}
+	return isEmpty;
+}

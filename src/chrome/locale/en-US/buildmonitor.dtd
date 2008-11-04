@@ -1,9 +1,15 @@
 <!ENTITY init.title "Hudson Build Monitor">
 <!ENTITY init.message "Please configure the feeds via Preferences menu.">
-<!ENTITY menu.add.feed "Add Link To Hudson Build Monitor">
+<!ENTITY menu.add.link "Add Link To Hudson Build Monitor">
 <!ENTITY menu.preferences "Preferences">
 <!ENTITY menu.refresh.all "Refresh All">
-<!ENTITY prefs.title "Hudson Build Monitor preferences">
+<!ENTITY link.title "Add link to Hudson Build Monitor">
+<!ENTITY link.url "URL">
+<!ENTITY link.name "Name">
+<!ENTITY link.help.name "Name will be displayed on status bar next to the feed status icon.">
+<!ENTITY link.full.1 "Unable to add link to Hudson Build Monitor.">
+<!ENTITY link.full.2 "Please remove one of the existing feeds.">
+<!ENTITY prefs.title "">
 <!ENTITY prefs.feeds.name "Name">
 <!ENTITY prefs.feeds.url "Feed URL">
 <!ENTITY prefs.successcolor.1 "Use">
