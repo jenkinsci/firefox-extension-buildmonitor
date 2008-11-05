@@ -57,6 +57,19 @@ TreeMgr.prototype.saveView = function() {
     	prefMgr.setFeed(treeFeeds[i], "");
     }
 }
+TreeMgr.prototype.updateView = function(event) {
+	var tree = document.getElementById("hudson-prefs-feeds");
+	var tbo = tree.treeBoxObject;
+
+	var row = { }, col = { }, child = { };
+	tbo.getCellAt(event.clientX, event.clientY, row, col, child);
+
+	var cellText = tree.view.getCellText(row.value, col.value);
+	//alert("row value: " + row.value + ", column value:" + col.value + ", column id: " + col.value.id + ", text: " + cellText);
+	if (col.value.id == "hudson-prefs-feeds-remove" && !treeFeeds[row.value].isIgnored()) {
+		hudson_removeFeedFromView(row.value);
+	}
+}
 TreeMgr.prototype.removeFeedFromView = function(index) {
     for (var i = index; i < treeFeeds.length - 1; i++) {
     	treeFeeds[i].setName(treeFeeds[i + 1].getName());

@@ -8,7 +8,7 @@
 	windowtype="" 
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
 	buttons="accept,cancel"
-	ondialogaccept="hudson_savePreferences();"
+	ondialogaccept="hudson_saveView();"
 	title="&prefs.title;">
   
     <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-feed.js"/>
@@ -26,24 +26,11 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-prefs.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
 
-<script>
-function handleTree(event){
-	var tree = document.getElementById("hudson-prefs-feeds");
-	var tbo = tree.treeBoxObject;
-
-	var row = { }, col = { }, child = { };
-	tbo.getCellAt(event.clientX, event.clientY, row, col, child);
-
-	var cellText = tree.view.getCellText(row.value, col.value);
-	//alert("row value: " + row.value + ", column value:" + col.value + ", text: "+cellText);
-	hudson_removeFeedFromView(row.value);
-}
-</script>
 	<stringbundleset id="stringbundleset">
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
 	</stringbundleset>
 	
-	<prefpane id="hudson-prefpane" onpaneload="hudson_initPreferences();">
+	<prefpane id="hudson-prefpane" onpaneload="hudson_initView();">
 		<preferences>
 			<preference id="hudson-prefs-debug" name="hudson.debug" type="bool"/>
 	    	<preference id="hudson-prefs-successcolor" name="hudson.successcolor" type="string"/>
@@ -57,10 +44,10 @@ function handleTree(event){
 		<groupbox>
 			<caption label="&prefs.group.feeds;"/>
 			<vbox>
-				<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="handleTree(event);">
+				<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="hudson_updateView(event);">
 					<treecols>
-						<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="2" tooltiptext="&prefs.help.feeds.name;"/>
-						<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="6" tooltiptext="&prefs.help.feeds.url;"/>
+						<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
+						<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>
 						<treecol id="hudson-prefs-feeds-remove" label="" flex="1"/>
 					</treecols>
 					<treechildren/>
