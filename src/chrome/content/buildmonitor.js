@@ -54,6 +54,9 @@ var monitor = {
     savePrefs: function() {
     	prefMgr.saveView();
     },
+    removeFeedFromView: function(i) {
+    	prefMgr.removeFeedFromView(i);
+    },
     processAll: function() {
     	feedMgr.processAll(feeds);
     },
@@ -105,6 +108,9 @@ function hudson_initPreferences() {
 function hudson_savePreferences() {
     monitor.savePrefs();
     return true;
+}
+function hudson_removeFeedFromView(i) {
+    monitor.removeFeedFromView(i);
 }
 function hudson_processAll() {
     monitor.processAll();

@@ -14,7 +14,7 @@ PrefMgr.prototype.initView = function() {
 	    rowCount : NUM_OF_FEEDS,
 	    getCellText : function(row, column) {
 	    	if (row < treeFeeds.length) {
-		    	var text = "???";
+		    	var text = null;
 		    	if (column.id == "hudson-prefs-feeds-name") {
 		    		text = treeFeeds[row].getName();
 		    	} else if (column.id == "hudson-prefs-feeds-url") {
@@ -38,7 +38,14 @@ PrefMgr.prototype.initView = function() {
 	    isSeparator: function(row) { return false; },
 	    isSorted: function() { return false; },
 	    getLevel: function(row) { return 0; },
-	    getImageSrc: function(row, col) { return null; },
+	    getImageSrc: function(row, column) {
+	    	var imageSrc = null;
+	    	var url = treeFeeds[row].getUrl();
+	    	if (column.id == "hudson-prefs-feeds-remove" && url != null && url.length > 0) {
+	    		imageSrc = "chrome://buildmonitor/skin/remove.png";
+	    	}
+	    	return imageSrc;
+	    },
 	    getRowProperties: function(row, props) {},
 	    getCellProperties: function(row, col, props) {},
 	    getColumnProperties: function(colid, col, props) {}
@@ -49,6 +56,13 @@ PrefMgr.prototype.saveView = function() {
     for (var i = 0; i < treeFeeds.length; i++) {
     	this.setFeed(treeFeeds[i], "");
     }
+}
+PrefMgr.prototype.removeFeedFromView = function(index) {
+    for (var i = index; i < treeFeeds.length - 1; i++) {
+    	treeFeeds[i].setName(treeFeeds[i + 1].getName());
+    	treeFeeds[i].setUrl(treeFeeds[i + 1].getUrl());
+    }
+    treeFeeds[treeFeeds.length - 1].clear();
 }
 PrefMgr.prototype.getEmptyFeedIndex = function() {
 	var emptyFeedIndex = -1;
