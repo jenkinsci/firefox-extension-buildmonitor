@@ -48,7 +48,7 @@
 					<treecols>
 						<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
 						<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>
-						<treecol id="hudson-prefs-feeds-remove" label="" flex="1"/>
+						<treecol id="hudson-prefs-feeds-remove" label="" flex="1" tooltiptext="&prefs.help.feeds.remove;"/>
 					</treecols>
 					<treechildren/>
 				</tree>

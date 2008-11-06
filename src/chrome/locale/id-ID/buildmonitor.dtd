@@ -34,6 +34,7 @@
 <!ENTITY prefs.group.misc "Lain-lain">
 <!ENTITY prefs.help.feeds.name "Nama feed yang akan ditampilkan di statusbar dan tooltip.">
 <!ENTITY prefs.help.feeds.url "URL feed Hudson yang ingin anda monitor, anda dapat menemukan URL ini di halaman dashboard Hudson.">
+<!ENTITY prefs.help.feeds.remove "Hapus feed dari preferensi.">
 <!ENTITY prefs.help.successcolor "Warna yang digunakan untuk menandakan build sukses, Hudson menggunakan biru sebagai default.">
 <!ENTITY prefs.help.feedstatustype "Ikon yang akan ditampilkan di status bar Firefox. Kesehatan feed akan menggunakan ikon cuaca yang menandakan kesehatan dari keseluruhan feed. Build terkini menggunakan ikon bola dengan warna yang mengindikasikan status build.">
 <!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">
