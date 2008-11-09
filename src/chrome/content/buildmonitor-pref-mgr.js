@@ -17,15 +17,12 @@ PrefMgr.prototype.getEmptyFeedIndex = function() {
 	return emptyFeedIndex;
 }
 PrefMgr.prototype.addFeed = function(name, url) {
-	var feed = null;
 	var i = this.getEmptyFeedIndex();
 	if (i != -1) {
 		feeds[i].setName(name);
 		feeds[i].setUrl(url);
 		this.setFeed(feeds[i], "");
-		feed = feeds[i];
 	}
-	return feed;
 }
 PrefMgr.prototype.iCanHazFeedburger = function() {
 	return (this.getEmptyFeedIndex() != -1);

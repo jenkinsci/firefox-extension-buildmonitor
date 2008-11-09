@@ -8,7 +8,7 @@
 	windowtype="" 
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
 	buttons="accept,cancel"
-	ondialogaccept="hudson_saveView();"
+	ondialogaccept="hudson_saveView(); hudson_refreshStatusBar();"
 	title="&prefs.title;">
   
     <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-feed.js"/>

@@ -23,7 +23,7 @@ LinkMgr.prototype.initLink = function() {
 		document.getElementById("hudson-link-full").hidden = true;
 		document.getElementById("hudson-link-add").hidden = false;
 		
-		var url = window.arguments[0];
+		var url = window.arguments[1];
 		document.getElementById("hudson-link-name").value = this.getNameRecommendation(url);
 		document.getElementById("hudson-link-url").value = url;
 	} else {
@@ -34,11 +34,7 @@ LinkMgr.prototype.initLink = function() {
 LinkMgr.prototype.saveLink = function() {
 	var name = document.getElementById("hudson-link-name").value;
 	var url = document.getElementById("hudson-link-url").value;
-	var feed = prefMgr.addFeed(name, url);
-	if (feed != null) {
-		//uiMgr.addFeedPanel(feed);
-		//feedMgr.process(feed);
-	}	
+	prefMgr.addFeed(name, url);
 }
 LinkMgr.prototype.getNameRecommendation = function(url) {
 	var name = "";

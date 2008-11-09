@@ -19,10 +19,10 @@ function hudson_schedule() {
 	setTimeout("hudson_schedule()", interval * 60 * 1000);
 }
 function hudson_openLink(url) {
-	window.openDialog('chrome://buildmonitor/content/link.xul', 'link', 'centerscreen,chrome,modal', url);
+	window.openDialog('chrome://buildmonitor/content/link.xul', 'link', 'centerscreen,chrome,modal', this, url);
 }
 function hudson_openPreferences() {
-	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal');
+	window.openDialog('chrome://buildmonitor/content/prefs.xul', 'prefs', 'centerscreen,chrome,modal', this);
 }
 function hudson_processAll() {
     feedMgr.processAll(feeds);

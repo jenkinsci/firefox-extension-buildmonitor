@@ -14,3 +14,7 @@ function hudson_updateView(event) {
 function hudson_removeFeedFromView(i) {
 	treeMgr.removeFeedFromView(i);
 }
+function hudson_refreshStatusBar() {
+	var parent = window.arguments[0];
+	parent.hudson_run();
+}
