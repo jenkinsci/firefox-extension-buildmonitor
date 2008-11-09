@@ -35,6 +35,8 @@
 <!ENTITY prefs.help.feeds.name "The feed name that will be displayed on the status bar and tooltips.">
 <!ENTITY prefs.help.feeds.url "The URL of the Hudson feed that you want to monitor, you can find this URL from Hudson dashboard/job pages.">
 <!ENTITY prefs.help.feeds.remove "Remove the feed from preferences.">
+<!ENTITY prefs.help.feeds.up "Move up.">
+<!ENTITY prefs.help.feeds.down "Move down.">
 <!ENTITY prefs.help.successcolor "The color used for successful build, by default Hudson uses blue.">
 <!ENTITY prefs.help.feedstatustype "The icon to display on Firefox statusbar. Feed health uses weather icon to indicate the overall health of the feed. Latest build uses the orb icon with the color indicating the build status.">
 <!ENTITY prefs.help.interval "How often do you want the add-on to check the feed, value is in minutes.">

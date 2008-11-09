@@ -24,7 +24,11 @@ TreeMgr.prototype.initView = function() {
 		    }
 	    },
 	    isEditable: function isEditable(row, column) {
-    		return true;
+    		var isEditable = true;
+    		if (column.id == "hudson-prefs-feeds-remove" || column.id == "hudson-prefs-feeds-up" || column.id == "hudson-prefs-feeds-down") {
+	    		isEditable = false;
+	    	}
+	    	return isEditable;
 	    },
 	    setCellText : function(row, column, value) {
 	    	if (column.id == "hudson-prefs-feeds-name") {
@@ -43,6 +47,10 @@ TreeMgr.prototype.initView = function() {
 	    	var url = treeFeeds[row].getUrl();
 	    	if (column.id == "hudson-prefs-feeds-remove" && url != null && url.length > 0) {
 	    		imageSrc = "chrome://buildmonitor/skin/remove.png";
+	    	} else if (column.id == "hudson-prefs-feeds-up" && url != null && url.length > 0 && row > 0) {
+	    		imageSrc = "chrome://buildmonitor/skin/up.png";
+	    	} else if (column.id == "hudson-prefs-feeds-down" && url != null && url.length > 0 && row < NUM_OF_FEEDS - 1) {
+	    		imageSrc = "chrome://buildmonitor/skin/down.png";
 	    	}
 	    	return imageSrc;
 	    },
@@ -67,13 +75,25 @@ TreeMgr.prototype.updateView = function(event) {
 	var cellText = tree.view.getCellText(row.value, col.value);
 	//alert("row value: " + row.value + ", column value:" + col.value + ", column id: " + col.value.id + ", text: " + cellText);
 	if (col.value.id == "hudson-prefs-feeds-remove" && !treeFeeds[row.value].isIgnored()) {
-		hudson_removeFeedFromView(row.value);
+		this.removeFeed(row.value);
+	} else if (col.value.id == "hudson-prefs-feeds-up" && !treeFeeds[row.value].isIgnored() && row.value > 0) {
+		this.swapFeeds(row.value - 1, row.value);
+	} else if (col.value.id == "hudson-prefs-feeds-down" && !treeFeeds[row.value].isIgnored() && row.value < NUM_OF_FEEDS - 1) {
+		this.swapFeeds(row.value, row.value + 1);
 	}
 }
-TreeMgr.prototype.removeFeedFromView = function(index) {
+TreeMgr.prototype.removeFeed = function(index) {
     for (var i = index; i < treeFeeds.length - 1; i++) {
     	treeFeeds[i].setName(treeFeeds[i + 1].getName());
     	treeFeeds[i].setUrl(treeFeeds[i + 1].getUrl());
     }
     treeFeeds[treeFeeds.length - 1].clear();
+}
+TreeMgr.prototype.swapFeeds = function(index1, index2) {
+	var tempName = treeFeeds[index1].getName();
+	var tempUrl = treeFeeds[index1].getUrl();
+	treeFeeds[index1].setName(treeFeeds[index2].getName());
+	treeFeeds[index1].setUrl(treeFeeds[index2].getUrl());
+	treeFeeds[index2].setName(tempName);
+	treeFeeds[index2].setUrl(tempUrl);
 }
