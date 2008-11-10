@@ -35,6 +35,8 @@
 <!ENTITY prefs.help.feeds.name "ステータスバーやツールチップに表示するフィード名。">
 <!ENTITY prefs.help.feeds.url "モニターするHudsonのフィードのURL。Hudsonのダッシュボードやジョブ画面にあります。">
 <!ENTITY prefs.help.feeds.remove "設定からフィードを削除します。">
+<!ENTITY prefs.help.feeds.up "上へ移動">
+<!ENTITY prefs.help.feeds.down "下に移動">
 <!ENTITY prefs.help.successcolor "成功したビルドを表す色です。Hudsonではデフォルトで青を使用します。">
 <!ENTITY prefs.help.feedstatustype "Firefoxのステータスバーに表示するアイコンです。天気予報はフィード全体の状態を天気予報のアイコンで表示します。ステータスはビルドのステータスを球の色で表示します。">
 <!ENTITY prefs.help.interval "フィードをチェックする間隔(分)です。">
