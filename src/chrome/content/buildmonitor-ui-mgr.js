@@ -163,7 +163,16 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	dashboardMenuItem.setAttribute("class", "menuitem-iconic");
 	dashboardMenuItem.setAttribute("image", "chrome://buildmonitor/skin/dashboard.png");
 	menupopup.appendChild(dashboardMenuItem);
-		
+	
+	if (feed.isJob()) {
+		var buildMenuItem = document.createElement("menuitem");
+		buildMenuItem.setAttribute("label", textMgr.get("menu.build") + " [" + feed.getName() + "]");
+		buildMenuItem.setAttribute("oncommand", "hudson_build(" + feed.getId() + ");");
+		buildMenuItem.setAttribute("class", "menuitem-iconic");
+		buildMenuItem.setAttribute("image", "chrome://buildmonitor/skin/build.png");
+		menupopup.appendChild(buildMenuItem);
+	}
+			
 	var refreshMenuitem = document.createElement("menuitem");
 	refreshMenuitem.setAttribute("label", textMgr.get("menu.refresh") + " [" + feed.getName() + "]");
 	refreshMenuitem.setAttribute("oncommand", "hudson_process(" + feed.getId() + ");");

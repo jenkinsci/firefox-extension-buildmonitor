@@ -39,3 +39,10 @@ Feed.prototype.isEmpty = function() {
 	}
 	return isEmpty;
 }
+Feed.prototype.isJob = function() {
+	var isJob = false;
+	if (this.url.match("/job/")) {
+		isJob = true;
+	}
+	return isJob;
+}

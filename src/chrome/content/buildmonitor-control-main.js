@@ -37,6 +37,9 @@ function hudson_removeFeed(i) {
 function hudson_goToDashboard(i) {
 	hudson_goTo(feeds[i].getUrl().match("^.+/"));
 }
+function hudson_build(i) {
+	hudson_goTo(new String(feeds[i].getUrl().match(".*/job/[^/]+")) + "/build?delay=0sec");
+}
 function hudson_goTo(url) {
 	if (prefMgr.getOpenPage() == "newtab") {
 		getBrowser().addTab(url);
