@@ -44,7 +44,9 @@ UIMgr.prototype.addFeedPanel = function(feed) {
 	var panel = document.createElement("statusbarpanel");
 	panel.setAttribute("id", this.getPanelId(feed));
 	panel.setAttribute("class", "statusbarpanel-iconic-text");
-	panel.setAttribute("label", feed.getName());
+	if (!this.prefMgr.getHideName()) {
+		panel.setAttribute("label", feed.getName());
+	}
 	panel.setAttribute("popup", "buildmonitor-builds");
 	panel.setAttribute("context", "buildmonitor-menu");
 	panel.setAttribute("tooltip", "buildmonitor-tooltip");

@@ -28,6 +28,7 @@
 <!ENTITY prefs.debug "Aktifkan debug">
 <!ENTITY prefs.sound "Aktifkan suara">
 <!ENTITY prefs.alert "Aktifkan alert">
+<!ENTITY prefs.hidename "Sembunyikan nama feed di status bar">
 <!ENTITY prefs.group.feeds "Feed">
 <!ENTITY prefs.group.display "Tampilan">
 <!ENTITY prefs.group.notification "Notifikasi">
@@ -45,3 +46,4 @@
 <!ENTITY prefs.help.debug "Jika checkbox ditandai, maka pesan debug akan ditulis ke Firefox Error Console.">
 <!ENTITY prefs.help.sound "Jika diaktifkan, notifikasi suara akan dimainkan jika ada build yang gagal.">
 <!ENTITY prefs.help.alert "Tampilkan window alert di ujung kanan bawah desktop anda, dengan informasi tentang build yang gagal.">
+<!ENTITY prefs.help.hidename "Dengan menyembunyikan nama feed, anda hanya akan melihat ikon di status bar. Berguna bila anda memonitor banyak feed.">

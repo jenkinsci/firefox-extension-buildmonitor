@@ -6,6 +6,7 @@ pref("hudson.openpage", "newtab");
 pref("hudson.size", 20);
 pref("hudson.sound", false);
 pref("hudson.alert", true);
+pref("hudson.hidename", false);
 pref("hudson.feeds.0.name", "");
 pref("hudson.feeds.0.url", "");
 pref("hudson.feeds.0.lastfail", "");

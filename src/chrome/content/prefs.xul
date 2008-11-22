@@ -40,6 +40,7 @@
 	    	<preference id="hudson-prefs-size" name="hudson.size" type="int"/>
 	    	<preference id="hudson-prefs-sound" name="hudson.sound" type="bool"/>
 	    	<preference id="hudson-prefs-alert" name="hudson.alert" type="bool"/>
+	    	<preference id="hudson-prefs-hidename" name="hudson.hidename" type="bool"/>
 		</preferences>
 		<groupbox>
 			<caption label="&prefs.group.feeds;"/>
@@ -86,6 +87,10 @@
 						</menupopup>
 					</menulist>
 					<label value="&prefs.successcolor.2;" tooltiptext="&prefs.help.successcolor;"/>
+				</hbox>
+				<hbox>
+					<checkbox id="buildmonitor-prefs-hidename" checked="false" preference="hudson-prefs-hidename"/>
+					<label value="&prefs.hidename;" tooltiptext="&prefs.help.hidename;"/>
 				</hbox>
 			</vbox>
 		</groupbox>

@@ -28,6 +28,7 @@
 <!ENTITY prefs.debug "Enable debug">
 <!ENTITY prefs.sound "Enable sound">
 <!ENTITY prefs.alert "Enable alert">
+<!ENTITY prefs.hidename "Hide feed name on status bar">
 <!ENTITY prefs.group.feeds "Feeds">
 <!ENTITY prefs.group.display "Display">
 <!ENTITY prefs.group.notification "Notification">
@@ -45,3 +46,4 @@
 <!ENTITY prefs.help.debug "Ticking the checkbox allows debug messages to be written to Firefox Error Console.">
 <!ENTITY prefs.help.sound "When activated, sound notification will be played when there's a build failure.">
 <!ENTITY prefs.help.alert "Displays alert window at the bottom right corner of your desktop, showing the failure build information.">
+<!ENTITY prefs.help.hidename "By hiding feed name, you'll only see the icons on the status bar. Handy when you're monitoring many feeds.">

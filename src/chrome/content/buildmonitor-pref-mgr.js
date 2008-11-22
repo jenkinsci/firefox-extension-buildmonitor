@@ -69,6 +69,9 @@ PrefMgr.prototype.getSound = function() {
 PrefMgr.prototype.getAlert = function() {
     return this.preferences.getBoolPref("hudson.alert");
 }
+PrefMgr.prototype.getHideName = function() {
+    return this.preferences.getBoolPref("hudson.hidename");
+}
 PrefMgr.prototype.getFeeds = function() {
 	var feeds = new Array();
     for (var i = 0; i < NUM_OF_FEEDS; i++) {
