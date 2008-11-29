@@ -2,11 +2,12 @@
 
 	<property name="package.name" value="buildmonitor"/>
 	<property name="source.dir" value="src"/>
-	<property name="stage.dir" value="stage"/>
-	<property name="version" value="0.9.1"/>
+	<property name="dist.dir" value="dist"/>
+	<property name="stage.dir" value="dist/stage"/>
+	<property name="version" value="0.9.2"/>
 
 	<target name="clean">
-		<delete dir="${stage.dir}"/>
+		<delete dir="${dist.dir}"/>
 	</target>
 	<target name="package">
 		<mkdir dir="${stage.dir}"/>
@@ -14,7 +15,7 @@
 			<fileset dir="${source.dir}" excludes="chrome/*/"/>
 		</copy>
 		<zip destfile="${stage.dir}/chrome/buildmonitor.jar" basedir="${source.dir}/chrome"/>
-		<zip destfile="${stage.dir}/${package.name}-${version}.xpi" basedir="${stage.dir}"/>
+		<zip destfile="${dist.dir}/${package.name}-${version}.xpi" basedir="${stage.dir}"/>
 	</target>
 
 </project>
