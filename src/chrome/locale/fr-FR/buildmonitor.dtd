@@ -29,6 +29,7 @@
 <!ENTITY prefs.sound "Activer le son">
 <!ENTITY prefs.alert "Activer les alertes">
 <!ENTITY prefs.hidename "Cacher le nom du flux dans la barre de statut">
+<!ENTITY prefs.executor "TODO">
 <!ENTITY prefs.group.feeds "Flux">
 <!ENTITY prefs.group.display "Affiche">
 <!ENTITY prefs.group.notification "Notification">
@@ -47,3 +48,4 @@
 <!ENTITY prefs.help.sound "Quand c'est activé, la notification sonore sera jouée à chaque échec de build.">
 <!ENTITY prefs.help.alert "Affiche une fenêtre d'alerte en bas à droite de votre bureau, indiquant les informations sur le build en échec.">
 <!ENTITY prefs.help.hidename "Si vous cachez le nom du flux, vous ne verrez plus que des icônes sur la barre de statut. Utile when vous suivez de nombreux flux.">
+<!ENTITY prefs.help.executor "TODO">

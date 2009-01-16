@@ -41,6 +41,7 @@
 	    	<preference id="hudson-prefs-sound" name="hudson.sound" type="bool"/>
 	    	<preference id="hudson-prefs-alert" name="hudson.alert" type="bool"/>
 	    	<preference id="hudson-prefs-hidename" name="hudson.hidename" type="bool"/>
+	    	<preference id="hudson-prefs-executor" name="hudson.executor" type="bool"/>
 		</preferences>
 		<groupbox>
 			<caption label="&prefs.group.feeds;"/>
@@ -58,6 +59,10 @@
 				<hbox>
 					<textbox id="buildmonitor-prefs-interval" size="3" preference="hudson-prefs-interval"/>
 					<label value="&prefs.interval;" tooltiptext="&prefs.help.interval;"/>
+				</hbox>
+				<hbox>
+					<checkbox id="buildmonitor-prefs-executor" checked="false" preference="hudson-prefs-executor"/>
+					<label value="&prefs.executor;" tooltiptext="&prefs.help.executor;"/>
 				</hbox>
 			</vbox>
 		</groupbox>
