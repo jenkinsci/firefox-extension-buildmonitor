@@ -1,5 +1,6 @@
 ﻿<!ENTITY init.title "Hudson Build Monitor">
-<!ENTITY init.message "Veuillez configurer les flux par le menu des Préférences.">
+<!ENTITY init.message.1 "Veuillez configurer les flux par le menu des Préférences.">
+<!ENTITY init.message.2 "TODO">
 <!ENTITY menu.add.link "Ajouter un lien vers Hudson Build Monitor">
 <!ENTITY menu.preferences "Préférences">
 <!ENTITY menu.refresh.all "Tout rafraîchir">

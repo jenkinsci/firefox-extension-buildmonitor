@@ -1,5 +1,6 @@
 <!ENTITY init.title "Hudsonビルドモニター">
-<!ENTITY init.message "メニューの設定でフィードを設定してください。">
+<!ENTITY init.message.1 "メニューの設定でフィードを設定してください。">
+<!ENTITY init.message.2 "">
 <!ENTITY menu.add.link "Hudsonビルドモニターにリンクを追加">
 <!ENTITY menu.preferences "設定">
 <!ENTITY menu.refresh.all "すべてをリフレッシュ">

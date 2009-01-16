@@ -31,7 +31,8 @@
 		<tooltip id="hudson-tooltip-main" class="info" noautohide="true" maxwidth="1000">
 			<vbox id="buildmonitor-box">
 				<label class="title" value="&init.title;"/>
-				<label value="&init.message;"/>
+				<label value="&init.message.1;"/>
+				<label value="&init.message.2;"/>
 			</vbox>
 		</tooltip>
 		<menupopup id="hudson-menupopup-menus-main">
