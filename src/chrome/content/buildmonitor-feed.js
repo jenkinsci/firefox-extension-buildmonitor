@@ -5,6 +5,7 @@ function Feed(id, name, url) {
 	this.id = id;
 	this.name = name;
 	this.url = url;
+	this.executor = null;
 }
 Feed.prototype.getId = function() {
 	return this.id;
@@ -45,4 +46,13 @@ Feed.prototype.isJob = function() {
 		isJob = true;
 	}
 	return isJob;
+}
+Feed.prototype.getExecutor = function() {
+	return this.executor;
+}
+Feed.prototype.hasExecutor = function() {
+	return (this.executor != null);
+}
+Feed.prototype.initExecutor = function() {
+	this.executor = new Executor(this.id, this.name, 'http://hudson.zones.apache.org/hudson/computer/api/xml?depth=1');
 }

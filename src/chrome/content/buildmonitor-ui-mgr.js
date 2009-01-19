@@ -20,11 +20,15 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 	
     for(var i = 0; i < feeds.length; i++) {
     	if (!feeds[i].isIgnored()) {
+			if (feeds[i].hasExecutor()) {
+				this.addExecutorPanel(feeds[i].getExecutor());
+			}
 			this.addFeedPanel(feeds[i]);
 		}
     }
 }
 UIMgr.prototype.addFeedPanel = function(feed) {
+
 	var prefsMenupopup = document.createElement("menupopup");
 	prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feed));
 	this.feedsPrefsMenupopup.appendChild(prefsMenupopup);
@@ -50,10 +54,19 @@ UIMgr.prototype.addFeedPanel = function(feed) {
 	panel.setAttribute("popup", "buildmonitor-builds");
 	panel.setAttribute("context", "buildmonitor-menu");
 	panel.setAttribute("tooltip", "buildmonitor-tooltip");
+	
 	this.feedsPanel.appendChild(panel);
 	this.setStatusQueued(feed);
 	
 	this.setPrefsMenupopup(feed);
+}
+UIMgr.prototype.addExecutorPanel = function(executor) {
+	var panel = document.createElement("statusbarpanel");
+	panel.setAttribute("id", this.getPanelId(executor));
+	panel.setAttribute("class", "statusbarpanel-iconic");
+	
+	this.feedsPanel.appendChild(panel);
+	this.setPanel("running", executor);
 }
 UIMgr.prototype.setStatusQueued = function(feed) {
 	this.setPanel("queued", feed);
@@ -84,8 +97,8 @@ UIMgr.prototype.setStatusProcessed = function(feed, title, status, builds, respo
 	this.setTooltip(builds, title, feed);
 	this.setBuildsMenupopup(builds, title, feed);
 }
-UIMgr.prototype.setPanel = function(status, feed) {
-	this.getPanelElement(feed).setAttribute("src", "chrome://buildmonitor/skin/" + this.getVisualStatus(status) + ".png");
+UIMgr.prototype.setPanel = function(status, component) {
+	this.getPanelElement(component).setAttribute("src", "chrome://buildmonitor/skin/" + this.getVisualStatus(status) + ".png");
 }
 UIMgr.prototype.setTooltip = function(items, title, feed) {
 	var vbox = document.createElement("vbox");
@@ -184,37 +197,39 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	   	
 	this.getPanelElement(feed).setAttribute("context", this.getMenusMenupopupId(feed));
 }
-UIMgr.prototype.getPanelElement = function(feed) {
-	return document.getElementById(this.getPanelId(feed));
+UIMgr.prototype.getPanelElement = function(component) {
+	return document.getElementById(this.getPanelId(component));
 }
-UIMgr.prototype.getPanelId = function(feed) {
-	return "hudson-panel-" + this.getFeedId(feed);
+UIMgr.prototype.getPanelId = function(component) {
+	return "hudson-panel-" + this.getComponentId(component);
 }
-UIMgr.prototype.getTooltipElement = function(feed) {
-	return document.getElementById(this.getTooltipId(feed));
+UIMgr.prototype.getTooltipElement = function(component) {
+	return document.getElementById(this.getTooltipId(component));
 }
-UIMgr.prototype.getTooltipId = function(feed) {
-	return "hudson-tooltip-" + this.getFeedId(feed);
+UIMgr.prototype.getTooltipId = function(component) {
+	return "hudson-tooltip-" + this.getComponentId(component);
 }
-UIMgr.prototype.getBuildsMenupopupElement = function(feed) {
-	return document.getElementById(this.getBuildsMenupopupId(feed));
+UIMgr.prototype.getBuildsMenupopupElement = function(component) {
+	return document.getElementById(this.getBuildsMenupopupId(component));
 }
-UIMgr.prototype.getBuildsMenupopupId = function(feed) {
-	return "hudson-menupopup-builds-" + this.getFeedId(feed);
+UIMgr.prototype.getBuildsMenupopupId = function(component) {
+	return "hudson-menupopup-builds-" + this.getComponentId(component);
 }
-UIMgr.prototype.getMenusMenupopupElement = function(feed) {
-	return document.getElementById(this.getMenusMenupopupId(feed));
+UIMgr.prototype.getMenusMenupopupElement = function(component) {
+	return document.getElementById(this.getMenusMenupopupId(component));
 }
-UIMgr.prototype.getMenusMenupopupId = function(feed) {
-	return "hudson-menupopup-menus-" + this.getFeedId(feed);
+UIMgr.prototype.getMenusMenupopupId = function(component) {
+	return "hudson-menupopup-menus-" + this.getComponentId(component);
 }
-UIMgr.prototype.removePanel = function(feed) {
-	document.getElementById("hudson-panel-feeds").removeChild(this.getPanelElement(feed));
+UIMgr.prototype.removePanel = function(component) {
+	document.getElementById("hudson-panel-feeds").removeChild(this.getPanelElement(component));
 }
-UIMgr.prototype.getFeedId = function(feed) {
+UIMgr.prototype.getComponentId = function(component) {
 	var id = "main";
-	if (feed) {
-		id = "feed-" + feed.getId();
+	if (component instanceof Feed) {logMgr.debug("is feed");
+		id = "feed-" + component.getId();
+	} else if (component instanceof Executor) {logMgr.debug("is executor");
+		id = "executor-" + component.getId();
 	}
 	return id;
 }

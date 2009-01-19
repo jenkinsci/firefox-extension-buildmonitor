@@ -72,12 +72,18 @@ PrefMgr.prototype.getAlert = function() {
 PrefMgr.prototype.getHideName = function() {
     return this.preferences.getBoolPref("hudson.hidename");
 }
+PrefMgr.prototype.getExecutor = function() {
+    return this.preferences.getBoolPref("hudson.executor");
+}
 PrefMgr.prototype.getFeeds = function() {
 	var feeds = new Array();
     for (var i = 0; i < NUM_OF_FEEDS; i++) {
     	var name = this.preferences.getCharPref("hudson.feeds." + i + ".name");
     	var url = this.preferences.getCharPref("hudson.feeds." + i + ".url");
     	feeds[i] = new Feed(i, name, url);
+    	if (this.getExecutor() && !feeds[i].isJob()) {
+    		feeds[i].initExecutor();
+    	}
     }
     return feeds;
 }
