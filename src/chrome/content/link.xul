@@ -10,18 +10,18 @@
       buttons="accept,cancel"
       title="&link.title;">
 
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-feed.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-executor.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-historybuild.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-text-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-pref-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-tree-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-date-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-log-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-link-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-ui-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-feed-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-notification-mgr.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-feed.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-executor.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-historybuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-text-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-pref-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-tree-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-date-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-log-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-link-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-ui-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-feed-mgr.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-notification-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-init.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-link.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
