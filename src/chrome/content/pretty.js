@@ -39,3 +39,28 @@ function getCurrentDateUTC() {
 	var localOffset = date.getTimezoneOffset() * 60000;
 	return new Date(localTime + localOffset);
 }
+
+/*
+ * Utility functions.
+ */
+function prettyBytes(bytes) {
+	var kb = 1024;
+	var mb = kb * kb;
+	var gb = mb * kb;
+	var tb = gb * kb;
+	var pb = tb * kb;
+	
+	var prettyBytes = null;
+	if (bytes > pb) {
+		prettyBytes = (bytes / pb).toFixed(2) + "PB"; 
+	} else if (bytes > tb) {
+		prettyBytes = (bytes / tb).toFixed(2) + "TB";
+	} else if (bytes > gb) {
+		prettyBytes = (bytes / gb).toFixed(2) + "GB";
+	} else if (bytes > mb) {
+		prettyBytes = (bytes / mb).toFixed(2) + "MB";
+	} else {
+		prettyBytes = (bytes / kb).toFixed(2) + "KB";
+	}
+	return prettyBytes;
+} 

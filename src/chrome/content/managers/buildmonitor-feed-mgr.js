@@ -117,8 +117,7 @@ FeedMgr.prototype.downloadExecutor = function(executor) {
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
-            	///alert("executor:" + request.responseText);
-                ///aliasFeedMgr.parseHistory(feed, request.responseText);
+                aliasFeedMgr.parseExecutor(executor, request.responseText);
             }
             else {
             	///executor dl error
@@ -134,9 +133,34 @@ FeedMgr.prototype.downloadExecutor = function(executor) {
 	///this.uiMgr.setStatusDownloading(executor);
 	request.send(null);
 }
-FeedMgr.prototype.parseExecutor = function(feed, responseText) {
+FeedMgr.prototype.parseExecutor = function(executor, responseText) {
     try {
         var xml = new DOMParser().parseFromString(responseText, "text/xml");
+        var computers = xml.getElementsByTagName("computer");
+        for (var i = 0; i < computers.length; i++) {
+        
+        	var monitorData = computers[i].getElementsByTagName("monitorData")[0];
+
+        	var spaceMonitor = monitorData.getElementsByTagName("hudson.node_monitors.SwapSpaceMonitor")[0];
+			var availablePhysicalMemory = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("availablePhysicalMemory")[0].childNodes[0].nodeValue : null;
+			var availableSwapSpace = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("availableSwapSpace")[0].childNodes[0].nodeValue : null;
+			var totalPhysicalMemory = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("totalPhysicalMemory")[0].childNodes[0].nodeValue : null;
+			var totalSwapSpace = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("totalSwapSpace")[0].childNodes[0].nodeValue : null;
+			
+			var architecture = monitorData.getElementsByTagName("hudson.node_monitors.ArchitectureMonitor")[0].childNodes[0].nodeValue;
+			var averageResponseTime = monitorData.getElementsByTagName("hudson.node_monitors.ResponseTimeMonitor")[0].getElementsByTagName("average")[0].childNodes[0].nodeValue;
+			var diskSpace = monitorData.getElementsByTagName("hudson.node_monitors.DiskSpaceMonitor")[0].childNodes[0].nodeValue;
+        
+        	var displayName = computers[i].getElementsByTagName("displayName")[0].childNodes[0].nodeValue;
+        	var isIdle = computers[i].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
+        	var isOffline = computers[i].getElementsByTagName("offline")[0].childNodes[0].nodeValue;
+        	
+        	var nodeData = new NodeData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
+        	var node = new Node(displayName, new Boolean(isIdle), new Boolean(isOffline), nodeData);
+        	//alert("n:" + node.getDisplayName() + ",," + isIdle + ",," + isOffline);
+        	var x = node.getNodeData();
+        	//alert(x.getPhysicalMemory() + ",," + x.getSwapSpace() + ",," + x.getArchitecture() + ",," + x.getAverageResponseTime() + ",," + x.getDiskSpace());
+        }
         /*
         var title = xml.getElementsByTagName("title")[0].childNodes[0].nodeValue;
         var entries = xml.getElementsByTagName("entry");
