@@ -1,7 +1,7 @@
 /*****************************************************************
- * NodeData keeps information related to the node.
+ * MonitorData keeps information related to the computer.
  */
-function NodeData(
+function MonitorData(
 		availablePhysicalMemory,
 		availableSwapSpace,
 		totalPhysicalMemory,
@@ -17,22 +17,22 @@ function NodeData(
 	this.averageResponseTime = averageResponseTime;
 	this.diskSpace = diskSpace;
 }
-NodeData.prototype.getPhysicalMemory = function() {
+MonitorData.prototype.getPhysicalMemory = function() {
 	return (this.availablePhysicalMemory != null && this.totalPhysicalMemory)
 		? prettyBytes(this.availablePhysicalMemory) + "/" + prettyBytes(this.totalPhysicalMemory)
 		: null;
 }
-NodeData.prototype.getSwapSpace = function() {
+MonitorData.prototype.getSwapSpace = function() {
 	return (this.availableSwapSpace != null && this.totalSwapSpace != null)
 		? prettyBytes(this.availableSwapSpace) + "/" + prettyBytes(this.totalSwapSpace)
 		: null;
 }
-NodeData.prototype.getArchitecture = function() {
+MonitorData.prototype.getArchitecture = function() {
 	return this.architecture;
 }
-NodeData.prototype.getAverageResponseTime = function() {
+MonitorData.prototype.getAverageResponseTime = function() {
 	return this.averageResponseTime;
 }
-NodeData.prototype.getDiskSpace = function() {
+MonitorData.prototype.getDiskSpace = function() {
 	return this.diskSpace;
 }

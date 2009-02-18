@@ -63,4 +63,4 @@ function prettyBytes(bytes) {
 		prettyBytes = (bytes / kb).toFixed(2) + "KB";
 	}
 	return prettyBytes;
-} 
+}

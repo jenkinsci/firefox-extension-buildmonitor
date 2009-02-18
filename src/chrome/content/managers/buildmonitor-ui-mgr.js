@@ -17,11 +17,11 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 	this.clear(this.feedsTooltip);
 	this.clear(this.feedsBuildsMenupopup);
 	this.clear(this.feedsPrefsMenupopup);
-	
+
     for(var i = 0; i < feeds.length; i++) {
     	if (!feeds[i].isIgnored()) {
-			if (feeds[i].hasExecutor()) {
-				this.addExecutorPanel(feeds[i].getExecutor());
+			if (feeds[i].hasComputerSet()) {
+				this.addComputerSetPanel(feeds[i].getComputerSet());
 			}
 			this.addFeedPanel(feeds[i]);
 		}
@@ -60,13 +60,13 @@ UIMgr.prototype.addFeedPanel = function(feed) {
 	
 	this.setPrefsMenupopup(feed);
 }
-UIMgr.prototype.addExecutorPanel = function(executor) {
+UIMgr.prototype.addComputerSetPanel = function(computerSet) {
 	var panel = document.createElement("statusbarpanel");
-	panel.setAttribute("id", this.getPanelId(executor));
+	panel.setAttribute("id", this.getPanelId(computerSet));
 	panel.setAttribute("class", "statusbarpanel-iconic");
 	
 	this.feedsPanel.appendChild(panel);
-	this.setPanel("running", executor);
+	this.setPanel("running", computerSet);
 }
 UIMgr.prototype.setStatusQueued = function(feed) {
 	this.setPanel("queued", feed);
@@ -228,7 +228,7 @@ UIMgr.prototype.getComponentId = function(component) {
 	var id = "main";
 	if (component instanceof Feed) {logMgr.debug("is feed");
 		id = "feed-" + component.getId();
-	} else if (component instanceof Executor) {logMgr.debug("is executor");
+	} else if (component instanceof ComputerSet) {
 		id = "executor-" + component.getId();
 	}
 	return id;

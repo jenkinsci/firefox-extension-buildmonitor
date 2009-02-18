@@ -5,7 +5,7 @@ function Feed(id, name, url) {
 	this.id = id;
 	this.name = name;
 	this.url = url;
-	this.executor = null;
+	this.computerSet = null;
 }
 Feed.prototype.getId = function() {
 	return this.id;
@@ -47,12 +47,12 @@ Feed.prototype.isJob = function() {
 	}
 	return isJob;
 }
-Feed.prototype.getExecutor = function() {
-	return this.executor;
+Feed.prototype.getComputerSet = function() {
+	return this.computerSet;
 }
-Feed.prototype.hasExecutor = function() {
-	return (this.executor != null);
+Feed.prototype.hasComputerSet = function() {
+	return (this.computerSet != null);
 }
-Feed.prototype.initExecutor = function() {
-	this.executor = new Executor(this.id, this.name, 'http://hudson.zones.apache.org/hudson/computer/api/xml?depth=1');
+Feed.prototype.initComputerSet = function() {
+	this.computerSet = new ComputerSet(this.id, this.name, 'http://hudson.zones.apache.org/hudson/computer/api/xml?depth=1');
 }

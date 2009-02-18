@@ -82,7 +82,7 @@ PrefMgr.prototype.getFeeds = function() {
     	var url = this.preferences.getCharPref("hudson.feeds." + i + ".url");
     	feeds[i] = new Feed(i, name, url);
     	if (this.getExecutor() && !feeds[i].isJob()) {
-    		feeds[i].initExecutor();
+    		feeds[i].initComputerSet();
     	}
     }
     return feeds;

@@ -11,11 +11,11 @@
 	ondialogaccept="hudson_saveView(); hudson_refreshStatusBar();"
 	title="&prefs.title;">
   
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-computer.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-computerset.js"/>
     <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-feed.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-executor.js"/>
     <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-historybuild.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-node.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-nodedata.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-monitordata.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-text-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-pref-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-tree-mgr.js"/>

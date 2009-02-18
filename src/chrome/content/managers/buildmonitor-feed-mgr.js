@@ -27,8 +27,8 @@ FeedMgr.prototype.downloadHistory = function(feed) {
         if (request.readyState == 4) {
             if (request.status == 200) {
                 aliasFeedMgr.parseHistory(feed, request.responseText);
-                if (feed.hasExecutor()) {
-                	aliasFeedMgr.downloadExecutor(feed.getExecutor());
+                if (feed.hasComputerSet()) {
+                	aliasFeedMgr.downloadComputerSet(feed.getComputerSet());
                 }
             }
             else {
@@ -107,33 +107,33 @@ FeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
 	}
 	return status;
 }
-FeedMgr.prototype.downloadExecutor = function(executor) {
+FeedMgr.prototype.downloadComputerSet = function(computerSet) {
 	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
 	var aliasUIMgr = this.uiMgr;
 	var aliasFeedMgr = this;
 	
 	var request = new XMLHttpRequest();
-    request.open("GET", executor.getUrl(), true);
+    request.open("GET", computerSet.getUrl(), true);
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
-                aliasFeedMgr.parseExecutor(executor, request.responseText);
+                aliasFeedMgr.parseComputerSet(computerSet, request.responseText);
             }
             else {
-            	///executor dl error
-                ///aliasUIMgr.setStatusDownloadError(executor);
+            	///computerSet dl error
+                ///aliasUIMgr.setStatusDownloadError(computerSet);
             }
         }
     };
     request.onerror = function () {
-    	///executor dl error
-        ///aliasUIMgr.setStatusDownloadError(executor);
+    	///computerSet dl error
+        ///aliasUIMgr.setStatusDownloadError(computerSet);
     };
     ///status dl error
-	///this.uiMgr.setStatusDownloading(executor);
+	///this.uiMgr.setStatusDownloading(computerSet);
 	request.send(null);
 }
-FeedMgr.prototype.parseExecutor = function(executor, responseText) {
+FeedMgr.prototype.parseComputerSet = function(computerSet, responseText) {
     try {
         var xml = new DOMParser().parseFromString(responseText, "text/xml");
         var computers = xml.getElementsByTagName("computer");
@@ -155,10 +155,10 @@ FeedMgr.prototype.parseExecutor = function(executor, responseText) {
         	var isIdle = computers[i].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
         	var isOffline = computers[i].getElementsByTagName("offline")[0].childNodes[0].nodeValue;
         	
-        	var nodeData = new NodeData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
-        	var node = new Node(displayName, new Boolean(isIdle), new Boolean(isOffline), nodeData);
-        	//alert("n:" + node.getDisplayName() + ",," + isIdle + ",," + isOffline);
-        	var x = node.getNodeData();
+        	var monitorData = new MonitorData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
+        	var computer = new Computer(displayName, new Boolean(isIdle), new Boolean(isOffline), monitorData);
+        	//alert("n:" + computer.getDisplayName() + ",," + isIdle + ",," + isOffline);
+        	var x = computer.getMonitorData();
         	//alert(x.getPhysicalMemory() + ",," + x.getSwapSpace() + ",," + x.getArchitecture() + ",," + x.getAverageResponseTime() + ",," + x.getDiskSpace());
         }
         /*
