@@ -1,23 +1,23 @@
 /*****************************************************************
- * LinkMgr handles adding Hudson feed link to the Build Monitor.
+ * HudsonLinkMgr handles adding Hudson feed link to the Build Monitor.
  */
-function LinkMgr(uiMgr, feedMgr, prefMgr) {
+function HudsonLinkMgr(uiMgr, feedMgr, prefMgr) {
 	this.uiMgr = uiMgr;
 	this.feedMgr = feedMgr;
 	this.prefMgr = prefMgr;
 }
-LinkMgr.prototype.initMenu = function() {
+HudsonLinkMgr.prototype.initMenu = function() {
 	var contextMenu = document.getElementById("contentAreaContextMenu");
 	if (contextMenu) {
 		contextMenu.addEventListener("popupshowing", this.setMenuVisibility, false);
 	}
 }
-LinkMgr.prototype.setMenuVisibility = function() {
+HudsonLinkMgr.prototype.setMenuVisibility = function() {
 	if (gContextMenu) {
 		document.getElementById("hudson-context-menu-addlink").hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink);
 	}
 }
-LinkMgr.prototype.initLink = function() {
+HudsonLinkMgr.prototype.initLink = function() {
 	feeds = prefMgr.getFeeds();
 	if (prefMgr.iCanHazFeedburger()) {
 		document.getElementById("hudson-link-full").hidden = true;
@@ -31,12 +31,12 @@ LinkMgr.prototype.initLink = function() {
 		document.getElementById("hudson-link-add").hidden = true;
 	}
 }
-LinkMgr.prototype.saveLink = function() {
+HudsonLinkMgr.prototype.saveLink = function() {
 	var name = document.getElementById("hudson-link-name").value;
 	var url = document.getElementById("hudson-link-url").value;
 	prefMgr.addFeed(name, url);
 }
-LinkMgr.prototype.getNameRecommendation = function(url) {
+HudsonLinkMgr.prototype.getNameRecommendation = function(url) {
 	var name = "";
 	if (url.match("/job/")) {
 		name = new String(url.match("/job/[^/]+")).replace(/\/job\//, "");

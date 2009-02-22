@@ -1,12 +1,12 @@
 /*****************************************************************
- * UIMgr is responsible for updating user interface components.
+ * HudsonUIMgr is responsible for updating user interface components.
  */
-function UIMgr(logMgr, textMgr, prefMgr) {
+function HudsonUIMgr(logMgr, textMgr, prefMgr) {
 	this.logMgr = logMgr;
 	this.textMgr = textMgr;
 	this.prefMgr = prefMgr;
 }
-UIMgr.prototype.initFeedsPanel = function(feeds) {
+HudsonUIMgr.prototype.initFeedsPanel = function(feeds) {
 
 	this.feedsPanel = document.getElementById("hudson-panel-feeds");
 	this.feedsTooltip = document.getElementById("hudson-tooltip-feeds");
@@ -20,14 +20,15 @@ UIMgr.prototype.initFeedsPanel = function(feeds) {
 
     for(var i = 0; i < feeds.length; i++) {
     	if (!feeds[i].isIgnored()) {
-			if (feeds[i].hasComputerSet()) {
-				this.addComputerSetPanel(feeds[i].getComputerSet());
+			if (feeds[i].hasExecutorFeed()) {
+				this.addExecutorFeedPanel(feeds[i].getExecutorFeed());
 			}
 			this.addFeedPanel(feeds[i]);
 		}
     }
 }
-UIMgr.prototype.addFeedPanel = function(feed) {
+//////////////////////////////////////////////// Feed.
+HudsonUIMgr.prototype.addFeedPanel = function(feed) {
 
 	var prefsMenupopup = document.createElement("menupopup");
 	prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(feed));
@@ -60,78 +61,36 @@ UIMgr.prototype.addFeedPanel = function(feed) {
 	
 	this.setPrefsMenupopup(feed);
 }
-UIMgr.prototype.addComputerSetPanel = function(computerSet) {
-	var panel = document.createElement("statusbarpanel");
-	panel.setAttribute("id", this.getPanelId(computerSet));
-	panel.setAttribute("class", "statusbarpanel-iconic");
-	
-	this.feedsPanel.appendChild(panel);
-	this.setPanel("running", computerSet);
-}
-UIMgr.prototype.setStatusQueued = function(feed) {
+HudsonUIMgr.prototype.setStatusQueued = function(feed) {
 	this.setPanel("queued", feed);
 	this.setTooltip(new Array(textMgr.get("feed.queued.message1") + " url: " + feed.getUrl()), textMgr.get("feed.queued.title"), feed);
 }
-UIMgr.prototype.setStatusDownloading = function(feed) {
+HudsonUIMgr.prototype.setStatusDownloading = function(feed) {
 	this.setPanel("downloading", feed);
 	this.setTooltip(new Array(textMgr.get("feed.process.downloading.message1") + " url: " + feed.getUrl(), textMgr.get("feed.process.downloading.message2")), textMgr.get("feed.process.downloading.title"), feed);
 }
-UIMgr.prototype.setStatusDownloadError = function(feed) {
+HudsonUIMgr.prototype.setStatusDownloadError = function(feed) {
 	logMgr.debug(textMgr.get("feed.process.error"), feed);
 	this.setPanel("error", feed);
 	this.setTooltip(new Array(textMgr.get("feed.process.error.message1"), textMgr.get("feed.process.error.message2")), textMgr.get("feed.process.error.title"), feed);
 }
-UIMgr.prototype.setStatusParseError = function(feed, exception) {
+HudsonUIMgr.prototype.setStatusParseError = function(feed, exception) {
 	var message = this.textMgr.get("feed.exception.message1");
 	logMgr.debug(message + " Exception: " + e);
 	this.setPanel("error", feed);
 	this.setTooltip(new Array(message, this.textMgr.get("feed.exception.message2")), this.textMgr.get("feed.exception.title"), feed);
 }
-UIMgr.prototype.setStatusNoBuild = function(feed, title) {
+HudsonUIMgr.prototype.setStatusNoBuild = function(feed, title) {
 	this.setPanel("unknown", feed);
 	this.setTooltip(new Array(this.textMgr.get("feed.nobuild")), title, feed);
 }
-UIMgr.prototype.setStatusProcessed = function(feed, title, status, builds, responseText) {
-	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 20) + "...", feed);
+HudsonUIMgr.prototype.setStatusProcessed = function(feed, title, status, builds, responseText) {
+	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", feed);
 	this.setPanel(status, feed);
 	this.setTooltip(builds, title, feed);
 	this.setBuildsMenupopup(builds, title, feed);
 }
-UIMgr.prototype.setPanel = function(status, component) {
-	this.getPanelElement(component).setAttribute("src", "chrome://buildmonitor/skin/" + this.getVisualStatus(status) + ".png");
-}
-UIMgr.prototype.setTooltip = function(items, title, feed) {
-	var vbox = document.createElement("vbox");
-	if (title) {
-		var titleLabel = document.createElement("label");
-		if (feed) {
-			title += " [" + feed.getName() + "]";
-		}
-		titleLabel.setAttribute("value", title);
-		titleLabel.setAttribute("class", "title");
-		vbox.appendChild(titleLabel);
-	}
-	
-	for (i = 0; i < items.length; i++) {
-		var itemLabel = document.createElement("label");
-		var text;
-		if (typeof items[i] == "object") {
-		    text = items[i].getDetails();
-		    itemLabel.setAttribute("class", this.getVisualStatus(items[i].getStatus()));
-		} else {
-		    text = items[i];
-		}
-	    itemLabel.setAttribute("value", text);
-	   	vbox.appendChild(itemLabel);
-	}
-	
-	var tooltip = this.getTooltipElement(feed);
-	this.clear(tooltip);
-	tooltip.appendChild(vbox);
-	
-	this.getPanelElement(feed).setAttribute("tooltip", this.getTooltipId(feed));
-}
-UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
+HudsonUIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	var menupopup = this.getBuildsMenupopupElement(feed);
 	this.clear(menupopup);
 	for (i = 0; i < builds.length; i++) {
@@ -146,7 +105,7 @@ UIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
 	}
 	this.getPanelElement(feed).setAttribute("popup", this.getBuildsMenupopupId(feed));
 }
-UIMgr.prototype.setPrefsMenupopup = function(feed) {
+HudsonUIMgr.prototype.setPrefsMenupopup = function(feed) {
 	var menupopup = this.getMenusMenupopupElement(feed);
 
 	var preferencesMenuItem = document.createElement("menuitem");
@@ -197,48 +156,111 @@ UIMgr.prototype.setPrefsMenupopup = function(feed) {
 	   	
 	this.getPanelElement(feed).setAttribute("context", this.getMenusMenupopupId(feed));
 }
-UIMgr.prototype.getPanelElement = function(component) {
+//////////////////////////////////////////////// Executor feed.
+HudsonUIMgr.prototype.addExecutorFeedPanel = function(executorFeed) {
+	var panel = document.createElement("statusbarpanel");
+	panel.setAttribute("id", this.getPanelId(executorFeed));
+	panel.setAttribute("class", "statusbarpanel-iconic");
+	
+	this.feedsPanel.appendChild(panel);
+	this.setPanel("running", executorFeed);
+	
+	var tooltip = document.createElement("tooltip");
+	tooltip.setAttribute("id", this.getTooltipId(executorFeed));
+	tooltip.setAttribute("class", "info");
+	tooltip.setAttribute("noautohide", "true");
+	tooltip.setAttribute("maxwidth", "1000");
+	this.feedsTooltip.appendChild(tooltip);
+	
+	this.setStatusQueued(executorFeed);
+	
+	///this.setPrefsMenupopup(executorFeed);
+}
+HudsonUIMgr.prototype.setExecutorFeedStatusProcessed = function(executorFeed, title, status, computers, responseText) {
+	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", executorFeed);
+	this.setPanel(status, executorFeed);
+	var executors = new Array();
+	for (var i = 0; i < computers.length; i++) {
+		executors = executors.concat(computers[i].getExecutors());
+	}
+	this.setTooltip(executors, title, executorFeed);
+	//this.setBuildsMenupopup(builds, title, executorFeed);
+}
+//////////////////////////////////////////////// Generic feed functions.
+HudsonUIMgr.prototype.setTooltip = function(items, title, feed) {
+	var vbox = document.createElement("vbox");
+	if (title) {
+		var titleLabel = document.createElement("label");
+		if (feed) {
+			title += " [" + feed.getName() + "]";
+		}
+		titleLabel.setAttribute("value", title);
+		titleLabel.setAttribute("class", "title");
+		vbox.appendChild(titleLabel);
+	}
+	for (i = 0; i < items.length; i++) {
+		var itemLabel = document.createElement("label");
+		var text;
+		if (typeof items[i] == "object") {
+		    text = items[i].getDetails();
+		    itemLabel.setAttribute("class", this.getVisualStatus(items[i].getStatus()));
+		} else {
+		    text = items[i];
+		}
+	    itemLabel.setAttribute("value", text);
+	   	vbox.appendChild(itemLabel);
+	}
+	
+	var tooltip = this.getTooltipElement(feed);
+	this.clear(tooltip);
+	tooltip.appendChild(vbox);
+	this.getPanelElement(feed).setAttribute("tooltip", this.getTooltipId(feed));
+}
+HudsonUIMgr.prototype.setPanel = function(status, component) {
+	this.getPanelElement(component).setAttribute("src", "chrome://buildmonitor/skin/" + this.getVisualStatus(status) + ".png");
+}
+HudsonUIMgr.prototype.getPanelElement = function(component) {
 	return document.getElementById(this.getPanelId(component));
 }
-UIMgr.prototype.getPanelId = function(component) {
+HudsonUIMgr.prototype.getPanelId = function(component) {
 	return "hudson-panel-" + this.getComponentId(component);
 }
-UIMgr.prototype.getTooltipElement = function(component) {
+HudsonUIMgr.prototype.getTooltipElement = function(component) {
 	return document.getElementById(this.getTooltipId(component));
 }
-UIMgr.prototype.getTooltipId = function(component) {
+HudsonUIMgr.prototype.getTooltipId = function(component) {
 	return "hudson-tooltip-" + this.getComponentId(component);
 }
-UIMgr.prototype.getBuildsMenupopupElement = function(component) {
+HudsonUIMgr.prototype.getBuildsMenupopupElement = function(component) {
 	return document.getElementById(this.getBuildsMenupopupId(component));
 }
-UIMgr.prototype.getBuildsMenupopupId = function(component) {
+HudsonUIMgr.prototype.getBuildsMenupopupId = function(component) {
 	return "hudson-menupopup-builds-" + this.getComponentId(component);
 }
-UIMgr.prototype.getMenusMenupopupElement = function(component) {
+HudsonUIMgr.prototype.getMenusMenupopupElement = function(component) {
 	return document.getElementById(this.getMenusMenupopupId(component));
 }
-UIMgr.prototype.getMenusMenupopupId = function(component) {
+HudsonUIMgr.prototype.getMenusMenupopupId = function(component) {
 	return "hudson-menupopup-menus-" + this.getComponentId(component);
 }
-UIMgr.prototype.removePanel = function(component) {
+HudsonUIMgr.prototype.removePanel = function(component) {
 	document.getElementById("hudson-panel-feeds").removeChild(this.getPanelElement(component));
 }
-UIMgr.prototype.getComponentId = function(component) {
+HudsonUIMgr.prototype.getComponentId = function(component) {
 	var id = "main";
-	if (component instanceof Feed) {logMgr.debug("is feed");
+	if (component instanceof HudsonFeed) {
 		id = "feed-" + component.getId();
-	} else if (component instanceof ComputerSet) {
+	} else if (component instanceof HudsonExecutorFeed) {
 		id = "executor-" + component.getId();
 	}
 	return id;
 }
-UIMgr.prototype.clear = function(elem) {
+HudsonUIMgr.prototype.clear = function(elem) {
 	while (elem.firstChild) {
 		elem.removeChild(elem.firstChild);
 	}
 }
-UIMgr.prototype.getVisualStatus = function(status) {
+HudsonUIMgr.prototype.getVisualStatus = function(status) {
 	var displayStatus;
 	if (status == "success" && this.prefMgr.getSuccessColor() == "green") {
 		displayStatus = "success_g";

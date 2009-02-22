@@ -10,7 +10,7 @@
  * to work with UTC instead of current locale time, and to use localised texts.
  */
 function prettyDateUTC(time) {
-	var textMgr = new TextMgr();
+	var textMgr = new HudsonTextMgr();
 	var date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
 		diff = (((getCurrentDateUTC()).getTime() - date.getTime()) / 1000),
 		day_diff = Math.floor(diff / 86400);

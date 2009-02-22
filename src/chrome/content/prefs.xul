@@ -12,7 +12,8 @@
 	title="&prefs.title;">
   
     <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-computer.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-computerset.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-executor.js"/>
+    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-executorfeed.js"/>
     <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-feed.js"/>
     <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-historybuild.js"/>
     <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-monitordata.js"/>

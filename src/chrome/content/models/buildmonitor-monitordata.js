@@ -1,7 +1,7 @@
 /*****************************************************************
- * MonitorData keeps information related to the computer.
+ * HudsonMonitorData keeps information related to the computer.
  */
-function MonitorData(
+function HudsonMonitorData(
 		availablePhysicalMemory,
 		availableSwapSpace,
 		totalPhysicalMemory,
@@ -17,22 +17,22 @@ function MonitorData(
 	this.averageResponseTime = averageResponseTime;
 	this.diskSpace = diskSpace;
 }
-MonitorData.prototype.getPhysicalMemory = function() {
+HudsonMonitorData.prototype.getPhysicalMemory = function() {
 	return (this.availablePhysicalMemory != null && this.totalPhysicalMemory)
 		? prettyBytes(this.availablePhysicalMemory) + "/" + prettyBytes(this.totalPhysicalMemory)
 		: null;
 }
-MonitorData.prototype.getSwapSpace = function() {
+HudsonMonitorData.prototype.getSwapSpace = function() {
 	return (this.availableSwapSpace != null && this.totalSwapSpace != null)
 		? prettyBytes(this.availableSwapSpace) + "/" + prettyBytes(this.totalSwapSpace)
 		: null;
 }
-MonitorData.prototype.getArchitecture = function() {
+HudsonMonitorData.prototype.getArchitecture = function() {
 	return this.architecture;
 }
-MonitorData.prototype.getAverageResponseTime = function() {
+HudsonMonitorData.prototype.getAverageResponseTime = function() {
 	return this.averageResponseTime;
 }
-MonitorData.prototype.getDiskSpace = function() {
+HudsonMonitorData.prototype.getDiskSpace = function() {
 	return this.diskSpace;
 }

@@ -1,9 +1,9 @@
 /*****************************************************************
- * TextMgr retrieves text from string bundle.
+ * HudsonTextMgr retrieves text from string bundle.
  */
-function TextMgr() {
+function HudsonTextMgr() {
 }
-TextMgr.prototype.get = function(key, args) {
+HudsonTextMgr.prototype.get = function(key, args) {
 	var texts = document.getElementById("hudson-stringbundle");
 	var text;
 	if (args) {

@@ -1,22 +1,26 @@
 /*****************************************************************
- * Computer is a computer within Hudson master/slave set up.
+ * HudsonComputer represents a computer within Hudson master/slave set up.
  */
-function Computer(
-		displayName, isIdle, isOffline, monitorData) {
+function HudsonComputer(
+		displayName, isIdle, isOffline, monitorData, executors) {
 	this.displayName = displayName;
 	this.isIdle = isIdle;
 	this.isOffline = isOffline;
 	this.monitorData = monitorData;
+	this.executors = executors;
 }
-Computer.prototype.getDisplayName = function() {
+HudsonComputer.prototype.getDisplayName = function() {
 	return this.displayName;
 }
-Computer.prototype.isIdle = function() {
+HudsonComputer.prototype.isIdle = function() {
 	return this.isIdle;
 }
-Computer.prototype.isOffline = function() {
+HudsonComputer.prototype.isOffline = function() {
 	return this.isOffline;
 }
-Computer.prototype.getMonitorData = function() {
+HudsonComputer.prototype.getMonitorData = function() {
 	return this.monitorData;
+}
+HudsonComputer.prototype.getExecutors = function() {
+	return this.executors;
 }

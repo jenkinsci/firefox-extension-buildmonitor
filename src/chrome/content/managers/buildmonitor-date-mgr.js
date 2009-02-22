@@ -1,8 +1,8 @@
 /*****************************************************************
- * DateMgr provides date manipulation convenience methods.
+ * HudsonDateMgr provides date manipulation convenience methods.
  */
-function DateMgr() {
+function HudsonDateMgr() {
 }
-DateMgr.prototype.getDebugDate = function() {
+HudsonDateMgr.prototype.getDebugDate = function() {
 	return (new Date()).toLocaleString();
 }

@@ -19,3 +19,12 @@
 .unknown {
 	color: #626262;
 }
+.running {
+	color: #3465A4;
+}
+.stuck {
+	color: #EF2929;
+}
+.idle {
+	color: #626262;
+}

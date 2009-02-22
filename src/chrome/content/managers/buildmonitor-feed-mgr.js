@@ -1,22 +1,22 @@
 /*****************************************************************
- * FeedMgr takes care of asynchronous feed retrieval, and parses the XML feed.
+ * HudsonFeedMgr takes care of asynchronous feed retrieval, and parses the XML feed.
  */
-function FeedMgr(uiMgr, notificationMgr, prefMgr) {
+function HudsonFeedMgr(uiMgr, notificationMgr, prefMgr) {
 	this.uiMgr = uiMgr;
 	this.notificationMgr = notificationMgr;
 	this.prefMgr = prefMgr;
 }
-FeedMgr.prototype.processAll = function(feeds) {
+HudsonFeedMgr.prototype.processAll = function(feeds) {
 	for(var i = 0; i < feeds.length; i++) {
 		if (!feeds[i].isIgnored()) {
 			this.process(feeds[i]);
 		}
 	}
 }
-FeedMgr.prototype.process = function(feed) {
-	this.downloadHistory(feed);
+HudsonFeedMgr.prototype.process = function(feed) {
+	this.downloadHistoryFeed(feed);
 }
-FeedMgr.prototype.downloadHistory = function(feed) {
+HudsonFeedMgr.prototype.downloadHistoryFeed = function(feed) {
 	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
 	var aliasUIMgr = this.uiMgr;
 	var aliasFeedMgr = this;
@@ -26,9 +26,9 @@ FeedMgr.prototype.downloadHistory = function(feed) {
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
-                aliasFeedMgr.parseHistory(feed, request.responseText);
-                if (feed.hasComputerSet()) {
-                	aliasFeedMgr.downloadComputerSet(feed.getComputerSet());
+                aliasFeedMgr.parseHistoryFeed(feed, request.responseText);
+                if (feed.hasExecutorFeed()) {
+                	aliasFeedMgr.downloadExecutorFeed(feed.getExecutorFeed());
                 }
             }
             else {
@@ -42,7 +42,7 @@ FeedMgr.prototype.downloadHistory = function(feed) {
 	this.uiMgr.setStatusDownloading(feed);
 	request.send(null);
 }
-FeedMgr.prototype.parseHistory = function(feed, responseText) {
+HudsonFeedMgr.prototype.parseHistoryFeed = function(feed, responseText) {
     try {
         var xml = new DOMParser().parseFromString(responseText, "text/xml");
         var title = xml.getElementsByTagName("title")[0].childNodes[0].nodeValue;
@@ -56,7 +56,7 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
 				var text = entries[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
 				var link = entries[i].getElementsByTagName("link")[0].attributes.getNamedItem("href").value;
 				var date = entries[i].getElementsByTagName("published")[0].childNodes[0].nodeValue;
-				builds[i] = new HistoryBuild(text, link, date);
+				builds[i] = new HudsonHistoryBuild(text, link, date);
 				if (!builds[i].isSuccess()) {
 					hasNonSuccess = true;
 					nonSuccessCount++;
@@ -79,7 +79,7 @@ FeedMgr.prototype.parseHistory = function(feed, responseText) {
     	this.uiMgr.setStatusParseError(feed, e);
     }
 }
-FeedMgr.prototype.handleFailureNotification = function(feed, title, build, date) {
+HudsonFeedMgr.prototype.handleFailureNotification = function(feed, title, build, date) {
 	var lastFail = this.prefMgr.getLastFail(feed);
 	if (lastFail == null || lastFail == "" || lastFail < date) {
 		this.prefMgr.setLastFail(feed, date);
@@ -91,7 +91,7 @@ FeedMgr.prototype.handleFailureNotification = function(feed, title, build, date)
 		}
 	}
 }
-FeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
+HudsonFeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
 	var status = null;
 	var healthRate = (size - nonSuccessCount) * 100 / size;
 	if (healthRate >= 80) {
@@ -107,39 +107,38 @@ FeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
 	}
 	return status;
 }
-FeedMgr.prototype.downloadComputerSet = function(computerSet) {
+HudsonFeedMgr.prototype.downloadExecutorFeed = function(executorFeed) {
 	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
 	var aliasUIMgr = this.uiMgr;
 	var aliasFeedMgr = this;
 	
 	var request = new XMLHttpRequest();
-    request.open("GET", computerSet.getUrl(), true);
+    request.open("GET", executorFeed.getUrl(), true);
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
-                aliasFeedMgr.parseComputerSet(computerSet, request.responseText);
+                aliasFeedMgr.parseExecutorFeed(executorFeed, request.responseText);
             }
             else {
-            	///computerSet dl error
-                ///aliasUIMgr.setStatusDownloadError(computerSet);
+                aliasUIMgr.setStatusDownloadError(executorFeed);
             }
         }
     };
     request.onerror = function () {
-    	///computerSet dl error
-        ///aliasUIMgr.setStatusDownloadError(computerSet);
+        aliasUIMgr.setStatusDownloadError(executorFeed);
     };
-    ///status dl error
-	///this.uiMgr.setStatusDownloading(computerSet);
+	this.uiMgr.setStatusDownloading(executorFeed);
 	request.send(null);
 }
-FeedMgr.prototype.parseComputerSet = function(computerSet, responseText) {
+HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText) {
     try {
         var xml = new DOMParser().parseFromString(responseText, "text/xml");
-        var computers = xml.getElementsByTagName("computer");
-        for (var i = 0; i < computers.length; i++) {
+        var computerElements = xml.getElementsByTagName("computer");
+        var computers = new Array(computerElements.length);
+        var status = "idle";
+        for (var i = 0; i < computerElements.length; i++) {
         
-        	var monitorData = computers[i].getElementsByTagName("monitorData")[0];
+        	var monitorData = computerElements[i].getElementsByTagName("monitorData")[0];
 
         	var spaceMonitor = monitorData.getElementsByTagName("hudson.node_monitors.SwapSpaceMonitor")[0];
 			var availablePhysicalMemory = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("availablePhysicalMemory")[0].childNodes[0].nodeValue : null;
@@ -151,49 +150,35 @@ FeedMgr.prototype.parseComputerSet = function(computerSet, responseText) {
 			var averageResponseTime = monitorData.getElementsByTagName("hudson.node_monitors.ResponseTimeMonitor")[0].getElementsByTagName("average")[0].childNodes[0].nodeValue;
 			var diskSpace = monitorData.getElementsByTagName("hudson.node_monitors.DiskSpaceMonitor")[0].childNodes[0].nodeValue;
         
-        	var displayName = computers[i].getElementsByTagName("displayName")[0].childNodes[0].nodeValue;
-        	var isIdle = computers[i].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
-        	var isOffline = computers[i].getElementsByTagName("offline")[0].childNodes[0].nodeValue;
+        	var displayName = computerElements[i].getElementsByTagName("displayName")[0].childNodes[0].nodeValue;
+        	var isIdle = computerElements[i].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
+        	var isOffline = computerElements[i].getElementsByTagName("offline")[0].childNodes[0].nodeValue;
         	
-        	var monitorData = new MonitorData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
-        	var computer = new Computer(displayName, new Boolean(isIdle), new Boolean(isOffline), monitorData);
-        	//alert("n:" + computer.getDisplayName() + ",," + isIdle + ",," + isOffline);
-        	var x = computer.getMonitorData();
-        	//alert(x.getPhysicalMemory() + ",," + x.getSwapSpace() + ",," + x.getArchitecture() + ",," + x.getAverageResponseTime() + ",," + x.getDiskSpace());
+        	var monitorData = new HudsonMonitorData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
+
+        	var executorElements = computerElements[i].getElementsByTagName("executor");
+        	var executors = new Array(executorElements.length);
+        	for (var j = 0; j < executorElements.length; j++) {
+        		var currentExecutable = executorElements[j].getElementsByTagName("currentExecutable")[0];
+        		var executableNumber = (currentExecutable != null) ? currentExecutable.getElementsByTagName("number")[0].childNodes[0].nodeValue : null;
+        		var executableUrl = (currentExecutable != null) ? currentExecutable.getElementsByTagName("url")[0].childNodes[0].nodeValue : null;
+        		var isIdle = executorElements[j].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
+        		var isLikelyStuck = executorElements[j].getElementsByTagName("likelyStuck")[0].childNodes[0].nodeValue;
+        		var number = j;
+        		var progress = executorElements[j].getElementsByTagName("progress")[0].childNodes[0].nodeValue;
+        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isIdle, isLikelyStuck, number, progress, displayName);
+        		
+        		if (isLikelyStuck == "true") {
+        			status = "stuck";
+        		} else if (status != "stuck" && currentExecutable != null) {
+        			status = "running";
+        		}
+        	}
+        	
+        	computers[i] = new HudsonComputer(displayName, new Boolean(isIdle), new Boolean(isOffline), monitorData, executors);
         }
-        /*
-        var title = xml.getElementsByTagName("title")[0].childNodes[0].nodeValue;
-        var entries = xml.getElementsByTagName("entry");
-        if (entries.length > 0) {
-        	var hasNonSuccess = false;
-        	var nonSuccessCount = 0;
-        	var size = Math.min(this.prefMgr.getSize(), entries.length);
-	        var builds = new Array(size);
-	        for (var i = 0; i < size; i++) {
-				var text = entries[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
-				var link = entries[i].getElementsByTagName("link")[0].attributes.getNamedItem("href").value;
-				var date = entries[i].getElementsByTagName("published")[0].childNodes[0].nodeValue;
-				builds[i] = new HistoryBuild(text, link, date);
-				if (!builds[i].isSuccess()) {
-					hasNonSuccess = true;
-					nonSuccessCount++;
-					if (builds[i].isFailure()) {
-						this.handleFailureNotification(feed, title, builds[i], date);
-					}
-				}
-	        }
-			var status;
-			if (this.prefMgr.getFeedStatusType() == "latest") {
-				status = builds[0].getStatus();
-			} else {
-				status = this.getHealthStatus(size, nonSuccessCount);
-			}
-			this.uiMgr.setStatusProcessed(feed, title, status, builds, responseText);
-	    } else {
-	    	this.uiMgr.setStatusNoBuild(feed, title);
-	    }
-	    */
+        this.uiMgr.setExecutorFeedStatusProcessed(executorFeed, "Hudson build executors", status, computers, responseText);
     } catch (e) {
-    	///this.uiMgr.setStatusParseError(feed, e);
+    	this.uiMgr.setStatusParseError(feed, e);
     }
 }

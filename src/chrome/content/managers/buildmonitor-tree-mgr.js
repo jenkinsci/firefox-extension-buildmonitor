@@ -1,14 +1,14 @@
 /*****************************************************************
- * TreeMgr takes care of the management of tree view on
+ * HudsonTreeMgr takes care of the management of tree view on
  * preferences window.
  */
-function TreeMgr(prefMgr) {
+function HudsonTreeMgr(prefMgr) {
     NUM_OF_FEEDS = 15;
     this.prefMgr = prefMgr;
     this.treeFeeds = null;
     this.treeView = null;
 }
-TreeMgr.prototype.initView = function() {
+HudsonTreeMgr.prototype.initView = function() {
 	treeFeeds = this.prefMgr.getFeeds();
 	this.treeView = {
 	    rowCount : NUM_OF_FEEDS,
@@ -60,12 +60,12 @@ TreeMgr.prototype.initView = function() {
 	};
     document.getElementById("hudson-prefs-feeds").view = this.treeView;
 }
-TreeMgr.prototype.saveView = function() {
+HudsonTreeMgr.prototype.saveView = function() {
     for (var i = 0; i < treeFeeds.length; i++) {
     	prefMgr.setFeed(treeFeeds[i], "");
     }
 }
-TreeMgr.prototype.updateView = function(event) {
+HudsonTreeMgr.prototype.updateView = function(event) {
 	var tree = document.getElementById("hudson-prefs-feeds");
 	var tbo = tree.treeBoxObject;
 
@@ -82,14 +82,14 @@ TreeMgr.prototype.updateView = function(event) {
 		this.swapFeeds(row.value, row.value + 1);
 	}
 }
-TreeMgr.prototype.removeFeed = function(index) {
+HudsonTreeMgr.prototype.removeFeed = function(index) {
     for (var i = index; i < treeFeeds.length - 1; i++) {
     	treeFeeds[i].setName(treeFeeds[i + 1].getName());
     	treeFeeds[i].setUrl(treeFeeds[i + 1].getUrl());
     }
     treeFeeds[treeFeeds.length - 1].clear();
 }
-TreeMgr.prototype.swapFeeds = function(index1, index2) {
+HudsonTreeMgr.prototype.swapFeeds = function(index1, index2) {
 	var tempName = treeFeeds[index1].getName();
 	var tempUrl = treeFeeds[index1].getUrl();
 	treeFeeds[index1].setName(treeFeeds[index2].getName());

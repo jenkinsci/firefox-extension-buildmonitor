@@ -1,13 +1,13 @@
 /*****************************************************************
- * LogMgr writes log messages to Firefox console (on Firefox menu: Tools -> Error Console)
+ * HudsonLogMgr writes log messages to Firefox console (on Firefox menu: Tools -> Error Console)
  * when Debug Enabled checkbox is ticked on Build Monitor's preferences menu.
  */
-function LogMgr(console, prefMgr, dateMgr) {
+function HudsonLogMgr(console, prefMgr, dateMgr) {
     this.console = console;
     this.prefMgr = prefMgr;
     this.dateMgr = dateMgr;
 }
-LogMgr.prototype.debug = function(message, feed) {
+HudsonLogMgr.prototype.debug = function(message, feed) {
     if (this.prefMgr.getDebug() == true) {
     	var id = "main";
     	if (feed) {
