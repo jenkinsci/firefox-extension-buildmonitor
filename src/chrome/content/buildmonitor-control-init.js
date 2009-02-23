@@ -8,10 +8,10 @@ var sound = Components.classes["@mozilla.org/sound;1"].createInstance(Components
 
 var dateMgr = new HudsonDateMgr();
 var textMgr = new HudsonTextMgr();
-var notificationMgr = new HudsonNotificationMgr(sound, io, alerts);
 var prefMgr = new HudsonPrefMgr(preferences);
 var treeMgr = new HudsonTreeMgr(prefMgr);
 var logMgr = new HudsonLogMgr(console, prefMgr, dateMgr);
 var uiMgr = new HudsonUIMgr(logMgr, textMgr, prefMgr);
+var notificationMgr = new HudsonNotificationMgr(sound, io, alerts, prefMgr);
 var feedMgr = new HudsonFeedMgr(uiMgr, notificationMgr, prefMgr);
 var linkMgr = new HudsonLinkMgr(uiMgr, feedMgr, prefMgr);

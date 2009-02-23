@@ -83,12 +83,8 @@ HudsonFeedMgr.prototype.handleFailureNotification = function(feed, title, build,
 	var lastFail = this.prefMgr.getLastFail(feed);
 	if (lastFail == null || lastFail == "" || lastFail < date) {
 		this.prefMgr.setLastFail(feed, date);
-		if (prefMgr.getSound()) {
-			this.notificationMgr.playSound("failure");
-		}
-		if (prefMgr.getAlert()) {
-			this.notificationMgr.displayAlert(feed, title, build);
-		}
+		this.notificationMgr.playSound("failure");
+		this.notificationMgr.displayAlert(feed, title, build);
 	}
 }
 HudsonFeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
@@ -166,7 +162,7 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         		var isLikelyStuck = executorElements[j].getElementsByTagName("likelyStuck")[0].childNodes[0].nodeValue;
         		var number = j;
         		var progress = executorElements[j].getElementsByTagName("progress")[0].childNodes[0].nodeValue;
-        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isIdle, isLikelyStuck, number, progress, displayName);
+        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isIdle, isLikelyStuck, number, progress, displayName, executorFeed.getUrl().replace(/\/api\/xml.*/, ""));
         		
         		if (isLikelyStuck == "true") {
         			status = "stuck";

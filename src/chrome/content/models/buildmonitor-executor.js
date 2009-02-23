@@ -2,7 +2,7 @@
  * HudsonExecutor represents a build executor on a Hudson master/slave instance.
  */
 function HudsonExecutor(
-		executableNumber, executableUrl, isIdle, isLikelyStuck, number, progress, computerName) {
+		executableNumber, executableUrl, isIdle, isLikelyStuck, number, progress, computerName, computerUrl) {
 	this.executableNumber = executableNumber;
 	this.executableUrl = executableUrl;
 	this.isIdle = isIdle;
@@ -10,12 +10,22 @@ function HudsonExecutor(
 	this.number = number;
 	this.progress = progress;
 	this.computerName = computerName;
+	this.computerUrl = computerUrl;
 }
 HudsonExecutor.prototype.getExecutableNumber = function() {
 	return this.executableNumber;
 }
 HudsonExecutor.prototype.getExecutableUrl = function() {
 	return this.executableUrl;
+}
+HudsonExecutor.prototype.getLink = function() {
+	var link = null;
+	if (this.executableUrl != null) {
+		link = this.executableUrl;
+	} else {
+		link = this.computerUrl + "/" + this.computerName;
+	}
+	return link;
 }
 HudsonExecutor.prototype.getIdleStatus = function() {
 	return this.isIdle;

@@ -1,14 +1,19 @@
 /*****************************************************************
  * HudsonNotificationMgr handles non-successful build notification.
  */
-function HudsonNotificationMgr(sound, io, alerts) {
+function HudsonNotificationMgr(sound, io, alerts, prefMgr) {
 	this.sound = sound;
 	this.io = io;
 	this.alerts = alerts;
+	this.prefMgr = prefMgr;
 }
 HudsonNotificationMgr.prototype.playSound = function(status) {
-	this.sound.play(io.newURI("chrome://buildmonitor/skin/" + status + ".wav", null, null));
+	if (prefMgr.getSound()) {
+		this.sound.play(io.newURI("chrome://buildmonitor/skin/" + status + ".wav", null, null));
+	}
 }
-HudsonNotificationMgr.prototype.displayAlert = function(feed, title, build) {
-	this.alerts.showAlertNotification("chrome://buildmonitor/skin/" + build.getStatus() + ".png", title + "[" + feed.getName() + "]", build.getDetails(), false);
+HudsonNotificationMgr.prototype.displayAlert = function(feed, title, item) {
+	if (prefMgr.getAlert()) {
+		this.alerts.showAlertNotification("chrome://buildmonitor/skin/" + item.getStatus() + ".png", title + "[" + feed.getName() + "]", item.getDetails(), false);
+	}
 }

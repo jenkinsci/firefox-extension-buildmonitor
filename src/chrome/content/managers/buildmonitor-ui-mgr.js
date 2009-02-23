@@ -21,7 +21,7 @@ HudsonUIMgr.prototype.initFeedsPanel = function(feeds) {
     for(var i = 0; i < feeds.length; i++) {
     	if (!feeds[i].isIgnored()) {
 			if (feeds[i].hasExecutorFeed()) {
-				this.addExecutorFeedPanel(feeds[i].getExecutorFeed());
+				this.addExecutorFeedPanel(feeds[i]);
 			}
 			this.addFeedPanel(feeds[i]);
 		}
@@ -90,21 +90,6 @@ HudsonUIMgr.prototype.setStatusProcessed = function(feed, title, status, builds,
 	this.setTooltip(builds, title, feed);
 	this.setBuildsMenupopup(builds, title, feed);
 }
-HudsonUIMgr.prototype.setBuildsMenupopup = function(builds, title, feed) {
-	var menupopup = this.getBuildsMenupopupElement(feed);
-	this.clear(menupopup);
-	for (i = 0; i < builds.length; i++) {
-		var menuitem = document.createElement("menuitem");
-	    menuitem.setAttribute("label", builds[i].getDetails());
-	   	menuitem.setAttribute("value", builds[i].getLink());
-	   	menuitem.setAttribute("oncommand", "hudson_goTo(this.value)");
-	   	menuitem.setAttribute("class", "menuitem-iconic");
-	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + this.getVisualStatus(builds[i].getStatus()) + ".png");
-	   	menuitem.setAttribute("maxwidth", "1000");
-	   	menupopup.appendChild(menuitem);
-	}
-	this.getPanelElement(feed).setAttribute("popup", this.getBuildsMenupopupId(feed));
-}
 HudsonUIMgr.prototype.setPrefsMenupopup = function(feed) {
 	var menupopup = this.getMenusMenupopupElement(feed);
 
@@ -157,11 +142,22 @@ HudsonUIMgr.prototype.setPrefsMenupopup = function(feed) {
 	this.getPanelElement(feed).setAttribute("context", this.getMenusMenupopupId(feed));
 }
 //////////////////////////////////////////////// Executor feed.
-HudsonUIMgr.prototype.addExecutorFeedPanel = function(executorFeed) {
+HudsonUIMgr.prototype.addExecutorFeedPanel = function(feed) {
+	var executorFeed = feed.getExecutorFeed();
+
+	var prefsMenupopup = document.createElement("menupopup");
+	prefsMenupopup.setAttribute("id", this.getMenusMenupopupId(executorFeed));
+	this.feedsPrefsMenupopup.appendChild(prefsMenupopup);
+	
 	var panel = document.createElement("statusbarpanel");
 	panel.setAttribute("id", this.getPanelId(executorFeed));
 	panel.setAttribute("class", "statusbarpanel-iconic");
-	
+
+	var buildsMenupopup = document.createElement("menupopup");
+	buildsMenupopup.setAttribute("id", this.getBuildsMenupopupId(executorFeed));
+	buildsMenupopup.setAttribute("class", "info");
+	this.feedsBuildsMenupopup.appendChild(buildsMenupopup);
+		
 	this.feedsPanel.appendChild(panel);
 	this.setPanel("running", executorFeed);
 	
@@ -175,6 +171,7 @@ HudsonUIMgr.prototype.addExecutorFeedPanel = function(executorFeed) {
 	this.setStatusQueued(executorFeed);
 	
 	///this.setPrefsMenupopup(executorFeed);
+	this.getPanelElement(executorFeed).setAttribute("context", this.getMenusMenupopupId(feed));
 }
 HudsonUIMgr.prototype.setExecutorFeedStatusProcessed = function(executorFeed, title, status, computers, responseText) {
 	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", executorFeed);
@@ -184,9 +181,24 @@ HudsonUIMgr.prototype.setExecutorFeedStatusProcessed = function(executorFeed, ti
 		executors = executors.concat(computers[i].getExecutors());
 	}
 	this.setTooltip(executors, title, executorFeed);
-	//this.setBuildsMenupopup(builds, title, executorFeed);
+	this.setBuildsMenupopup(executors, title, executorFeed);
 }
 //////////////////////////////////////////////// Generic feed functions.
+HudsonUIMgr.prototype.setBuildsMenupopup = function(items, title, component) {
+	var menupopup = this.getBuildsMenupopupElement(component);
+	this.clear(menupopup);
+	for (var i = 0; i < items.length; i++) {
+		var menuitem = document.createElement("menuitem");
+	    menuitem.setAttribute("label", items[i].getDetails());
+	   	menuitem.setAttribute("value", items[i].getLink());
+	   	menuitem.setAttribute("oncommand", "hudson_goTo(this.value)");
+	   	menuitem.setAttribute("class", "menuitem-iconic");
+	   	menuitem.setAttribute("image", "chrome://buildmonitor/skin/" + this.getVisualStatus(items[i].getStatus()) + ".png");
+	   	menuitem.setAttribute("maxwidth", "1000");
+	   	menupopup.appendChild(menuitem);
+	}
+	this.getPanelElement(component).setAttribute("popup", this.getBuildsMenupopupId(component));
+}
 HudsonUIMgr.prototype.setTooltip = function(items, title, feed) {
 	var vbox = document.createElement("vbox");
 	if (title) {
