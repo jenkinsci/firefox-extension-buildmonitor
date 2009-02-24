@@ -148,7 +148,8 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
 			var diskSpace = monitorData.getElementsByTagName("hudson.node_monitors.DiskSpaceMonitor")[0].childNodes[0].nodeValue;
         
         	var displayName = computerElements[i].getElementsByTagName("displayName")[0].childNodes[0].nodeValue;
-        	var isIdle = computerElements[i].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
+        	var idleElements = computerElements[i].getElementsByTagName("idle");
+        	var isIdle = idleElements[idleElements.length - 1].childNodes[0].nodeValue;
         	var isOffline = computerElements[i].getElementsByTagName("offline")[0].childNodes[0].nodeValue;
         	
         	var monitorData = new HudsonMonitorData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
@@ -159,11 +160,11 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         		var currentExecutable = executorElements[j].getElementsByTagName("currentExecutable")[0];
         		var executableNumber = (currentExecutable != null) ? currentExecutable.getElementsByTagName("number")[0].childNodes[0].nodeValue : null;
         		var executableUrl = (currentExecutable != null) ? currentExecutable.getElementsByTagName("url")[0].childNodes[0].nodeValue : null;
-        		var isIdle = executorElements[j].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
+        		var isExecutorIdle = executorElements[j].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
         		var isLikelyStuck = executorElements[j].getElementsByTagName("likelyStuck")[0].childNodes[0].nodeValue;
         		var number = j;
         		var progress = executorElements[j].getElementsByTagName("progress")[0].childNodes[0].nodeValue;
-        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isIdle, isLikelyStuck, number, progress, displayName, executorFeed.getUrl().replace(/\/api\/xml.*/, ""));
+        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isExecutorIdle, isLikelyStuck, number, progress, displayName, executorFeed.getUrl().replace(/\/api\/xml.*/, ""));
         		
         		if (isLikelyStuck == "true") {
         			status = "stuck";

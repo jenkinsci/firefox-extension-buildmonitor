@@ -33,6 +33,9 @@ function hudson_process(i) {
 function hudson_removeFeed(i) {
 	prefMgr.removeFeed(feeds[i]);
 	uiMgr.removePanel(feeds[i]);
+	if (feeds[i].hasExecutorFeed()) {
+		uiMgr.removePanel(feeds[i].getExecutorFeed());
+	}
 }
 function hudson_goToDashboard(i) {
 	hudson_goTo(feeds[i].getUrl().match("^.+/"));

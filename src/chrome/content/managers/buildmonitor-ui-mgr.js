@@ -61,10 +61,6 @@ HudsonUIMgr.prototype.addFeedPanel = function(feed) {
 	
 	this.setPrefsMenupopup(feed);
 }
-HudsonUIMgr.prototype.setStatusQueued = function(feed) {
-	this.setPanel("queued", feed);
-	this.setTooltip(new Array(textMgr.get("feed.queued.message1") + " url: " + feed.getUrl()), textMgr.get("feed.queued.title"), feed);
-}
 HudsonUIMgr.prototype.setStatusDownloading = function(feed) {
 	this.setPanel("downloading", feed);
 	this.setTooltip(new Array(textMgr.get("feed.process.downloading.message1") + " url: " + feed.getUrl(), textMgr.get("feed.process.downloading.message2")), textMgr.get("feed.process.downloading.title"), feed);
@@ -198,6 +194,10 @@ HudsonUIMgr.prototype.setBuildsMenupopup = function(items, title, component) {
 	   	menupopup.appendChild(menuitem);
 	}
 	this.getPanelElement(component).setAttribute("popup", this.getBuildsMenupopupId(component));
+}
+HudsonUIMgr.prototype.setStatusQueued = function(feed) {
+	this.setPanel("queued", feed);
+	this.setTooltip(new Array(textMgr.get("feed.queued.message1") + " url: " + feed.getUrl()), textMgr.get("feed.queued.title"), feed);
 }
 HudsonUIMgr.prototype.setTooltip = function(items, title, feed) {
 	var vbox = document.createElement("vbox");

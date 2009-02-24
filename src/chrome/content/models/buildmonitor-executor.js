@@ -43,12 +43,15 @@ HudsonExecutor.prototype.getComputerName = function() {
 	return this.computerName;
 }
 HudsonExecutor.prototype.getDetails = function() {
-	var details = null;
+	var details = "";
 	if (this.isIdle == "true") {
 		details = "Idle";
 	} else {
 		var executableName = new String(this.executableUrl.match("/job/[^/]+")).replace(/\/job\//, "");
-		details = executableName + " #" + this.executableNumber;
+		if (this.progress >= 0) {
+			details += this.progress + "% - ";
+		}
+		details += executableName + " #" + this.executableNumber;
 	}
     details += " - " + this.computerName + "#" + (this.number + 1);
     return details;
@@ -59,7 +62,7 @@ HudsonExecutor.prototype.getStatus = function() {
 		status = "idle";
 	} else if (this.isLikelyStuck == "true") {
 		status = "stuck";
-	} else if (this.progress != "-1") {
+	} else {
 		status = "running";
 	}
 	return status;
