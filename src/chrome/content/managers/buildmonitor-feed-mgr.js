@@ -131,6 +131,7 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         var xml = new DOMParser().parseFromString(responseText, "text/xml");
         var computerElements = xml.getElementsByTagName("computer");
         var computers = new Array(computerElements.length);
+        var title = "Hudson build executors";
         var status = "idle";
         for (var i = 0; i < computerElements.length; i++) {
         
@@ -166,6 +167,8 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         		
         		if (isLikelyStuck == "true") {
         			status = "stuck";
+			        this.notificationMgr.playSound("stuck");
+					this.notificationMgr.displayAlert(executorFeed, title, executors[j]);
         		} else if (status != "stuck" && currentExecutable != null) {
         			status = "running";
         		}
@@ -173,7 +176,7 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         	
         	computers[i] = new HudsonComputer(displayName, new Boolean(isIdle), new Boolean(isOffline), monitorData, executors);
         }
-        this.uiMgr.setExecutorFeedStatusProcessed(executorFeed, "Hudson build executors", status, computers, responseText);
+        this.uiMgr.setExecutorFeedStatusProcessed(executorFeed, title, status, computers, responseText);
     } catch (e) {
     	this.uiMgr.setStatusParseError(feed, e);
     }
