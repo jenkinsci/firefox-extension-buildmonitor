@@ -47,66 +47,69 @@
 	    	<preference id="hudson-prefs-hidename" name="hudson.hidename" type="bool"/>
 	    	<preference id="hudson-prefs-executor" name="hudson.executor" type="bool"/>
 		</preferences>
-		<groupbox>
-			<caption label="&prefs.group.feeds;"/>
-			<vbox>
-				<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="hudson_updateView(event);">
-					<treecols>
-						<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
-						<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>
-						<treecol id="hudson-prefs-feeds-remove" label="" flex="1" tooltiptext="&prefs.help.feeds.remove;"/>
-						<treecol id="hudson-prefs-feeds-up" label="" flex="1" tooltiptext="&prefs.help.feeds.up;"/>
-						<treecol id="hudson-prefs-feeds-down" label="" flex="1" tooltiptext="&prefs.help.feeds.down;"/>
-					</treecols>
-					<treechildren/>
-				</tree>
-				<hbox>
-					<textbox id="buildmonitor-prefs-interval" size="3" preference="hudson-prefs-interval"/>
-					<label value="&prefs.interval;" tooltiptext="&prefs.help.interval;"/>
-				</hbox>
-				<hbox>
-					<checkbox id="buildmonitor-prefs-executor" checked="false" preference="hudson-prefs-executor"/>
-					<label value="&prefs.executor;" tooltiptext="&prefs.help.executor;"/>
-				</hbox>
-			</vbox>
-		</groupbox>
-		<hbox>
-			<groupbox>
-				<caption label="&prefs.group.display;"/>
-				<vbox>
-					<hbox>
-						<textbox id="buildmonitor-prefs-size" size="3" preference="hudson-prefs-size"/>
-						<label value="&prefs.size;" tooltiptext="&prefs.help.size;"/>
-					</hbox>
-					<hbox>
-						<label value="&prefs.feedstatustype.1;" tooltiptext="&prefs.help.feedstatustype;"/>
-						<menulist id="buildmonitor-prefs-feedstatustype" preference="hudson-prefs-feedstatustype">
-							<menupopup>
-								<menuitem label="&prefs.feedstatustype.health;" value="health" selected="true"/>
-								<menuitem label="&prefs.feedstatustype.latest;" value="latest"/>
-							</menupopup>
-						</menulist>
-						<label value="&prefs.feedstatustype.2;" tooltiptext="&prefs.help.feedstatustype;"/>
-					</hbox>
-					<hbox>
-						<label value="&prefs.successcolor.1;" tooltiptext="&prefs.help.successcolor;"/>
-						<menulist id="buildmonitor-prefs-successcolor" preference="hudson-prefs-successcolor">
-							<menupopup>
-								<menuitem label="&prefs.successcolor.blue;" value="blue" selected="true"/>
-								<menuitem label="&prefs.successcolor.green;" value="green"/>
-							</menupopup>
-						</menulist>
-						<label value="&prefs.successcolor.2;" tooltiptext="&prefs.help.successcolor;"/>
-					</hbox>
-					<hbox>
-						<checkbox id="buildmonitor-prefs-hidename" checked="false" preference="hudson-prefs-hidename"/>
-						<label value="&prefs.hidename;" tooltiptext="&prefs.help.hidename;"/>
-					</hbox>
-				</vbox>
-			</groupbox>
-			<vbox>
-				<groupbox>
-					<caption label="&prefs.group.notification;"/>
+		<tabbox>
+			<tabs>
+				<tab label="&prefs.group.feeds;"/>
+				<tab label="&prefs.group.display;"/>
+				<tab label="&prefs.group.notification;"/>
+				<tab label="&prefs.group.misc;"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<vbox>
+						<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="hudson_updateView(event);" width="550">
+							<treecols>
+								<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
+								<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>
+								<treecol id="hudson-prefs-feeds-remove" label="" flex="1" tooltiptext="&prefs.help.feeds.remove;"/>
+								<treecol id="hudson-prefs-feeds-up" label="" flex="1" tooltiptext="&prefs.help.feeds.up;"/>
+								<treecol id="hudson-prefs-feeds-down" label="" flex="1" tooltiptext="&prefs.help.feeds.down;"/>
+							</treecols>
+							<treechildren/>
+						</tree>
+						<hbox>
+							<textbox id="buildmonitor-prefs-interval" size="3" preference="hudson-prefs-interval"/>
+							<label value="&prefs.interval;" tooltiptext="&prefs.help.interval;"/>
+						</hbox>
+						<hbox>
+							<checkbox id="buildmonitor-prefs-executor" checked="false" preference="hudson-prefs-executor"/>
+							<label value="&prefs.executor;" tooltiptext="&prefs.help.executor;"/>
+						</hbox>
+					</vbox>
+				</tabpanel>
+				<tabpanel>
+					<vbox>
+						<hbox>
+							<textbox id="buildmonitor-prefs-size" size="3" preference="hudson-prefs-size"/>
+							<label value="&prefs.size;" tooltiptext="&prefs.help.size;"/>
+						</hbox>
+						<hbox>
+							<label value="&prefs.feedstatustype.1;" tooltiptext="&prefs.help.feedstatustype;"/>
+							<menulist id="buildmonitor-prefs-feedstatustype" preference="hudson-prefs-feedstatustype">
+								<menupopup>
+									<menuitem label="&prefs.feedstatustype.health;" value="health" selected="true"/>
+									<menuitem label="&prefs.feedstatustype.latest;" value="latest"/>
+								</menupopup>
+							</menulist>
+							<label value="&prefs.feedstatustype.2;" tooltiptext="&prefs.help.feedstatustype;"/>
+						</hbox>
+						<hbox>
+							<label value="&prefs.successcolor.1;" tooltiptext="&prefs.help.successcolor;"/>
+							<menulist id="buildmonitor-prefs-successcolor" preference="hudson-prefs-successcolor">
+								<menupopup>
+									<menuitem label="&prefs.successcolor.blue;" value="blue" selected="true"/>
+									<menuitem label="&prefs.successcolor.green;" value="green"/>
+								</menupopup>
+							</menulist>
+							<label value="&prefs.successcolor.2;" tooltiptext="&prefs.help.successcolor;"/>
+						</hbox>
+						<hbox>
+							<checkbox id="buildmonitor-prefs-hidename" checked="false" preference="hudson-prefs-hidename"/>
+							<label value="&prefs.hidename;" tooltiptext="&prefs.help.hidename;"/>
+						</hbox>
+					</vbox>
+				</tabpanel>
+				<tabpanel>
 					<vbox>
 						<hbox>
 							<checkbox id="buildmonitor-prefs-alert" checked="false" preference="hudson-prefs-alert"/>
@@ -117,9 +120,8 @@
 							<label value="&prefs.sound;" tooltiptext="&prefs.help.sound;"/>
 						</hbox>
 					</vbox>
-				</groupbox>
-				<groupbox>
-					<caption label="&prefs.group.misc;"/>
+				</tabpanel>
+				<tabpanel>
 					<vbox>
 						<hbox>
 							<label value="&prefs.openpage;" tooltiptext="&prefs.help.openpage;"/>
@@ -135,8 +137,8 @@
 							<label value="&prefs.debug;" tooltiptext="&prefs.help.debug;"/>
 						</hbox>
 					</vbox>
-				</groupbox>	
-			</vbox>
-		</hbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
 	</prefpane>
 </prefwindow>
