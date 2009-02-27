@@ -31,9 +31,12 @@
 <!ENTITY prefs.alert "警告を有効">
 <!ENTITY prefs.hidename "ステータスバーのフィード名を隠す">
 <!ENTITY prefs.executor "TODO">
+<!ENTITY prefs.networkusername "TODO">
+<!ENTITY prefs.networkpassword "TODO">
 <!ENTITY prefs.group.feeds "フィード">
 <!ENTITY prefs.group.display "表示">
 <!ENTITY prefs.group.notification "通知">
+<!ENTITY prefs.group.network "TODO">
 <!ENTITY prefs.group.misc "その他">
 <!ENTITY prefs.help.feeds.name "ステータスバーやツールチップに表示するフィード名。">
 <!ENTITY prefs.help.feeds.url "モニターするHudsonのフィードのURL。Hudsonのダッシュボードやジョブ画面にあります。">
@@ -49,4 +52,4 @@
 <!ENTITY prefs.help.sound "有効にすると、ビルドの失敗を音で通知します。">
 <!ENTITY prefs.help.alert "ビルドのエラー情報を表示する警告ウィンドウをデスクトップの右下に表示します。">
 <!ENTITY prefs.help.hidename "フィード名を隠して、ステータスバーにアイコンだけ表示します。たくさんのフィードを監視している場合に便利です。">
-<!ENTITY prefs.help.executor "TODO">
+<!ENTITY prefs.help.networkusername "TODO">

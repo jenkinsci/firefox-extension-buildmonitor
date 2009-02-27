@@ -23,6 +23,7 @@ HudsonFeedMgr.prototype.downloadHistoryFeed = function(feed) {
 	
 	var request = new XMLHttpRequest();
     request.open("GET", feed.getUrl(), true);
+	this.setBasicAuth(request);
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
@@ -110,6 +111,7 @@ HudsonFeedMgr.prototype.downloadExecutorFeed = function(executorFeed) {
 	
 	var request = new XMLHttpRequest();
     request.open("GET", executorFeed.getUrl(), true);
+	this.setBasicAuth(request);
     request.onreadystatechange = function () {
         if (request.readyState == 4) {
             if (request.status == 200) {
@@ -181,4 +183,12 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
     } catch (e) {
     	this.uiMgr.setStatusParseError(feed, e);
     }
+}
+HudsonFeedMgr.prototype.setBasicAuth = function(request) {
+	var networkUsername = this.prefMgr.getNetworkUsername();
+	var networkPassword = this.prefMgr.getNetworkPassword();
+	if (networkUsername != null && networkUsername != "") {
+		var auth = "Basic " + Base64.encode(networkUsername + ':' + networkPassword);
+		request.setRequestHeader("Authorization", auth);
+	}
 }

@@ -21,6 +21,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-notification-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-init.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-main.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/base64.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
 
 	<stringbundleset id="stringbundleset">

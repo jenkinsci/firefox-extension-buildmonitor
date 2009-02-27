@@ -8,6 +8,8 @@ pref("hudson.sound", false);
 pref("hudson.alert", true);
 pref("hudson.hidename", false);
 pref("hudson.executor", false);
+pref("hudson.networkusername", "");
+pref("hudson.networkpassword", "");
 pref("hudson.feeds.0.name", "");
 pref("hudson.feeds.0.url", "");
 pref("hudson.feeds.0.lastfail", "");

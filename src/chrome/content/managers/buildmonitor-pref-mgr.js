@@ -75,6 +75,12 @@ HudsonPrefMgr.prototype.getHideName = function() {
 HudsonPrefMgr.prototype.getExecutor = function() {
     return this.preferences.getBoolPref("hudson.executor");
 }
+HudsonPrefMgr.prototype.getNetworkUsername = function() {
+    return this.preferences.getCharPref("hudson.networkusername");
+}
+HudsonPrefMgr.prototype.getNetworkPassword = function() {
+    return this.preferences.getCharPref("hudson.networkpassword");
+}
 HudsonPrefMgr.prototype.getFeeds = function() {
 	var feeds = new Array();
     for (var i = 0; i < NUM_OF_FEEDS; i++) {

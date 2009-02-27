@@ -28,6 +28,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-notification-mgr.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-init.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-prefs.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/base64.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
 
 	<stringbundleset id="stringbundleset">
@@ -46,12 +47,15 @@
 	    	<preference id="hudson-prefs-alert" name="hudson.alert" type="bool"/>
 	    	<preference id="hudson-prefs-hidename" name="hudson.hidename" type="bool"/>
 	    	<preference id="hudson-prefs-executor" name="hudson.executor" type="bool"/>
+	    	<preference id="hudson-prefs-networkusername" name="hudson.networkusername" type="string"/>
+	    	<preference id="hudson-prefs-networkpassword" name="hudson.networkpassword" type="string"/>
 		</preferences>
 		<tabbox>
 			<tabs>
 				<tab label="&prefs.group.feeds;"/>
 				<tab label="&prefs.group.display;"/>
 				<tab label="&prefs.group.notification;"/>
+				<tab label="&prefs.group.network;"/>
 				<tab label="&prefs.group.misc;"/>
 			</tabs>
 			<tabpanels>
@@ -118,6 +122,18 @@
 						<hbox>
 							<checkbox id="buildmonitor-prefs-sound" checked="false" preference="hudson-prefs-sound"/>
 							<label value="&prefs.sound;" tooltiptext="&prefs.help.sound;"/>
+						</hbox>
+					</vbox>
+				</tabpanel>
+				<tabpanel>
+					<vbox>
+						<hbox>
+							<label value="&prefs.networkusername;" tooltiptext="&prefs.help.networkusername;"/>
+							<textbox id="buildmonitor-prefs-networkusername" size="8" preference="hudson-prefs-networkusername"/>
+						</hbox>
+						<hbox>
+							<label value="&prefs.networkpassword;" tooltiptext="&prefs.help.networkusername;"/>
+							<textbox id="buildmonitor-prefs-networkpassword" size="8" preference="hudson-prefs-networkpassword" type="password"/>
 						</hbox>
 					</vbox>
 				</tabpanel>

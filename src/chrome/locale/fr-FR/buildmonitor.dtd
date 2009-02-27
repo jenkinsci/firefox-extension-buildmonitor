@@ -31,9 +31,12 @@
 <!ENTITY prefs.alert "Activer les alertes">
 <!ENTITY prefs.hidename "Cacher le nom du flux dans la barre de statut">
 <!ENTITY prefs.executor "TODO">
+<!ENTITY prefs.networkusername "TODO">
+<!ENTITY prefs.networkpassword "TODO">
 <!ENTITY prefs.group.feeds "Flux">
 <!ENTITY prefs.group.display "Affiche">
 <!ENTITY prefs.group.notification "Notification">
+<!ENTITY prefs.group.network "TODO">
 <!ENTITY prefs.group.misc "Divers">
 <!ENTITY prefs.help.feeds.name "Le nom du flux qui sera affiché sur la barre de statut et les bulles d'aide.">
 <!ENTITY prefs.help.feeds.url "L'URL du flux Hudson que vous voulez monitorer, vous pouvez trouver cette URL dans les pages tableau de bord/job de Hudson.">
@@ -50,3 +53,4 @@
 <!ENTITY prefs.help.alert "Affiche une fenêtre d'alerte en bas à droite de votre bureau, indiquant les informations sur le build en échec.">
 <!ENTITY prefs.help.hidename "Si vous cachez le nom du flux, vous ne verrez plus que des icônes sur la barre de statut. Utile when vous suivez de nombreux flux.">
 <!ENTITY prefs.help.executor "TODO">
+<!ENTITY prefs.help.networkusername "TODO">
