@@ -1,5 +1,5 @@
 <!ENTITY init.title "Monitor Build Hudson">
-<!ENTITY init.message.1 "Tambahkan feeds dari halaman Hudson anda, klik kanan, pilih Tambah Tautan di Monitor Build Hudson.">
+<!ENTITY init.message.1 "Tambahkan feeds dari halaman Hudson anda, klik kanan di link RSS, pilih Tambah Tautan di Monitor Build Hudson.">
 <!ENTITY init.message.2 "Atau konfigurasi feed secara manual melalui menu Preferensi.">
 <!ENTITY menu.add.link "Tambah Tautan Di Monitor Build Hudson">
 <!ENTITY menu.preferences "Preferensi">

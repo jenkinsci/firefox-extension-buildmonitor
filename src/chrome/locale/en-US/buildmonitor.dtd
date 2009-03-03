@@ -1,5 +1,5 @@
 <!ENTITY init.title "Hudson Build Monitor">
-<!ENTITY init.message.1 "Add feeds from your Hudson instance page, right click, select Add Link To Hudson Build Monitor.">
+<!ENTITY init.message.1 "Add feeds from your Hudson web page, right click on an RSS link, select Add Link To Hudson Build Monitor.">
 <!ENTITY init.message.2 "Or configure the feeds manually via Preferences menu.">
 <!ENTITY menu.add.link "Add Link To Hudson Build Monitor">
 <!ENTITY menu.preferences "Preferences">
