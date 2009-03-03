@@ -31,6 +31,7 @@
 <!ENTITY prefs.alert "Aktifkan alert">
 <!ENTITY prefs.hidename "Sembunyikan nama feed di status bar">
 <!ENTITY prefs.executor "Aktifkan monitor eksekutor">
+<!ENTITY prefs.networkdesc "HTTP Basic Auth">
 <!ENTITY prefs.networkusername "Username">
 <!ENTITY prefs.networkpassword "Password">
 <!ENTITY prefs.group.feeds "Feed">
@@ -53,4 +54,4 @@
 <!ENTITY prefs.help.alert "Tampilkan window alert di ujung kanan bawah desktop anda, dengan informasi tentang build yang gagal.">
 <!ENTITY prefs.help.hidename "Dengan menyembunyikan nama feed, anda hanya akan melihat ikon di status bar. Berguna bila anda memonitor banyak feed.">
 <!ENTITY prefs.help.executor "Jika diaktifkan, status eksekutor build di master dan slave akan dimonitor. Fungsi ini hanya tersedia untuk feed instance Hudson (bukan feed spesifik untuk job tertentu).">
-<!ENTITY prefs.help.networkusername "Username dan password digunakan untuk feeds yang dilindungi password. Harap diingat bahwa username password ini bukan untuk akun Hudson anda.">
+<!ENTITY prefs.help.networkusername "Username dan password digunakan untuk feeds yang dilindungi password, biarkan kosong jika tidak diperlukan. Harap diingat bahwa username password ini bukan untuk akun Hudson anda.">

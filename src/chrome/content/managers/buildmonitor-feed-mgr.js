@@ -181,7 +181,7 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         }
         this.uiMgr.setExecutorFeedStatusProcessed(executorFeed, title, status, computers, responseText);
     } catch (e) {
-    	this.uiMgr.setStatusParseError(feed, e);
+    	this.uiMgr.setStatusParseError(executorFeed, e);
     }
 }
 HudsonFeedMgr.prototype.setBasicAuth = function(request) {

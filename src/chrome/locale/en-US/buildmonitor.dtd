@@ -31,6 +31,7 @@
 <!ENTITY prefs.alert "Enable alert">
 <!ENTITY prefs.hidename "Hide feed name on status bar">
 <!ENTITY prefs.executor "Enable executor monitoring">
+<!ENTITY prefs.networkdesc "HTTP Basic Auth">
 <!ENTITY prefs.networkusername "Username">
 <!ENTITY prefs.networkpassword "Password">
 <!ENTITY prefs.group.feeds "Feeds">
@@ -53,4 +54,4 @@
 <!ENTITY prefs.help.alert "Displays alert window at the bottom right corner of your desktop, showing the failure build information.">
 <!ENTITY prefs.help.hidename "By hiding feed name, you'll only see the icons on the status bar. Handy when you're monitoring many feeds.">
 <!ENTITY prefs.help.executor "When enabled, build executor status on master and slaves will also be monitored. This feature is only available for Hudson instance feed (non job-specific feed).">
-<!ENTITY prefs.help.networkusername "Username and password are used to authenticate against password protected feeds. Please note that this is not your Hudson account username and password.">
+<!ENTITY prefs.help.networkusername "Username and password are used for basic access authentication against password protected feeds, leave empty if you don't need to authenticate. Please note that this is not your Hudson account username and password.">

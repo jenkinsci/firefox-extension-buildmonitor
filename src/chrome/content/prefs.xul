@@ -127,6 +127,7 @@
 				</tabpanel>
 				<tabpanel>
 					<vbox>
+						<caption label="&prefs.networkdesc;"/>
 						<hbox>
 							<label value="&prefs.networkusername;" tooltiptext="&prefs.help.networkusername;"/>
 							<textbox id="buildmonitor-prefs-networkusername" size="8" preference="hudson-prefs-networkusername"/>
