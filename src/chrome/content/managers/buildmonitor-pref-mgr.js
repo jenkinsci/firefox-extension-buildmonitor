@@ -81,6 +81,9 @@ HudsonPrefMgr.prototype.getNetworkUsername = function() {
 HudsonPrefMgr.prototype.getNetworkPassword = function() {
     return this.preferences.getCharPref("hudson.networkpassword");
 }
+HudsonPrefMgr.prototype.identifyRssPattern = function() {
+    return this.preferences.getBoolPref("hudson.identifyrsspattern");
+}
 HudsonPrefMgr.prototype.getFeeds = function() {
 	var feeds = new Array();
     for (var i = 0; i < NUM_OF_FEEDS; i++) {

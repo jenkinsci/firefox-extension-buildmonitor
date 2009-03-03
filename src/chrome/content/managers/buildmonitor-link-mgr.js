@@ -12,9 +12,10 @@ HudsonLinkMgr.prototype.initMenu = function() {
 		contextMenu.addEventListener("popupshowing", this.setMenuVisibility, false);
 	}
 }
+// NOTE: 'this' in the context is the document
 HudsonLinkMgr.prototype.setMenuVisibility = function() {
 	if (gContextMenu) {
-		document.getElementById("hudson-context-menu-addlink").hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink);
+		document.getElementById("hudson-context-menu-addlink").hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink && linkMgr.isHudsonRssLink(gContextMenu.linkURL));
 	}
 }
 HudsonLinkMgr.prototype.initLink = function() {
@@ -44,4 +45,13 @@ HudsonLinkMgr.prototype.getNameRecommendation = function(url) {
 		name = new String(url.match("http://[^/]+")).replace(/http:\/\//, "");
 	}
 	return name;
+}
+HudsonLinkMgr.prototype.isHudsonRssLink = function(url) {
+	var isHudsonRssLink = true;
+	if (this.prefMgr.identifyRssPattern()) {
+		if (url.match("/rss") == null) {
+			isHudsonRssLink = false;
+		}
+	}
+	return isHudsonRssLink;
 }
