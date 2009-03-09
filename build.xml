@@ -4,7 +4,7 @@
 	<property name="source.dir" value="src"/>
 	<property name="dist.dir" value="dist"/>
 	<property name="stage.dir" value="dist/stage"/>
-	<property name="version" value="1.0-SNAPSHOT"/>
+	<property name="version" value="1.0"/>
 
 	<target name="clean">
 		<delete dir="${dist.dir}"/>

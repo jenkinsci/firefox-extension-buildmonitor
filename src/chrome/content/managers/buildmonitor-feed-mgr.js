@@ -136,23 +136,21 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         var title = "Hudson build executors";
         var status = "idle";
         for (var i = 0; i < computerElements.length; i++) {
-        
         	var monitorData = computerElements[i].getElementsByTagName("monitorData")[0];
 
         	var spaceMonitor = monitorData.getElementsByTagName("hudson.node_monitors.SwapSpaceMonitor")[0];
-			var availablePhysicalMemory = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("availablePhysicalMemory")[0].childNodes[0].nodeValue : null;
-			var availableSwapSpace = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("availableSwapSpace")[0].childNodes[0].nodeValue : null;
-			var totalPhysicalMemory = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("totalPhysicalMemory")[0].childNodes[0].nodeValue : null;
-			var totalSwapSpace = (spaceMonitor != null) ? spaceMonitor.getElementsByTagName("totalSwapSpace")[0].childNodes[0].nodeValue : null;
+			var availablePhysicalMemory = this.getElementValue(spaceMonitor, "availablePhysicalMemory");
+			var availableSwapSpace = this.getElementValue(spaceMonitor, "availableSwapSpace");
+			var totalPhysicalMemory = this.getElementValue(spaceMonitor, "totalPhysicalMemory");
+			var totalSwapSpace = this.getElementValue(spaceMonitor, "totalSwapSpace");
 			
-			var architecture = monitorData.getElementsByTagName("hudson.node_monitors.ArchitectureMonitor")[0].childNodes[0].nodeValue;
-			var averageResponseTime = monitorData.getElementsByTagName("hudson.node_monitors.ResponseTimeMonitor")[0].getElementsByTagName("average")[0].childNodes[0].nodeValue;
-			var diskSpace = monitorData.getElementsByTagName("hudson.node_monitors.DiskSpaceMonitor")[0].childNodes[0].nodeValue;
+			var architecture = this.getElementValue(monitorData, "hudson.node_monitors.ArchitectureMonitor");
+			var averageResponseTime = this.getElementValue(monitorData, "hudson.node_monitors.ResponseTimeMonitor");
+			var diskSpace = this.getElementValue(monitorData, "hudson.node_monitors.DiskSpaceMonitor");
         
-        	var displayName = computerElements[i].getElementsByTagName("displayName")[0].childNodes[0].nodeValue;
-        	var idleElements = computerElements[i].getElementsByTagName("idle");
-        	var isIdle = idleElements[idleElements.length - 1].childNodes[0].nodeValue;
-        	var isOffline = computerElements[i].getElementsByTagName("offline")[0].childNodes[0].nodeValue;
+        	var displayName = this.getElementValue(computerElements[i], "displayName");
+        	var isIdle = this.getLastElementValue(computerElements[i], "idle");
+        	var isOffline = this.getElementValue(computerElements[i], "offline");
         	
         	var monitorData = new HudsonMonitorData(availablePhysicalMemory, availableSwapSpace, totalPhysicalMemory, totalSwapSpace, architecture,	averageResponseTime, diskSpace);
 
@@ -160,13 +158,13 @@ HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText)
         	var executors = new Array(executorElements.length);
         	for (var j = 0; j < executorElements.length; j++) {
         		var currentExecutable = executorElements[j].getElementsByTagName("currentExecutable")[0];
-        		var executableNumber = (currentExecutable != null) ? currentExecutable.getElementsByTagName("number")[0].childNodes[0].nodeValue : null;
-        		var executableUrl = (currentExecutable != null) ? currentExecutable.getElementsByTagName("url")[0].childNodes[0].nodeValue : null;
-        		var isExecutorIdle = executorElements[j].getElementsByTagName("idle")[0].childNodes[0].nodeValue;
-        		var isLikelyStuck = executorElements[j].getElementsByTagName("likelyStuck")[0].childNodes[0].nodeValue;
+        		var executableNumber = this.getElementValue(currentExecutable, "number");
+        		var executableUrl = this.getElementValue(currentExecutable, "url");
+        		var isExecutorIdle = this.getElementValue(executorElements[j], "idle");
+        		var isLikelyStuck = this.getElementValue(executorElements[j], "likelyStuck");
         		var number = j;
-        		var progress = executorElements[j].getElementsByTagName("progress")[0].childNodes[0].nodeValue;
-        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isExecutorIdle, isLikelyStuck, number, progress, displayName, executorFeed.getUrl().replace(/\/api\/xml.*/, ""));
+        		var progress = this.getElementValue(executorElements[j], "progress");
+        		executors[j] = new HudsonExecutor(executableNumber, executableUrl, isExecutorIdle, isLikelyStuck, number, progress, displayName, executorFeed.getUrl().replace(/\/api\/xml.*/, ""), isOffline);
         		
         		if (isLikelyStuck == "true") {
         			status = "stuck";
@@ -191,4 +189,21 @@ HudsonFeedMgr.prototype.setBasicAuth = function(request) {
 		var auth = "Basic " + Base64.encode(networkUsername + ':' + networkPassword);
 		request.setRequestHeader("Authorization", auth);
 	}
+}
+HudsonFeedMgr.prototype.getElementValue = function(container, name) {
+	var value = null;
+	if (container != null && container.getElementsByTagName(name)[0] != null) {
+		value = container.getElementsByTagName(name)[0].childNodes[0].nodeValue;
+	}
+	return value;
+}
+HudsonFeedMgr.prototype.getLastElementValue = function(container, name) {
+	var value = null;
+	if (container != null) {
+		var elements = container.getElementsByTagName(name);
+		if (elements != null) {
+			value = elements[elements.length - 1].childNodes[0].nodeValue;
+		}
+	}
+	return value;
 }
