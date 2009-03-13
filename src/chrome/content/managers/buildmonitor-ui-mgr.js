@@ -65,14 +65,18 @@ HudsonUIMgr.prototype.setStatusDownloading = function(feed) {
 	this.setPanel("downloading", feed);
 	this.setTooltip(new Array(textMgr.get("feed.process.downloading.message1") + " url: " + feed.getUrl(), textMgr.get("feed.process.downloading.message2")), textMgr.get("feed.process.downloading.title"), feed);
 }
-HudsonUIMgr.prototype.setStatusDownloadError = function(feed) {
-	logMgr.debug(textMgr.get("feed.process.error"), feed);
+HudsonUIMgr.prototype.setStatusDownloadError = function(feed, exception) {
+	if (exception) {
+		var message = this.textMgr.get("feed.exception.message1");
+		this.logMgr.debug(message + " Exception: " + exception);
+	}
+	this.logMgr.debug(textMgr.get("feed.process.error"), feed);
 	this.setPanel("error", feed);
 	this.setTooltip(new Array(textMgr.get("feed.process.error.message1"), textMgr.get("feed.process.error.message2")), textMgr.get("feed.process.error.title"), feed);
 }
 HudsonUIMgr.prototype.setStatusParseError = function(feed, exception) {
 	var message = this.textMgr.get("feed.exception.message1");
-	logMgr.debug(message + " Exception: " + e);
+	this.logMgr.debug(message + " Exception: " + exception);
 	this.setPanel("error", feed);
 	this.setTooltip(new Array(message, this.textMgr.get("feed.exception.message2")), this.textMgr.get("feed.exception.title"), feed);
 }
@@ -81,7 +85,7 @@ HudsonUIMgr.prototype.setStatusNoBuild = function(feed, title) {
 	this.setTooltip(new Array(this.textMgr.get("feed.nobuild")), title, feed);
 }
 HudsonUIMgr.prototype.setStatusProcessed = function(feed, title, status, builds, responseText) {
-	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", feed);
+	this.logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", feed);
 	this.setPanel(status, feed);
 	this.setTooltip(builds, title, feed);
 	this.setBuildsMenupopup(builds, title, feed);
@@ -170,7 +174,7 @@ HudsonUIMgr.prototype.addExecutorFeedPanel = function(feed) {
 	this.getPanelElement(executorFeed).setAttribute("context", this.getMenusMenupopupId(feed));
 }
 HudsonUIMgr.prototype.setExecutorFeedStatusProcessed = function(executorFeed, title, status, computers, responseText) {
-	logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", executorFeed);
+	this.logMgr.debug(textMgr.get("feed.process.ready.success") + " responseText: " + responseText.substring(0, 50) + "...", executorFeed);
 	this.setPanel(status, executorFeed);
 	var executors = new Array();
 	for (var i = 0; i < computers.length; i++) {
@@ -210,19 +214,25 @@ HudsonUIMgr.prototype.setTooltip = function(items, title, feed) {
 		titleLabel.setAttribute("class", "title");
 		vbox.appendChild(titleLabel);
 	}
-	for (i = 0; i < items.length; i++) {
-		var itemLabel = document.createElement("label");
-		var text;
-		if (typeof items[i] == "object") {
-		    text = items[i].getDetails();
-		    itemLabel.setAttribute("class", this.getVisualStatus(items[i].getStatus()));
-		} else {
-		    text = items[i];
+	if (items != null && items.length > 0) {
+		for (i = 0; i < items.length; i++) {
+			var itemLabel = document.createElement("label");
+			var text;
+			if (typeof items[i] == "object") {
+			    text = items[i].getDetails();
+			    itemLabel.setAttribute("class", this.getVisualStatus(items[i].getStatus()));
+			} else {
+			    text = items[i];
+			}
+		    itemLabel.setAttribute("value", text);
+		   	vbox.appendChild(itemLabel);
 		}
-	    itemLabel.setAttribute("value", text);
-	   	vbox.appendChild(itemLabel);
+	} else {
+		var itemLabel = document.createElement("label");
+		itemLabel.setAttribute("value", "No item found");
+		vbox.appendChild(itemLabel);
 	}
-	
+		
 	var tooltip = this.getTooltipElement(feed);
 	this.clear(tooltip);
 	tooltip.appendChild(vbox);

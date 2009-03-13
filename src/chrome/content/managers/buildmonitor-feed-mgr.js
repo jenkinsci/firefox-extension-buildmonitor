@@ -17,31 +17,35 @@ HudsonFeedMgr.prototype.process = function(feed) {
 	this.downloadHistoryFeed(feed);
 }
 HudsonFeedMgr.prototype.downloadHistoryFeed = function(feed) {
-	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
-	var aliasUIMgr = this.uiMgr;
-	var aliasFeedMgr = this;
-	
-	var request = new XMLHttpRequest();
-    request.open("GET", feed.getUrl(), true);
-	this.setBasicAuth(request);
-    request.onreadystatechange = function () {
-        if (request.readyState == 4) {
-            if (request.status == 200) {
-                aliasFeedMgr.parseHistoryFeed(feed, request.responseText);
-                if (feed.hasExecutorFeed()) {
-                	aliasFeedMgr.downloadExecutorFeed(feed.getExecutorFeed());
-                }
-            }
-            else {
-                aliasUIMgr.setStatusDownloadError(feed);
-            }
-        }
-    };
-    request.onerror = function () {
-        aliasUIMgr.setStatusDownloadError(feed);
-    };
-	this.uiMgr.setStatusDownloading(feed);
-	request.send(null);
+	try {
+		// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
+		var aliasUIMgr = this.uiMgr;
+		var aliasFeedMgr = this;
+		
+		var request = new XMLHttpRequest();
+	    request.open("GET", feed.getUrl(), true);
+		this.setBasicAuth(request);
+	    request.onreadystatechange = function () {
+	        if (request.readyState == 4) {
+	            if (request.status == 200) {
+	                aliasFeedMgr.parseHistoryFeed(feed, request.responseText);
+	                if (feed.hasExecutorFeed()) {
+	                	aliasFeedMgr.downloadExecutorFeed(feed.getExecutorFeed());
+	                }
+	            }
+	            else {
+	                aliasUIMgr.setStatusDownloadError(feed);
+	            }
+	        }
+	    };
+	    request.onerror = function () {
+	        aliasUIMgr.setStatusDownloadError(feed);
+	    };
+		this.uiMgr.setStatusDownloading(feed);
+		request.send(null);
+    } catch (e) {
+    	this.uiMgr.setStatusDownloadError(feed, e);
+    }
 }
 HudsonFeedMgr.prototype.parseHistoryFeed = function(feed, responseText) {
     try {
@@ -105,28 +109,32 @@ HudsonFeedMgr.prototype.getHealthStatus = function(size, nonSuccessCount) {
 	return status;
 }
 HudsonFeedMgr.prototype.downloadExecutorFeed = function(executorFeed) {
-	// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
-	var aliasUIMgr = this.uiMgr;
-	var aliasFeedMgr = this;
-	
-	var request = new XMLHttpRequest();
-    request.open("GET", executorFeed.getUrl(), true);
-	this.setBasicAuth(request);
-    request.onreadystatechange = function () {
-        if (request.readyState == 4) {
-            if (request.status == 200) {
-                aliasFeedMgr.parseExecutorFeed(executorFeed, request.responseText);
-            }
-            else {
-                aliasUIMgr.setStatusDownloadError(executorFeed);
-            }
-        }
-    };
-    request.onerror = function () {
-        aliasUIMgr.setStatusDownloadError(executorFeed);
-    };
-	this.uiMgr.setStatusDownloading(executorFeed);
-	request.send(null);
+	try {
+		// TODO: figure out a better way for onreadystatechange and onerror to have visibilities to the managers.
+		var aliasUIMgr = this.uiMgr;
+		var aliasFeedMgr = this;
+		
+		var request = new XMLHttpRequest();
+	    request.open("GET", executorFeed.getUrl(), true);
+		this.setBasicAuth(request);
+	    request.onreadystatechange = function () {
+	        if (request.readyState == 4) {
+	            if (request.status == 200) {
+	                aliasFeedMgr.parseExecutorFeed(executorFeed, request.responseText);
+	            }
+	            else {
+	                aliasUIMgr.setStatusDownloadError(executorFeed);
+	            }
+	        }
+	    };
+	    request.onerror = function () {
+	        aliasUIMgr.setStatusDownloadError(executorFeed);
+	    };
+		this.uiMgr.setStatusDownloading(executorFeed);
+		request.send(null);
+    } catch (e) {
+    	this.uiMgr.setStatusDownloadError(executorFeed, e);
+    }
 }
 HudsonFeedMgr.prototype.parseExecutorFeed = function(executorFeed, responseText) {
     try {
