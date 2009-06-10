@@ -1,4 +1,4 @@
-var Util = DUI.Class.create({
+var HudsonUtil = Class.extend({
 	getBoolean: function(stringValue) {
 		var booleanValue = Boolean(false);
 		if (stringValue == 'true') {
@@ -10,4 +10,3 @@ var Util = DUI.Class.create({
 		return 1 * stringValue;
 	}
 });
-Util.namespace('Hudson');

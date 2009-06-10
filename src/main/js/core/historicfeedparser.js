@@ -1,4 +1,4 @@
-var HistoricFeedParser = DUI.Class.create(FeedParser.prototype, {
+var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
 	parse: function() {
 		var builds = new Array();
 		var root = this.dom.docNode;
@@ -9,9 +9,8 @@ var HistoricFeedParser = DUI.Class.create(FeedParser.prototype, {
 			var url = entries[i].getElements('link')[0].getAttribute('href');
 			var x = entries[i].getElements('published')[0].getText();
 			var date = Date.parseExact(x, 'yyyy-MM-ddTHH:mm:ssZ');
-			builds[i] = new HistoricBuild(name, url, date); 
+			builds[i] = new HudsonHistoricBuild(name, url, date); 
 		}
 		return builds;
 	}
 });
-HistoricFeedParser.namespace('Hudson');

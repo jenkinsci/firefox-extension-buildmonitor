@@ -1,4 +1,4 @@
-var MenuItem = DUI.Class.create({
+var HudsonMenuItem = Class.extend({
 	init: function(title, url, icon) {
 		this.title = title;
 		this.url = url;
@@ -14,4 +14,3 @@ var MenuItem = DUI.Class.create({
 		return this.icon;
 	}
 });
-MenuItem.namespace('Hudson');

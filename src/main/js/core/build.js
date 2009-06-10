@@ -1,4 +1,4 @@
-var Build = DUI.Class.create({
+var HudsonBuild = Class.extend({
 	init: function(name, url) {
 		this.name = name;
 		this.url = url;
@@ -10,4 +10,3 @@ var Build = DUI.Class.create({
 		return this.url;
 	}
 });
-Build.namespace('Hudson');

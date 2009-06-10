@@ -9,7 +9,7 @@
 <script type="text/javascript" src="../../../lib/main/date.js"></script>
 <script type="text/javascript" src="../../../lib/main/tinyxmldom.js"></script>
 <script type="text/javascript" src="../../../lib/main/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../../../lib/main/DUI.js"></script>
+<script type="text/javascript" src="../../../lib/main/jquery-class.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/util.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/build.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicbuild.js"></script>
@@ -18,12 +18,13 @@
 <script type="text/javascript" src="../../../src/main/js/core/feedparser.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicfeedparser.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/executorfeedparser.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/downloader.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/menuitem.js"></script>
 <script type="text/javascript">// <![CDATA[
 
 //////////////////////////////////////////////////////////////////////// historicbuild
 var historicBuildDate = Date.parseExact('2009-06-02T07:41:38Z', 'yyyy-MM-ddTHH:mm:ssZ');
-var historicBuild = new HistoricBuild('MyJob (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', historicBuildDate);
+var historicBuild = new HudsonHistoricBuild('MyJob (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', historicBuildDate);
 describe('HistoricBuild', {
 	'should return correct name': function() {
 		value_of(historicBuild.getName()).should_be('MyJob (SUCCESS)');
@@ -40,7 +41,7 @@ describe('HistoricBuild', {
 })
 
 //////////////////////////////////////////////////////////////////////// executorbuild
-var executorBuild = new ExecutorBuild('MyJob', 'http://localhost/hudson/job/MyJob/118/', 42, false, false, 'master#1');
+var executorBuild = new HudsonExecutorBuild('MyJob', 'http://localhost/hudson/job/MyJob/118/', 42, false, false, 'master#1');
 describe('ExecutorBuild', {
 	'should return correct name': function() {
 		value_of(executorBuild.getName()).should_be('MyJob');
@@ -63,7 +64,7 @@ describe('ExecutorBuild', {
 })
 
 //////////////////////////////////////////////////////////////////////// feed
-var jobFeed = new Feed('http://localhost/hudson/job/MyJob/rssAll');
+var jobFeed = new HudsonFeed('http://localhost/hudson/job/MyJob/rssAll');
 describe('Job Feed', {
 	'should be true on isJob': function() {
 		value_of(jobFeed.isJob()).should_be_true();
@@ -81,7 +82,7 @@ describe('Job Feed', {
 		value_of(jobFeed.getExecutorUrl()).should_be('http://localhost/hudson/computer/api/xml?depth=1');
 	}
 })
-var viewFeed = new Feed('http://localhost/hudson/view/MyView/rssLatest');
+var viewFeed = new HudsonFeed('http://localhost/hudson/view/MyView/rssLatest');
 describe('View Feed', {
 	'should be false on isJob': function() {
 		value_of(viewFeed.isJob()).should_be_false();
@@ -99,7 +100,7 @@ describe('View Feed', {
 		value_of(viewFeed.getExecutorUrl()).should_be('http://localhost/hudson/computer/api/xml?depth=1');
 	}
 })
-var invalidFeed = new Feed('http://externalhost/feed/atom');
+var invalidFeed = new HudsonFeed('http://externalhost/feed/atom');
 describe('Invalid Feed', {
 	'should return null item name': function() {
 		value_of(invalidFeed.getItemName()).should_be_null();
@@ -108,9 +109,9 @@ describe('Invalid Feed', {
 
 //////////////////////////////////////////////////////////////////////// historicfeedparser
 var historicFeedXml = '<feed xmlns="http://www.w3.org/2005/Atom"><title>vysper-trunk-jdk1.6-solaris all builds</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/"></link><updated>2009-06-01T19:36:43Z</updated><author><name>Hudson Server</name></author><id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id><entry><title>vysper-trunk-jdk1.6-solaris #22 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/22/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_19-36-43</id><published>2009-06-01T19:36:43Z</published><updated>2009-06-01T19:36:43Z</updated></entry><entry><title>vysper-trunk-jdk1.6-solaris #21 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/21/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_18-36-43</id><published>2009-06-01T18:36:43Z</published><updated>2009-06-01T18:36:43Z</updated></entry></feed>';
-var historicFeedParser = new HistoricFeedParser(historicFeedXml, 1);
+var historicFeedParser = new HudsonHistoricFeedParser(historicFeedXml, 1);
 var historicBuilds = historicFeedParser.parse();
-var historicFeedParserWithSizeLargerThanNumOfEntries = new HistoricFeedParser(historicFeedXml, 20);
+var historicFeedParserWithSizeLargerThanNumOfEntries = new HudsonHistoricFeedParser(historicFeedXml, 20);
 describe('HistoricFeedParser', {
 	'should return correct number of builds': function() {
 		value_of(historicBuilds.length).should_be(1);
@@ -131,7 +132,7 @@ describe('HistoricFeedParser', {
 
 //////////////////////////////////////////////////////////////////////// executorfeedparser
 var executorFeedXml = '<computerSet><busyExecutors>2</busyExecutors><computer><displayName>master</displayName><executor><currentExecutable><number>138</number><url>http://hudson.zones.apache.org/hudson/job/Cactus/138/</url></currentExecutable><idle>false</idle><likelyStuck>false</likelyStuck><number>0</number><progress>34</progress></executor><executor><currentExecutable><number>307</number><url>http://hudson.zones.apache.org/hudson/job/ftpserver-trunk-jdk1.5-solaris/307/</url></currentExecutable><idle>false</idle><likelyStuck>true</likelyStuck><number>1</number><progress>99</progress></executor><icon>computer.gif</icon><idle>false</idle><jnlpAgent>false</jnlpAgent><launchSupported>true</launchSupported><manualLaunchAllowed>true</manualLaunchAllowed><monitorData><hudson.node_monitors.SwapSpaceMonitor><availablePhysicalMemory>197132288</availablePhysicalMemory><availableSwapSpace>6232735744</availableSwapSpace><totalPhysicalMemory>6441402368</totalPhysicalMemory><totalSwapSpace>10823401472</totalSwapSpace></hudson.node_monitors.SwapSpaceMonitor><hudson.node_monitors.ArchitectureMonitor>SunOS (x86)</hudson.node_monitors.ArchitectureMonitor><hudson.node_monitors.ResponseTimeMonitor><average>0</average></hudson.node_monitors.ResponseTimeMonitor><hudson.node_monitors.DiskSpaceMonitor>271497184256</hudson.node_monitors.DiskSpaceMonitor><hudson.node_monitors.ClockMonitor><diff>0</diff></hudson.node_monitors.ClockMonitor></monitorData><numExecutors>2</numExecutors><offline>false</offline><temporarilyOffline>false</temporarilyOffline></computer><computer><displayName>lucene.zones.apache.org (Solaris 10)</displayName><executor><idle>true</idle><likelyStuck>false</likelyStuck><number>0</number><progress>-1</progress></executor><icon>computer.gif</icon><idle>true</idle><jnlpAgent>false</jnlpAgent><launchSupported>true</launchSupported><manualLaunchAllowed>true</manualLaunchAllowed><monitorData><hudson.node_monitors.ArchitectureMonitor>SunOS (x86)</hudson.node_monitors.ArchitectureMonitor><hudson.node_monitors.ResponseTimeMonitor><average>66</average></hudson.node_monitors.ResponseTimeMonitor><hudson.node_monitors.DiskSpaceMonitor>340919224320</hudson.node_monitors.DiskSpaceMonitor><hudson.node_monitors.ClockMonitor><diff>23</diff></hudson.node_monitors.ClockMonitor></monitorData><numExecutors>1</numExecutors><offline>false</offline><temporarilyOffline>false</temporarilyOffline></computer></computerSet>'; 
-var executorFeedParser = new ExecutorFeedParser(executorFeedXml, 20);
+var executorFeedParser = new HudsonExecutorFeedParser(executorFeedXml, 20);
 var executorBuilds = executorFeedParser.parse();
 var activeExecutorBuild = executorBuilds[0];
 var stuckExecutorBuild = executorBuilds[1];
@@ -167,7 +168,7 @@ describe('ExecutorFeedParser', {
 })
 
 //////////////////////////////////////////////////////////////////////// menuitem
-var menuItem = new MenuItem('MyJob #118 (SUCCESS) - 1 hour ago', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
+var menuItem = new HudsonMenuItem('MyJob #118 (SUCCESS) - 1 hour ago', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
 describe('MenuItem', {
 	'should return correct title': function() {
 		value_of(menuItem.getTitle()).should_be('MyJob #118 (SUCCESS) - 1 hour ago');

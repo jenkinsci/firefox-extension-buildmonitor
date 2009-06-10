@@ -1,6 +1,6 @@
-var ExecutorFeedParser = DUI.Class.create(FeedParser.prototype, {
+var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
 	parse: function() {
-		var util = new Util();
+		var util = new HudsonUtil();
 		var builds = new Array();
 		var root = this.dom.docNode;
 		var computers = root.getElements('computer');
@@ -21,10 +21,9 @@ var ExecutorFeedParser = DUI.Class.create(FeedParser.prototype, {
 					url = currentExecutableElement.getElements('url')[0].getText();
 					name = new String(url.match('/job/[^/]+/[^/]+')).replace(/\/job\//, '').replace(/\//, '#');
 				}
-				builds[buildCount++] = new ExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
+				builds[buildCount++] = new HudsonExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
 			}
 		}
 		return builds;
 	}
 });
-ExecutorFeedParser.namespace('Hudson');

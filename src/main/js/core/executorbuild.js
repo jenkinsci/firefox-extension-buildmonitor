@@ -1,7 +1,6 @@
-var ExecutorBuild = DUI.Class.create(Build.prototype, {
+var HudsonExecutorBuild = HudsonBuild.extend ({
 	init: function(name, url, progress, isIdle, isStuck, executorName) {
-		this.name = name;
-		this.url = url;
+		this._super(name, url);
 		this.progress = progress;
 		this.isIdle = isIdle;
 		this.isStuck = isStuck;
@@ -20,4 +19,3 @@ var ExecutorBuild = DUI.Class.create(Build.prototype, {
 		return this.executorName;
 	}
 });
-ExecutorBuild.namespace('Hudson');

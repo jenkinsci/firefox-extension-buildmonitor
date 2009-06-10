@@ -1,4 +1,4 @@
-var Feed = DUI.Class.create({
+var HudsonFeed = Class.extend({
 	init: function(url) {
 		this.url = url;
 	},
@@ -35,4 +35,3 @@ var Feed = DUI.Class.create({
 		return this.url.replace(/\/rss.*/, '').replace(/\/(job|view).*/, '') + '/computer/api/xml?depth=1';
 	}
 });
-Feed.namespace('Hudson');

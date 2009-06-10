@@ -1,7 +1,7 @@
-var FeedParser = DUI.Class.create({
+var HudsonFeedParser = Class.extend({
 	init: function(xml, size) {
 		this.dom = new XMLDoc(xml);
+		this.xml = xml;
 		this.size = size;
 	}
 });
-FeedParser.namespace('Hudson');

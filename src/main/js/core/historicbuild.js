@@ -1,7 +1,6 @@
-var HistoricBuild = DUI.Class.create(Build.prototype, {
+var HudsonHistoricBuild = HudsonBuild.extend ({
 	init: function(name, url, date) {
-		this.name = name;
-		this.url = url;
+		this._super(name, url);
 		this.date = date;
 	},
 	getDate: function() {
@@ -11,4 +10,3 @@ var HistoricBuild = DUI.Class.create(Build.prototype, {
 		return new String(this.name.match('[(][A-Za-z]+[)]')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
 	}
 });
-HistoricBuild.namespace('Hudson');
