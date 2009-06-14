@@ -4,12 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <title>Test Results</title>
 <link rel="stylesheet" type="text/css" href="../../../lib/test/JSSpec.css" />
-<script type="text/javascript" src="../../../lib/test/diff_match_patch.js"></script>
-<script type="text/javascript" src="../../../lib/test/JSSpec.js"></script>
-<script type="text/javascript" src="../../../lib/main/date.js"></script>
-<script type="text/javascript" src="../../../lib/main/tinyxmldom.js"></script>
-<script type="text/javascript" src="../../../lib/main/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../../../lib/main/jquery-class.js"></script>
+<script type="text/javascript" src="../../../lib/test/js/diff_match_patch.js"></script>
+<script type="text/javascript" src="../../../lib/test/js/JSSpec.js"></script>
+<script type="text/javascript" src="../../../lib/test/js/jsmock.js"></script>
+<script type="text/javascript" src="../../../lib/main/js/date.js"></script>
+<script type="text/javascript" src="../../../lib/main/js/tinyxmldom.js"></script>
+<script type="text/javascript" src="../../../lib/main/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../../../lib/main/js/jquery-class.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/util.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/build.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicbuild.js"></script>
@@ -20,7 +21,13 @@
 <script type="text/javascript" src="../../../src/main/js/core/executorfeedparser.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/downloader.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/menuitem.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/localiser.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/logger.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/preferences.js"></script>
 <script type="text/javascript">// <![CDATA[
+
+//////////////////////////////////////////////////////////////////////// core
+////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////// historicbuild
 var historicBuildDate = Date.parseExact('2009-06-02T07:41:38Z', 'yyyy-MM-ddTHH:mm:ssZ');
@@ -64,13 +71,55 @@ describe('ExecutorBuild', {
 })
 
 //////////////////////////////////////////////////////////////////////// feed
-var jobFeed = new HudsonFeed('http://localhost/hudson/job/MyJob/rssAll');
+var instanceFeed = new HudsonFeed(0, 'Instance Feed', 'http://localhost/hudson/rssAll');
+describe('Instance Feed', {
+	'should be false on isJob': function() {
+		value_of(instanceFeed.isJob()).should_be_false();
+	},
+	'should be false on isView': function() {
+		value_of(instanceFeed.isView()).should_be_false();
+	},
+	'should return correct id': function() {
+		value_of(instanceFeed.getId()).should_be(0);
+	},
+	'should return correct name': function() {
+		value_of(instanceFeed.getName()).should_be('Instance Feed');
+	},
+	'should return correct url': function() {
+		value_of(instanceFeed.getUrl()).should_be('http://localhost/hudson/rssAll');
+	},
+	'should return correct host name': function() {
+		value_of(instanceFeed.getHostName()).should_be('localhost');
+	},
+	'should return correct item name': function() {
+		value_of(instanceFeed.getItemName()).should_be_null();
+	},
+	'should return correct executor url': function() {
+		value_of(instanceFeed.getExecutorUrl()).should_be('http://localhost/hudson/computer/api/xml?depth=1');
+	},
+	'should return correct dashboard url': function() {
+		value_of(instanceFeed.getDashboardUrl()).should_be('http://localhost/hudson/');
+	},
+	'should be false on isIgnored': function() {
+		value_of(instanceFeed.isIgnored()).should_be_false();
+	}
+})
+var jobFeed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll');
 describe('Job Feed', {
 	'should be true on isJob': function() {
 		value_of(jobFeed.isJob()).should_be_true();
 	},
 	'should be false on isView': function() {
 		value_of(jobFeed.isView()).should_be_false();
+	},
+	'should return correct id': function() {
+		value_of(jobFeed.getId()).should_be(0);
+	},
+	'should return correct name': function() {
+		value_of(jobFeed.getName()).should_be('My Feed');
+	},
+	'should return correct url': function() {
+		value_of(jobFeed.getUrl()).should_be('http://localhost/hudson/job/MyJob/rssAll');
 	},
 	'should return correct host name': function() {
 		value_of(jobFeed.getHostName()).should_be('localhost');
@@ -80,9 +129,15 @@ describe('Job Feed', {
 	},
 	'should return correct executor url': function() {
 		value_of(jobFeed.getExecutorUrl()).should_be('http://localhost/hudson/computer/api/xml?depth=1');
+	},
+	'should return correct dashboard url': function() {
+		value_of(jobFeed.getDashboardUrl()).should_be('http://localhost/hudson/job/MyJob/');
+	},
+	'should be false on isIgnored': function() {
+		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var viewFeed = new HudsonFeed('http://localhost/hudson/view/MyView/rssLatest');
+var viewFeed = new HudsonFeed(1, 'Your Feed', 'http://localhost/hudson/view/MyView/rssLatest');
 describe('View Feed', {
 	'should be false on isJob': function() {
 		value_of(viewFeed.isJob()).should_be_false();
@@ -98,12 +153,31 @@ describe('View Feed', {
 	},
 	'should return correct executor url': function() {
 		value_of(viewFeed.getExecutorUrl()).should_be('http://localhost/hudson/computer/api/xml?depth=1');
+	},
+	'should return correct dashboard url': function() {
+		value_of(viewFeed.getDashboardUrl()).should_be('http://localhost/hudson/view/MyView/');
+	},
+	'should be false on isIgnored': function() {
+		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var invalidFeed = new HudsonFeed('http://externalhost/feed/atom');
+var invalidFeed = new HudsonFeed(2, 'Their Feed', 'http://externalhost/feed/atom');
 describe('Invalid Feed', {
 	'should return null item name': function() {
 		value_of(invalidFeed.getItemName()).should_be_null();
+	},
+	'should be false on isIgnored': function() {
+		value_of(jobFeed.isIgnored()).should_be_false();
+	}
+})
+var ignoredFeedWithEmptyUrl = new HudsonFeed(3, 'Whos Feed', '');
+var ignoredFeedWithNullUrl = new HudsonFeed(3, 'Whos Feed', null);
+describe('Ignored Feed', {
+	'should be true on isIgnored when url is empty': function() {
+		value_of(ignoredFeedWithEmptyUrl.isIgnored()).should_be_true();
+	},
+	'should be true on isIgnored when url is null': function() {
+		value_of(ignoredFeedWithNullUrl.isIgnored()).should_be_true();
 	}
 })
 
@@ -168,16 +242,133 @@ describe('ExecutorFeedParser', {
 })
 
 //////////////////////////////////////////////////////////////////////// menuitem
-var menuItem = new HudsonMenuItem('MyJob #118 (SUCCESS) - 1 hour ago', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
+var menuItem = new HudsonMenuItem('MyJob #118 (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
 describe('MenuItem', {
 	'should return correct title': function() {
-		value_of(menuItem.getTitle()).should_be('MyJob #118 (SUCCESS) - 1 hour ago');
+		value_of(menuItem.getTitle()).should_be('MyJob #118 (SUCCESS)');
 	},
 	'should return correct url': function() {
 		value_of(menuItem.getUrl()).should_be('http://localhost/hudson/job/MyJob/118/');
 	},
 	'should return correct icon': function() {
 		value_of(menuItem.getIcon()).should_be('orb.png');
+	}
+})
+
+//////////////////////////////////////////////////////////////////////// firefox
+////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////// localiser
+function MockBundle() {
+	this.getFormattedString = function(key, args) {}
+	this.getString = function(key) {}
+}
+var mockControl = new MockControl();
+var mockBundle = mockControl.createMock(MockBundle);
+var simpleLocaliser = new HudsonLocaliser();
+simpleLocaliser.setBundle(mockBundle);
+mockBundle.expects().getString('monitor.init').andReturn('Initialising monitor.');
+var simpleText = simpleLocaliser.getText('monitor.init');
+var simpleLocaliserException = null;
+try { mockControl.verify(); } catch (e) { simpleLocaliserException = e; }
+describe('Simple Localiser', {
+	'should call bundle getString with correct key': function() {
+		value_of(simpleLocaliserException).should_be_null();
+	},
+	'should return correct text': function() {
+		value_of(simpleText).should_be('Initialising monitor.');
+	}
+})
+var mockControl = new MockControl();
+var mockBundle = mockControl.createMock(MockBundle);
+var dummyArgs = new Array();
+var formattedLocaliser = new HudsonLocaliser();
+formattedLocaliser.setBundle(mockBundle);
+mockBundle.expects().getFormattedString('menu.add.linkdiscovery', dummyArgs).andReturn('Add \'My Feed\' To Hudson Build Monitor');
+var formattedText = formattedLocaliser.getText('menu.add.linkdiscovery', dummyArgs);
+var formattedLocaliserException = null;
+try { mockControl.verify(); } catch (e) { formattedLocaliserException = e; }
+describe('Formatted Localiser', {
+	'should call bundle getFormattedString with correct key and args': function() {
+		value_of(formattedLocaliserException).should_be_null();
+	},
+	'should return correct text': function() {
+		value_of(formattedText).should_be('Add \'My Feed\' To Hudson Build Monitor');
+	}
+})
+
+//////////////////////////////////////////////////////////////////////// logger
+function MockConsoleService() {
+	this.logStringMessage = function(message) {}
+}
+var mockControl = new MockControl();
+var mockConsoleService = mockControl.createMock(MockConsoleService);
+var mockUtil = mockControl.createMock(HudsonUtil);
+var enabledLogger = new HudsonLogger(mockConsoleService, mockUtil, true);
+mockUtil.expects().getLogDate().andReturn('22 March 1980');
+mockConsoleService.expects().logStringMessage('BuildMonitor [22 March 1980][main]: Starting...');
+enabledLogger.debug('Starting...');
+var enabledLoggerException = null;
+try { mockControl.verify(); } catch (e) { enabledLoggerException = e; }
+describe('Enabled Logger', {
+	'should call console logStringMessage with correct message': function() {
+		value_of(enabledLoggerException).should_be_null();
+	}
+})
+var mockControl = new MockControl();
+var mockConsoleService = mockControl.createMock(MockConsoleService);
+var mockUtil = mockControl.createMock(HudsonUtil);
+var disabledLogger = new HudsonLogger(mockConsoleService, false);
+disabledLogger.debug('Starting...');
+var disabledLoggerException = null;
+try { mockControl.verify(); } catch (e) { disabledLoggerException = e; }
+describe('Disabled Logger', {
+	'should not call console logStringMessage': function() {
+		value_of(disabledLoggerException).should_be_null();
+	}
+})
+var mockControl = new MockControl();
+var mockConsoleService = mockControl.createMock(MockConsoleService);
+var mockUtil = mockControl.createMock(HudsonUtil);
+var enabledLoggerWithFeed = new HudsonLogger(mockConsoleService, mockUtil, true);
+mockUtil.expects().getLogDate().andReturn('28 May 1980');
+mockConsoleService.expects().logStringMessage('BuildMonitor [28 May 1980][0-My Feed]: Starting...');
+var feed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll');
+enabledLoggerWithFeed.debug('Starting...', feed);
+var enabledLoggerWithFeedException = null;
+try { mockControl.verify(); } catch (e) { enabledLoggerWithFeedException = e; }
+describe('Enabled Logger w/ Feed', {
+	'should call console logStringMessage with feed name in the message': function() {
+		value_of(enabledLoggerWithFeedException).should_be_null();
+	}
+})
+
+//////////////////////////////////////////////////////////////////////// preferences
+function MockPreferencesService() {
+	this.getBoolPref = function(key) {}
+	this.getCharPref = function(key) {}
+}
+var mockControl = new MockControl();
+var mockPreferencesService = mockControl.createMock(MockPreferencesService);
+var preferences = new HudsonPreferences(mockPreferencesService, 2);
+mockPreferencesService.expects().getBoolPref('hudson.debug').andReturn(false);
+mockPreferencesService.expects().getCharPref('hudson.feeds.0.name').andReturn('My Feed');
+mockPreferencesService.expects().getCharPref('hudson.feeds.0.url').andReturn('http://localhost/hudson/job/MyJob/rssAll');
+mockPreferencesService.expects().getCharPref('hudson.feeds.1.name').andReturn('Your Feed');
+mockPreferencesService.expects().getCharPref('hudson.feeds.1.url').andReturn('http://localhost/hudson/job/YourJob/rssAll');
+var debug = preferences.getDebug();
+var feeds = preferences.getFeeds();
+var preferencesException = null;
+try { mockControl.verify(); } catch (e) { preferencesException = e; }
+describe('Preferences', {
+	'should call preferences methods with correct args': function() {
+		value_of(preferencesException).should_be_null();
+	},
+	'should return correct debug status': function() {
+		value_of(debug).should_be_false();
+	},
+	'should return correct number of feeds': function() {
+		value_of(feeds.length).should_be(2);
 	}
 })
 

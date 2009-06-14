@@ -8,5 +8,8 @@ var HudsonUtil = Class.extend({
 	},
 	getInteger: function(stringValue) {
 		return 1 * stringValue;
+	},
+	getLogDate: function() {
+		return (new Date()).toLocaleString();
 	}
 });

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://buildmonitor/skin/buildmonitor.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
+<overlay id="buildmonitor-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/date.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/tinyxmldom.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/pretty.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/jquery-1.3.2.min.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/jquery-class.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/build.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicbuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorbuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feed.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/downloader.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/localiser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/logger.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/panel.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/tooltip.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/menuspopup.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/main.js"/>
+
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+	</stringbundleset>
+	
+	<popup id="contentAreaContextMenu">
+		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_openLink(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
+	</popup>
+	
+	<statusbar id="status-bar">
+		<tooltip id="hudson-tooltip-main" class="info" noautohide="true" maxwidth="1000">
+			<vbox id="buildmonitor-box">
+				<label class="title" value="&init.title;"/>
+				<label value="&init.message.1;"/>
+				<label value="&init.message.2;"/>
+			</vbox>
+		</tooltip>
+		<menupopup id="hudson-menupopup-menus-main">
+			<menuitem label="&menu.preferences;" oncommand="hudson_openPreferences();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/preferences.png"/>
+			<menuitem label="&menu.refresh.all;" oncommand="hudson_run();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/refreshall.png"/>
+		</menupopup>
+		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="hudson-tooltip-main" context="hudson-menupopup-menus-main"/>
+		<div id="hudson-tooltip-feeds">
+		</div>
+		<div id="hudson-menupopup-builds-feeds">
+		</div>
+		<div id="hudson-menupopup-menus-feeds">
+		</div>
+		<div id="hudson-panel-feeds">
+		</div>
+	</statusbar>
+
+</overlay>
