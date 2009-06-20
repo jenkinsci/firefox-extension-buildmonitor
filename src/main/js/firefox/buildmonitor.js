@@ -26,14 +26,12 @@ var HudsonBuildMonitor = Class.extend({
 		}
 	},
 	process: function(xml, feed) {
-		alert('process' + feed + xml);
 		// TODO pull the 20 from preferences
 		var parser = new HudsonHistoricFeedParser(xml, 20);
 		var builds = parser.parse();
-		alert('builds len:' + builds.length + ', builds:' + builds);
+		this.ui.setBuildsPopup(feed, builds);
 	},
 	setStatusDownloading: function(feed) {
 		this.ui.setStatusDownloading(feed);
-	},
-	
+	}
 });

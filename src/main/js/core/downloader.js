@@ -1,9 +1,9 @@
 var HudsonDownloader = Class.extend({
-	setCaller: function(caller) {
-		this.caller = caller;
+	setCaller: function(callback) {
+		this.callback = callback;
 	},
 	download: function(feed) {
-		var aliasCaller = this.caller;
+		var aliasCallback = this.callback;
 
 		var request = new XMLHttpRequest();
 	    request.open("GET", feed.getUrl(), true);
@@ -12,7 +12,7 @@ var HudsonDownloader = Class.extend({
 	    request.onreadystatechange = function () {
 	        if (request.readyState == 4) {
 	            if (request.status == 200) {
-	            	aliasCaller.process(request.responseText, feed);
+	            	aliasCallback.process(request.responseText, feed);
 	            	//alert('200' + request.responseText);
 	            	//TODO
 	                //aliasFeedMgr.parseHistoryFeed(feed, request.responseText);
@@ -32,7 +32,7 @@ var HudsonDownloader = Class.extend({
 	    	// TODO
 	        //aliasUIMgr.setStatusDownloadError(feed);
 	    };
-	    this.caller.setStatusDownloading(feed);
+	    this.callback.setStatusDownloading(feed);
 		request.send(null);
 	}
 });

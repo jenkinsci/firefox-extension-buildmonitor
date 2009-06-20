@@ -1,23 +1,15 @@
 var HudsonUi = Class.extend({
-	init: function(panel, tooltip, menusPopup, localiser) {
+	init: function(panel, tooltip, buildsPopup, menusPopup, localiser) {
 		this.panel = panel;
 		this.tooltip = tooltip;
+		this.buildsPopup = buildsPopup;
 		this.menusPopup = menusPopup;
 		this.localiser = localiser;
 	},
 	prepare: function(feeds) {
-		//this.feedsPanel = document.getElementById('hudson-panel-feeds');
-		//this.feedsTooltip = document.getElementById('hudson-tooltip-feeds');
-		//this.feedsBuildsMenupopup = document.getElementById('hudson-menupopup-builds-feeds');
-		//this.feedsPrefsMenupopup = document.getElementById('hudson-menupopup-menus-feeds');
-
-		//this.uiUtil.clear(this.feedsPanel);
-		//this.uiUtil.clear(this.feedsTooltip);
-		//this.uiUtil.clear(this.feedsBuildsMenupopup);
-		//this.uiUtil.clear(this.feedsPrefsMenupopup);
-		
 		this.panel.prepare(feeds);
 		this.tooltip.prepare(feeds);
+		this.buildsPopup.prepare(feeds);
 		this.menusPopup.prepare(feeds);
 		
 		for (var i = 0; i < feeds.length; i++) {
@@ -42,5 +34,8 @@ var HudsonUi = Class.extend({
 				this.localiser.getText('feed.process.downloading.message2')),
 			this.localiser.getText('feed.process.downloading.title'),
 			feed);
+	},
+	setBuildsPopup: function(feed, builds) {
+		this.buildsPopup.set(this.panel.getPanelElement(feed), feed, builds);
 	}
 });
