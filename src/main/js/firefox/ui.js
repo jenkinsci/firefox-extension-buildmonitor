@@ -35,7 +35,11 @@ var HudsonUi = Class.extend({
 			this.localiser.getText('feed.process.downloading.title'),
 			feed);
 	},
-	setBuildsPopup: function(feed, builds) {
-		this.buildsPopup.set(this.panel.getPanelElement(feed), feed, builds);
+	setStatusProcessed: function(feed, result) {
+		var container = this.panel.getPanelElement(feed);
+		var builds = result.getBuilds();
+		this.panel.set('status/build/' + result.getStatus(), feed);
+		this.buildsPopup.set(container, feed, builds);
+		this.tooltip.set(container, builds, result.getTitle(), feed);
 	}
 });

@@ -27,9 +27,10 @@ var HudsonBuildMonitor = Class.extend({
 	},
 	process: function(xml, feed) {
 		// TODO pull the 20 from preferences
-		var parser = new HudsonHistoricFeedParser(xml, 20);
-		var builds = parser.parse();
-		this.ui.setBuildsPopup(feed, builds);
+		// TODO pull status type from preferences
+		var parser = new HudsonHistoricFeedParser(xml, 20, 'overall');
+		var result = parser.parse();
+		this.ui.setStatusProcessed(feed, result);
 	},
 	setStatusDownloading: function(feed) {
 		this.ui.setStatusDownloading(feed);

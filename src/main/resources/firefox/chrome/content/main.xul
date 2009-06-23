@@ -15,6 +15,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicbuild.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorbuild.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feed.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedresult.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedparser.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeedparser.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeedparser.js"/>

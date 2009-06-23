@@ -24,6 +24,6 @@ var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
 				builds[buildCount++] = new HudsonExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
 			}
 		}
-		return builds;
+		return new HudsonFeedResult('Executor', builds, 'status');
 	}
 });

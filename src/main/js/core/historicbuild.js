@@ -11,5 +11,12 @@ var HudsonHistoricBuild = HudsonBuild.extend ({
 	},
 	getDetails: function() {
 		return this.name + ' - ' + prettyDateUTC(this.date);
+	},
+	isSuccess: function() {
+		var isSuccess = false;
+		if (this.getStatus() == 'success') {
+			isSuccess = true;
+		}
+		return isSuccess;
 	}
 });
