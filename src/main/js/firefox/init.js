@@ -1,4 +1,4 @@
-var NUM_OF_FEEDS = 1;
+var NUM_OF_FEEDS = 2;
 
 var alertsService = Components.classes['@mozilla.org/alerts-service;1'].getService(Components.interfaces.nsIAlertsService);
 var consoleService = Components.classes['@mozilla.org/consoleservice;1'].getService(Components.interfaces.nsIConsoleService);

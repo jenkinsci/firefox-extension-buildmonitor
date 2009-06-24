@@ -5,15 +5,14 @@ var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
 	},
 	parse: function() {
 		var builds = new Array();
-		var root = this.dom.docNode;
-		var title = root.getElements('title')[0].getText();
-		var entries = root.getElements('entry');
+		var title = this.getElementValue(this.root, 'title');
+		var entries = this.root.getElementsByTagName('entry');
 		var successCount = 0;
 		var size = Math.min(this.size, entries.length);
 		for (var i = 0; i < size; i++) {
-			var name = entries[i].getElements('title')[0].getText();
-			var url = entries[i].getElements('link')[0].getAttribute('href');
-			var date = Date.parseExact(entries[i].getElements('published')[0].getText(), 'yyyy-MM-ddTHH:mm:ssZ');
+			var name = this.getElementValue(entries[i], 'title');
+			var url = this.getAttributeValue(entries[i], 'link', 'href');
+			var date = Date.parseExact(this.getElementValue(entries[i], 'published'), 'yyyy-MM-ddTHH:mm:ssZ');
 			builds[i] = new HudsonHistoricBuild(name, url, date);
 			if (builds[i].isSuccess()) {
 				successCount++;
