@@ -1,11 +1,8 @@
 var HudsonMenusPopup = HudsonUiElement.extend({
-	init: function(localiser) {
-		this._super(localiser);
+	init: function(type, localiser) {
+		this._super(type, localiser);
 	},
-	prepare: function(feeds) {
-		var container = document.getElementById('hudson-menupopup-menus-feeds');
-		this.clear(container);
-		
+	prepare: function(container, feeds) {
 		for (var i = 0; i < feeds.length; i++) {
 			var menusMenupopup = document.createElement('menupopup');
 			menusMenupopup.setAttribute('id', this._getMenusMenupopupId(feeds[i]));
@@ -68,6 +65,6 @@ var HudsonMenusPopup = HudsonUiElement.extend({
 		return document.getElementById(this._getMenusMenupopupId(feed));
 	},
 	_getMenusMenupopupId: function(feed) {
-		return 'hudson-menupopup-menus-' + this.getComponentId(feed);
+		return 'hudson-menupopup-menus-' + this.getUiElementId(feed);
 	}
 });

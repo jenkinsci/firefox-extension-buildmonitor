@@ -27,6 +27,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/tooltip.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildspopup.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/menuspopup.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielementset.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>

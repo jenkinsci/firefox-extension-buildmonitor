@@ -1,8 +1,5 @@
 var HudsonBuildsPopup = HudsonUiElement.extend({
-	prepare: function(feeds) {
-		var container = document.getElementById('hudson-menupopup-builds-feeds');
-		this.clear(container);
-		
+	prepare: function(container, feeds) {
 		for (var i = 0; i < feeds.length; i++) {
 			var buildsMenupopup = document.createElement('menupopup');
 			buildsMenupopup.setAttribute('id', this._getBuildsMenupopupId(feeds[i]));
@@ -33,6 +30,6 @@ var HudsonBuildsPopup = HudsonUiElement.extend({
 		return document.getElementById(this._getBuildsMenupopupId(feed));
 	},
 	_getBuildsMenupopupId: function(feed) {
-		return 'hudson-menupopup-builds-' + this.getComponentId(feed);
+		return 'hudson-menupopup-builds-' + this.getUiElementId(feed);
 	}
 });

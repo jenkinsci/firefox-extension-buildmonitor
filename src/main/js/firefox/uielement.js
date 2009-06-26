@@ -1,16 +1,13 @@
 var HudsonUiElement = Class.extend({
-	init: function(localiser) {
+	init: function(type) {
+		this.type = type;
+	},
+	init: function(type, localiser) {
+		this.type = type;
 		this.localiser = localiser;
 	},
-	getComponentId: function(component) {
-		var id = 'main';
-		// TODO: what to do with executor?
-		if (component instanceof HudsonFeed) {
-			id = 'feed-' + component.getId();
-		} else if (component instanceof HudsonExecutorFeed) {
-			id = 'executor-' + component.getId();
-		}
-		return id;
+	getUiElementId: function(feed) {
+		return this.type + '-' + feed.getId();
 	},
 	clear: function(elem) {
 		while (elem.firstChild) {

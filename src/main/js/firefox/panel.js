@@ -1,8 +1,5 @@
 var HudsonPanel = HudsonUiElement.extend({
-	prepare: function(feeds) {
-		var container = document.getElementById('hudson-panel-feeds');
-		this.clear(container);
-		
+	prepare: function(container, feeds) {
 		for (var i = 0; i < feeds.length; i++) {
 			var panel = document.createElement('statusbarpanel');
 			panel.setAttribute('id', this._getPanelId(feeds[i]));
@@ -25,6 +22,6 @@ var HudsonPanel = HudsonUiElement.extend({
 		return document.getElementById(this._getPanelId(feed));
 	},
 	_getPanelId: function(feed) {
-		return 'hudson-panel-' + this.getComponentId(feed);
+		return 'hudson-panel-' + this.getUiElementId(feed);
 	}
 });

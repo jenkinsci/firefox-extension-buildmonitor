@@ -1,8 +1,5 @@
 var HudsonTooltip = HudsonUiElement.extend({
-	prepare: function(feeds) {
-		var container = document.getElementById('hudson-tooltip-feeds');
-		this.clear(container);
-		
+	prepare: function(container, feeds) {
 		for (var i = 0; i < feeds.length; i++) {
 			var tooltip = document.createElement('tooltip');
 			tooltip.setAttribute('id', this._getTooltipId(feeds[i]));
@@ -52,6 +49,6 @@ var HudsonTooltip = HudsonUiElement.extend({
 		return document.getElementById(this._getTooltipId(feed));
 	},
 	_getTooltipId: function(feed) {
-		return 'hudson-tooltip-' + this.getComponentId(feed);
+		return 'hudson-tooltip-' + this.getUiElementId(feed);
 	}
 });
