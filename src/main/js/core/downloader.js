@@ -1,18 +1,13 @@
 var HudsonDownloader = Class.extend({
-	setCaller: function(callback) {
-		this.callback = callback;
-	},
-	download: function(feed) {
-		var aliasCallback = this.callback;
-
+	download: function(callback, url, feed) {
 		var request = new XMLHttpRequest();
-	    request.open("GET", feed.getUrl(), true);
+	    request.open("GET", url, true);
 		// TODO: basic auth
 		//this.setBasicAuth(request);
 	    request.onreadystatechange = function () {
 	        if (request.readyState == 4) {
 	            if (request.status == 200) {
-	            	aliasCallback.process(request.responseText, feed);
+	            	callback.process(request.responseText, feed);
 	            	//alert('200' + request.responseText);
 	            	//TODO
 	                //aliasFeedMgr.parseHistoryFeed(feed, request.responseText);
@@ -32,7 +27,7 @@ var HudsonDownloader = Class.extend({
 	    	// TODO
 	        //aliasUIMgr.setStatusDownloadError(feed);
 	    };
-	    this.callback.setStatusDownloading(feed);
+	    callback.setStatusDownloading(feed);
 		request.send(null);
 	}
 });

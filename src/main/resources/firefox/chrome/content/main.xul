@@ -22,6 +22,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/localiser.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/logger.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/panel.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/tooltip.js"/>
@@ -29,6 +30,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/menuspopup.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielementset.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/downloadercallback.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/main.js"/>

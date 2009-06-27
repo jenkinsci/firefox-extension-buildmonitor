@@ -1,6 +1,5 @@
 var HudsonFeedParser = Class.extend({
-	init: function(xml, size) {
-		this.root = new DOMParser().parseFromString(xml, "text/xml");
+	init: function(size) {
 		this.size = size;
 	},
 	getElementValue: function(element, elementName) {

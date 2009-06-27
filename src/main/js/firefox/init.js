@@ -1,4 +1,6 @@
-var NUM_OF_FEEDS = 2;
+const NUM_OF_FEEDS = 1;
+const TYPE_EXECUTOR = 'executor';
+const TYPE_HISTORIC = 'historic';
 
 var alertsService = Components.classes['@mozilla.org/alerts-service;1'].getService(Components.interfaces.nsIAlertsService);
 var consoleService = Components.classes['@mozilla.org/consoleservice;1'].getService(Components.interfaces.nsIConsoleService);

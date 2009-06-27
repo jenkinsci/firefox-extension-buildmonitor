@@ -14,25 +14,22 @@ var HudsonBuildMonitor = Class.extend({
 		return this.feeds;
 	},
 	prepare: function() {
-		this.downloader.setCaller(this);
 		localiser.setBundle(document.getElementById('hudson-stringbundle'));
 		logger.debug(localiser.getText('monitor.init'));
 	},
 	run: function() {
 		this.loadFeeds();
-		ui.prepare(this.feeds);
-		for (var i = 0; i < this.feeds.length; i++) {
-			downloader.download(this.feeds[i]);
-		}
-	},
-	process: function(xml, feed) {
+		this.ui.prepare(this.feeds);
+		
 		// TODO pull the 20 from preferences
 		// TODO pull status type from preferences
-		var parser = new HudsonHistoricFeedParser(xml, 20, 'overall');
-		var result = parser.parse();
-		this.ui.setStatusProcessed(feed, result);
-	},
-	setStatusDownloading: function(feed) {
-		this.ui.setStatusDownloading(feed);
+		var executorParser = new HudsonExecutorFeedParser(20);
+		var historicParser = new HudsonHistoricFeedParser(20, 'overall');
+		var executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, executorParser, this.ui);
+		var historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, historicParser, this.ui);
+		for (var i = 0; i < this.feeds.length; i++) {
+			downloader.download(executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i]);
+			downloader.download(historicCallback, this.feeds[i].getUrl(), this.feeds[i]);
+		}
 	}
 });

@@ -6,10 +6,10 @@ var HudsonBuildsPopup = HudsonUiElement.extend({
 			container.appendChild(buildsMenupopup);
 		}
 	},
-	set: function(container, feed, builds) {
-		alert('xxxxxxbuilds len:' + builds.length + ', builds:' + builds);
+	set: function(container, type, feed, builds) {
+		//alert('xxxxxxbuilds len:' + builds.length + ', builds:' + builds);
 		var menupopup = this._getBuildsMenupopupElement(feed);
-		this.clear(menupopup);
+		this.uiUtil.clear(menupopup);
 		
 		for (var i = 0; i < builds.length; i++) {
 			var menuitem = document.createElement('menuitem');
@@ -19,12 +19,12 @@ var HudsonBuildsPopup = HudsonUiElement.extend({
 		   	menuitem.setAttribute('class', 'menuitem-iconic');
 		   	// TODO: visual status as UIElement function?
 		   	//menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/build/' + this.getVisualStatus(builds[i].getStatus()) + '.png');
-		   	menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/build/' + builds[i].getStatus() + '.png');
+		   	menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/' + this.uiUtil.getStatusSkinType(type) + '/' + builds[i].getStatus() + '.png');
 		   	menuitem.setAttribute('maxwidth', '1000');
 		   	menupopup.appendChild(menuitem);
 		}
 		container.setAttribute('popup', this._getBuildsMenupopupId(feed));
-		alert('done');
+		//alert('done');
 	},
 	_getBuildsMenupopupElement: function(feed) {
 		return document.getElementById(this._getBuildsMenupopupId(feed));

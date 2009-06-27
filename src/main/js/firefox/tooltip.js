@@ -41,7 +41,7 @@ var HudsonTooltip = HudsonUiElement.extend({
 		}
 
 		var tooltip = this._getTooltipElement(feed);
-		this.clear(tooltip);
+		this.uiUtil.clear(tooltip);
 		tooltip.appendChild(vbox);
 		container.setAttribute("tooltip", this._getTooltipId(feed));
 	},

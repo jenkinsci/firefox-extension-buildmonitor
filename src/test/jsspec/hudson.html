@@ -70,7 +70,13 @@ describe('ExecutorBuild', {
 	},
 	'should return correct executor name': function() {
 		value_of(executorBuild.getExecutorName()).should_be('master#1');
-	}
+	},
+	'should return correct details': function() {
+		value_of(executorBuild.getDetails()).should_be('42% - MyJob #456 - master#1');
+	},
+	'should return correct status': function() {
+		value_of(executorBuild.getStatus()).should_be('running');
+	},
 })
 
 //////////////////////////////////////////////////////////////////////// feed
@@ -186,10 +192,10 @@ describe('Ignored Feed', {
 
 //////////////////////////////////////////////////////////////////////// historicfeedparser
 var historicFeedXml = '<feed xmlns="http://www.w3.org/2005/Atom"><title>vysper-trunk-jdk1.6-solaris all builds</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/"></link><updated>2009-06-01T19:36:43Z</updated><author><name>Hudson Server</name></author><id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id><entry><title>vysper-trunk-jdk1.6-solaris #22 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/22/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_19-36-43</id><published>2009-06-01T19:36:43Z</published><updated>2009-06-01T19:36:43Z</updated></entry><entry><title>vysper-trunk-jdk1.6-solaris #21 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/21/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_18-36-43</id><published>2009-06-01T18:36:43Z</published><updated>2009-06-01T18:36:43Z</updated></entry></feed>';
-var historicFeedParser = new HudsonHistoricFeedParser(historicFeedXml, 1, 'overall');
-var historicFeedResult = historicFeedParser.parse();
+var historicFeedParser = new HudsonHistoricFeedParser(1, 'overall');
+var historicFeedResult = historicFeedParser.parse(historicFeedXml);
 var historicBuilds = historicFeedResult.getBuilds();
-var historicFeedParserWithSizeLargerThanNumOfEntries = new HudsonHistoricFeedParser(historicFeedXml, 20);
+var historicFeedParserWithSizeLargerThanNumOfEntries = new HudsonHistoricFeedParser(20);
 describe('HistoricFeedParser', {
 	'should return correct title': function() {
 		value_of(historicFeedResult.getTitle()).should_be('vysper-trunk-jdk1.6-solaris all builds');
@@ -206,24 +212,28 @@ describe('HistoricFeedParser', {
 	'should return correct build date': function() {
 		value_of(historicBuilds[0].getDate().toString('dd-MM-yyyy hh:mm:ss')).should_be('01-06-2009 07:36:43');
 	},
-	'should return correct title': function() {
+	'should return correct status': function() {
 		value_of(historicFeedResult.getStatus()).should_be('health_80');
 	},
 	'should return correct number of builds when size is larger than num of entries': function() {
-		value_of(historicFeedParserWithSizeLargerThanNumOfEntries.parse().getBuilds().length).should_be(2);
+		value_of(historicFeedParserWithSizeLargerThanNumOfEntries.parse(historicFeedXml).getBuilds().length).should_be(2);
 	}
 })
 
 //////////////////////////////////////////////////////////////////////// executorfeedparser
 var executorFeedXml = '<computerSet><busyExecutors>2</busyExecutors><computer><displayName>master</displayName><executor><currentExecutable><number>138</number><url>http://hudson.zones.apache.org/hudson/job/Cactus/138/</url></currentExecutable><idle>false</idle><likelyStuck>false</likelyStuck><number>0</number><progress>34</progress></executor><executor><currentExecutable><number>307</number><url>http://hudson.zones.apache.org/hudson/job/ftpserver-trunk-jdk1.5-solaris/307/</url></currentExecutable><idle>false</idle><likelyStuck>true</likelyStuck><number>1</number><progress>99</progress></executor><icon>computer.gif</icon><idle>false</idle><jnlpAgent>false</jnlpAgent><launchSupported>true</launchSupported><manualLaunchAllowed>true</manualLaunchAllowed><monitorData><hudson.node_monitors.SwapSpaceMonitor><availablePhysicalMemory>197132288</availablePhysicalMemory><availableSwapSpace>6232735744</availableSwapSpace><totalPhysicalMemory>6441402368</totalPhysicalMemory><totalSwapSpace>10823401472</totalSwapSpace></hudson.node_monitors.SwapSpaceMonitor><hudson.node_monitors.ArchitectureMonitor>SunOS (x86)</hudson.node_monitors.ArchitectureMonitor><hudson.node_monitors.ResponseTimeMonitor><average>0</average></hudson.node_monitors.ResponseTimeMonitor><hudson.node_monitors.DiskSpaceMonitor>271497184256</hudson.node_monitors.DiskSpaceMonitor><hudson.node_monitors.ClockMonitor><diff>0</diff></hudson.node_monitors.ClockMonitor></monitorData><numExecutors>2</numExecutors><offline>false</offline><temporarilyOffline>false</temporarilyOffline></computer><computer><displayName>lucene.zones.apache.org (Solaris 10)</displayName><executor><idle>true</idle><likelyStuck>false</likelyStuck><number>0</number><progress>-1</progress></executor><icon>computer.gif</icon><idle>true</idle><jnlpAgent>false</jnlpAgent><launchSupported>true</launchSupported><manualLaunchAllowed>true</manualLaunchAllowed><monitorData><hudson.node_monitors.ArchitectureMonitor>SunOS (x86)</hudson.node_monitors.ArchitectureMonitor><hudson.node_monitors.ResponseTimeMonitor><average>66</average></hudson.node_monitors.ResponseTimeMonitor><hudson.node_monitors.DiskSpaceMonitor>340919224320</hudson.node_monitors.DiskSpaceMonitor><hudson.node_monitors.ClockMonitor><diff>23</diff></hudson.node_monitors.ClockMonitor></monitorData><numExecutors>1</numExecutors><offline>false</offline><temporarilyOffline>false</temporarilyOffline></computer></computerSet>'; 
-var executorFeedParser = new HudsonExecutorFeedParser(executorFeedXml, 20);
-var executorBuilds = executorFeedParser.parse().getBuilds();
+var executorFeedParser = new HudsonExecutorFeedParser(20);
+var executorFeedResult = executorFeedParser.parse(executorFeedXml);
+var executorBuilds = executorFeedResult.getBuilds();
 var activeExecutorBuild = executorBuilds[0];
 var stuckExecutorBuild = executorBuilds[1];
 var idleExecutorBuild = executorBuilds[2];
 describe('ExecutorFeedParser', {
 	'should return correct number of builds': function() {
 		value_of(executorBuilds.length).should_be(3);
+	},
+	'should return correct status': function() {
+		value_of(executorFeedResult.getStatus()).should_be('stuck');
 	},
 	'should return correct build name': function() {
 		value_of(activeExecutorBuild.getName()).should_be('Cactus#138');

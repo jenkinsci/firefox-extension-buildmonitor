@@ -1,12 +1,13 @@
 var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
-	init: function(xml, size, statusType) {
-		this._super(xml, size);
+	init: function(size, statusType) {
+		this._super(size);
 		this.statusType = statusType;
 	},
-	parse: function() {
+	parse: function(xml) {
+		var root = new DOMParser().parseFromString(xml, "text/xml");
 		var builds = new Array();
-		var title = this.getElementValue(this.root, 'title');
-		var entries = this.root.getElementsByTagName('entry');
+		var title = this.getElementValue(root, 'title');
+		var entries = root.getElementsByTagName('entry');
 		var successCount = 0;
 		var size = Math.min(this.size, entries.length);
 		for (var i = 0; i < size; i++) {
