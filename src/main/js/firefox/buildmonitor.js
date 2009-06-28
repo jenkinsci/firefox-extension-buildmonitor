@@ -6,6 +6,11 @@ var HudsonBuildMonitor = Class.extend({
 		this.logger = logger;
 		this.localiser = localiser;
 		this.feeds = null;
+		
+		// TODO pull the 20 from preferences
+		// TODO pull status type from preferences
+		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(20), this.ui);
+		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(20, 'overall'), this.ui);
 	},
 	loadFeeds: function() {
 		this.feeds = preferences.getFeeds();
@@ -17,19 +22,16 @@ var HudsonBuildMonitor = Class.extend({
 		localiser.setBundle(document.getElementById('hudson-stringbundle'));
 		logger.debug(localiser.getText('monitor.init'));
 	},
-	run: function() {
+	runAll: function() {
 		this.loadFeeds();
 		this.ui.prepare(this.feeds);
 		
-		// TODO pull the 20 from preferences
-		// TODO pull status type from preferences
-		var executorParser = new HudsonExecutorFeedParser(20);
-		var historicParser = new HudsonHistoricFeedParser(20, 'overall');
-		var executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, executorParser, this.ui);
-		var historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, historicParser, this.ui);
 		for (var i = 0; i < this.feeds.length; i++) {
-			downloader.download(executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i]);
-			downloader.download(historicCallback, this.feeds[i].getUrl(), this.feeds[i]);
+			this.run(i);
 		}
+	},
+	run: function(i) {
+		downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i]);
+		downloader.download(this.historicCallback, this.feeds[i].getUrl(), this.feeds[i]);
 	}
 });

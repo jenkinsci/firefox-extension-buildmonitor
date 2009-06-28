@@ -8,6 +8,15 @@ var HudsonUiUtil = Class.extend({
 		}
 		return statusSkinType;
 	},
+	getUrl: function(type, feed) {
+		var url;
+		if (type == TYPE_EXECUTOR) {
+			url = feed.getExecutorUrl();
+		} else {
+			url = feed.getUrl();
+		}
+		return url;		
+	},
 	clear: function(elem) {
 		while (elem.firstChild) {
 			elem.removeChild(elem.firstChild);

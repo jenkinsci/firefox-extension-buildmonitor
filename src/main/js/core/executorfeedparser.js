@@ -33,6 +33,6 @@ var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
         		}
 			}
 		}
-		return new HudsonFeedResult('Executor', builds, status);
+		return new HudsonFeedResult('Hudson build executors', builds, status);
 	}
 });

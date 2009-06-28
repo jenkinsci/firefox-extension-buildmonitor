@@ -13,8 +13,14 @@
 .failure {
 	color: #EF2929;
 }
+.unstable {
+	color: #FEB738;
+}
 .warning {
 	color: #FEB738;
+}
+.not_built {
+	color: #626262;
 }
 .unknown {
 	color: #626262;

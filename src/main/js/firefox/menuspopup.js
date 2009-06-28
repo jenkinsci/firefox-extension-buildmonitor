@@ -21,7 +21,7 @@ var HudsonMenusPopup = HudsonUiElement.extend({
 		
 		var refreshAllMenuitem = document.createElement('menuitem');
 		refreshAllMenuitem.setAttribute('label', this.localiser.getText('menu.refresh.all'));
-		refreshAllMenuitem.setAttribute('oncommand', 'hudson_run();');
+		refreshAllMenuitem.setAttribute('oncommand', 'hudson_runAll();');
 		refreshAllMenuitem.setAttribute('class', 'menuitem-iconic');
 		refreshAllMenuitem.setAttribute('image', 'chrome://buildmonitor/skin/menu/refreshall.png');
 		menupopup.appendChild(refreshAllMenuitem);
@@ -54,7 +54,7 @@ var HudsonMenusPopup = HudsonUiElement.extend({
 				
 		var refreshMenuitem = document.createElement('menuitem');
 		refreshMenuitem.setAttribute('label', this.localiser.getText('menu.refresh') + ' [' + feed.getName() + ']');
-		refreshMenuitem.setAttribute('oncommand', 'hudson_process(' + feed.getId() + ');');
+		refreshMenuitem.setAttribute('oncommand', 'hudson_run(' + feed.getId() + ');');
 		refreshMenuitem.setAttribute('class', 'menuitem-iconic');
 		refreshMenuitem.setAttribute('image', 'chrome://buildmonitor/skin/menu/refresh.png');
 		menupopup.appendChild(refreshMenuitem);

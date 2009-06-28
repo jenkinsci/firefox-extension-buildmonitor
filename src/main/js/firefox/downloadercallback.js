@@ -10,5 +10,8 @@ var HudsonDownloaderCallback = Class.extend({
 	},
 	setStatusDownloading: function(feed) {
 		this.ui.setStatusDownloading(this.type, feed);
+	},
+	setStatusDownloadError: function(feed) {
+		this.ui.setStatusDownloadError(this.type, feed);
 	}
 });

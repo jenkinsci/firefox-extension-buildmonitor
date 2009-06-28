@@ -44,9 +44,19 @@ var HudsonUi = Class.extend({
 		this._getUiElementSet(type).getTooltip().set(
 			this._getUiElementSet(type).getPanel().getPanelElement(feed),
 			new Array(
-				this.localiser.getText('feed.process.downloading.message1') + ' url: ' + feed.getUrl(),
+				this.localiser.getText('feed.process.downloading.message1'),
+				'url: ' + this.uiUtil.getUrl(type, feed),
 				this.localiser.getText('feed.process.downloading.message2')),
 			this.localiser.getText('feed.process.downloading.title'),
+			feed);
+	},
+	setStatusDownloadError: function(type, feed) {
+		var uiElementSet = this._getUiElementSet(type);
+		uiElementSet.getPanel().set('status/error', feed);
+		uiElementSet.getTooltip().set(
+			this.historicUiElementSet.getPanel().getPanelElement(feed),
+			new Array(this.localiser.getText('feed.process.error.message1'), 'url: ' + this.uiUtil.getUrl(type, feed)),
+			this.localiser.getText('feed.process.error.title'),
 			feed);
 	},
 	setStatusProcessed: function(type, feed, result) {
@@ -59,8 +69,8 @@ var HudsonUi = Class.extend({
 	_setStatusQueued: function(type, feed) {
 		this._getUiElementSet(type).getPanel().set('status/queued', feed);
 		this._getUiElementSet(type).getTooltip().set(
-			this.historicUiElementSet.getPanel().getPanelElement(feed),
-			new Array(this.localiser.getText('feed.queued.message1') + ' url: ' + feed.getUrl()),
+			this._getUiElementSet(type).getPanel().getPanelElement(feed),
+			new Array(this.localiser.getText('feed.queued.message1'), 'url: ' + this.uiUtil.getUrl(type, feed)),
 			this.localiser.getText('feed.queued.title'),
 			feed);
 	},

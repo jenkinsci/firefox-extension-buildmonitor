@@ -9,23 +9,16 @@ var HudsonDownloader = Class.extend({
 	            if (request.status == 200) {
 	            	callback.process(request.responseText, feed);
 	            	//alert('200' + request.responseText);
-	            	//TODO
-	                //aliasFeedMgr.parseHistoryFeed(feed, request.responseText);
-	                //if (feed.hasExecutorFeed()) {
-	                //	aliasFeedMgr.downloadExecutorFeed(feed.getExecutorFeed());
-	                //}
 	            }
 	            else {
-	            	alert('not 200');
-	            	// TODO
-	                //aliasUIMgr.setStatusDownloadError(feed);
+	            	//alert('not 200');
+	                callback.setStatusDownloadError(feed);
 	            }
 	        }
 	    };
 	    request.onerror = function () {
-	    	alert('onerror');
-	    	// TODO
-	        //aliasUIMgr.setStatusDownloadError(feed);
+	    	//alert('onerror');
+	        callback.setStatusDownloadError(feed);
 	    };
 	    callback.setStatusDownloading(feed);
 		request.send(null);

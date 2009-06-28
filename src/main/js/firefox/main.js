@@ -4,14 +4,17 @@ function hudson_initialise() {
     //linkMgr.initMenu();
     hudson_schedule();
 }
-function hudson_run() {
-	buildMonitor.run();
+function hudson_runAll() {
+	buildMonitor.runAll();
 	//uiMgr.initFeedsPanel(feeds);
 	//feedMgr.processAll(feeds);
 	alert('end of hudson run');
 }
+function hudson_run(i) {
+    buildMonitor.run(i);
+}
 function hudson_schedule() {
-	hudson_run();
+	hudson_runAll();
 	//var interval = prefMgr.getInterval();
 	//logMgr.debug(textMgr.get('monitor.schedule', [interval]));
 	//setTimeout('hudson_schedule()', interval * 60 * 1000);
