@@ -20,30 +20,27 @@ var HudsonExecutorBuild = HudsonBuild.extend ({
 	},
 	getStatus: function() {
 		var status;
-		if (this.isOffline == true) {
-			status = "offline";
-		} else if (this.isIdle == true) {
-			status = "idle";
-		} else if (this.isLikelyStuck == true) {
-			status = "stuck";
+		if (this.isIdle == true) {
+			status = 'idle';
+		} else if (this.isStuck == true) {
+			status = 'stuck';
 		} else {
-			status = "running";
+			status = 'running';
 		}
 		return status;
 	},
 	getDetails: function() {
 		var details = '';
 		if (this.isOffline == true) {
-			details += "Offline";
+			details += 'Offline';
 		} else if (this.isIdle == true) {
-			details += "Idle";
+			details += 'Idle';
 		} else if (this.progress >= 0) {
-			// TODO: pull executable number
-			details += this.progress + "% - " + this.name + " #456";
+			details += this.progress + '% - ' + this.name;
 		} else {
-			details += this.name + " #456";
+			details += this.name;
 		}
-	    details += " - " + this.executorName;
+	    details += ' - ' + this.executorName;
 	    return details;
 	}
 });

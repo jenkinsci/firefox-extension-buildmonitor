@@ -1,4 +1,4 @@
-const NUM_OF_FEEDS = 1;
+const NUM_OF_FEEDS = 15;
 const TYPE_EXECUTOR = 'executor';
 const TYPE_HISTORIC = 'historic';
 

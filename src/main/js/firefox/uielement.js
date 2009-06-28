@@ -10,5 +10,19 @@ var HudsonUiElement = Class.extend({
 	},
 	getUiElementId: function(feed) {
 		return this.type + '-' + feed.getId();
+	},
+	isHistoric: function() {
+		var isHistoric = false;
+		if (this.type == TYPE_HISTORIC) {
+			isHistoric = true;
+		}
+		return isHistoric;
+	},
+	isExecutor: function() {
+		var isExecutor = false;
+		if (this.type == TYPE_EXECUTOR) {
+			isExecutor = true;
+		}
+		return isExecutor;
 	}
 });

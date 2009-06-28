@@ -72,7 +72,7 @@ describe('ExecutorBuild', {
 		value_of(executorBuild.getExecutorName()).should_be('master#1');
 	},
 	'should return correct details': function() {
-		value_of(executorBuild.getDetails()).should_be('42% - MyJob #456 - master#1');
+		value_of(executorBuild.getDetails()).should_be('42% - MyJob - master#1');
 	},
 	'should return correct status': function() {
 		value_of(executorBuild.getStatus()).should_be('running');
@@ -253,11 +253,26 @@ describe('ExecutorFeedParser', {
 	'should return true stuck status for stuck build': function() {
 		value_of(stuckExecutorBuild.getStuck()).should_be_true();
 	},
+	'should return correct details': function() {
+		value_of(stuckExecutorBuild.getDetails()).should_be('99% - ftpserver-trunk-jdk1.5-solaris#307 - master#1');
+	},
+	'should return correct status': function() {
+		value_of(stuckExecutorBuild.getStatus()).should_be('stuck');
+	},
 	'should return null name for idle build': function() {
 		value_of(idleExecutorBuild.getName()).should_be_null();
 	},
 	'should return true idle status for idle build': function() {
 		value_of(idleExecutorBuild.getIdle()).should_be_true();
+	},
+	'should return false stuck status for idle build': function() {
+		value_of(idleExecutorBuild.getStuck()).should_be_false();
+	},
+	'should return correct details for idle build': function() {
+		value_of(idleExecutorBuild.getDetails()).should_be('Idle - lucene.zones.apache.org (Solaris 10)#0');
+	},
+	'should return correct status for idle build': function() {
+		value_of(idleExecutorBuild.getStatus()).should_be('idle');
 	}
 })
 

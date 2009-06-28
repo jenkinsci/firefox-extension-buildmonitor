@@ -3,10 +3,14 @@ var HudsonPanel = HudsonUiElement.extend({
 		for (var i = 0; i < feeds.length; i++) {
 			var panel = document.createElement('statusbarpanel');
 			panel.setAttribute('id', this._getPanelId(feeds[i]));
-			panel.setAttribute('class', 'statusbarpanel-iconic-text');
 			//TODO handle name hiding here
 			//if (!this.prefMgr.getHideName()) {
+			if (this.isExecutor()) {
+				panel.setAttribute('class', 'statusbarpanel-iconic');
+			} else if (this.isHistoric()) {
+				panel.setAttribute('class', 'statusbarpanel-iconic-text');
 				panel.setAttribute('label', feeds[i].getName());
+			}
 			//}
 			panel.setAttribute('popup', 'buildmonitor-builds');
 			panel.setAttribute('context', 'buildmonitor-menu');

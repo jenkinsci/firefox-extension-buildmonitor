@@ -16,26 +16,25 @@ var HudsonUi = Class.extend({
 		this.uiUtil.clear(tooltipContainer);
 		this.uiUtil.clear(buildsPopupContainer);
 		this.uiUtil.clear(menusPopupContainer);
-		
-		// panel element ordering on the statusbar
-		for (var i = 0; i < feeds.length; i++) {
-			for (var j = 0; j < this.uiElementSets.length; j++) {
-				this.uiElementSets[j].getPanel().prepare(panelContainer, new Array(feeds[i]));
-			}
-		}
-		
+
 		for (var i = 0; i < this.uiElementSets.length; i++) {
 			this.uiElementSets[i].getTooltip().prepare(tooltipContainer, feeds);
 			this.uiElementSets[i].getBuildsPopup().prepare(buildsPopupContainer, feeds);
 			this.uiElementSets[i].getMenusPopup().prepare(menusPopupContainer, feeds);
 		}
 				
+		// panel element ordering on the statusbar
 		for (var i = 0; i < feeds.length; i++) {
-			this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
-			this._setStatusQueued(TYPE_HISTORIC, feeds[i]);
-			for (var j = 0; j < this.uiElementSets.length; j++) {
-				var container = this.uiElementSets[j].getPanel().getPanelElement(feeds[i]);
-				this.uiElementSets[j].getMenusPopup().set(container, feeds[i]);
+			if (!feeds[i].isIgnored()) {
+				for (var j = 0; j < this.uiElementSets.length; j++) {
+					this.uiElementSets[j].getPanel().prepare(panelContainer, new Array(feeds[i]));
+				}
+				this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
+				this._setStatusQueued(TYPE_HISTORIC, feeds[i]);
+				for (var j = 0; j < this.uiElementSets.length; j++) {
+					var container = this.uiElementSets[j].getPanel().getPanelElement(feeds[i]);
+					this.uiElementSets[j].getMenusPopup().set(container, feeds[i]);
+				}
 			}
 		}
 	},
@@ -54,7 +53,7 @@ var HudsonUi = Class.extend({
 		var container = this._getUiElementSet(type).getPanel().getPanelElement(feed);
 		var builds = result.getBuilds();
 		this._getUiElementSet(type).getPanel().set('status/' + this.uiUtil.getStatusSkinType(type) + '/' + result.getStatus(), feed);
-		this._getUiElementSet(type).getBuildsPopup().set(container, type, feed, builds);
+		this._getUiElementSet(type).getBuildsPopup().set(container, feed, builds);
 		this._getUiElementSet(type).getTooltip().set(container, builds, result.getTitle(), feed);
 	},
 	_setStatusQueued: function(type, feed) {
