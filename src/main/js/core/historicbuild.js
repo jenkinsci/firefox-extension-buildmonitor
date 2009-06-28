@@ -7,7 +7,7 @@ var HudsonHistoricBuild = HudsonBuild.extend ({
 		return this.date;
 	},
 	getStatus: function() {
-		return new String(this.name.match('[(][A-Za-z]+[)]')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
+		return new String(this.name.match('[(][_A-Za-z]+[)]')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
 	},
 	getDetails: function() {
 		return this.name + ' - ' + prettyDateUTC(this.date);

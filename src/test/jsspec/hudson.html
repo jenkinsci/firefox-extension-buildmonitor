@@ -206,6 +206,9 @@ describe('HistoricFeedParser', {
 	'should return correct build name': function() {
 		value_of(historicBuilds[0].getName()).should_be('vysper-trunk-jdk1.6-solaris #22 (SUCCESS)');
 	},
+	'should return correct build status': function() {
+		value_of(historicBuilds[0].getStatus()).should_be('success');
+	},
 	'should return correct build url': function() {
 		value_of(historicBuilds[0].getUrl()).should_be('http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/22/');
 	},
