@@ -21,9 +21,12 @@
 <script type="text/javascript" src="../../../src/main/js/core/executorfeedparser.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/downloader.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/menuitem.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/service.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/logger.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/preferences.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/localiser.js"></script>
-<script type="text/javascript" src="../../../src/main/js/firefox/logger.js"></script>
-<script type="text/javascript" src="../../../src/main/js/firefox/preferences.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/loggerservice.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/preferencesservice.js"></script>
 <script type="text/javascript">// <![CDATA[
 
 //////////////////////////////////////////////////////////////////////// core
@@ -337,19 +340,19 @@ describe('Formatted Localiser', {
 
 //////////////////////////////////////////////////////////////////////// logger
 function MockConsoleService() {
-	this.logStringMessage = function(message) {}
+	this.debug = function(message) {}
 }
 var mockControl = new MockControl();
 var mockConsoleService = mockControl.createMock(MockConsoleService);
 var mockUtil = mockControl.createMock(HudsonUtil);
 var enabledLogger = new HudsonLogger(mockConsoleService, mockUtil, true);
 mockUtil.expects().getLogDate().andReturn('22 March 1980');
-mockConsoleService.expects().logStringMessage('BuildMonitor [22 March 1980][main]: Starting...');
+mockConsoleService.expects().debug('BuildMonitor [22 March 1980][main]: Starting...');
 enabledLogger.debug('Starting...');
 var enabledLoggerException = null;
 try { mockControl.verify(); } catch (e) { enabledLoggerException = e; }
 describe('Enabled Logger', {
-	'should call console logStringMessage with correct message': function() {
+	'should call console debug with correct message': function() {
 		value_of(enabledLoggerException).should_be_null();
 	}
 })
@@ -361,7 +364,7 @@ disabledLogger.debug('Starting...');
 var disabledLoggerException = null;
 try { mockControl.verify(); } catch (e) { disabledLoggerException = e; }
 describe('Disabled Logger', {
-	'should not call console logStringMessage': function() {
+	'should not call console debug': function() {
 		value_of(disabledLoggerException).should_be_null();
 	}
 })
@@ -370,30 +373,30 @@ var mockConsoleService = mockControl.createMock(MockConsoleService);
 var mockUtil = mockControl.createMock(HudsonUtil);
 var enabledLoggerWithFeed = new HudsonLogger(mockConsoleService, mockUtil, true);
 mockUtil.expects().getLogDate().andReturn('28 May 1980');
-mockConsoleService.expects().logStringMessage('BuildMonitor [28 May 1980][0-My Feed]: Starting...');
+mockConsoleService.expects().debug('BuildMonitor [28 May 1980][0-My Feed]: Starting...');
 var feed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll');
 enabledLoggerWithFeed.debug('Starting...', feed);
 var enabledLoggerWithFeedException = null;
 try { mockControl.verify(); } catch (e) { enabledLoggerWithFeedException = e; }
 describe('Enabled Logger w/ Feed', {
-	'should call console logStringMessage with feed name in the message': function() {
+	'should call console debug with feed name in the message': function() {
 		value_of(enabledLoggerWithFeedException).should_be_null();
 	}
 })
 
 //////////////////////////////////////////////////////////////////////// preferences
 function MockPreferencesService() {
-	this.getBoolPref = function(key) {}
-	this.getCharPref = function(key) {}
+	this.getBoolean = function(key) {}
+	this.getString = function(key) {}
 }
 var mockControl = new MockControl();
 var mockPreferencesService = mockControl.createMock(MockPreferencesService);
 var preferences = new HudsonPreferences(mockPreferencesService, 2);
-mockPreferencesService.expects().getBoolPref('hudson.debug').andReturn(false);
-mockPreferencesService.expects().getCharPref('hudson.feeds.0.name').andReturn('My Feed');
-mockPreferencesService.expects().getCharPref('hudson.feeds.0.url').andReturn('http://localhost/hudson/job/MyJob/rssAll');
-mockPreferencesService.expects().getCharPref('hudson.feeds.1.name').andReturn('Your Feed');
-mockPreferencesService.expects().getCharPref('hudson.feeds.1.url').andReturn('http://localhost/hudson/job/YourJob/rssAll');
+mockPreferencesService.expects().getBoolean('hudson.debug').andReturn(false);
+mockPreferencesService.expects().getString('hudson.feeds.0.name').andReturn('My Feed');
+mockPreferencesService.expects().getString('hudson.feeds.0.url').andReturn('http://localhost/hudson/job/MyJob/rssAll');
+mockPreferencesService.expects().getString('hudson.feeds.1.name').andReturn('Your Feed');
+mockPreferencesService.expects().getString('hudson.feeds.1.url').andReturn('http://localhost/hudson/job/YourJob/rssAll');
 var debug = preferences.getDebug();
 var feeds = preferences.getFeeds();
 var preferencesException = null;

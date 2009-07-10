@@ -1,6 +1,6 @@
 var HudsonLogger = Class.extend({
-	init: function(consoleService, util, isDebug) {
-		this.consoleService = consoleService;
+	init: function(service, util, isDebug) {
+		this.service = service;
 		this.util = util;
 		this.isDebug = isDebug;
 	},
@@ -10,7 +10,7 @@ var HudsonLogger = Class.extend({
 	    	if (feed) {
 	    		id = feed.getId() + '-' + feed.getName();
 	    	}
-	        this.consoleService.logStringMessage('BuildMonitor [' + this.util.getLogDate() + '][' + id + ']: ' + message);
+	        this.service.debug('BuildMonitor [' + this.util.getLogDate() + '][' + id + ']: ' + message);
 	    }
 	}
 });

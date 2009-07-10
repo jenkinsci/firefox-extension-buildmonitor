@@ -19,9 +19,12 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeedparser.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeedparser.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/downloader.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/service.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/logger.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/preferences.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/localiser.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/logger.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/loggerservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/panel.js"/>
