@@ -19,6 +19,9 @@
 .warning {
 	color: #FEB738;
 }
+.aborted {
+	color: #626262;
+}
 .not_built {
 	color: #626262;
 }
