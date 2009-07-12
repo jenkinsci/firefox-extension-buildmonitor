@@ -1,6 +1,6 @@
 var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
-	init: function(size, statusType) {
-		this._super(size);
+	constructor: function(size, statusType) {
+		this.base(size);
 		this.statusType = statusType;
 	},
 	parse: function(xml) {

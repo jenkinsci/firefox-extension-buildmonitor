@@ -1,6 +1,6 @@
 var HudsonExecutorBuild = HudsonBuild.extend ({
-	init: function(name, url, progress, isIdle, isStuck, executorName) {
-		this._super(name, url);
+	constructor: function(name, url, progress, isIdle, isStuck, executorName) {
+		this.base(name, url);
 		this.progress = progress;
 		this.isIdle = isIdle;
 		this.isStuck = isStuck;

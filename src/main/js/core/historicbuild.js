@@ -1,6 +1,6 @@
 var HudsonHistoricBuild = HudsonBuild.extend ({
-	init: function(name, url, date) {
-		this._super(name, url);
+	constructor: function(name, url, date) {
+		this.base(name, url);
 		this.date = date;
 	},
 	getDate: function() {

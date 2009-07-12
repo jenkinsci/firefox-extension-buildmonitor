@@ -1,9 +1,9 @@
-var HudsonUiElement = Class.extend({
-	init: function(type) {
+var HudsonUiElement = Base.extend({
+	constructor: function(type) {
 		this.type = type;
 		this.uiUtil = new HudsonUiUtil();
 	},
-	init: function(type, localiser) {
+	constructor: function(type, localiser) {
 		this.type = type;
 		this.localiser = localiser;
 		this.uiUtil = new HudsonUiUtil();

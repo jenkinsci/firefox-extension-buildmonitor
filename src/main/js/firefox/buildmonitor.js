@@ -1,5 +1,5 @@
-var HudsonBuildMonitor = Class.extend({
-	init: function(preferences, ui, downloader, logger, localiser) {
+var HudsonBuildMonitor = Base.extend({
+	constructor: function(preferences, ui, downloader, logger, localiser) {
 		this.preferences = preferences;
 		this.ui = ui;
 		this.downloader = downloader;
@@ -12,9 +12,6 @@ var HudsonBuildMonitor = Class.extend({
 		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(20), this.ui);
 		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(20, 'overall'), this.ui);
 	},
-	loadFeeds: function() {
-		this.feeds = preferences.getFeeds();
-	},
 	getFeeds: function() {
 		return this.feeds;
 	},
@@ -23,7 +20,7 @@ var HudsonBuildMonitor = Class.extend({
 		logger.debug(localiser.getText('monitor.init'));
 	},
 	runAll: function() {
-		this.loadFeeds();
+		this.feeds = preferences.getFeeds();
 		this.ui.prepare(this.feeds);
 		
 		for (var i = 0; i < this.feeds.length; i++) {

@@ -1,4 +1,4 @@
-var HudsonUiUtil = Class.extend({
+var HudsonUiUtil = Base.extend({
 	getStatusSkinType: function(type) {
 		var statusSkinType;
 		if (type == TYPE_EXECUTOR) {

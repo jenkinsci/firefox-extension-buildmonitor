@@ -1,4 +1,4 @@
-var HudsonDownloader = Class.extend({
+var HudsonDownloader = Base.extend({
 	download: function(callback, url, feed) {
 		var request = new XMLHttpRequest();
 	    request.open("GET", url, true);

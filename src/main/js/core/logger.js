@@ -1,5 +1,5 @@
-var HudsonLogger = Class.extend({
-	init: function(service, util, isDebug) {
+var HudsonLogger = Base.extend({
+	constructor: function(service, util, isDebug) {
 		this.service = service;
 		this.util = util;
 		this.isDebug = isDebug;

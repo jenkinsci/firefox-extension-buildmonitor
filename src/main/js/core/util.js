@@ -1,4 +1,4 @@
-var HudsonUtil = Class.extend({
+var HudsonUtil = Base.extend({
 	getBoolean: function(stringValue) {
 		var booleanValue = Boolean(false);
 		if (stringValue == 'true') {
@@ -11,5 +11,12 @@ var HudsonUtil = Class.extend({
 	},
 	getLogDate: function() {
 		return (new Date()).toLocaleString();
+	},
+	isHudsonRss: function(url) {
+		var isHudsonRss = true;
+		if (url.match('/rss') == null) {
+			isHudsonRss = false;
+		}
+		return isHudsonRss;
 	}
 });

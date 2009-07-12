@@ -1,5 +1,5 @@
-var HudsonFeedResult = Class.extend({
-	init: function(title, builds, status) {
+var HudsonFeedResult = Base.extend({
+	constructor: function(title, builds, status) {
 		this.title = title;
 		this.builds = builds;
 		this.status = status;

@@ -1,7 +1,7 @@
 function hudson_initialise() {
 	buildMonitor.prepare();
     //prefMgr.upgrade();
-    //linkMgr.initMenu();
+    linkWindow.setMenuVisibility();
     hudson_schedule();
 }
 function hudson_runAll() {
@@ -29,5 +29,8 @@ function hudson_goTo(url) {
 	//} else {
 	//	getBrowser().loadURI(url);
 	//}
+}
+function hudson_addLink(url) {
+	window.openDialog('chrome://buildmonitor/content/link.xul', 'link', 'centerscreen,chrome,modal', this, url);
 }
 window.addEventListener('load', function() {hudson_initialise();}, false);

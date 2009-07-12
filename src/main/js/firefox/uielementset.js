@@ -1,5 +1,5 @@
-var HudsonUiElementSet = Class.extend({
-	init: function(type) {
+var HudsonUiElementSet = Base.extend({
+	constructor: function(type) {
 		this.panel = new HudsonPanel(type);
 		this.tooltip = new HudsonTooltip(type);
 		this.buildsPopup = new HudsonBuildsPopup(type);

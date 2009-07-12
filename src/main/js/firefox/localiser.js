@@ -1,4 +1,4 @@
-var HudsonLocaliser = Class.extend({
+var HudsonLocaliser = Base.extend({
 	setBundle: function(bundle) {
 		this.bundle = bundle;
 	},

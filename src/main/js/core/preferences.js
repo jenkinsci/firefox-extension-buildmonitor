@@ -1,5 +1,5 @@
-var HudsonPreferences = Class.extend({
-	init: function(service, numOfFeeds) {
+var HudsonPreferences = Base.extend({
+	constructor: function(service, numOfFeeds) {
 		this.service = service;
 		this.numOfFeeds = numOfFeeds;
 	},

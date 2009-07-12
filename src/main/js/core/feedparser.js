@@ -1,5 +1,5 @@
-var HudsonFeedParser = Class.extend({
-	init: function(size) {
+var HudsonFeedParser = Base.extend({
+	constructor: function(size) {
 		this.size = size;
 	},
 	getElementValue: function(element, elementName) {

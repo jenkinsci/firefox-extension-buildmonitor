@@ -1,5 +1,5 @@
-var HudsonService = Class.extend({
-	init: function(service) {
+var HudsonService = Base.extend({
+	constructor: function(service) {
 		this.service = service;
 	},
 	getInstance: function() {

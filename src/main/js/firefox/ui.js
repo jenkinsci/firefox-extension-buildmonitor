@@ -1,5 +1,5 @@
-var HudsonUi = Class.extend({
-	init: function(localiser) {
+var HudsonUi = Base.extend({
+	constructor: function(localiser) {
 		this.executorUiElementSet = new HudsonUiElementSet(TYPE_EXECUTOR);
 		this.historicUiElementSet = new HudsonUiElementSet(TYPE_HISTORIC);
 		this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);

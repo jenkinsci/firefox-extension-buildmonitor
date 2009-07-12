@@ -1,5 +1,5 @@
-var HudsonDownloaderCallback = Class.extend({
-	init: function(type, parser, ui) {
+var HudsonDownloaderCallback = Base.extend({
+	constructor: function(type, parser, ui) {
 		this.type = type;
 		this.parser = parser;
 		this.ui = ui;

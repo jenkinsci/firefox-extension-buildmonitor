@@ -1,6 +1,6 @@
 var HudsonMenusPopup = HudsonUiElement.extend({
-	init: function(type, localiser) {
-		this._super(type, localiser);
+	constructor: function(type, localiser) {
+		this.base(type, localiser);
 	},
 	prepare: function(container, feeds) {
 		for (var i = 0; i < feeds.length; i++) {

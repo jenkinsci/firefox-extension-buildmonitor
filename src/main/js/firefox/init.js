@@ -14,4 +14,5 @@ var preferences = new HudsonPreferences(firefoxPreferencesService, NUM_OF_FEEDS)
 var logger = new HudsonLogger(firefoxLoggerService, util, preferences.getDebug());
 var ui = new HudsonUi(localiser);
 var downloader = new HudsonDownloader();
+var linkWindow = new HudsonLinkWindow(preferences);
 var buildMonitor = new HudsonBuildMonitor(preferences, ui, downloader, logger, localiser);

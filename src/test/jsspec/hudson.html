@@ -8,8 +8,7 @@
 <script type="text/javascript" src="../../../lib/test/js/JSSpec.js"></script>
 <script type="text/javascript" src="../../../lib/test/js/jsmock.js"></script>
 <script type="text/javascript" src="../../../lib/main/js/date.js"></script>
-<script type="text/javascript" src="../../../lib/main/js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../../../lib/main/js/jquery-class.js"></script>
+<script type="text/javascript" src="../../../lib/main/js/Base.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/util.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/build.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicbuild.js"></script>
@@ -368,6 +367,26 @@ describe('Preferences', {
 	},
 	'should return correct number of feeds': function() {
 		value_of(feeds.length).should_be(2);
+	}
+})
+
+//////////////////////////////////////////////////////////////////////// util
+var util = new HudsonUtil();
+describe('Util', {
+	'should return correct boolean value when passed string true': function() {
+		value_of(util.getBoolean('true')).should_be_true();
+	},
+	'should return correct boolean value when passed string false': function() {
+		value_of(util.getBoolean('false')).should_be_false();
+	},
+	'should return correct integer value': function() {
+		value_of(util.getInteger('42')).should_be(42);
+	},
+	'should return true for rss url': function() {
+		value_of(util.isHudsonRss('http://localhost/hudson/job/MyJob/rssAll')).should_be_true();
+	},
+	'should return false for non rss url': function() {
+		value_of(util.isHudsonRss('http://localhost')).should_be_false();
 	}
 })
 
