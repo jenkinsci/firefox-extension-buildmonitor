@@ -4,5 +4,8 @@ var HudsonPreferencesService = HudsonService.extend ({
 	},
 	getString: function(key) {
 		return this.service.getCharPref(key);
+	},
+	setString: function(key, value) {
+		this.service.setCharPref(key, value);
 	}
 });

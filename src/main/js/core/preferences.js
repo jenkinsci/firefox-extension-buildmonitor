@@ -17,5 +17,15 @@ var HudsonPreferences = Base.extend({
 	    	//}
 	    }
 	    return feeds;
+	},
+	addFeed: function(feed) {
+		this._setFeed(feed, '');
+	},
+	_setFeed: function(feed, lastFail) {
+		var id = feed.getId();
+		alert('id' + id + feed.getName() + feed.getUrl());
+		this.service.setString('hudson.feeds.' + id + '.name', feed.getName());
+		this.service.setString('hudson.feeds.' + id + '.url', feed.getUrl());
+		this.service.setString('hudson.feeds.' + id + '.lastfail', lastFail);
 	}
 });

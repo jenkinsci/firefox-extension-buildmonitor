@@ -192,6 +192,37 @@ describe('Ignored Feed', {
 	}
 })
 
+var emptyFeedWithEmptyNameAndUrl = new HudsonFeed(0, '', '');
+var emptyFeedWithNullNameAndUrl = new HudsonFeed(0, null, null); 
+var nonEmptyFeedWithEmptyName = new HudsonFeed(0, '', 'http://localhost/hudson/view/MyView/rssLatest');
+var nonEmptyFeedWithNullName = new HudsonFeed(0, null, 'http://localhost/hudson/view/MyView/rssLatest');
+var nonEmptyFeedWithEmptyUrl = new HudsonFeed(0, 'The Feed', '');
+var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', null);
+var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', 'http://localhost/hudson/view/MyView/rssLatest');
+describe('Empty Feed', {
+	'should be true on isEmpty when both name and url are empty': function() {
+		value_of(emptyFeedWithEmptyNameAndUrl.isEmpty()).should_be_true();
+	},
+	'should be true on isEmpty when both name and url are null': function() {
+		value_of(emptyFeedWithNullNameAndUrl.isEmpty()).should_be_true();
+	},
+	'should be false on isEmpty when name is empty': function() {
+		value_of(nonEmptyFeedWithEmptyName.isEmpty()).should_be_false();
+	},
+	'should be false on isEmpty when name is null': function() {
+		value_of(nonEmptyFeedWithNullName.isEmpty()).should_be_false();
+	},
+	'should be false on isEmpty when url is empty': function() {
+		value_of(nonEmptyFeedWithEmptyUrl.isEmpty()).should_be_false();
+	},
+	'should be false on isEmpty when url is null': function() {
+		value_of(nonEmptyFeedWithNullUrl.isEmpty()).should_be_false();
+	},
+	'should be false on isEmpty when both name and url are not null': function() {
+		value_of(nonEmptyFeedWithNullUrl.isEmpty()).should_be_false();
+	}
+})
+
 //////////////////////////////////////////////////////////////////////// historicfeedparser
 var historicFeedXml = '<feed xmlns="http://www.w3.org/2005/Atom"><title>vysper-trunk-jdk1.6-solaris all builds</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/"></link><updated>2009-06-01T19:36:43Z</updated><author><name>Hudson Server</name></author><id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id><entry><title>vysper-trunk-jdk1.6-solaris #22 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/22/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_19-36-43</id><published>2009-06-01T19:36:43Z</published><updated>2009-06-01T19:36:43Z</updated></entry><entry><title>vysper-trunk-jdk1.6-solaris #21 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/21/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_18-36-43</id><published>2009-06-01T18:36:43Z</published><updated>2009-06-01T18:36:43Z</updated></entry></feed>';
 var historicFeedParser = new HudsonHistoricFeedParser(1, 'overall');
@@ -453,14 +484,17 @@ describe('LoggerService', {
 function MockFirefoxPreferencesService() {
 	this.getBoolPref = function(key) {}
 	this.getCharPref = function(key) {}
+	this.setCharPref = function(message) {}
 }
 var mockControl = new MockControl();
 var mockFirefoxPreferencesService = mockControl.createMock(MockFirefoxPreferencesService);
 mockFirefoxPreferencesService.expects().getBoolPref('hudson.bool.key').andReturn(true);
 mockFirefoxPreferencesService.expects().getCharPref('hudson.char.key').andReturn('some char value');
+mockFirefoxPreferencesService.expects().setCharPref('hudson.char.key', 'some char value');
 var preferencesService = new HudsonPreferencesService(mockFirefoxPreferencesService);
 var preferenceBooleanValue = preferencesService.getBoolean('hudson.bool.key');
 var preferenceStringValue = preferencesService.getString('hudson.char.key');
+preferencesService.setString('hudson.char.key', 'some char value');
 var preferencesServiceException = null;
 try { mockControl.verify(); } catch (e) { preferencesServiceException = e; }
 describe('PreferencesService', {

@@ -57,6 +57,7 @@
 			<vbox>
 				<label id="hudson-link-url"/>
 				<textbox id="hudson-link-name" size="25"/>
+				<label id="hudson-link-id"/>
 			</vbox>
 		</hbox>
 	</vbox>
