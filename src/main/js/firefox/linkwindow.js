@@ -37,12 +37,12 @@ var HudsonLinkWindow = Base.extend({
 		var id = this.util.getInteger(document.getElementById('hudson-link-id').value);
 		var name = document.getElementById('hudson-link-name').value;
 		var url = document.getElementById('hudson-link-url').value;
-		var feed = new HudsonFeed(id, name, url);
+		var feed = new HudsonFeed(id, name, url, null);
 		this.preferences.addFeed(feed);
 	},
 	_getRecommendedName: function(url) {
 		var name = '';
-		var feed = new HudsonFeed(-1, '', url);
+		var feed = new HudsonFeed(-1, '', url, null);
 		if (feed.isJob() || feed.isView()) {
 			name = feed.getItemName();
 		} else {

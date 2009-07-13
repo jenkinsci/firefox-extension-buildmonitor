@@ -27,6 +27,9 @@ var HudsonBuildMonitor = Base.extend({
 			this.run(i);
 		}
 	},
+	removeFeed: function(i) {
+		this.preferences.removeFeed(this.feeds[i]);
+	},
 	run: function(i) {
 		downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i]);
 		downloader.download(this.historicCallback, this.feeds[i].getUrl(), this.feeds[i]);

@@ -1,8 +1,9 @@
 var HudsonFeed = Base.extend({
-	constructor: function(id, name, url) {
+	constructor: function(id, name, url, lastFail) {
 		this.id = id;
 		this.name = name;
 		this.url = url;
+		this.lastFail = lastFail;
 	},
 	getId: function() {
 		return this.id;
@@ -12,6 +13,12 @@ var HudsonFeed = Base.extend({
 	},
 	getUrl: function() {
 		return this.url;
+	},
+	getLastFail: function() {
+		return this.lastFail;
+	},
+	setId: function(id) {
+		this.id = id;
 	},
 	isJob: function() {
 		var isJob = false;
@@ -58,5 +65,6 @@ var HudsonFeed = Base.extend({
 			isEmpty = true;
 		}
 		return isEmpty;
-	}
+	},
+	
 });

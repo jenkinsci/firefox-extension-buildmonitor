@@ -43,7 +43,7 @@
 	</stringbundleset>
 	
 	<popup id="contentAreaContextMenu">
-		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_addLink(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
+		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_openLinkWindow(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
 	</popup>
 	
 	<statusbar id="status-bar">
@@ -55,7 +55,7 @@
 			</vbox>
 		</tooltip>
 		<menupopup id="hudson-menupopup-menus-main">
-			<menuitem label="&menu.preferences;" oncommand="hudson_openPreferences();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/preferences.png"/>
+			<menuitem label="&menu.preferences;" oncommand="hudson_openPreferencesWindow();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/preferences.png"/>
 			<menuitem label="&menu.refresh.all;" oncommand="hudson_run();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/refreshall.png"/>
 		</menupopup>
 		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="hudson-tooltip-main" context="hudson-menupopup-menus-main"/>

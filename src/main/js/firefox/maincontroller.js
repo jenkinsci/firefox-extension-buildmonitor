@@ -30,7 +30,18 @@ function hudson_goTo(url) {
 	//	getBrowser().loadURI(url);
 	//}
 }
-function hudson_addLink(url) {
+function hudson_removeFeed(i) {
+	buildMonitor.removeFeed(i);
+	hudson_runAll();
+/*
+	prefMgr.removeFeed(feeds[i]);
+	uiMgr.removePanel(feeds[i]);
+	if (feeds[i].hasExecutorFeed()) {
+		uiMgr.removePanel(feeds[i].getExecutorFeed());
+	}
+*/
+}
+function hudson_openLinkWindow(url) {
 	window.openDialog('chrome://buildmonitor/content/link.xul', 'link', 'centerscreen,chrome,modal', this, url);
 }
 window.addEventListener('load', function() {hudson_initialise();}, false);

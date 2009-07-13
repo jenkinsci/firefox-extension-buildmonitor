@@ -31,6 +31,8 @@
 //////////////////////////////////////////////////////////////////////// core
 ////////////////////////////////////////////////////////////////////////
 
+var lastFailDate = Date.parseExact('2009-08-22T03:27:41Z', 'yyyy-MM-ddTHH:mm:ssZ');
+
 //////////////////////////////////////////////////////////////////////// historicbuild
 var historicBuildDate = Date.parseExact('2009-06-02T07:41:38Z', 'yyyy-MM-ddTHH:mm:ssZ');
 var historicBuild = new HudsonHistoricBuild('MyJob (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', historicBuildDate);
@@ -82,7 +84,7 @@ describe('ExecutorBuild', {
 })
 
 //////////////////////////////////////////////////////////////////////// feed
-var instanceFeed = new HudsonFeed(0, 'Instance Feed', 'http://localhost/hudson/rssAll');
+var instanceFeed = new HudsonFeed(0, 'Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
 describe('Instance Feed', {
 	'should be false on isJob': function() {
 		value_of(instanceFeed.isJob()).should_be_false();
@@ -115,7 +117,7 @@ describe('Instance Feed', {
 		value_of(instanceFeed.isIgnored()).should_be_false();
 	}
 })
-var jobFeed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll');
+var jobFeed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
 describe('Job Feed', {
 	'should be true on isJob': function() {
 		value_of(jobFeed.isJob()).should_be_true();
@@ -148,7 +150,7 @@ describe('Job Feed', {
 		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var viewFeed = new HudsonFeed(1, 'Your Feed', 'http://localhost/hudson/view/MyView/rssLatest');
+var viewFeed = new HudsonFeed(1, 'Your Feed', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
 describe('View Feed', {
 	'should be false on isJob': function() {
 		value_of(viewFeed.isJob()).should_be_false();
@@ -172,7 +174,7 @@ describe('View Feed', {
 		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var invalidFeed = new HudsonFeed(2, 'Their Feed', 'http://externalhost/feed/atom');
+var invalidFeed = new HudsonFeed(2, 'Their Feed', 'http://externalhost/feed/atom', lastFailDate);
 describe('Invalid Feed', {
 	'should return null item name': function() {
 		value_of(invalidFeed.getItemName()).should_be_null();
@@ -181,8 +183,8 @@ describe('Invalid Feed', {
 		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var ignoredFeedWithEmptyUrl = new HudsonFeed(3, 'Whos Feed', '');
-var ignoredFeedWithNullUrl = new HudsonFeed(3, 'Whos Feed', null);
+var ignoredFeedWithEmptyUrl = new HudsonFeed(3, 'Whos Feed', '', lastFailDate);
+var ignoredFeedWithNullUrl = new HudsonFeed(3, 'Whos Feed', null, lastFailDate);
 describe('Ignored Feed', {
 	'should be true on isIgnored when url is empty': function() {
 		value_of(ignoredFeedWithEmptyUrl.isIgnored()).should_be_true();
@@ -192,13 +194,13 @@ describe('Ignored Feed', {
 	}
 })
 
-var emptyFeedWithEmptyNameAndUrl = new HudsonFeed(0, '', '');
-var emptyFeedWithNullNameAndUrl = new HudsonFeed(0, null, null); 
-var nonEmptyFeedWithEmptyName = new HudsonFeed(0, '', 'http://localhost/hudson/view/MyView/rssLatest');
-var nonEmptyFeedWithNullName = new HudsonFeed(0, null, 'http://localhost/hudson/view/MyView/rssLatest');
-var nonEmptyFeedWithEmptyUrl = new HudsonFeed(0, 'The Feed', '');
-var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', null);
-var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', 'http://localhost/hudson/view/MyView/rssLatest');
+var emptyFeedWithEmptyNameAndUrl = new HudsonFeed(0, '', '', lastFailDate);
+var emptyFeedWithNullNameAndUrl = new HudsonFeed(0, null, null, lastFailDate); 
+var nonEmptyFeedWithEmptyName = new HudsonFeed(0, '', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
+var nonEmptyFeedWithNullName = new HudsonFeed(0, null, 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
+var nonEmptyFeedWithEmptyUrl = new HudsonFeed(0, 'The Feed', '', lastFailDate);
+var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', null, lastFailDate);
+var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
 describe('Empty Feed', {
 	'should be true on isEmpty when both name and url are empty': function() {
 		value_of(emptyFeedWithEmptyNameAndUrl.isEmpty()).should_be_true();
@@ -362,7 +364,7 @@ var mockUtil = mockControl.createMock(HudsonUtil);
 var enabledLoggerWithFeed = new HudsonLogger(mockLoggerService, mockUtil, true);
 mockUtil.expects().getLogDate().andReturn('28 May 1980');
 mockLoggerService.expects().debug('BuildMonitor [28 May 1980][0-My Feed]: Starting...');
-var feed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll');
+var feed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
 enabledLoggerWithFeed.debug('Starting...', feed);
 var enabledLoggerWithFeedException = null;
 try { mockControl.verify(); } catch (e) { enabledLoggerWithFeedException = e; }
@@ -383,8 +385,10 @@ var preferences = new HudsonPreferences(mockPreferencesService, 2);
 mockPreferencesService.expects().getBoolean('hudson.debug').andReturn(false);
 mockPreferencesService.expects().getString('hudson.feeds.0.name').andReturn('My Feed');
 mockPreferencesService.expects().getString('hudson.feeds.0.url').andReturn('http://localhost/hudson/job/MyJob/rssAll');
+mockPreferencesService.expects().getString('hudson.feeds.0.lastfail').andReturn(lastFailDate);
 mockPreferencesService.expects().getString('hudson.feeds.1.name').andReturn('Your Feed');
 mockPreferencesService.expects().getString('hudson.feeds.1.url').andReturn('http://localhost/hudson/job/YourJob/rssAll');
+mockPreferencesService.expects().getString('hudson.feeds.1.lastfail').andReturn(lastFailDate);
 var debug = preferences.getDebug();
 var feeds = preferences.getFeeds();
 var preferencesException = null;
