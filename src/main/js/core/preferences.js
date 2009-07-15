@@ -6,6 +6,42 @@ var HudsonPreferences = Base.extend({
 	getDebug: function() {
 		return this.service.getBoolean('hudson.debug');
 	},
+	getSuccessColor: function() {	
+	    return this.service.getString('hudson.successcolor');
+	},
+	getFeedStatusType: function() {	
+	    return this.service.getString('hudson.feedstatustype');
+	},
+	getInterval: function() {	
+	    return this.service.getInteger('hudson.interval');
+	},
+	getOpenPage: function() {	
+	    return this.service.getString('hudson.openpage');
+	},
+	getSize: function() {	
+	    return this.service.getInteger('hudson.size');
+	},
+	getSound: function() {	
+	    return this.service.getBoolean('hudson.sound');
+	},
+	getAlert: function() {	
+	    return this.service.getBoolean('hudson.alert');
+	},
+	getHideName: function() {	
+	    return this.service.getBoolean('hudson.hidename');
+	},
+	getExecutor: function() {	
+	    return this.service.getBoolean('hudson.executor');
+	},
+	getNetworkUsername: function() {	
+	    return this.service.getString('hudson.networkusername');
+	},
+	getNetworkPassword: function() {	
+	    return this.service.getString('hudson.networkpassword');
+	},
+	getIdentifyRssPattern: function() {	
+	    return this.service.getBoolean('hudson.identifyrsspattern');
+	},
 	getFeeds: function() {
 		var feeds = new Array();
 	    for (var i = 0; i < this.numOfFeeds; i++) {
@@ -40,7 +76,7 @@ var HudsonPreferences = Base.extend({
 		
 		var lastFail = '';
 		if (feed.getLastFail() != null) {
-			lastFail = feed.getLastFail().toString("yyyy-MM-ddTHH:mm:ssZ");
+			lastFail = feed.getLastFail().toString('yyyy-MM-ddTHH:mm:ssZ');
 		}
 		this.service.setString('hudson.feeds.' + id + '.lastfail', lastFail);
 	}

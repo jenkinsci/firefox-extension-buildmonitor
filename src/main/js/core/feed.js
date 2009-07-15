@@ -65,6 +65,5 @@ var HudsonFeed = Base.extend({
 			isEmpty = true;
 		}
 		return isEmpty;
-	},
-	
+	}
 });

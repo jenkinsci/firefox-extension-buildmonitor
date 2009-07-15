@@ -334,8 +334,10 @@ function MockLoggerService() {
 }
 var mockControl = new MockControl();
 var mockLoggerService = mockControl.createMock(MockLoggerService);
+var mockPreferences = mockControl.createMock(HudsonPreferences);
 var mockUtil = mockControl.createMock(HudsonUtil);
-var enabledLogger = new HudsonLogger(mockLoggerService, mockUtil, true);
+var enabledLogger = new HudsonLogger(mockLoggerService, mockUtil, mockPreferences);
+mockPreferences.expects().getDebug().andReturn(true);
 mockUtil.expects().getLogDate().andReturn('22 March 1980');
 mockLoggerService.expects().debug('BuildMonitor [22 March 1980][main]: Starting...');
 enabledLogger.debug('Starting...');
@@ -348,8 +350,10 @@ describe('Enabled Logger', {
 })
 var mockControl = new MockControl();
 var mockLoggerService = mockControl.createMock(MockLoggerService);
+var mockPreferences = mockControl.createMock(HudsonPreferences);
 var mockUtil = mockControl.createMock(HudsonUtil);
-var disabledLogger = new HudsonLogger(mockLoggerService, false);
+var disabledLogger = new HudsonLogger(mockLoggerService, mockUtil, mockPreferences);
+mockPreferences.expects().getDebug().andReturn(false);
 disabledLogger.debug('Starting...');
 var disabledLoggerException = null;
 try { mockControl.verify(); } catch (e) { disabledLoggerException = e; }
@@ -360,8 +364,10 @@ describe('Disabled Logger', {
 })
 var mockControl = new MockControl();
 var mockLoggerService = mockControl.createMock(MockLoggerService);
+var mockPreferences = mockControl.createMock(HudsonPreferences);
 var mockUtil = mockControl.createMock(HudsonUtil);
-var enabledLoggerWithFeed = new HudsonLogger(mockLoggerService, mockUtil, true);
+var enabledLoggerWithFeed = new HudsonLogger(mockLoggerService, mockUtil, mockPreferences);
+mockPreferences.expects().getDebug().andReturn(true);
 mockUtil.expects().getLogDate().andReturn('28 May 1980');
 mockLoggerService.expects().debug('BuildMonitor [28 May 1980][0-My Feed]: Starting...');
 var feed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
@@ -378,11 +384,24 @@ describe('Enabled Logger w/ Feed', {
 function MockPreferencesService() {
 	this.getBoolean = function(key) {}
 	this.getString = function(key) {}
+	this.getInteger = function(key) {}
 }
 var mockControl = new MockControl();
 var mockPreferencesService = mockControl.createMock(MockPreferencesService);
 var preferences = new HudsonPreferences(mockPreferencesService, 2);
 mockPreferencesService.expects().getBoolean('hudson.debug').andReturn(false);
+mockPreferencesService.expects().getString('hudson.successcolor').andReturn('green');
+mockPreferencesService.expects().getString('hudson.feedstatustype').andReturn('health');
+mockPreferencesService.expects().getInteger('hudson.interval').andReturn(5);
+mockPreferencesService.expects().getString('hudson.openpage').andReturn('newtab');
+mockPreferencesService.expects().getInteger('hudson.size').andReturn(20);
+mockPreferencesService.expects().getBoolean('hudson.sound').andReturn(true);
+mockPreferencesService.expects().getBoolean('hudson.alert').andReturn(true);
+mockPreferencesService.expects().getBoolean('hudson.hidename').andReturn(false);
+mockPreferencesService.expects().getBoolean('hudson.executor').andReturn(true);
+mockPreferencesService.expects().getString('hudson.networkusername').andReturn('myusername');
+mockPreferencesService.expects().getString('hudson.networkpassword').andReturn('mypassword');
+mockPreferencesService.expects().getBoolean('hudson.identifyrsspattern').andReturn(true);
 mockPreferencesService.expects().getString('hudson.feeds.0.name').andReturn('My Feed');
 mockPreferencesService.expects().getString('hudson.feeds.0.url').andReturn('http://localhost/hudson/job/MyJob/rssAll');
 mockPreferencesService.expects().getString('hudson.feeds.0.lastfail').andReturn(lastFailDate);
@@ -390,12 +409,63 @@ mockPreferencesService.expects().getString('hudson.feeds.1.name').andReturn('You
 mockPreferencesService.expects().getString('hudson.feeds.1.url').andReturn('http://localhost/hudson/job/YourJob/rssAll');
 mockPreferencesService.expects().getString('hudson.feeds.1.lastfail').andReturn(lastFailDate);
 var debug = preferences.getDebug();
+var successColor = preferences.getSuccessColor();
+var feedStatusType = preferences.getFeedStatusType();
+var interval = preferences.getInterval();
+var openPage = preferences.getOpenPage();
+var size = preferences.getSize();
+var sound = preferences.getSound();
+var alert = preferences.getAlert();
+var hideName = preferences.getHideName();
+var executor = preferences.getExecutor();
+var networkUsername = preferences.getNetworkUsername();
+var networkPassword = preferences.getNetworkPassword();
+var identifyRssPattern = preferences.getIdentifyRssPattern();
 var feeds = preferences.getFeeds();
 var preferencesException = null;
 try { mockControl.verify(); } catch (e) { preferencesException = e; }
 describe('Preferences', {
 	'should call preferences methods with correct args': function() {
 		value_of(preferencesException).should_be_null();
+	},
+	'should return correct debug status': function() {
+		value_of(debug).should_be_false();
+	},
+	'should return correct success color': function() {
+		value_of(successColor).should_be('green');
+	},
+	'should return correct feed status type': function() {
+		value_of(feedStatusType).should_be('health');
+	},
+	'should return correct interval': function() {
+		value_of(interval).should_be(5);
+	},
+	'should return correct open page': function() {
+		value_of(openPage).should_be('newtab');
+	},
+	'should return correct size': function() {
+		value_of(size).should_be(20);
+	},
+	'should return correct sound status': function() {
+		value_of(sound).should_be_true();
+	},
+	'should return correct alert status': function() {
+		value_of(alert).should_be_true();
+	},
+	'should return correct hide name status': function() {
+		value_of(hideName).should_be_false();
+	},
+	'should return correct executor status': function() {
+		value_of(executor).should_be_true();
+	},
+	'should return correct network username': function() {
+		value_of(networkUsername).should_be('myusername');
+	},
+	'should return correct network password': function() {
+		value_of(networkPassword).should_be('mypassword');
+	},
+	'should return correct identify RSS pattern status': function() {
+		value_of(identifyRssPattern).should_be_true();
 	},
 	'should return correct debug status': function() {
 		value_of(debug).should_be_false();
@@ -487,18 +557,27 @@ describe('LoggerService', {
 //////////////////////////////////////////////////////////////////////// preferencesservice
 function MockFirefoxPreferencesService() {
 	this.getBoolPref = function(key) {}
+	this.setBoolPref = function(key, value) {}
 	this.getCharPref = function(key) {}
-	this.setCharPref = function(message) {}
+	this.setCharPref = function(key, value) {}
+	this.getIntPref = function(key) {}
+	this.setIntPref = function(key, value) {}
 }
 var mockControl = new MockControl();
 var mockFirefoxPreferencesService = mockControl.createMock(MockFirefoxPreferencesService);
 mockFirefoxPreferencesService.expects().getBoolPref('hudson.bool.key').andReturn(true);
+mockFirefoxPreferencesService.expects().setBoolPref('hudson.bool.key', true);
 mockFirefoxPreferencesService.expects().getCharPref('hudson.char.key').andReturn('some char value');
 mockFirefoxPreferencesService.expects().setCharPref('hudson.char.key', 'some char value');
+mockFirefoxPreferencesService.expects().getIntPref('hudson.int.key').andReturn(88);
+mockFirefoxPreferencesService.expects().setIntPref('hudson.int.key', 88);
 var preferencesService = new HudsonPreferencesService(mockFirefoxPreferencesService);
 var preferenceBooleanValue = preferencesService.getBoolean('hudson.bool.key');
+preferencesService.setBoolean('hudson.bool.key', true);
 var preferenceStringValue = preferencesService.getString('hudson.char.key');
 preferencesService.setString('hudson.char.key', 'some char value');
+var preferenceIntegerValue = preferencesService.getInteger('hudson.int.key');
+preferencesService.setInteger('hudson.int.key', 88);
 var preferencesServiceException = null;
 try { mockControl.verify(); } catch (e) { preferencesServiceException = e; }
 describe('PreferencesService', {
@@ -510,6 +589,9 @@ describe('PreferencesService', {
 	},
 	'should return correct string value': function() {
 		value_of(preferenceStringValue).should_be('some char value');
+	},
+	'should return correct integer value': function() {
+		value_of(preferenceIntegerValue).should_be(88);
 	}
 })
 
