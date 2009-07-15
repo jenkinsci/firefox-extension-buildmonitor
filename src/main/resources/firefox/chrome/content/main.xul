@@ -33,7 +33,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielementset.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/downloadercallback.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/linkwindow.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/addfeedwindow.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/maincontroller.js"/>
@@ -43,7 +43,7 @@
 	</stringbundleset>
 	
 	<popup id="contentAreaContextMenu">
-		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_openLinkWindow(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
+		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_openAddFeedWindow(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
 	</popup>
 	
 	<statusbar id="status-bar">

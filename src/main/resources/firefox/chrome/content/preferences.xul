@@ -8,34 +8,48 @@
 	windowtype="" 
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
 	buttons="accept,cancel"
-	ondialogaccept="hudson_saveView(); hudson_refreshStatusBar();"
+	ondialogaccept="hudson_submit();"
 	title="&prefs.title;">
   
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-computer.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-executor.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-executorfeed.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-feed.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-historybuild.js"/>
-    <script type="application/x-javascript" src="chrome://buildmonitor/content/models/buildmonitor-monitordata.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-text-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-pref-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-tree-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-date-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-log-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-link-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-ui-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-feed-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/managers/buildmonitor-notification-mgr.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-init.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/buildmonitor-control-prefs.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/base64.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/pretty.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/date.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/pretty.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/Base.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/build.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicbuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorbuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feed.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedresult.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/downloader.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/service.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/logger.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/localiser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/loggerservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/panel.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/tooltip.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildspopup.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/menuspopup.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielementset.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/downloadercallback.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/addfeedwindow.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencescontroller.js"/>
 
 	<stringbundleset id="stringbundleset">
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
 	</stringbundleset>
 	
-	<prefpane id="hudson-prefpane" onpaneload="hudson_initView();">
+	<prefpane id="hudson-prefpane">
 		<preferences>
 			<preference id="hudson-prefs-debug" name="hudson.debug" type="bool"/>
 	    	<preference id="hudson-prefs-successcolor" name="hudson.successcolor" type="string"/>
@@ -61,16 +75,6 @@
 			<tabpanels>
 				<tabpanel>
 					<vbox>
-						<tree id="hudson-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="hudson_updateView(event);" width="550">
-							<treecols>
-								<treecol id="hudson-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
-								<treecol id="hudson-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>
-								<treecol id="hudson-prefs-feeds-remove" label="" flex="1" tooltiptext="&prefs.help.feeds.remove;"/>
-								<treecol id="hudson-prefs-feeds-up" label="" flex="1" tooltiptext="&prefs.help.feeds.up;"/>
-								<treecol id="hudson-prefs-feeds-down" label="" flex="1" tooltiptext="&prefs.help.feeds.down;"/>
-							</treecols>
-							<treechildren/>
-						</tree>
 						<hbox>
 							<textbox id="buildmonitor-prefs-interval" size="3" preference="hudson-prefs-interval"/>
 							<label value="&prefs.interval;" tooltiptext="&prefs.help.interval;"/>

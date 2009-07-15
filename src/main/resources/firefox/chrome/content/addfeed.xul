@@ -6,7 +6,7 @@
       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
       onload="hudson_prepare();"
-      ondialogaccept="hudson_saveLink();"
+      ondialogaccept="hudson_submit();"
       buttons="accept,cancel"
       title="&link.title;">
 
@@ -39,10 +39,10 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielementset.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/downloadercallback.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/linkwindow.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/addfeedwindow.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/linkcontroller.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/addfeedcontroller.js"/>
 	
 	<stringbundleset>
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>

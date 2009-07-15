@@ -1,8 +1,8 @@
 function hudson_prepare() {
-	linkWindow.prepare();
+	addFeedWindow.prepare();
 }
-function hudson_saveLink() {
-	linkWindow.save();
+function hudson_submit() {
+	addFeedWindow.save();
 	var parent = window.arguments[0];
 	parent.hudson_runAll();
 }

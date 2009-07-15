@@ -1,4 +1,4 @@
-var HudsonLinkWindow = Base.extend({
+var HudsonAddFeedWindow = Base.extend({
 	constructor: function(util, preferences) {
 		this.util = util;
 		this.preferences = preferences;
@@ -10,7 +10,7 @@ var HudsonLinkWindow = Base.extend({
 			contextMenu.addEventListener('popupshowing', this._setMenuVisibility, false);
 		}
 	},
-	// NOTE: 'this' in the context is the document, not HudsonLinkWindow instance
+	// NOTE: 'this' in the context is the document, not HudsonAddFeedWindow instance
 	_setMenuVisibility: function() {
 		if (gContextMenu) {
 			document.getElementById('hudson-context-menu-addlink').hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink && util.isHudsonRss(gContextMenu.linkURL));
