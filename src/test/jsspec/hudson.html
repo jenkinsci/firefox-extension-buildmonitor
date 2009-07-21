@@ -22,9 +22,12 @@
 <script type="text/javascript" src="../../../src/main/js/core/menuitem.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/service.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/logger.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/notification.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/preferences.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/uiutil.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/localiser.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/loggerservice.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/notificationservice.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/preferencesservice.js"></script>
 <script type="text/javascript">// <![CDATA[
 
@@ -380,6 +383,32 @@ describe('Enabled Logger w/ Feed', {
 	}
 })
 
+//////////////////////////////////////////////////////////////////////// notification
+function MockNotificationService() {
+	this.displayAlert = function(type, title, feed, build) {}
+	this.playSound = function(feed) {}
+}
+var mockControl = new MockControl();
+var mockPreferences = mockControl.createMock(HudsonPreferences);
+var mockNotificationService = mockControl.createMock(MockNotificationService);
+var mockFeed = mockControl.createMock(HudsonFeed);
+var mockBuild = mockControl.createMock(HudsonBuild);
+var type = TYPE_EXECUTOR;
+mockPreferences.expects().getAlert().andReturn(true);
+mockNotificationService.expects().displayAlert(type, mockFeed, mockBuild, 'some title');
+mockPreferences.expects().getSound().andReturn(true);
+mockNotificationService.expects().playSound(mockFeed);
+var notification = new HudsonNotification(mockNotificationService, mockPreferences);
+notification.displayAlert(type, mockFeed, mockBuild, 'some title');
+notification.playSound(mockFeed);
+var notificationException = null;
+try { mockControl.verify(); } catch (e) { notificationException = e; }
+describe('Notification', {
+	'should call notification service methods': function() {
+		value_of(notificationException).should_be_null();
+	}
+})
+
 //////////////////////////////////////////////////////////////////////// preferences
 function MockPreferencesService() {
 	this.getBoolean = function(key) {}
@@ -538,13 +567,13 @@ describe('Formatted Localiser', {
 })
 
 //////////////////////////////////////////////////////////////////////// loggerservice
-function MockFirefoxLoggerService() {
+function MockFfConsoleService() {
 	this.logStringMessage = function(message) {}
 }
 var mockControl = new MockControl();
-var mockFirefoxLoggerService = mockControl.createMock(MockFirefoxLoggerService);
-mockFirefoxLoggerService.expects().logStringMessage('Some message');
-var loggerService = new HudsonLoggerService(mockFirefoxLoggerService);
+var mockFfConsoleService = mockControl.createMock(MockFfConsoleService);
+mockFfConsoleService.expects().logStringMessage('Some message');
+var loggerService = new HudsonLoggerService(mockFfConsoleService);
 loggerService.debug('Some message');
 var loggerServiceException = null;
 try { mockControl.verify(); } catch (e) { loggerServiceException = e; }
@@ -554,8 +583,52 @@ describe('LoggerService', {
 	}
 })
 
+//////////////////////////////////////////////////////////////////////// notificationservice
+function MockUri() {
+}
+function MockFeed() {
+	this.getStatus = function() {}
+	this.getName = function() {}
+}
+function MockBuild() {
+	this.getDetails = function() {}
+}
+function MockFfAlertsService() {
+	this.showAlertNotification = function(imageUrl, title, text, textClickable) {}
+}
+function MockFfSoundService() {
+	this.play = function(aURL) {}
+}
+function MockFfIoService() {
+	this.newURI = function(aSpec, aOriginCharset, aBaseURI) {}
+}
+var mockControl = new MockControl();
+var mockFeed = mockControl.createMock(MockFeed);
+var mockBuild = mockControl.createMock(MockBuild);
+var mockFfAlertsService = mockControl.createMock(MockFfAlertsService);
+var mockFfSoundService = mockControl.createMock(MockFfSoundService);
+var mockFfIoService = mockControl.createMock(MockFfIoService);
+var mockUri = mockControl.createMock(MockUri);
+var notificationService = new HudsonNotificationService(mockFfAlertsService, mockFfSoundService, mockFfIoService);
+mockFeed.expects().getStatus().andReturn('stuck');
+mockFeed.expects().getName().andReturn('TheirJob');
+mockBuild.expects().getDetails().andReturn('some details');
+mockFfAlertsService.expects().showAlertNotification('chrome://buildmonitor/skin/build/stuck.png', 'some title [TheirJob]', 'some details', false);
+mockFeed.expects().getStatus().andReturn('stuck');
+mockFfIoService.expects().newURI('chrome://buildmonitor/skin/audio/stuck.wav', null, null).andReturn(mockUri);
+mockFfSoundService.expects().play(mockUri); 
+notificationService.displayAlert(TYPE_HISTORIC, 'some title', mockFeed, mockBuild);
+notificationService.playSound(mockFeed);
+var notificationServiceException = null;
+try { mockControl.verify(); } catch (e) { notificationServiceException = e; }
+describe('NotificationService', {
+	'should call notification service methods': function() {
+		value_of(notificationServiceException).should_be_null();
+	}
+})
+
 //////////////////////////////////////////////////////////////////////// preferencesservice
-function MockFirefoxPreferencesService() {
+function MockFfPreferencesService() {
 	this.getBoolPref = function(key) {}
 	this.setBoolPref = function(key, value) {}
 	this.getCharPref = function(key) {}
@@ -564,14 +637,14 @@ function MockFirefoxPreferencesService() {
 	this.setIntPref = function(key, value) {}
 }
 var mockControl = new MockControl();
-var mockFirefoxPreferencesService = mockControl.createMock(MockFirefoxPreferencesService);
-mockFirefoxPreferencesService.expects().getBoolPref('hudson.bool.key').andReturn(true);
-mockFirefoxPreferencesService.expects().setBoolPref('hudson.bool.key', true);
-mockFirefoxPreferencesService.expects().getCharPref('hudson.char.key').andReturn('some char value');
-mockFirefoxPreferencesService.expects().setCharPref('hudson.char.key', 'some char value');
-mockFirefoxPreferencesService.expects().getIntPref('hudson.int.key').andReturn(88);
-mockFirefoxPreferencesService.expects().setIntPref('hudson.int.key', 88);
-var preferencesService = new HudsonPreferencesService(mockFirefoxPreferencesService);
+var mockFfPreferencesService = mockControl.createMock(MockFfPreferencesService);
+mockFfPreferencesService.expects().getBoolPref('hudson.bool.key').andReturn(true);
+mockFfPreferencesService.expects().setBoolPref('hudson.bool.key', true);
+mockFfPreferencesService.expects().getCharPref('hudson.char.key').andReturn('some char value');
+mockFfPreferencesService.expects().setCharPref('hudson.char.key', 'some char value');
+mockFfPreferencesService.expects().getIntPref('hudson.int.key').andReturn(88);
+mockFfPreferencesService.expects().setIntPref('hudson.int.key', 88);
+var preferencesService = new HudsonPreferencesService(mockFfPreferencesService);
 var preferenceBooleanValue = preferencesService.getBoolean('hudson.bool.key');
 preferencesService.setBoolean('hudson.bool.key', true);
 var preferenceStringValue = preferencesService.getString('hudson.char.key');

@@ -1,5 +1,8 @@
-var HudsonLoggerService = HudsonService.extend ({
+var HudsonLoggerService = Base.extend ({
+	constructor: function(ffConsoleService) {
+		this.ffConsoleService = ffConsoleService;
+	},
 	debug: function(message) {
-		this.service.logStringMessage(message);
+		this.ffConsoleService.logStringMessage(message);
 	}
 });
