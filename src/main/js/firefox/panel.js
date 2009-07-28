@@ -1,17 +1,16 @@
 var HudsonPanel = HudsonUiElement.extend({
-	prepare: function(container, feeds) {
+	prepare: function(container, feeds, hideName) {
 		for (var i = 0; i < feeds.length; i++) {
 			var panel = document.createElement('statusbarpanel');
 			panel.setAttribute('id', this._getPanelId(feeds[i]));
-			//TODO handle name hiding here
-			//if (!this.prefMgr.getHideName()) {
 			if (this.isExecutor()) {
 				panel.setAttribute('class', 'statusbarpanel-iconic');
 			} else if (this.isHistoric()) {
 				panel.setAttribute('class', 'statusbarpanel-iconic-text');
-				panel.setAttribute('label', feeds[i].getName());
+				if (!hideName) {
+					panel.setAttribute('label', feeds[i].getName());
+				}
 			}
-			//}
 			panel.setAttribute('popup', 'buildmonitor-builds');
 			panel.setAttribute('context', 'buildmonitor-menu');
 			panel.setAttribute('tooltip', 'buildmonitor-tooltip');
@@ -19,7 +18,6 @@ var HudsonPanel = HudsonUiElement.extend({
 		}
 	},
 	set: function(status, feed) {
-		// TODO: this.getVisualStatus(status)
 		this.getPanelElement(feed).setAttribute('src', 'chrome://buildmonitor/skin/' + status + '.png');
 	},
 	getPanelElement: function(feed) {

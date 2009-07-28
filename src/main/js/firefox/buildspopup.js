@@ -6,7 +6,7 @@ var HudsonBuildsPopup = HudsonUiElement.extend({
 			container.appendChild(buildsMenupopup);
 		}
 	},
-	set: function(container, feed, builds) {
+	set: function(container, feed, builds, successColor) {
 		//alert('xxxxxxbuilds len:' + builds.length + ', builds:' + builds);
 		var menupopup = this._getBuildsMenupopupElement(feed);
 		this.uiUtil.clear(menupopup);
@@ -17,9 +17,7 @@ var HudsonBuildsPopup = HudsonUiElement.extend({
 		   	menuitem.setAttribute('value', builds[i].getUrl());
 		   	menuitem.setAttribute('oncommand', 'hudson_goTo(this.value)');
 		   	menuitem.setAttribute('class', 'menuitem-iconic');
-		   	// TODO: visual status as UIElement function?
-		   	//menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/build/' + this.getVisualStatus(builds[i].getStatus()) + '.png');
-		   	menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/' + this.uiUtil.getStatusSkinType(this.type) + '/' + builds[i].getStatus() + '.png');
+		   	menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/' + this.uiUtil.getStatusSkinType(this.type) + '/' + this.uiUtil.getVisualStatus(builds[i].getStatus(), successColor) + '.png');
 		   	menuitem.setAttribute('maxwidth', '1000');
 		   	menupopup.appendChild(menuitem);
 		}

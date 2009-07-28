@@ -11,7 +11,7 @@
 	ondialogaccept="hudson_submit();"
 	title="&prefs.title;">
   
-	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/date.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/pretty.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/Base.js"/>

@@ -42,15 +42,14 @@ var HudsonMenusPopup = HudsonUiElement.extend({
 		dashboardMenuItem.setAttribute('image', 'chrome://buildmonitor/skin/menu/dashboard.png');
 		menupopup.appendChild(dashboardMenuItem);
 		
-		// TODO:
-		//if (feed.isJob()) {
+		if (feed.isJob()) {
 			var buildMenuItem = document.createElement('menuitem');
 			buildMenuItem.setAttribute('label', this.localiser.getText('menu.build') + ' [' + feed.getName() + ']');
 			buildMenuItem.setAttribute('oncommand', 'hudson_build(' + feed.getId() + ');');
 			buildMenuItem.setAttribute('class', 'menuitem-iconic');
 			buildMenuItem.setAttribute('image', 'chrome://buildmonitor/skin/menu/build.png');
 			menupopup.appendChild(buildMenuItem);
-		//}
+		}
 				
 		var refreshMenuitem = document.createElement('menuitem');
 		refreshMenuitem.setAttribute('label', this.localiser.getText('menu.refresh') + ' [' + feed.getName() + ']');

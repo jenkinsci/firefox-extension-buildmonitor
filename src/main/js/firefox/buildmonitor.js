@@ -1,16 +1,12 @@
 var HudsonBuildMonitor = Base.extend({
-	constructor: function(preferences, ui, downloader, logger, localiser) {
+	constructor: function(preferences, ui, downloader, logger, localiser, preferences) {
 		this.preferences = preferences;
 		this.ui = ui;
 		this.downloader = downloader;
 		this.logger = logger;
 		this.localiser = localiser;
+		this.preferences = preferences;
 		this.feeds = null;
-		
-		// TODO pull the 20 from preferences
-		// TODO pull status type from preferences
-		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(20), this.ui);
-		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(20, 'overall'), this.ui);
 	},
 	getFeeds: function() {
 		return this.feeds;
@@ -22,7 +18,11 @@ var HudsonBuildMonitor = Base.extend({
 	runAll: function() {
 		this.feeds = preferences.getFeeds();
 		this.ui.prepare(this.feeds);
-		
+
+		var size = this.preferences.getSize();
+		var feedStatusType = this.preferences.getFeedStatusType();
+		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(size), this.ui);
+		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(size, feedStatusType), this.ui);
 		for (var i = 0; i < this.feeds.length; i++) {
 			if (!this.feeds[i].isIgnored()) {
 				this.run(i);
@@ -33,7 +33,7 @@ var HudsonBuildMonitor = Base.extend({
 		this.preferences.removeFeed(this.feeds[i]);
 	},
 	run: function(i) {
-		downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i]);
-		downloader.download(this.historicCallback, this.feeds[i].getUrl(), this.feeds[i]);
+		downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
+		downloader.download(this.historicCallback, this.feeds[i].getUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
 	}
 });

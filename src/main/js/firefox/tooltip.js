@@ -9,7 +9,7 @@ var HudsonTooltip = HudsonUiElement.extend({
 			container.appendChild(tooltip);
 		}
 	},
-	set: function(container, items, title, feed) {
+	set: function(container, items, title, feed, successColor) {
 		var vbox = document.createElement("vbox");
 		if (title) {
 			var titleLabel = document.createElement("label");
@@ -26,8 +26,7 @@ var HudsonTooltip = HudsonUiElement.extend({
 				var text;
 				if (typeof items[i] == "object") {
 				    text = items[i].getDetails();
-				    // TODO this.getVisualStatus(items[i].getStatus())
-				    itemLabel.setAttribute("class", items[i].getStatus());
+				    itemLabel.setAttribute("class", this.uiUtil.getVisualStatus(items[i].getStatus(), successColor));
 				} else {
 				    text = items[i];
 				}

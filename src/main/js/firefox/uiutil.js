@@ -10,6 +10,15 @@ var HudsonUiUtil = Base.extend({
 		}
 		return statusSkinType;
 	},
+	getVisualStatus: function(status, successColor) {
+		var visualStatus;
+		if (status == 'success' && successColor == 'green') {
+			visualStatus = status + '_' + successColor;
+		} else {
+			visualStatus = status;
+		}
+		return visualStatus;
+	},
 	getUrl: function(type, feed) {
 		var url;
 		if (type == TYPE_EXECUTOR) {

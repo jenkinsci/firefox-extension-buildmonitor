@@ -25,6 +25,9 @@ function hudson_goTo(url) {
 		getBrowser().loadURI(url);
 	}
 }
+function hudson_build(i) {
+	hudson_goTo(new String(buildMonitor.getFeeds()[i].getUrl().match(".*/job/[^/]+")) + "/build?delay=0sec");
+}
 function hudson_removeFeed(i) {
 	buildMonitor.removeFeed(i);
 	hudson_runAll();
