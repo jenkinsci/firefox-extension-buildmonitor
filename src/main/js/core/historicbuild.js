@@ -18,5 +18,12 @@ var HudsonHistoricBuild = HudsonBuild.extend ({
 			isSuccess = true;
 		}
 		return isSuccess;
+	},
+	isFailure: function() {
+		var isFailure = false;
+		if (this.getStatus() == 'failure') {
+			isFailure = true;
+		}
+		return isFailure;
 	}
 });

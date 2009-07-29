@@ -20,6 +20,9 @@ var HudsonFeed = Base.extend({
 	setId: function(id) {
 		this.id = id;
 	},
+	setLastFail: function(lastFail) {
+		this.lastFail = lastFail;
+	},
 	isJob: function() {
 		var isJob = false;
 		if (this.url.match('/job/[^/]+') != null) {

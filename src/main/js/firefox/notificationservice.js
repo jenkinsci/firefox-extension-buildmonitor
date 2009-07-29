@@ -6,9 +6,9 @@ var HudsonNotificationService = Base.extend ({
 		this.uiUtil = new HudsonUiUtil();
 	},
 	displayAlert: function(type, title, feed, build) {
-		this.ffAlertsService.showAlertNotification('chrome://buildmonitor/skin/' + this.uiUtil.getStatusSkinType(type) + '/' + feed.getStatus() + '.png', title + ' [' + feed.getName() + ']', build.getDetails(), false);
+		this.ffAlertsService.showAlertNotification('chrome://buildmonitor/skin/status/' + this.uiUtil.getStatusSkinType(type) + '/' + build.getStatus() + '.png', title + ' [' + feed.getName() + ']', build.getDetails(), false);
 	},
-	playSound: function(feed) {
-		this.ffSoundService.play(this.ffIoService.newURI('chrome://buildmonitor/skin/audio/' + feed.getStatus() + '.wav', null, null));
+	playSound: function(build) {
+		this.ffSoundService.play(this.ffIoService.newURI('chrome://buildmonitor/skin/audio/' + build.getStatus() + '.wav', null, null));
 	}
 });

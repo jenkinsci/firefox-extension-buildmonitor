@@ -395,12 +395,12 @@ var mockFeed = mockControl.createMock(HudsonFeed);
 var mockBuild = mockControl.createMock(HudsonBuild);
 var type = TYPE_EXECUTOR;
 mockPreferences.expects().getAlert().andReturn(true);
-mockNotificationService.expects().displayAlert(type, mockFeed, mockBuild, 'some title');
+mockNotificationService.expects().displayAlert(type, 'some title', mockFeed, mockBuild);
 mockPreferences.expects().getSound().andReturn(true);
-mockNotificationService.expects().playSound(mockFeed);
+mockNotificationService.expects().playSound(mockBuild);
 var notification = new HudsonNotification(mockNotificationService, mockPreferences);
 notification.displayAlert(type, mockFeed, mockBuild, 'some title');
-notification.playSound(mockFeed);
+notification.playSound(mockBuild);
 var notificationException = null;
 try { mockControl.verify(); } catch (e) { notificationException = e; }
 describe('Notification', {
@@ -610,7 +610,7 @@ var mockFfSoundService = mockControl.createMock(MockFfSoundService);
 var mockFfIoService = mockControl.createMock(MockFfIoService);
 var mockUri = mockControl.createMock(MockUri);
 var notificationService = new HudsonNotificationService(mockFfAlertsService, mockFfSoundService, mockFfIoService);
-mockFeed.expects().getStatus().andReturn('stuck');
+mockBuild.expects().getStatus().andReturn('stuck');
 mockFeed.expects().getName().andReturn('TheirJob');
 mockBuild.expects().getDetails().andReturn('some details');
 mockFfAlertsService.expects().showAlertNotification('chrome://buildmonitor/skin/build/stuck.png', 'some title [TheirJob]', 'some details', false);
@@ -618,7 +618,7 @@ mockFeed.expects().getStatus().andReturn('stuck');
 mockFfIoService.expects().newURI('chrome://buildmonitor/skin/audio/stuck.wav', null, null).andReturn(mockUri);
 mockFfSoundService.expects().play(mockUri); 
 notificationService.displayAlert(TYPE_HISTORIC, 'some title', mockFeed, mockBuild);
-notificationService.playSound(mockFeed);
+notificationService.playSound(mockBuild);
 var notificationServiceException = null;
 try { mockControl.verify(); } catch (e) { notificationServiceException = e; }
 describe('NotificationService', {

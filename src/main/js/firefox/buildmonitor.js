@@ -1,11 +1,11 @@
 var HudsonBuildMonitor = Base.extend({
-	constructor: function(preferences, ui, downloader, logger, localiser, preferences) {
+	constructor: function(preferences, ui, downloader, logger, localiser, notification) {
 		this.preferences = preferences;
 		this.ui = ui;
 		this.downloader = downloader;
 		this.logger = logger;
 		this.localiser = localiser;
-		this.preferences = preferences;
+		this.notification = notification;
 		this.feeds = null;
 	},
 	getFeeds: function() {
@@ -21,8 +21,8 @@ var HudsonBuildMonitor = Base.extend({
 
 		var size = this.preferences.getSize();
 		var feedStatusType = this.preferences.getFeedStatusType();
-		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(size), this.ui);
-		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(size, feedStatusType), this.ui);
+		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(size), this.ui, this.notification);
+		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(size, feedStatusType), this.ui, this.notification);
 		for (var i = 0; i < this.feeds.length; i++) {
 			if (!this.feeds[i].isIgnored()) {
 				this.run(i);
