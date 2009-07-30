@@ -24,6 +24,9 @@
 <script type="text/javascript" src="../../../src/main/js/core/logger.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/notification.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/preferences.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/feednotifier.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/historicfeednotifier.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/executorfeednotifier.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/uiutil.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/localiser.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/loggerservice.js"></script>
@@ -54,6 +57,9 @@ describe('HistoricBuild', {
 	},
 	'should be true on isSuccess': function() {
 		value_of(historicBuild.isSuccess()).should_be_true();
+	},
+	'should be false on isFailure': function() {
+		value_of(historicBuild.isFailure()).should_be_false();
 	}
 })
 
@@ -148,6 +154,9 @@ describe('Job Feed', {
 	},
 	'should return correct dashboard url': function() {
 		value_of(jobFeed.getDashboardUrl()).should_be('http://localhost/hudson/job/MyJob/');
+	},
+	'should return correct build url': function() {
+		value_of(jobFeed.getBuildUrl()).should_be('http://localhost/hudson/job/MyJob/build?delay=0sec');
 	},
 	'should be false on isIgnored': function() {
 		value_of(jobFeed.isIgnored()).should_be_false();

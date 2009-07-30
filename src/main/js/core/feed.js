@@ -53,7 +53,10 @@ var HudsonFeed = Base.extend({
 		return this.url.replace(/\/rss.*/, '').replace(/\/(job|view).*/, '') + '/computer/api/xml?depth=1';
 	},
 	getDashboardUrl: function() {
-		return this.url.match("^.+/");
+		return this.url.match('^.+/');
+	},
+	getBuildUrl: function() {
+		return this.getUrl().match('.*/job/[^/]+') + '/build?delay=0sec';
 	},
 	isIgnored: function() {
 		var isIgnored = true;

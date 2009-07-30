@@ -21,8 +21,8 @@ var HudsonBuildMonitor = Base.extend({
 
 		var size = this.preferences.getSize();
 		var feedStatusType = this.preferences.getFeedStatusType();
-		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(size), this.ui, this.notification);
-		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(size, feedStatusType), this.ui, this.notification);
+		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(size), new HudsonExecutorFeedNotifier(this.notification, this.preferences), this.ui);
+		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(size, feedStatusType), new HudsonHistoricFeedNotifier(this.notification, this.preferences), this.ui);
 		for (var i = 0; i < this.feeds.length; i++) {
 			if (!this.feeds[i].isIgnored()) {
 				this.run(i);
@@ -33,7 +33,9 @@ var HudsonBuildMonitor = Base.extend({
 		this.preferences.removeFeed(this.feeds[i]);
 	},
 	run: function(i) {
-		downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
+		if (this.preferences.getExecutor()) {
+			downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
+		}
 		downloader.download(this.historicCallback, this.feeds[i].getUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
 	}
 });

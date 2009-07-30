@@ -1,11 +1,17 @@
 var HudsonUi = Base.extend({
 	constructor: function(localiser, preferences) {
-		this.executorUiElementSet = new HudsonUiElementSet(TYPE_EXECUTOR);
-		this.historicUiElementSet = new HudsonUiElementSet(TYPE_HISTORIC);
-		this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);
 		this.localiser = localiser;
 		this.preferences = preferences;
 		this.uiUtil = new HudsonUiUtil();
+		
+		this.executorUiElementSet = new HudsonUiElementSet(TYPE_EXECUTOR);
+		this.historicUiElementSet = new HudsonUiElementSet(TYPE_HISTORIC);
+		
+		if (!this.preferences.getExecutor()) {
+			this.uiElementSets = new Array(this.historicUiElementSet);
+		} else {
+			this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);
+		}
 	},
 	prepare: function(feeds) {
 		var panelContainer = document.getElementById('hudson-panel-feeds');
@@ -30,7 +36,9 @@ var HudsonUi = Base.extend({
 				for (var j = 0; j < this.uiElementSets.length; j++) {
 					this.uiElementSets[j].getPanel().prepare(panelContainer, new Array(feeds[i]), this.preferences.getHideName());
 				}
-				this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
+				if (this.preferences.getExecutor()) {
+					this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
+				}
 				this._setStatusQueued(TYPE_HISTORIC, feeds[i]);
 				for (var j = 0; j < this.uiElementSets.length; j++) {
 					var container = this.uiElementSets[j].getPanel().getPanelElement(feeds[i]);

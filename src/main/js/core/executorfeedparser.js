@@ -25,9 +25,6 @@ var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
 				builds[buildCount++] = new HudsonExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
         		if (isStuck == true) {
         			status = 'stuck';
-        			// TODO notify
-			        //this.notificationMgr.playSound("stuck");
-					//this.notificationMgr.displayAlert(executorFeed, title, executors[j]);
         		} else if (status != 'stuck' && currentExecutableElement != null) {
         			status = 'running';
         		}

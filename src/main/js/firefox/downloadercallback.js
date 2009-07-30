@@ -1,13 +1,13 @@
 var HudsonDownloaderCallback = Base.extend({
-	constructor: function(type, parser, ui, notification) {
+	constructor: function(type, parser, notifier, ui) {
 		this.type = type;
 		this.parser = parser;
 		this.ui = ui;
-		this.notification = notification;
+		this.notifier = notifier;
 	},
 	process: function(xml, feed) {
 		var result = this.parser.parse(xml);
-		this.notification.process(this.type, feed, result);
+		this.notifier.process(feed, result);
 		this.ui.setStatusProcessed(this.type, feed, result);
 	},
 	setStatusDownloading: function(feed) {
