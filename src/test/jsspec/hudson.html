@@ -326,6 +326,57 @@ describe('ExecutorFeedParser', {
 	}
 })
 
+//////////////////////////////////////////////////////////////////////// historicfeednotifier
+function MockNotification() {
+	this.displayAlert = function(type, feed, build, title) {}
+	this.playSound = function(build) {}
+}
+var mockControl = new MockControl();
+var mockNotification = mockControl.createMock(MockNotification);
+var mockPreferences = mockControl.createMock(HudsonPreferences);
+var historicFeedNotifier = new HudsonHistoricFeedNotifier(mockNotification, mockPreferences);
+var hfnFeed = new HudsonFeed(1, 'MockNotifier Feed', 'http://localhost/hudson/view/MyJob/rssLatest', null);
+var hfnHistoricBuild1 = new HudsonHistoricBuild('MyJob1 (SUCCESS)', 'http://localhost/hudson/job/MyJob1/118/', historicBuildDate);
+var hfnHistoricBuild2 = new HudsonHistoricBuild('MyJob2 (SUCCESS)', 'http://localhost/hudson/job/MyJob2/128/', historicBuildDate);
+var hfnHistoricBuild3 = new HudsonHistoricBuild('MyJob3 (FAILURE)', 'http://localhost/hudson/job/MyJob3/138/', historicBuildDate);
+var hfnFeedResult = new HudsonFeedResult('EFN Title', new Array(hfnHistoricBuild1, hfnHistoricBuild2, hfnHistoricBuild3), 'failure');
+mockPreferences.expects().addFeed(hfnFeed);
+mockNotification.expects().displayAlert(TYPE_HISTORIC, hfnFeed, hfnFeedResult.getBuilds()[2], hfnFeedResult.getTitle());
+mockNotification.expects().playSound(hfnFeedResult.getBuilds()[2]);
+historicFeedNotifier.process(hfnFeed, hfnFeedResult);
+var hfnException = null;
+try { mockControl.verify(); } catch (e) { hfnException = e; }
+describe('HistoricFeedNotifier', {
+	'should call historic feed notifier service methods': function() {
+		value_of(hfnException).should_be_null();
+	}
+})
+
+//////////////////////////////////////////////////////////////////////// executorfeednotifier
+function MockNotification() {
+	this.displayAlert = function(type, feed, build, title) {}
+	this.playSound = function(build) {}
+}
+var mockControl = new MockControl();
+var mockNotification = mockControl.createMock(MockNotification);
+var mockPreferences = mockControl.createMock(HudsonPreferences);
+var executorFeedNotifier = new HudsonExecutorFeedNotifier(mockNotification, mockPreferences);
+var efnFeed = new HudsonFeed(1, 'MockNotifier Feed', 'http://localhost/hudson/view/MyJob/rssLatest', lastFailDate);
+var efnExecutorBuild1 = new HudsonExecutorBuild('MyJob1', 'http://localhost/hudson/job/MyJob1/118/', 42, false, false, 'master#1');
+var efnExecutorBuild2 = new HudsonExecutorBuild('MyJob2', 'http://localhost/hudson/job/MyJob2/128/', 88, false, true, 'master#2');
+var efnExecutorBuild3 = new HudsonExecutorBuild('MyJob3', 'http://localhost/hudson/job/MyJob3/228/', 78, false, true, 'master#3');
+var efnFeedResult = new HudsonFeedResult('EFN Title', new Array(efnExecutorBuild1, efnExecutorBuild2, efnExecutorBuild3), 'stuck');
+mockNotification.expects().displayAlert(TYPE_EXECUTOR, efnFeed, efnFeedResult.getBuilds()[1], efnFeedResult.getTitle());
+mockNotification.expects().playSound(efnFeedResult.getBuilds()[1]);
+executorFeedNotifier.process(efnFeed, efnFeedResult);
+var efnException = null;
+try { mockControl.verify(); } catch (e) { efnException = e; }
+describe('ExecutorFeedNotifier', {
+	'should call executor feed notifier service methods': function() {
+		value_of(efnException).should_be_null();
+	}
+})
+
 //////////////////////////////////////////////////////////////////////// menuitem
 var menuItem = new HudsonMenuItem('MyJob #118 (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
 describe('MenuItem', {
