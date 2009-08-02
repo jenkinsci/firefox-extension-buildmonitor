@@ -24,17 +24,14 @@ var HudsonUi = Base.extend({
 		this.uiUtil.clear(buildsPopupContainer);
 		this.uiUtil.clear(menusPopupContainer);
 
-		for (var i = 0; i < this.uiElementSets.length; i++) {
-			this.uiElementSets[i].getTooltip().prepare(tooltipContainer, feeds);
-			this.uiElementSets[i].getBuildsPopup().prepare(buildsPopupContainer, feeds);
-			this.uiElementSets[i].getMenusPopup().prepare(menusPopupContainer, feeds);
-		}
-				
 		// panel element ordering on the statusbar
 		for (var i = 0; i < feeds.length; i++) {
 			if (!feeds[i].isIgnored()) {
 				for (var j = 0; j < this.uiElementSets.length; j++) {
-					this.uiElementSets[j].getPanel().prepare(panelContainer, new Array(feeds[i]), this.preferences.getHideName());
+					this.uiElementSets[j].getTooltip().prepare(tooltipContainer, feeds[i]);
+					this.uiElementSets[j].getBuildsPopup().prepare(buildsPopupContainer, feeds[i]);
+					this.uiElementSets[j].getMenusPopup().prepare(menusPopupContainer, feeds[i]);
+					this.uiElementSets[j].getPanel().prepare(panelContainer, feeds[i], this.preferences.getHideName());
 				}
 				if (this.preferences.getExecutor()) {
 					this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
@@ -58,13 +55,16 @@ var HudsonUi = Base.extend({
 			this.localiser.getText('feed.process.downloading.title'),
 			feed,
 			this.preferences.getSuccessColor());
+		// reset builds popup
+		var container = this._getUiElementSet(type).getPanel().getPanelElement(feed);
+		this._getUiElementSet(type).getBuildsPopup().set(container, feed, new Array(), this.preferences.getSuccessColor());
 	},
 	setStatusDownloadError: function(type, feed) {
 		var uiElementSet = this._getUiElementSet(type);
 		uiElementSet.getPanel().set('status/error', feed);
 		uiElementSet.getTooltip().set(
 			this.historicUiElementSet.getPanel().getPanelElement(feed),
-			new Array(this.localiser.getText('feed.process.error.message1'), 'url: ' + this.uiUtil.getUrl(type, feed)),
+			new Array(this.localiser.getText('feed.process.error.message'), 'url: ' + this.uiUtil.getUrl(type, feed)),
 			this.localiser.getText('feed.process.error.title'),
 			feed,
 			this.preferences.getSuccessColor());
@@ -80,7 +80,7 @@ var HudsonUi = Base.extend({
 		this._getUiElementSet(type).getPanel().set('status/queued', feed);
 		this._getUiElementSet(type).getTooltip().set(
 			this._getUiElementSet(type).getPanel().getPanelElement(feed),
-			new Array(this.localiser.getText('feed.queued.message1'), 'url: ' + this.uiUtil.getUrl(type, feed)),
+			new Array(this.localiser.getText('feed.queued.message'), 'url: ' + this.uiUtil.getUrl(type, feed)),
 			this.localiser.getText('feed.queued.title'),
 			feed,
 			this.preferences.getSuccessColor());

@@ -1,13 +1,10 @@
 var HudsonBuildsPopup = HudsonUiElement.extend({
-	prepare: function(container, feeds) {
-		for (var i = 0; i < feeds.length; i++) {
-			var buildsMenupopup = document.createElement('menupopup');
-			buildsMenupopup.setAttribute('id', this._getBuildsMenupopupId(feeds[i]));
-			container.appendChild(buildsMenupopup);
-		}
+	prepare: function(container, feed) {
+		var buildsMenupopup = document.createElement('menupopup');
+		buildsMenupopup.setAttribute('id', this._getBuildsMenupopupId(feed));
+		container.appendChild(buildsMenupopup);
 	},
 	set: function(container, feed, builds, successColor) {
-		//alert('xxxxxxbuilds len:' + builds.length + ', builds:' + builds);
 		var menupopup = this._getBuildsMenupopupElement(feed);
 		this.uiUtil.clear(menupopup);
 		
@@ -22,7 +19,6 @@ var HudsonBuildsPopup = HudsonUiElement.extend({
 		   	menupopup.appendChild(menuitem);
 		}
 		container.setAttribute('popup', this._getBuildsMenupopupId(feed));
-		//alert('done');
 	},
 	_getBuildsMenupopupElement: function(feed) {
 		return document.getElementById(this._getBuildsMenupopupId(feed));

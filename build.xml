@@ -1,12 +1,6 @@
 <project name="buildmon" default="package" basedir=".">
 
-	<property name="package.name" value="buildmonitor"/>
-	<property name="source.dir" value="src/main/js"/>
-	<property name="lib.dir" value="lib/main/js"/>
-	<property name="resources.dir" value="src/main/resources/firefox"/>
-	<property name="dist.dir" value="dist"/>
-	<property name="stage.dir" value="dist/stage"/>
-	<property name="version" value="1.5-SNAPSHOT"/>
+	<property file="build.properties"/>
 
 	<target name="clean">
 		<delete dir="${dist.dir}"/>
@@ -16,6 +10,10 @@
 		<copy todir="${stage.dir}">
 			<fileset dir="${resources.dir}" excludes="chrome/*/"/>
 		</copy>
+		<replace file="${stage.dir}/install.rdf" propertyFile="build.properties">
+			<replacefilter token="@version@" property="version"/>
+			<replacefilter token="@max_ff_version@" property="max_ff_version"/>
+		</replace>
 		<zip destfile="${stage.dir}/chrome/buildmonitor.jar">
 			<zipfileset dir="${resources.dir}/chrome"/>
 			<zipfileset dir="${source.dir}" prefix="content"/>

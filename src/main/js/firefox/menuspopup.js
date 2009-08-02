@@ -2,12 +2,10 @@ var HudsonMenusPopup = HudsonUiElement.extend({
 	constructor: function(type, localiser) {
 		this.base(type, localiser);
 	},
-	prepare: function(container, feeds) {
-		for (var i = 0; i < feeds.length; i++) {
-			var menusMenupopup = document.createElement('menupopup');
-			menusMenupopup.setAttribute('id', this._getMenusMenupopupId(feeds[i]));
-			container.appendChild(menusMenupopup);
-		}
+	prepare: function(container, feed) {
+		var menusMenupopup = document.createElement('menupopup');
+		menusMenupopup.setAttribute('id', this._getMenusMenupopupId(feed));
+		container.appendChild(menusMenupopup);
 	},
 	set: function(container, feed) {
 		var menupopup = this._getMenusMenupopupElement(feed);

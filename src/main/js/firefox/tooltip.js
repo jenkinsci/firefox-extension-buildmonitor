@@ -1,13 +1,11 @@
 var HudsonTooltip = HudsonUiElement.extend({
-	prepare: function(container, feeds) {
-		for (var i = 0; i < feeds.length; i++) {
-			var tooltip = document.createElement('tooltip');
-			tooltip.setAttribute('id', this._getTooltipId(feeds[i]));
-			tooltip.setAttribute('class', 'info');
-			tooltip.setAttribute('noautohide', 'true');
-			tooltip.setAttribute('maxwidth', '1000');
-			container.appendChild(tooltip);
-		}
+	prepare: function(container, feed) {
+		var tooltip = document.createElement('tooltip');
+		tooltip.setAttribute('id', this._getTooltipId(feed));
+		tooltip.setAttribute('class', 'info');
+		tooltip.setAttribute('noautohide', 'true');
+		tooltip.setAttribute('maxwidth', '1000');
+		container.appendChild(tooltip);
 	},
 	set: function(container, items, title, feed, successColor) {
 		var vbox = document.createElement("vbox");
