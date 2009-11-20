@@ -652,6 +652,7 @@ function MockFeed() {
 }
 function MockBuild() {
 	this.getDetails = function() {}
+	this.getStatus = function() {}
 }
 function MockFfAlertsService() {
 	this.showAlertNotification = function(imageUrl, title, text, textClickable) {}
@@ -673,8 +674,8 @@ var notificationService = new HudsonNotificationService(mockFfAlertsService, moc
 mockBuild.expects().getStatus().andReturn('stuck');
 mockFeed.expects().getName().andReturn('TheirJob');
 mockBuild.expects().getDetails().andReturn('some details');
-mockFfAlertsService.expects().showAlertNotification('chrome://buildmonitor/skin/build/stuck.png', 'some title [TheirJob]', 'some details', false);
-mockFeed.expects().getStatus().andReturn('stuck');
+mockFfAlertsService.expects().showAlertNotification('chrome://buildmonitor/skin/status/build/stuck.png', 'some title [TheirJob]', 'some details', false);
+mockBuild.expects().getStatus().andReturn('stuck');
 mockFfIoService.expects().newURI('chrome://buildmonitor/skin/audio/stuck.wav', null, null).andReturn(mockUri);
 mockFfSoundService.expects().play(mockUri); 
 notificationService.displayAlert(TYPE_HISTORIC, 'some title', mockFeed, mockBuild);
