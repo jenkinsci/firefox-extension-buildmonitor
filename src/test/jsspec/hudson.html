@@ -126,6 +126,17 @@ describe('Instance Feed', {
 		value_of(instanceFeed.isIgnored()).should_be_false();
 	}
 })
+var updatedFeed = new HudsonFeed(0, 'Original Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
+updatedFeed.setName('Updated Instance Feed');
+updatedFeed.setUrl('http://updatedlocalhost/hudson/rssAll');
+describe('Updated Instance Feed', {
+    'should return updated name': function() {
+        value_of(updatedFeed.getName()).should_be('Updated Instance Feed');
+    },
+    'should return updated url': function() {
+        value_of(updatedFeed.getUrl()).should_be('http://updatedlocalhost/hudson/rssAll');
+    }
+})
 var jobFeed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
 describe('Job Feed', {
 	'should be true on isJob': function() {

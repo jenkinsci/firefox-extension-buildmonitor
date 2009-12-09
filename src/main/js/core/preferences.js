@@ -58,18 +58,18 @@ var HudsonPreferences = Base.extend({
 	    return feeds;
 	},
 	addFeed: function(feed) {
-		this._setFeed(feed);
+		this.setFeed(feed);
 	},
 	removeFeed: function(feed) {
 		var feeds = this.getFeeds();
 	    for (var i = feed.getId() + 1; i < feeds.length; i++) {
 	    	feeds[i].setId(i - 1);
-	    	this._setFeed(feeds[i]);
+	    	this.setFeed(feeds[i]);
 	    }
 	    var emptyLastFeed = new HudsonFeed(feeds.length - 1, '', '', null);
-	    this._setFeed(emptyLastFeed);
+	    this.setFeed(emptyLastFeed);
 	},
-	_setFeed: function(feed) {
+	setFeed: function(feed) {
 		var id = feed.getId();
 		this.service.setString('hudson.feeds.' + id + '.name', feed.getName());
 		this.service.setString('hudson.feeds.' + id + '.url', feed.getUrl());

@@ -8,7 +8,7 @@
 	windowtype="" 
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
 	buttons="accept,cancel"
-	ondialogaccept="hudson_submit();"
+	ondialogaccept="hudson_saveView(); hudson_submit();"
 	title="&prefs.title;">
   
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js"/>
@@ -35,6 +35,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/loggerservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/notificationservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/feedstree.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/panel.js"/>
@@ -53,7 +54,7 @@
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
 	</stringbundleset>
 	
-	<prefpane id="hudson-prefpane">
+	<prefpane id="hudson-prefpane" onpaneload="hudson_initView();">
 		<preferences>
 			<preference id="hudson-prefs-debug" name="hudson.debug" type="bool"/>
 	    	<preference id="hudson-prefs-successcolor" name="hudson.successcolor" type="string"/>
@@ -79,6 +80,16 @@
 			<tabpanels>
 				<tabpanel>
 					<vbox>
+                        <tree id="buildmonitor-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="hudson_updateView(event);" width="550">
+                            <treecols>
+                                <treecol id="buildmonitor-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
+                                <treecol id="buildmonitor-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>
+                                <treecol id="buildmonitor-prefs-feeds-remove" label="" flex="1" tooltiptext="&prefs.help.feeds.remove;"/>
+                                <treecol id="buildmonitor-prefs-feeds-up" label="" flex="1" tooltiptext="&prefs.help.feeds.up;"/>
+                                <treecol id="buildmonitor-prefs-feeds-down" label="" flex="1" tooltiptext="&prefs.help.feeds.down;"/>
+                            </treecols>
+                            <treechildren/>
+                        </tree>
 						<hbox>
 							<textbox id="buildmonitor-prefs-interval" size="3" preference="hudson-prefs-interval"/>
 							<label value="&prefs.interval;" tooltiptext="&prefs.help.interval;"/>

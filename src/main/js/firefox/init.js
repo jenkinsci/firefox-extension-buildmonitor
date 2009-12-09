@@ -7,6 +7,7 @@ var notificationService = new HudsonNotificationService(Components.classes['@moz
 var util = new HudsonUtil();
 var localiser = new HudsonLocaliser();
 var preferences = new HudsonPreferences(preferencesService, NUM_OF_FEEDS);
+var feedsTree = new HudsonFeedsTree(preferences, NUM_OF_FEEDS);
 var logger = new HudsonLogger(loggerService, util, preferences);
 var notification = new HudsonNotification(notificationService, preferences);
 var ui = new HudsonUi(localiser, preferences);

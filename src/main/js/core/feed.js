@@ -20,6 +20,12 @@ var HudsonFeed = Base.extend({
 	setId: function(id) {
 		this.id = id;
 	},
+	setName: function(name) {
+	   this.name = name;
+	},
+	setUrl: function(url) {
+	   this.url = url;
+	},
 	setLastFail: function(lastFail) {
 		this.lastFail = lastFail;
 	},
