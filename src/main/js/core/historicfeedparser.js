@@ -21,7 +21,11 @@ var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
 		}
 		var status;
 		if (this.statusType == 'latest') {
-			status = builds[0].getStatus();
+		    if (size > 0) {
+			    status = builds[0].getStatus();
+			} else {
+			    status = 'unknown';
+			}
 		} else {
 			status = this._getHealthStatus(size, successCount);
 		}
