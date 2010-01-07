@@ -20,15 +20,15 @@ var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
 			}
 		}
 		var status;
-		if (this.statusType == 'latest') {
-		    if (size > 0) {
-			    status = builds[0].getStatus();
-			} else {
-			    status = 'unknown';
-			}
-		} else {
-			status = this._getHealthStatus(size, successCount);
-		}
+        if (size > 0) {
+    		if (this.statusType == 'latest') {
+                status = builds[0].getStatus();
+    		} else {
+    			status = this._getHealthStatus(size, successCount);
+    		}
+        } else {
+            status = 'unknown';
+        }
 		return new HudsonFeedResult(title, builds, status);
 	},
 	_getHealthStatus: function(size, successCount) {
