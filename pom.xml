@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
@@ -9,7 +8,7 @@
   </parent>
   <groupId>org.jvnet.hudson.plugins</groupId>
   <artifactId>buildmonitor</artifactId>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.5</version>
   <description>Monitor Hudson builds and display the status on Firefox status bar.</description>
   <inceptionYear>2008</inceptionYear>
   <name>BuildMonitor</name>
@@ -42,29 +41,29 @@
             <configuration>
               <tasks>
 
-                <property name="source.dir" value="src/main/js"/>
-                <property name="lib.dir" value="lib/main/js"/>
-                <property name="resources.dir" value="src/main/resources/firefox"/>
-                <property name="target.dir" value="target"/>
-                <property name="stage.dir" value="target/stage"/>
-                <property name="max_ff_version" value="3.7a1pre"/>
+                <property name="source.dir" value="src/main/js" />
+                <property name="lib.dir" value="lib/main/js" />
+                <property name="resources.dir" value="src/main/resources/firefox" />
+                <property name="target.dir" value="target" />
+                <property name="stage.dir" value="target/stage" />
+                <property name="max_ff_version" value="3.7a1pre" />
 
-                <mkdir dir="${stage.dir}"/>
+                <mkdir dir="${stage.dir}" />
                 <copy todir="${stage.dir}">
-                  <fileset dir="${resources.dir}" excludes="chrome/*/"/>
+                  <fileset dir="${resources.dir}" excludes="chrome/*/" />
                 </copy>
                 <replace file="${stage.dir}/install.rdf" value="${version}">
-                  <replacefilter token="@version@"/>
+                  <replacefilter token="@version@" />
                 </replace>
                 <replace file="${stage.dir}/install.rdf" value="${max_ff_version}">
-                  <replacefilter token="@max_ff_version@"/>
+                  <replacefilter token="@max_ff_version@" />
                 </replace>
                 <zip destfile="${stage.dir}/chrome/buildmonitor.jar">
-                  <zipfileset dir="${resources.dir}/chrome"/>
-                  <zipfileset dir="${source.dir}" prefix="content"/>
-                  <zipfileset dir="${lib.dir}" prefix="content/lib"/>
+                  <zipfileset dir="${resources.dir}/chrome" />
+                  <zipfileset dir="${source.dir}" prefix="content" />
+                  <zipfileset dir="${lib.dir}" prefix="content/lib" />
                 </zip>
-                <zip destfile="${target.dir}/${artifactId}-${version}.xpi" basedir="${stage.dir}"/>
+                <zip destfile="${target.dir}/${artifactId}-${version}.xpi" basedir="${stage.dir}" />
 
               </tasks>
             </configuration>
@@ -76,4 +75,10 @@
       </plugin>
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/firefox-extension-buildmonitor-1.5</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/firefox-extension-buildmonitor-1.5</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/hudson/plugins/buildmonitor/tags/firefox-extension-buildmonitor-1.5</url>
+  </scm>
 </project>
