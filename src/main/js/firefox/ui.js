@@ -7,11 +7,7 @@ var HudsonUi = Base.extend({
 		this.executorUiElementSet = new HudsonUiElementSet(TYPE_EXECUTOR);
 		this.historicUiElementSet = new HudsonUiElementSet(TYPE_HISTORIC);
 		
-		if (!this.preferences.getExecutor()) {
-			this.uiElementSets = new Array(this.historicUiElementSet);
-		} else {
-			this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);
-		}
+		this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);
 	},
 	prepare: function(feeds) {
 		var panelContainer = document.getElementById('hudson-panel-feeds');
