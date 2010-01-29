@@ -5,8 +5,8 @@
 <dialog xmlns:html="http://www.w3.org/1999/xhtml"
       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
       xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-      onload="hudson_prepare();"
-      ondialogaccept="hudson_submit();"
+      onload="org_hudsonci.prepare();"
+      ondialogaccept="org_hudsonci.submit();"
       buttons="accept,cancel"
       title="&link.title;">
 

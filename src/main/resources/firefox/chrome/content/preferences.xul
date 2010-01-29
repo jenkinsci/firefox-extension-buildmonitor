@@ -8,7 +8,7 @@
 	windowtype="" 
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
 	buttons="accept,cancel"
-	ondialogaccept="hudson_saveView(); hudson_submit();"
+	ondialogaccept="org_hudsonci.saveView(); org_hudsonci.submit();"
 	title="&prefs.title;">
   
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js"/>
@@ -55,7 +55,7 @@
 		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
 	</stringbundleset>
 	
-	<prefpane id="hudson-prefpane" onpaneload="hudson_initView();">
+	<prefpane id="hudson-prefpane" onpaneload="org_hudsonci.initView();">
 		<preferences>
 			<preference id="hudson-prefs-debug" name="hudson.debug" type="bool"/>
 	    	<preference id="hudson-prefs-successcolor" name="hudson.successcolor" type="string"/>
@@ -81,7 +81,7 @@
 			<tabpanels>
 				<tabpanel>
 					<vbox>
-                        <tree id="buildmonitor-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="hudson_updateView(event);" width="550">
+                        <tree id="buildmonitor-prefs-feeds" rows="5" editable="true" enableColumnDrag="true" onclick="org_hudsonci.updateView(event);" width="550">
                             <treecols>
                                 <treecol id="buildmonitor-prefs-feeds-name" label="&prefs.feeds.name;" flex="5" tooltiptext="&prefs.help.feeds.name;"/>
                                 <treecol id="buildmonitor-prefs-feeds-url" label="&prefs.feeds.url;" editable="true" flex="15" tooltiptext="&prefs.help.feeds.url;"/>

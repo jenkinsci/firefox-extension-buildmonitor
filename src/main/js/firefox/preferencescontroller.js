@@ -1,15 +1,15 @@
-function hudson_submit() {
+org_hudsonci.submit = function() {
 	var parent = window.arguments[0];
 	parent.hudson_runAll();
 }
-function hudson_initView() {
+org_hudsonci.initView = function() {
     document.documentElement.getButton('accept').hidden = false;
     feedsTree.initView();
 }
-function hudson_updateView(event) {
+org_hudsonci.updateView = function(event) {
     feedsTree.updateView(event);
 }
-function hudson_saveView() {
+org_hudsonci.saveView = function() {
     feedsTree.saveView();
     return true;
 }

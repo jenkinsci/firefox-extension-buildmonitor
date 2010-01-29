@@ -1,7 +1,7 @@
-function hudson_prepare() {
+org_hudsonci.prepare = function() {
 	addFeedWindow.prepare();
 }
-function hudson_submit() {
+org_hudsonci.submit = function() {
 	addFeedWindow.save();
 	var parent = window.arguments[0];
 	parent.hudson_runAll();
