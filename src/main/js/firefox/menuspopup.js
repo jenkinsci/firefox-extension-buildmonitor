@@ -1,4 +1,4 @@
-var HudsonMenusPopup = HudsonUiElement.extend({
+org_hudsonci.MenusPopup = org_hudsonci.UiElement.extend({
 	constructor: function(type, localiser) {
 		this.base(type, localiser);
 	},

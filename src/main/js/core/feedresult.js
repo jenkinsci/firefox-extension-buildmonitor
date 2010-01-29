@@ -1,4 +1,4 @@
-var HudsonFeedResult = Base.extend({
+org_hudsonci.FeedResult = Base.extend({
 	constructor: function(title, builds, status) {
 		this.title = title;
 		this.builds = builds;

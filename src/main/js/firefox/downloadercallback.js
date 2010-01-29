@@ -1,4 +1,4 @@
-var HudsonDownloaderCallback = Base.extend({
+org_hudsonci.DownloaderCallback = Base.extend({
 	constructor: function(type, parser, notifier, logger, localiser, ui) {
 		this.type = type;
 		this.parser = parser;

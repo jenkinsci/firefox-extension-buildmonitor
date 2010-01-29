@@ -1,4 +1,4 @@
-var HudsonBuild = Base.extend({
+org_hudsonci.Build = Base.extend({
 	constructor: function(name, url) {
 		this.name = name;
 		this.url = url;

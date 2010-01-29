@@ -1,4 +1,4 @@
-var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
+org_hudsonci.HistoricFeedParser = org_hudsonci.FeedParser.extend ({
 	constructor: function(size, statusType) {
 		this.base(size);
 		this.statusType = statusType;
@@ -14,7 +14,7 @@ var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
 			var name = this.getElementValue(entries[i], 'title');
 			var url = this.getAttributeValue(entries[i], 'link', 'href');
 			var date = Date.parseExact(this.getElementValue(entries[i], 'published'), 'yyyy-MM-ddTHH:mm:ssZ');
-			builds[i] = new HudsonHistoricBuild(name, url, date);
+			builds[i] = new org_hudsonci.HistoricBuild(name, url, date);
 			if (builds[i].isSuccess()) {
 				successCount++;
 			}
@@ -29,7 +29,7 @@ var HudsonHistoricFeedParser = HudsonFeedParser.extend ({
         } else {
             status = 'unknown';
         }
-		return new HudsonFeedResult(title, builds, status);
+		return new org_hudsonci.FeedResult(title, builds, status);
 	},
 	_getHealthStatus: function(size, successCount) {
 		var status;

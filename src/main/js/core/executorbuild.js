@@ -1,4 +1,4 @@
-var HudsonExecutorBuild = HudsonBuild.extend ({
+org_hudsonci.ExecutorBuild = org_hudsonci.Build.extend ({
 	constructor: function(name, url, progress, isIdle, isStuck, executorName) {
 		this.base(name, url);
 		this.progress = progress;

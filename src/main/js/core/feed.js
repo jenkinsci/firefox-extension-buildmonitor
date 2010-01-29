@@ -1,4 +1,4 @@
-var HudsonFeed = Base.extend({
+org_hudsonci.Feed = Base.extend({
 	constructor: function(id, name, url, lastFail) {
 		this.id = id;
 		this.name = name;

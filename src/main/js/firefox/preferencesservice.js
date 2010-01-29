@@ -1,4 +1,4 @@
-var HudsonPreferencesService = Base.extend ({
+org_hudsonci.PreferencesService = Base.extend ({
 	constructor: function(ffPreferencesService) {
 		this.ffPreferencesService = ffPreferencesService;
 	},

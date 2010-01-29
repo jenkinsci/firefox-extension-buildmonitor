@@ -1,6 +1,6 @@
 const TYPE_EXECUTOR = 'executor';
 const TYPE_HISTORIC = 'historic';
-var HudsonUiUtil = Base.extend({
+org_hudsonci.UiUtil = Base.extend({
 	getStatusSkinType: function(type) {
 		var statusSkinType;
 		if (type == TYPE_EXECUTOR) {

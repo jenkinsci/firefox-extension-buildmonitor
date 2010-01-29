@@ -1,4 +1,4 @@
-var HudsonLoggerService = Base.extend ({
+org_hudsonci.LoggerService = Base.extend ({
 	constructor: function(ffConsoleService) {
 		this.ffConsoleService = ffConsoleService;
 	},

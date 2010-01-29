@@ -1,12 +1,12 @@
-var HudsonUiElement = Base.extend({
+org_hudsonci.UiElement = Base.extend({
 	constructor: function(type) {
 		this.type = type;
-		this.uiUtil = new HudsonUiUtil();
+		this.uiUtil = new org_hudsonci.UiUtil();
 	},
 	constructor: function(type, localiser) {
 		this.type = type;
 		this.localiser = localiser;
-		this.uiUtil = new HudsonUiUtil();
+		this.uiUtil = new org_hudsonci.UiUtil();
 	},
 	getUiElementId: function(feed) {
 		return this.type + '-' + feed.getId();

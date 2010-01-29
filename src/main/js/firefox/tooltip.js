@@ -1,4 +1,4 @@
-var HudsonTooltip = HudsonUiElement.extend({
+org_hudsonci.Tooltip = org_hudsonci.UiElement.extend({
 	prepare: function(container, feed) {
 		var tooltip = document.createElement('tooltip');
 		tooltip.setAttribute('id', this._getTooltipId(feed));

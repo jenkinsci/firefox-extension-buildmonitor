@@ -1,4 +1,4 @@
-var HudsonLocaliser = Base.extend({
+org_hudsonci.Localiser = Base.extend({
 	setBundle: function(bundle) {
 		this.bundle = bundle;
 	},

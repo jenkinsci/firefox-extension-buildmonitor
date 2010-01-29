@@ -14,6 +14,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/date.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/pretty.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/Base.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/namespace.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/util.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/build.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicbuild.js"/>

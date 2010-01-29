@@ -1,11 +1,11 @@
-var HudsonUi = Base.extend({
+org_hudsonci.Ui = Base.extend({
 	constructor: function(localiser, preferences) {
 		this.localiser = localiser;
 		this.preferences = preferences;
-		this.uiUtil = new HudsonUiUtil();
+		this.uiUtil = new org_hudsonci.UiUtil();
 		
-		this.executorUiElementSet = new HudsonUiElementSet(TYPE_EXECUTOR);
-		this.historicUiElementSet = new HudsonUiElementSet(TYPE_HISTORIC);
+		this.executorUiElementSet = new org_hudsonci.UiElementSet(TYPE_EXECUTOR);
+		this.historicUiElementSet = new org_hudsonci.UiElementSet(TYPE_HISTORIC);
 		
 		this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);
 	},

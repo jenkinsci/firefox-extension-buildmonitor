@@ -9,6 +9,7 @@
 <script type="text/javascript" src="../../../lib/test/js/jsmock.js"></script>
 <script type="text/javascript" src="../../../lib/main/js/date.js"></script>
 <script type="text/javascript" src="../../../lib/main/js/Base.js"></script>
+<script type="text/javascript" src="../../../lib/main/js/namespace.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/util.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/build.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicbuild.js"></script>
@@ -41,7 +42,7 @@ var lastFailDate = Date.parseExact('2009-08-22T03:27:41Z', 'yyyy-MM-ddTHH:mm:ssZ
 
 //////////////////////////////////////////////////////////////////////// historicbuild
 var historicBuildDate = Date.parseExact('2009-06-02T07:41:38Z', 'yyyy-MM-ddTHH:mm:ssZ');
-var historicBuild = new HudsonHistoricBuild('MyJob (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', historicBuildDate);
+var historicBuild = new org_hudsonci.HistoricBuild('MyJob (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', historicBuildDate);
 describe('HistoricBuild', {
 	'should return correct name': function() {
 		value_of(historicBuild.getName()).should_be('MyJob (SUCCESS)');
@@ -64,7 +65,7 @@ describe('HistoricBuild', {
 })
 
 //////////////////////////////////////////////////////////////////////// executorbuild
-var executorBuild = new HudsonExecutorBuild('MyJob', 'http://localhost/hudson/job/MyJob/118/', 42, false, false, 'master#1');
+var executorBuild = new org_hudsonci.ExecutorBuild('MyJob', 'http://localhost/hudson/job/MyJob/118/', 42, false, false, 'master#1');
 describe('ExecutorBuild', {
 	'should return correct name': function() {
 		value_of(executorBuild.getName()).should_be('MyJob');
@@ -93,7 +94,7 @@ describe('ExecutorBuild', {
 })
 
 //////////////////////////////////////////////////////////////////////// feed
-var instanceFeed = new HudsonFeed(0, 'Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
+var instanceFeed = new org_hudsonci.Feed(0, 'Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
 describe('Instance Feed', {
 	'should be false on isJob': function() {
 		value_of(instanceFeed.isJob()).should_be_false();
@@ -126,7 +127,7 @@ describe('Instance Feed', {
 		value_of(instanceFeed.isIgnored()).should_be_false();
 	}
 })
-var updatedFeed = new HudsonFeed(0, 'Original Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
+var updatedFeed = new org_hudsonci.Feed(0, 'Original Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
 updatedFeed.setName('Updated Instance Feed');
 updatedFeed.setUrl('http://updatedlocalhost/hudson/rssAll');
 describe('Updated Instance Feed', {
@@ -137,7 +138,7 @@ describe('Updated Instance Feed', {
         value_of(updatedFeed.getUrl()).should_be('http://updatedlocalhost/hudson/rssAll');
     }
 })
-var jobFeed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
+var jobFeed = new org_hudsonci.Feed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
 describe('Job Feed', {
 	'should be true on isJob': function() {
 		value_of(jobFeed.isJob()).should_be_true();
@@ -173,7 +174,7 @@ describe('Job Feed', {
 		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var viewFeed = new HudsonFeed(1, 'Your Feed', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
+var viewFeed = new org_hudsonci.Feed(1, 'Your Feed', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
 describe('View Feed', {
 	'should be false on isJob': function() {
 		value_of(viewFeed.isJob()).should_be_false();
@@ -197,7 +198,7 @@ describe('View Feed', {
 		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var invalidFeed = new HudsonFeed(2, 'Their Feed', 'http://externalhost/feed/atom', lastFailDate);
+var invalidFeed = new org_hudsonci.Feed(2, 'Their Feed', 'http://externalhost/feed/atom', lastFailDate);
 describe('Invalid Feed', {
 	'should return null item name': function() {
 		value_of(invalidFeed.getItemName()).should_be_null();
@@ -206,8 +207,8 @@ describe('Invalid Feed', {
 		value_of(jobFeed.isIgnored()).should_be_false();
 	}
 })
-var ignoredFeedWithEmptyUrl = new HudsonFeed(3, 'Whos Feed', '', lastFailDate);
-var ignoredFeedWithNullUrl = new HudsonFeed(3, 'Whos Feed', null, lastFailDate);
+var ignoredFeedWithEmptyUrl = new org_hudsonci.Feed(3, 'Whos Feed', '', lastFailDate);
+var ignoredFeedWithNullUrl = new org_hudsonci.Feed(3, 'Whos Feed', null, lastFailDate);
 describe('Ignored Feed', {
 	'should be true on isIgnored when url is empty': function() {
 		value_of(ignoredFeedWithEmptyUrl.isIgnored()).should_be_true();
@@ -217,13 +218,13 @@ describe('Ignored Feed', {
 	}
 })
 
-var emptyFeedWithEmptyNameAndUrl = new HudsonFeed(0, '', '', lastFailDate);
-var emptyFeedWithNullNameAndUrl = new HudsonFeed(0, null, null, lastFailDate); 
-var nonEmptyFeedWithEmptyName = new HudsonFeed(0, '', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
-var nonEmptyFeedWithNullName = new HudsonFeed(0, null, 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
-var nonEmptyFeedWithEmptyUrl = new HudsonFeed(0, 'The Feed', '', lastFailDate);
-var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', null, lastFailDate);
-var nonEmptyFeedWithNullUrl = new HudsonFeed(0, 'The Feed', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
+var emptyFeedWithEmptyNameAndUrl = new org_hudsonci.Feed(0, '', '', lastFailDate);
+var emptyFeedWithNullNameAndUrl = new org_hudsonci.Feed(0, null, null, lastFailDate); 
+var nonEmptyFeedWithEmptyName = new org_hudsonci.Feed(0, '', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
+var nonEmptyFeedWithNullName = new org_hudsonci.Feed(0, null, 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
+var nonEmptyFeedWithEmptyUrl = new org_hudsonci.Feed(0, 'The Feed', '', lastFailDate);
+var nonEmptyFeedWithNullUrl = new org_hudsonci.Feed(0, 'The Feed', null, lastFailDate);
+var nonEmptyFeedWithNullUrl = new org_hudsonci.Feed(0, 'The Feed', 'http://localhost/hudson/view/MyView/rssLatest', lastFailDate);
 describe('Empty Feed', {
 	'should be true on isEmpty when both name and url are empty': function() {
 		value_of(emptyFeedWithEmptyNameAndUrl.isEmpty()).should_be_true();
@@ -250,10 +251,10 @@ describe('Empty Feed', {
 
 //////////////////////////////////////////////////////////////////////// historicfeedparser
 var historicFeedXml = '<feed xmlns="http://www.w3.org/2005/Atom"><title>vysper-trunk-jdk1.6-solaris all builds</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/"></link><updated>2009-06-01T19:36:43Z</updated><author><name>Hudson Server</name></author><id>urn:uuid:903deee0-7bfa-11db-9fe1-0800200c9a66</id><entry><title>vysper-trunk-jdk1.6-solaris #22 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/22/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_19-36-43</id><published>2009-06-01T19:36:43Z</published><updated>2009-06-01T19:36:43Z</updated></entry><entry><title>vysper-trunk-jdk1.6-solaris #21 (SUCCESS)</title><link type="text/html" rel="alternate" href="http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/21/"></link><id>tag:hudson.dev.java.net,2009:vysper-trunk-jdk1.6-solaris:2009-06-01_18-36-43</id><published>2009-06-01T18:36:43Z</published><updated>2009-06-01T18:36:43Z</updated></entry></feed>';
-var historicFeedParser = new HudsonHistoricFeedParser(1, 'overall');
+var historicFeedParser = new org_hudsonci.HistoricFeedParser(1, 'overall');
 var historicFeedResult = historicFeedParser.parse(historicFeedXml);
 var historicBuilds = historicFeedResult.getBuilds();
-var historicFeedParserWithSizeLargerThanNumOfEntries = new HudsonHistoricFeedParser(20);
+var historicFeedParserWithSizeLargerThanNumOfEntries = new org_hudsonci.HistoricFeedParser(20);
 describe('HistoricFeedParser', {
 	'should return correct title': function() {
 		value_of(historicFeedResult.getTitle()).should_be('vysper-trunk-jdk1.6-solaris all builds');
@@ -283,7 +284,7 @@ describe('HistoricFeedParser', {
 
 //////////////////////////////////////////////////////////////////////// executorfeedparser
 var executorFeedXml = '<computerSet><busyExecutors>2</busyExecutors><computer><displayName>master</displayName><executor><currentExecutable><number>138</number><url>http://hudson.zones.apache.org/hudson/job/Cactus/138/</url></currentExecutable><idle>false</idle><likelyStuck>false</likelyStuck><number>0</number><progress>34</progress></executor><executor><currentExecutable><number>307</number><url>http://hudson.zones.apache.org/hudson/job/ftpserver-trunk-jdk1.5-solaris/307/</url></currentExecutable><idle>false</idle><likelyStuck>true</likelyStuck><number>1</number><progress>99</progress></executor><icon>computer.gif</icon><idle>false</idle><jnlpAgent>false</jnlpAgent><launchSupported>true</launchSupported><manualLaunchAllowed>true</manualLaunchAllowed><monitorData><hudson.node_monitors.SwapSpaceMonitor><availablePhysicalMemory>197132288</availablePhysicalMemory><availableSwapSpace>6232735744</availableSwapSpace><totalPhysicalMemory>6441402368</totalPhysicalMemory><totalSwapSpace>10823401472</totalSwapSpace></hudson.node_monitors.SwapSpaceMonitor><hudson.node_monitors.ArchitectureMonitor>SunOS (x86)</hudson.node_monitors.ArchitectureMonitor><hudson.node_monitors.ResponseTimeMonitor><average>0</average></hudson.node_monitors.ResponseTimeMonitor><hudson.node_monitors.DiskSpaceMonitor>271497184256</hudson.node_monitors.DiskSpaceMonitor><hudson.node_monitors.ClockMonitor><diff>0</diff></hudson.node_monitors.ClockMonitor></monitorData><numExecutors>2</numExecutors><offline>false</offline><temporarilyOffline>false</temporarilyOffline></computer><computer><displayName>lucene.zones.apache.org (Solaris 10)</displayName><executor><idle>true</idle><likelyStuck>false</likelyStuck><number>0</number><progress>-1</progress></executor><icon>computer.gif</icon><idle>true</idle><jnlpAgent>false</jnlpAgent><launchSupported>true</launchSupported><manualLaunchAllowed>true</manualLaunchAllowed><monitorData><hudson.node_monitors.ArchitectureMonitor>SunOS (x86)</hudson.node_monitors.ArchitectureMonitor><hudson.node_monitors.ResponseTimeMonitor><average>66</average></hudson.node_monitors.ResponseTimeMonitor><hudson.node_monitors.DiskSpaceMonitor>340919224320</hudson.node_monitors.DiskSpaceMonitor><hudson.node_monitors.ClockMonitor><diff>23</diff></hudson.node_monitors.ClockMonitor></monitorData><numExecutors>1</numExecutors><offline>false</offline><temporarilyOffline>false</temporarilyOffline></computer></computerSet>'; 
-var executorFeedParser = new HudsonExecutorFeedParser(20);
+var executorFeedParser = new org_hudsonci.ExecutorFeedParser(20);
 var executorFeedResult = executorFeedParser.parse(executorFeedXml);
 var executorBuilds = executorFeedResult.getBuilds();
 var activeExecutorBuild = executorBuilds[0];
@@ -344,13 +345,13 @@ function MockNotification() {
 }
 var mockControl = new MockControl();
 var mockNotification = mockControl.createMock(MockNotification);
-var mockPreferences = mockControl.createMock(HudsonPreferences);
-var historicFeedNotifier = new HudsonHistoricFeedNotifier(mockNotification, mockPreferences);
-var hfnFeed = new HudsonFeed(1, 'MockNotifier Feed', 'http://localhost/hudson/view/MyJob/rssLatest', null);
-var hfnHistoricBuild1 = new HudsonHistoricBuild('MyJob1 (SUCCESS)', 'http://localhost/hudson/job/MyJob1/118/', historicBuildDate);
-var hfnHistoricBuild2 = new HudsonHistoricBuild('MyJob2 (SUCCESS)', 'http://localhost/hudson/job/MyJob2/128/', historicBuildDate);
-var hfnHistoricBuild3 = new HudsonHistoricBuild('MyJob3 (FAILURE)', 'http://localhost/hudson/job/MyJob3/138/', historicBuildDate);
-var hfnFeedResult = new HudsonFeedResult('EFN Title', new Array(hfnHistoricBuild1, hfnHistoricBuild2, hfnHistoricBuild3), 'failure');
+var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
+var historicFeedNotifier = new org_hudsonci.HistoricFeedNotifier(mockNotification, mockPreferences);
+var hfnFeed = new org_hudsonci.Feed(1, 'MockNotifier Feed', 'http://localhost/hudson/view/MyJob/rssLatest', null);
+var hfnHistoricBuild1 = new org_hudsonci.HistoricBuild('MyJob1 (SUCCESS)', 'http://localhost/hudson/job/MyJob1/118/', historicBuildDate);
+var hfnHistoricBuild2 = new org_hudsonci.HistoricBuild('MyJob2 (SUCCESS)', 'http://localhost/hudson/job/MyJob2/128/', historicBuildDate);
+var hfnHistoricBuild3 = new org_hudsonci.HistoricBuild('MyJob3 (FAILURE)', 'http://localhost/hudson/job/MyJob3/138/', historicBuildDate);
+var hfnFeedResult = new org_hudsonci.FeedResult('EFN Title', new Array(hfnHistoricBuild1, hfnHistoricBuild2, hfnHistoricBuild3), 'failure');
 mockPreferences.expects().addFeed(hfnFeed);
 mockNotification.expects().displayAlert(TYPE_HISTORIC, hfnFeed, hfnFeedResult.getBuilds()[2], hfnFeedResult.getTitle());
 mockNotification.expects().playSound(hfnFeedResult.getBuilds()[2]);
@@ -370,13 +371,13 @@ function MockNotification() {
 }
 var mockControl = new MockControl();
 var mockNotification = mockControl.createMock(MockNotification);
-var mockPreferences = mockControl.createMock(HudsonPreferences);
-var executorFeedNotifier = new HudsonExecutorFeedNotifier(mockNotification, mockPreferences);
-var efnFeed = new HudsonFeed(1, 'MockNotifier Feed', 'http://localhost/hudson/view/MyJob/rssLatest', lastFailDate);
-var efnExecutorBuild1 = new HudsonExecutorBuild('MyJob1', 'http://localhost/hudson/job/MyJob1/118/', 42, false, false, 'master#1');
-var efnExecutorBuild2 = new HudsonExecutorBuild('MyJob2', 'http://localhost/hudson/job/MyJob2/128/', 88, false, true, 'master#2');
-var efnExecutorBuild3 = new HudsonExecutorBuild('MyJob3', 'http://localhost/hudson/job/MyJob3/228/', 78, false, true, 'master#3');
-var efnFeedResult = new HudsonFeedResult('EFN Title', new Array(efnExecutorBuild1, efnExecutorBuild2, efnExecutorBuild3), 'stuck');
+var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
+var executorFeedNotifier = new org_hudsonci.ExecutorFeedNotifier(mockNotification, mockPreferences);
+var efnFeed = new org_hudsonci.Feed(1, 'MockNotifier Feed', 'http://localhost/hudson/view/MyJob/rssLatest', lastFailDate);
+var efnExecutorBuild1 = new org_hudsonci.ExecutorBuild('MyJob1', 'http://localhost/hudson/job/MyJob1/118/', 42, false, false, 'master#1');
+var efnExecutorBuild2 = new org_hudsonci.ExecutorBuild('MyJob2', 'http://localhost/hudson/job/MyJob2/128/', 88, false, true, 'master#2');
+var efnExecutorBuild3 = new org_hudsonci.ExecutorBuild('MyJob3', 'http://localhost/hudson/job/MyJob3/228/', 78, false, true, 'master#3');
+var efnFeedResult = new org_hudsonci.FeedResult('EFN Title', new Array(efnExecutorBuild1, efnExecutorBuild2, efnExecutorBuild3), 'stuck');
 mockNotification.expects().displayAlert(TYPE_EXECUTOR, efnFeed, efnFeedResult.getBuilds()[1], efnFeedResult.getTitle());
 mockNotification.expects().playSound(efnFeedResult.getBuilds()[1]);
 executorFeedNotifier.process(efnFeed, efnFeedResult);
@@ -389,7 +390,7 @@ describe('ExecutorFeedNotifier', {
 })
 
 //////////////////////////////////////////////////////////////////////// menuitem
-var menuItem = new HudsonMenuItem('MyJob #118 (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
+var menuItem = new org_hudsonci.MenuItem('MyJob #118 (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', 'orb.png');
 describe('MenuItem', {
 	'should return correct title': function() {
 		value_of(menuItem.getTitle()).should_be('MyJob #118 (SUCCESS)');
@@ -408,9 +409,9 @@ function MockLoggerService() {
 }
 var mockControl = new MockControl();
 var mockLoggerService = mockControl.createMock(MockLoggerService);
-var mockPreferences = mockControl.createMock(HudsonPreferences);
-var mockUtil = mockControl.createMock(HudsonUtil);
-var enabledLogger = new HudsonLogger(mockLoggerService, mockUtil, mockPreferences);
+var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
+var mockUtil = mockControl.createMock(org_hudsonci.Util);
+var enabledLogger = new org_hudsonci.Logger(mockLoggerService, mockUtil, mockPreferences);
 mockPreferences.expects().getDebug().andReturn(true);
 mockUtil.expects().getLogDate().andReturn('22 March 1980');
 mockLoggerService.expects().debug('BuildMonitor [22 March 1980][main]: Starting...');
@@ -424,9 +425,9 @@ describe('Enabled Logger', {
 })
 var mockControl = new MockControl();
 var mockLoggerService = mockControl.createMock(MockLoggerService);
-var mockPreferences = mockControl.createMock(HudsonPreferences);
-var mockUtil = mockControl.createMock(HudsonUtil);
-var disabledLogger = new HudsonLogger(mockLoggerService, mockUtil, mockPreferences);
+var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
+var mockUtil = mockControl.createMock(org_hudsonci.Util);
+var disabledLogger = new org_hudsonci.Logger(mockLoggerService, mockUtil, mockPreferences);
 mockPreferences.expects().getDebug().andReturn(false);
 disabledLogger.debug('Starting...');
 var disabledLoggerException = null;
@@ -438,13 +439,13 @@ describe('Disabled Logger', {
 })
 var mockControl = new MockControl();
 var mockLoggerService = mockControl.createMock(MockLoggerService);
-var mockPreferences = mockControl.createMock(HudsonPreferences);
-var mockUtil = mockControl.createMock(HudsonUtil);
-var enabledLoggerWithFeed = new HudsonLogger(mockLoggerService, mockUtil, mockPreferences);
+var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
+var mockUtil = mockControl.createMock(org_hudsonci.Util);
+var enabledLoggerWithFeed = new org_hudsonci.Logger(mockLoggerService, mockUtil, mockPreferences);
 mockPreferences.expects().getDebug().andReturn(true);
 mockUtil.expects().getLogDate().andReturn('28 May 1980');
 mockLoggerService.expects().debug('BuildMonitor [28 May 1980][0-My Feed]: Starting...');
-var feed = new HudsonFeed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
+var feed = new org_hudsonci.Feed(0, 'My Feed', 'http://localhost/hudson/job/MyJob/rssAll', lastFailDate);
 enabledLoggerWithFeed.debug('Starting...', feed);
 var enabledLoggerWithFeedException = null;
 try { mockControl.verify(); } catch (e) { enabledLoggerWithFeedException = e; }
@@ -460,16 +461,16 @@ function MockNotificationService() {
 	this.playSound = function(feed) {}
 }
 var mockControl = new MockControl();
-var mockPreferences = mockControl.createMock(HudsonPreferences);
+var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
 var mockNotificationService = mockControl.createMock(MockNotificationService);
-var mockFeed = mockControl.createMock(HudsonFeed);
-var mockBuild = mockControl.createMock(HudsonBuild);
+var mockFeed = mockControl.createMock(org_hudsonci.Feed);
+var mockBuild = mockControl.createMock(org_hudsonci.Build);
 var type = TYPE_EXECUTOR;
 mockPreferences.expects().getAlert().andReturn(true);
 mockNotificationService.expects().displayAlert(type, 'some title', mockFeed, mockBuild);
 mockPreferences.expects().getSound().andReturn(true);
 mockNotificationService.expects().playSound(mockBuild);
-var notification = new HudsonNotification(mockNotificationService, mockPreferences);
+var notification = new org_hudsonci.Notification(mockNotificationService, mockPreferences);
 notification.displayAlert(type, mockFeed, mockBuild, 'some title');
 notification.playSound(mockBuild);
 var notificationException = null;
@@ -488,7 +489,7 @@ function MockPreferencesService() {
 }
 var mockControl = new MockControl();
 var mockPreferencesService = mockControl.createMock(MockPreferencesService);
-var preferences = new HudsonPreferences(mockPreferencesService, 2);
+var preferences = new org_hudsonci.Preferences(mockPreferencesService, 2);
 mockPreferencesService.expects().getBoolean('hudson.debug').andReturn(false);
 mockPreferencesService.expects().getString('hudson.successcolor').andReturn('green');
 mockPreferencesService.expects().getString('hudson.feedstatustype').andReturn('health');
@@ -576,7 +577,7 @@ describe('Preferences', {
 })
 
 //////////////////////////////////////////////////////////////////////// util
-var util = new HudsonUtil();
+var util = new org_hudsonci.Util();
 describe('Util', {
 	'should return correct boolean value when passed string true': function() {
 		value_of(util.getBoolean('true')).should_be_true();
@@ -605,7 +606,7 @@ function MockBundle() {
 }
 var mockControl = new MockControl();
 var mockBundle = mockControl.createMock(MockBundle);
-var simpleLocaliser = new HudsonLocaliser();
+var simpleLocaliser = new org_hudsonci.Localiser();
 simpleLocaliser.setBundle(mockBundle);
 mockBundle.expects().getString('monitor.init').andReturn('Initialising monitor.');
 var simpleText = simpleLocaliser.getText('monitor.init');
@@ -622,7 +623,7 @@ describe('Simple Localiser', {
 var mockControl = new MockControl();
 var mockBundle = mockControl.createMock(MockBundle);
 var dummyArgs = new Array();
-var formattedLocaliser = new HudsonLocaliser();
+var formattedLocaliser = new org_hudsonci.Localiser();
 formattedLocaliser.setBundle(mockBundle);
 mockBundle.expects().getFormattedString('menu.add.linkdiscovery', dummyArgs).andReturn('Add \'My Feed\' To Hudson Build Monitor');
 var formattedText = formattedLocaliser.getText('menu.add.linkdiscovery', dummyArgs);
@@ -644,7 +645,7 @@ function MockFfConsoleService() {
 var mockControl = new MockControl();
 var mockFfConsoleService = mockControl.createMock(MockFfConsoleService);
 mockFfConsoleService.expects().logStringMessage('Some message');
-var loggerService = new HudsonLoggerService(mockFfConsoleService);
+var loggerService = new org_hudsonci.LoggerService(mockFfConsoleService);
 loggerService.debug('Some message');
 var loggerServiceException = null;
 try { mockControl.verify(); } catch (e) { loggerServiceException = e; }
@@ -681,7 +682,7 @@ var mockFfAlertsService = mockControl.createMock(MockFfAlertsService);
 var mockFfSoundService = mockControl.createMock(MockFfSoundService);
 var mockFfIoService = mockControl.createMock(MockFfIoService);
 var mockUri = mockControl.createMock(MockUri);
-var notificationService = new HudsonNotificationService(mockFfAlertsService, mockFfSoundService, mockFfIoService);
+var notificationService = new org_hudsonci.NotificationService(mockFfAlertsService, mockFfSoundService, mockFfIoService);
 mockBuild.expects().getStatus().andReturn('stuck');
 mockFeed.expects().getName().andReturn('TheirJob');
 mockBuild.expects().getDetails().andReturn('some details');
@@ -716,7 +717,7 @@ mockFfPreferencesService.expects().getCharPref('hudson.char.key').andReturn('som
 mockFfPreferencesService.expects().setCharPref('hudson.char.key', 'some char value');
 mockFfPreferencesService.expects().getIntPref('hudson.int.key').andReturn(88);
 mockFfPreferencesService.expects().setIntPref('hudson.int.key', 88);
-var preferencesService = new HudsonPreferencesService(mockFfPreferencesService);
+var preferencesService = new org_hudsonci.PreferencesService(mockFfPreferencesService);
 var preferenceBooleanValue = preferencesService.getBoolean('hudson.bool.key');
 preferencesService.setBoolean('hudson.bool.key', true);
 var preferenceStringValue = preferencesService.getString('hudson.char.key');

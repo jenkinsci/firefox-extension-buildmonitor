@@ -1,4 +1,4 @@
-var HudsonPanel = HudsonUiElement.extend({
+org_hudsonci.Panel = org_hudsonci.UiElement.extend({
 	prepare: function(container, feed, hideName) {
 		var panel = document.createElement('statusbarpanel');
 		panel.setAttribute('id', this._getPanelId(feed));

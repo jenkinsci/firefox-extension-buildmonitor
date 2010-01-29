@@ -1,4 +1,4 @@
-var HudsonBuildMonitor = Base.extend({
+org_hudsonci.BuildMonitor = Base.extend({
 	constructor: function(preferences, ui, downloader, logger, localiser, notification) {
 		this.preferences = preferences;
 		this.ui = ui;
@@ -21,8 +21,8 @@ var HudsonBuildMonitor = Base.extend({
 
 		var size = this.preferences.getSize();
 		var feedStatusType = this.preferences.getFeedStatusType();
-		this.executorCallback = new HudsonDownloaderCallback(TYPE_EXECUTOR, new HudsonExecutorFeedParser(size), new HudsonExecutorFeedNotifier(this.notification, this.preferences), this.logger, this.localiser, this.ui);
-		this.historicCallback = new HudsonDownloaderCallback(TYPE_HISTORIC, new HudsonHistoricFeedParser(size, feedStatusType), new HudsonHistoricFeedNotifier(this.notification, this.preferences), this.logger, this.localiser, this.ui);
+		this.executorCallback = new org_hudsonci.DownloaderCallback(TYPE_EXECUTOR, new org_hudsonci.ExecutorFeedParser(size), new org_hudsonci.ExecutorFeedNotifier(this.notification, this.preferences), this.logger, this.localiser, this.ui);
+		this.historicCallback = new org_hudsonci.DownloaderCallback(TYPE_HISTORIC, new org_hudsonci.HistoricFeedParser(size, feedStatusType), new org_hudsonci.HistoricFeedNotifier(this.notification, this.preferences), this.logger, this.localiser, this.ui);
 		for (var i = 0; i < this.feeds.length; i++) {
 			if (!this.feeds[i].isIgnored()) {
 				this.run(i);

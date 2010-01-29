@@ -1,4 +1,4 @@
-var HudsonFeedParser = Base.extend({
+org_hudsonci.FeedParser = Base.extend({
 	constructor: function(size) {
 		this.size = size;
 	},

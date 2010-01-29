@@ -1,4 +1,4 @@
-var HudsonExecutorFeedNotifier = HudsonFeedNotifier.extend ({
+org_hudsonci.ExecutorFeedNotifier = org_hudsonci.FeedNotifier.extend ({
 	process: function(feed, result) {
 		var builds = result.getBuilds();
 		for (var i = 0; i < builds.length; i++) {

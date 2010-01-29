@@ -1,4 +1,4 @@
-var HudsonFeedsTree = Base.extend({
+org_hudsonci.FeedsTree = Base.extend({
     constructor: function(preferences, numOfFeeds) {
         this.preferences = preferences;
         this.numOfFeeds = numOfFeeds;

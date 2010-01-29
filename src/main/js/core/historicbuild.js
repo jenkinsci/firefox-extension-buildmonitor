@@ -1,4 +1,4 @@
-var HudsonHistoricBuild = HudsonBuild.extend ({
+org_hudsonci.HistoricBuild = org_hudsonci.Build.extend ({
 	constructor: function(name, url, date) {
 		this.base(name, url);
 		this.date = date;

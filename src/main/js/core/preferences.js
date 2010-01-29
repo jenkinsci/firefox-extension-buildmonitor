@@ -1,4 +1,4 @@
-var HudsonPreferences = Base.extend({
+org_hudsonci.Preferences = Base.extend({
 	constructor: function(service, numOfFeeds) {
 		this.service = service;
 		this.numOfFeeds = numOfFeeds;
@@ -53,7 +53,7 @@ var HudsonPreferences = Base.extend({
 	    	if (lastFailISOString != null && lastFailISOString.length > 0) {
 	    		lastFail = Date.parseExact(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
 	    	}
-	    	feeds[i] = new HudsonFeed(i, name, url, lastFail);
+	    	feeds[i] = new org_hudsonci.Feed(i, name, url, lastFail);
 	    }
 	    return feeds;
 	},
@@ -66,7 +66,7 @@ var HudsonPreferences = Base.extend({
 	    	feeds[i].setId(i - 1);
 	    	this.setFeed(feeds[i]);
 	    }
-	    var emptyLastFeed = new HudsonFeed(feeds.length - 1, '', '', null);
+	    var emptyLastFeed = new org_hudsonci.Feed(feeds.length - 1, '', '', null);
 	    this.setFeed(emptyLastFeed);
 	},
 	setFeed: function(feed) {

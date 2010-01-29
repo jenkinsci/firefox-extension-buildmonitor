@@ -1,4 +1,4 @@
-var HudsonMenuItem = Base.extend({
+org_hudsonci.MenuItem = Base.extend({
 	constructor: function(title, url, icon) {
 		this.title = title;
 		this.url = url;

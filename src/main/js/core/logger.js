@@ -1,4 +1,4 @@
-var HudsonLogger = Base.extend({
+org_hudsonci.Logger = Base.extend({
 	constructor: function(service, util, preferences) {
 		this.service = service;
 		this.util = util;

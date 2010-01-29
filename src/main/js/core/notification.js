@@ -1,4 +1,4 @@
-var HudsonNotification = Base.extend({
+org_hudsonci.Notification = Base.extend({
 	constructor: function(service, preferences) {
 		this.service = service;
 		this.preferences = preferences;

@@ -1,4 +1,4 @@
-var HudsonAddFeedWindow = Base.extend({
+org_hudsonci.AddFeedWindow = Base.extend({
 	constructor: function(util, preferences) {
 		this.util = util;
 		this.preferences = preferences;
@@ -10,7 +10,7 @@ var HudsonAddFeedWindow = Base.extend({
 			contextMenu.addEventListener('popupshowing', this._setMenuVisibility, false);
 		}
 	},
-	// NOTE: 'this' in the context is the document, not HudsonAddFeedWindow instance
+	// NOTE: 'this' in the context is the document, not org_hudsonci.AddFeedWindow instance
 	_setMenuVisibility: function() {
 		if (gContextMenu) {
 			document.getElementById('hudson-context-menu-addlink').hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink && util.isHudsonRss(gContextMenu.linkURL));
@@ -37,12 +37,12 @@ var HudsonAddFeedWindow = Base.extend({
 		var id = this.util.getInteger(document.getElementById('hudson-link-id').value);
 		var name = document.getElementById('hudson-link-name').value;
 		var url = document.getElementById('hudson-link-url').value;
-		var feed = new HudsonFeed(id, name, url, null);
+		var feed = new org_hudsonci.Feed(id, name, url, null);
 		this.preferences.addFeed(feed);
 	},
 	_getRecommendedName: function(url) {
 		var name = '';
-		var feed = new HudsonFeed(-1, '', url, null);
+		var feed = new org_hudsonci.Feed(-1, '', url, null);
 		if (feed.isJob() || feed.isView()) {
 			name = feed.getItemName();
 		} else {

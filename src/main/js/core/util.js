@@ -1,4 +1,5 @@
-var HudsonUtil = Base.extend({
+namespace('org_hudsonci');
+org_hudsonci.Util = Base.extend({
 	getBoolean: function(stringValue) {
 		var booleanValue = Boolean(false);
 		if (stringValue == 'true') {

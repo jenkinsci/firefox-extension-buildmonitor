@@ -1,6 +1,6 @@
-var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
+org_hudsonci.ExecutorFeedParser = org_hudsonci.FeedParser.extend ({
 	parse: function(xml) {
-		var util = new HudsonUtil();
+		var util = new org_hudsonci.Util();
 		var root = new DOMParser().parseFromString(xml, "text/xml");
 		var builds = new Array();
 		var computers = root.getElementsByTagName('computer');
@@ -22,7 +22,7 @@ var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
 					url = this.getElementValue(currentExecutableElement, 'url');
 					name = new String(url.match('/job/[^/]+/[^/]+')).replace(/\/job\//, '').replace(/\//, '#');
 				}
-				builds[buildCount++] = new HudsonExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
+				builds[buildCount++] = new org_hudsonci.ExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
         		if (isStuck == true) {
         			status = 'stuck';
         		} else if (status != 'stuck' && currentExecutableElement != null) {
@@ -30,6 +30,6 @@ var HudsonExecutorFeedParser = HudsonFeedParser.extend ({
         		}
 			}
 		}
-		return new HudsonFeedResult('Hudson build executors', builds, status);
+		return new org_hudsonci.FeedResult('Hudson build executors', builds, status);
 	}
 });

@@ -1,4 +1,4 @@
-var HudsonBuildsPopup = HudsonUiElement.extend({
+org_hudsonci.BuildsPopup = org_hudsonci.UiElement.extend({
 	prepare: function(container, feed) {
 		var buildsMenupopup = document.createElement('menupopup');
 		buildsMenupopup.setAttribute('id', this._getBuildsMenupopupId(feed));

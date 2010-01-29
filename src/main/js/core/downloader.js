@@ -1,4 +1,4 @@
-var HudsonDownloader = Base.extend({
+org_hudsonci.Downloader = Base.extend({
 	download: function(callback, url, feed, networkUsername, networkPassword) {
 		var request = new XMLHttpRequest();
 	    request.open("GET", url, true);

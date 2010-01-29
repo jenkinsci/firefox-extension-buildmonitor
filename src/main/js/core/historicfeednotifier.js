@@ -1,4 +1,4 @@
-var HudsonHistoricFeedNotifier = HudsonFeedNotifier.extend ({
+org_hudsonci.HistoricFeedNotifier = org_hudsonci.FeedNotifier.extend ({
 	process: function(feed, result) {
 		var builds = result.getBuilds();
 		for (var i = 0; i < builds.length; i++) {
