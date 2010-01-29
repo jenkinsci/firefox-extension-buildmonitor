@@ -12,7 +12,7 @@ org_hudsonci.BuildsPopup = org_hudsonci.UiElement.extend({
 			var menuitem = document.createElement('menuitem');
 		    menuitem.setAttribute('label', builds[i].getDetails());
 		   	menuitem.setAttribute('value', builds[i].getUrl());
-		   	menuitem.setAttribute('oncommand', 'hudson_goTo(this.value)');
+		   	menuitem.setAttribute('oncommand', 'org_hudsonci.goTo(this.value)');
 		   	menuitem.setAttribute('class', 'menuitem-iconic');
 		   	menuitem.setAttribute('image', 'chrome://buildmonitor/skin/status/' + this.uiUtil.getStatusSkinType(this.type) + '/' + this.uiUtil.getVisualStatus(builds[i].getStatus(), successColor) + '.png');
 		   	menuitem.setAttribute('maxwidth', '1000');

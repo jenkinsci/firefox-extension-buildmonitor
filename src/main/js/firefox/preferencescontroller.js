@@ -1,6 +1,6 @@
 org_hudsonci.submit = function() {
 	var parent = window.arguments[0];
-	parent.hudson_runAll();
+	parent.buildMonitor.runAll();
 }
 org_hudsonci.initView = function() {
     document.documentElement.getButton('accept').hidden = false;

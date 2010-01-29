@@ -4,5 +4,5 @@ org_hudsonci.prepare = function() {
 org_hudsonci.submit = function() {
 	addFeedWindow.save();
 	var parent = window.arguments[0];
-	parent.hudson_runAll();
+	parent.buildMonitor.runAll();
 }
