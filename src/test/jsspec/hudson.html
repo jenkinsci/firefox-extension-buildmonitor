@@ -25,6 +25,7 @@
 <script type="text/javascript" src="../../../src/main/js/core/logger.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/notification.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/preferences.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/scheduler.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/feednotifier.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicfeednotifier.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/executorfeednotifier.js"></script>
@@ -33,6 +34,7 @@
 <script type="text/javascript" src="../../../src/main/js/firefox/loggerservice.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/notificationservice.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/preferencesservice.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/schedulerservice.js"></script>
 <script type="text/javascript">// <![CDATA[
 
 //////////////////////////////////////////////////////////////////////// core
@@ -576,6 +578,24 @@ describe('Preferences', {
 	}
 })
 
+//////////////////////////////////////////////////////////////////////// scheduler
+function MockSchedulerService() {
+    this.schedule = function(event, interval) {}
+}
+var mockControl = new MockControl();
+var mockSchedulerService = mockControl.createMock(MockSchedulerService);
+var scheduler = new org_hudsonci.Scheduler(mockSchedulerService);
+var schedulerCallback;
+mockSchedulerService.expects().schedule(schedulerCallback, 5);
+scheduler.schedule(schedulerCallback, 5);
+var schedulerException = null;
+try { mockControl.verify(); } catch (e) { schedulerException = e; }
+describe('Scheduler', {
+    'should call schedule with correct event and interval': function() {
+        value_of(schedulerException).should_be_null();
+    }
+})
+
 //////////////////////////////////////////////////////////////////////// util
 var util = new org_hudsonci.Util();
 describe('Util', {
@@ -739,6 +759,24 @@ describe('PreferencesService', {
 	'should return correct integer value': function() {
 		value_of(preferenceIntegerValue).should_be(88);
 	}
+})
+
+//////////////////////////////////////////////////////////////////////// schedulerservice
+function MockFfTimerService() {
+    this.initWithCallback = function(callback, delay, type) {}
+}
+var mockControl = new MockControl();
+var mockFfTimerService = mockControl.createMock(MockFfTimerService);
+var schedulerServiceCallback;
+mockFfTimerService.expects().initWithCallback(schedulerServiceCallback, 120000, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
+var schedulerService = new org_hudsonci.SchedulerService(mockFfTimerService);
+schedulerService.schedule(schedulerServiceCallback, 2);
+var schedulerServiceException = null;
+try { mockControl.verify(); } catch (e) { schedulerServiceException = e; }
+describe('SchedulerService', {
+    'should call scheduler service methods': function() {
+        value_of(schedulerServiceException).should_be_null();
+    }
 })
 
 // ]]></script>

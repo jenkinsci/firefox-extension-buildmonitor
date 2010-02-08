@@ -29,6 +29,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/logger.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/notification.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/scheduler.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feednotifier.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeednotifier.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeednotifier.js"/>
@@ -36,6 +37,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/loggerservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/notificationservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/schedulerservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/feedstree.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>

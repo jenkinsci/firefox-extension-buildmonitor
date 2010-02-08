@@ -13,7 +13,8 @@ org_hudsonci.schedule = function() {
 	org_hudsonci.runAll();
 	var interval = preferences.getInterval();
 	logger.debug(localiser.getText('monitor.schedule', [interval]));
-	setTimeout('org_hudsonci.schedule()', interval * 60 * 1000);
+    var callback = { notify: function(ffTimerService) { org_hudsonci.schedule(); } }
+    scheduler.schedule(callback, interval);
 }
 org_hudsonci.goToDashboard = function(i) {
 	org_hudsonci.goTo(buildMonitor.getFeeds()[i].getDashboardUrl());
@@ -32,10 +33,10 @@ org_hudsonci.removeFeed = function(i) {
 	buildMonitor.removeFeed(i);
 	org_hudsonci.runAll();
 }
-function hudson_openAddFeedWindow(url) {
+org_hudsonci_openAddFeedWindow = function(url) {
 	window.openDialog('chrome://buildmonitor/content/addfeed.xul', 'addfeed', 'centerscreen,chrome,modal', this, url);
 }
-function hudson_openPreferencesWindow() {
+org_hudsonci_openPreferencesWindow = function() {
 	window.openDialog('chrome://buildmonitor/content/preferences.xul', 'preferences', 'centerscreen,chrome,modal', this);
 }
 window.addEventListener('load', function() {org_hudsonci.initialise();}, false);

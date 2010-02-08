@@ -1,12 +1,16 @@
 const NUM_OF_FEEDS = 15;
 
+var ffTimerService = Components.classes["@mozilla.org/timer;1"].createInstance(Components.interfaces.nsITimer);
+
 var loggerService = new org_hudsonci.LoggerService(Components.classes['@mozilla.org/consoleservice;1'].getService(Components.interfaces.nsIConsoleService));
 var preferencesService = new org_hudsonci.PreferencesService(Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch));
 var notificationService = new org_hudsonci.NotificationService(Components.classes['@mozilla.org/alerts-service;1'].getService(Components.interfaces.nsIAlertsService), Components.classes['@mozilla.org/sound;1'].createInstance(Components.interfaces.nsISound), Components.classes['@mozilla.org/network/io-service;1'].getService(Components.interfaces.nsIIOService));
+var schedulerService = new org_hudsonci.SchedulerService(ffTimerService);
 
 var util = new org_hudsonci.Util();
 var localiser = new org_hudsonci.Localiser();
 var preferences = new org_hudsonci.Preferences(preferencesService, NUM_OF_FEEDS);
+var scheduler = new org_hudsonci.Scheduler(schedulerService);
 var feedsTree = new org_hudsonci.FeedsTree(preferences, NUM_OF_FEEDS);
 var logger = new org_hudsonci.Logger(loggerService, util, preferences);
 var notification = new org_hudsonci.Notification(notificationService, preferences);

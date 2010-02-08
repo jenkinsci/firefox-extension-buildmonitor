@@ -22,6 +22,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/logger.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/notification.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/scheduler.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feednotifier.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeednotifier.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeednotifier.js"/>
@@ -29,6 +30,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/loggerservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/notificationservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/schedulerservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/feedstree.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
@@ -49,7 +51,7 @@
 	</stringbundleset>
 	
 	<popup id="contentAreaContextMenu">
-		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="hudson_openAddFeedWindow(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
+		<menuitem id="hudson-context-menu-addlink" label="&menu.add.link;" oncommand="org_hudsonci_openAddFeedWindow(gContextMenu.linkURL);" class="menuitem-iconic" image="chrome://buildmonitor/skin/icon_16.png" insertafter="context-sendlink"/>
 	</popup>
 	
 	<statusbar id="status-bar">
@@ -61,7 +63,7 @@
 			</vbox>
 		</tooltip>
 		<menupopup id="hudson-menupopup-menus-main">
-			<menuitem label="&menu.preferences;" oncommand="hudson_openPreferencesWindow();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/preferences.png"/>
+			<menuitem label="&menu.preferences;" oncommand="org_hudsonci_openPreferencesWindow();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/preferences.png"/>
 			<menuitem label="&menu.refresh.all;" oncommand="org_hudsonci.runAll();" class="menuitem-iconic" image="chrome://buildmonitor/skin/menu/refreshall.png"/>
 		</menupopup>
 		<statusbarpanel id="hudson-panel-main" class="statusbarpanel-iconic-text" label="" src="chrome://buildmonitor/skin/icon_16.png" tooltip="hudson-tooltip-main" context="hudson-menupopup-menus-main"/>

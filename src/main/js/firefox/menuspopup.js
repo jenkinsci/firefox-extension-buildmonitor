@@ -12,7 +12,7 @@ org_hudsonci.MenusPopup = org_hudsonci.UiElement.extend({
 	
 		var preferencesMenuItem = document.createElement('menuitem');
 		preferencesMenuItem.setAttribute('label', this.localiser.getText('menu.preferences'));
-		preferencesMenuItem.setAttribute('oncommand', 'hudson_openPreferencesWindow();');
+		preferencesMenuItem.setAttribute('oncommand', 'org_hudsonci_openPreferencesWindow();');
 		preferencesMenuItem.setAttribute('class', 'menuitem-iconic');
 		preferencesMenuItem.setAttribute('image', 'chrome://buildmonitor/skin/menu/preferences.png');
 		menupopup.appendChild(preferencesMenuItem);
