@@ -40,10 +40,10 @@
 //////////////////////////////////////////////////////////////////////// core
 ////////////////////////////////////////////////////////////////////////
 
-var lastFailDate = Date.parseExact('2009-08-22T03:27:41Z', 'yyyy-MM-ddTHH:mm:ssZ');
+var lastFailDate = getDateFromFormat('2009-08-22T03:27:41Z', 'yyyy-MM-ddTHH:mm:ssZ');
 
 //////////////////////////////////////////////////////////////////////// historicbuild
-var historicBuildDate = Date.parseExact('2009-06-02T07:41:38Z', 'yyyy-MM-ddTHH:mm:ssZ');
+var historicBuildDate = getDateFromFormat('2009-06-02T07:41:38Z', 'yyyy-MM-ddTHH:mm:ssZ');
 var historicBuild = new org_hudsonci.HistoricBuild('MyJob (SUCCESS)', 'http://localhost/hudson/job/MyJob/118/', historicBuildDate);
 describe('HistoricBuild', {
 	'should return correct name': function() {
@@ -53,7 +53,7 @@ describe('HistoricBuild', {
 		value_of(historicBuild.getUrl()).should_be('http://localhost/hudson/job/MyJob/118/');
 	},
 	'should return correct date': function() {
-		value_of(historicBuild.getDate().toString('dd-MM-yyyy hh:mm:ss')).should_be('02-06-2009 07:41:38');
+		value_of(formatDate(historicBuild.getDate(), 'dd-MM-yyyy hh:mm:ss')).should_be('02-06-2009 07:41:38');
 	},
 	'should return correct status': function() {
 		value_of(historicBuild.getStatus()).should_be('success');
@@ -274,7 +274,7 @@ describe('HistoricFeedParser', {
 		value_of(historicBuilds[0].getUrl()).should_be('http://hudson.zones.apache.org/hudson/job/vysper-trunk-jdk1.6-solaris/22/');
 	},
 	'should return correct build date': function() {
-		value_of(historicBuilds[0].getDate().toString('dd-MM-yyyy hh:mm:ss')).should_be('01-06-2009 07:36:43');
+		value_of(formatDate(historicBuilds[0].getDate(), 'dd-MM-yyyy hh:mm:ss')).should_be('01-06-2009 07:36:43');
 	},
 	'should return correct status': function() {
 		value_of(historicFeedResult.getStatus()).should_be('health_80');

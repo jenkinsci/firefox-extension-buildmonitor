@@ -51,7 +51,7 @@ org_hudsonci.Preferences = Base.extend({
 	    	var lastFail = null;
 	    	var lastFailISOString = this.service.getString('hudson.feeds.' + i + '.lastfail');
 	    	if (lastFailISOString != null && lastFailISOString.length > 0) {
-	    		lastFail = Date.parseExact(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
+	    		lastFail = getDateFromFormat(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
 	    	}
 	    	feeds[i] = new org_hudsonci.Feed(i, name, url, lastFail);
 	    }
@@ -76,7 +76,7 @@ org_hudsonci.Preferences = Base.extend({
 		
 		var lastFail = '';
 		if (feed.getLastFail() != null) {
-			lastFail = feed.getLastFail().toString('yyyy-MM-ddTHH:mm:ssZ');
+			lastFail = formatDate(feed.getLastFail(), 'yyyy-MM-ddTHH:mm:ssZ');
 		}
 		this.service.setString('hudson.feeds.' + id + '.lastfail', lastFail);
 	}
