@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.jvnet.hudson.plugins</groupId>
   <artifactId>buildmonitor</artifactId>
-  <version>1.5.2-SNAPSHOT</version>
+  <version>1.5.2</version>
   <description>Monitor Hudson builds and display the status on Firefox status bar.</description>
   <inceptionYear>2008</inceptionYear>
   <name>BuildMonitor</name>
@@ -75,4 +75,10 @@
       </plugin>
     </plugins>
   </build>
+
+  <scm>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/buildmonitor-1.5.2</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/buildmonitor-1.5.2</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/hudson/plugins/buildmonitor/tags/buildmonitor-1.5.2</url>
+  </scm>
 </project>
