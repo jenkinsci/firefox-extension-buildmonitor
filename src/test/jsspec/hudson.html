@@ -26,6 +26,7 @@
 <script type="text/javascript" src="../../../src/main/js/core/notification.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/preferences.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/scheduler.js"></script>
+<script type="text/javascript" src="../../../src/main/js/core/account.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/feednotifier.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/historicfeednotifier.js"></script>
 <script type="text/javascript" src="../../../src/main/js/core/executorfeednotifier.js"></script>
@@ -35,6 +36,7 @@
 <script type="text/javascript" src="../../../src/main/js/firefox/notificationservice.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/preferencesservice.js"></script>
 <script type="text/javascript" src="../../../src/main/js/firefox/schedulerservice.js"></script>
+<script type="text/javascript" src="../../../src/main/js/firefox/accountservice.js"></script>
 <script type="text/javascript">// <![CDATA[
 
 //////////////////////////////////////////////////////////////////////// core
@@ -596,6 +598,42 @@ describe('Scheduler', {
     }
 })
 
+//////////////////////////////////////////////////////////////////////// account
+function MockAccountService() {
+    this.save = function(realm, username, password) {}
+    this.load = function(realm, username) {}
+}
+var mockControl = new MockControl();
+var mockAccountService = mockControl.createMock(MockAccountService);
+var account = new org_hudsonci.Account(mockAccountService);
+mockAccountService.expects().save('Dummy Realm', 'dummyusername', 'dummypassword');
+account.save('Dummy Realm', 'dummyusername', 'dummypassword');
+var accountException = null;
+try { mockControl.verify(); } catch (e) { accountException = e; }
+describe('Account Save', {
+    'should call save with correct realm username and password': function() {
+        value_of(accountException).should_be_null();
+    }
+})
+function MockLoginInfo() {
+}
+var mockControl = new MockControl();
+var mockAccountService = mockControl.createMock(MockAccountService);
+var account = new org_hudsonci.Account(mockAccountService);
+var mockLoginInfo = mockControl.createMock(MockLoginInfo);
+mockAccountService.expects().load('Dummy Realm', 'dummyusername').andReturn(mockLoginInfo);
+var loginInfo = account.load('Dummy Realm', 'dummyusername');
+var accountException = null;
+try { mockControl.verify(); } catch (e) { accountException = e; }
+describe('Account Load', {
+    'should call load with correct realm and username': function() {
+        value_of(accountException).should_be_null();
+    },
+    'should return expected login info': function() {
+        value_of(loginInfo).should_be(mockLoginInfo);
+    }
+})
+
 //////////////////////////////////////////////////////////////////////// util
 var util = new org_hudsonci.Util();
 describe('Util', {
@@ -689,7 +727,7 @@ function MockBuild() {
 function MockFfAlertsService() {
 	this.showAlertNotification = function(imageUrl, title, text, textClickable) {}
 }
-function MockFfSoundService() {
+function MockFfSound() {
 	this.play = function(aURL) {}
 }
 function MockFfIoService() {
@@ -699,17 +737,17 @@ var mockControl = new MockControl();
 var mockFeed = mockControl.createMock(MockFeed);
 var mockBuild = mockControl.createMock(MockBuild);
 var mockFfAlertsService = mockControl.createMock(MockFfAlertsService);
-var mockFfSoundService = mockControl.createMock(MockFfSoundService);
+var mockFfSound = mockControl.createMock(MockFfSound);
 var mockFfIoService = mockControl.createMock(MockFfIoService);
 var mockUri = mockControl.createMock(MockUri);
-var notificationService = new org_hudsonci.NotificationService(mockFfAlertsService, mockFfSoundService, mockFfIoService);
+var notificationService = new org_hudsonci.NotificationService(mockFfAlertsService, mockFfSound, mockFfIoService);
 mockBuild.expects().getStatus().andReturn('stuck');
 mockFeed.expects().getName().andReturn('TheirJob');
 mockBuild.expects().getDetails().andReturn('some details');
 mockFfAlertsService.expects().showAlertNotification('chrome://buildmonitor/skin/status/build/stuck.png', 'some title [TheirJob]', 'some details', false);
 mockBuild.expects().getStatus().andReturn('stuck');
 mockFfIoService.expects().newURI('chrome://buildmonitor/skin/audio/stuck.wav', null, null).andReturn(mockUri);
-mockFfSoundService.expects().play(mockUri); 
+mockFfSound.expects().play(mockUri); 
 notificationService.displayAlert(TYPE_HISTORIC, 'some title', mockFeed, mockBuild);
 notificationService.playSound(mockBuild);
 var notificationServiceException = null;
@@ -762,14 +800,14 @@ describe('PreferencesService', {
 })
 
 //////////////////////////////////////////////////////////////////////// schedulerservice
-function MockFfTimerService() {
+function MockFfTimer() {
     this.initWithCallback = function(callback, delay, type) {}
 }
 var mockControl = new MockControl();
-var mockFfTimerService = mockControl.createMock(MockFfTimerService);
+var mockFfTimer = mockControl.createMock(MockFfTimer);
 var schedulerServiceCallback;
-mockFfTimerService.expects().initWithCallback(schedulerServiceCallback, 120000, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
-var schedulerService = new org_hudsonci.SchedulerService(mockFfTimerService);
+mockFfTimer.expects().initWithCallback(schedulerServiceCallback, 120000, Components.interfaces.nsITimer.TYPE_ONE_SHOT);
+var schedulerService = new org_hudsonci.SchedulerService(mockFfTimer);
 schedulerService.schedule(schedulerServiceCallback, 2);
 var schedulerServiceException = null;
 try { mockControl.verify(); } catch (e) { schedulerServiceException = e; }
@@ -778,6 +816,93 @@ describe('SchedulerService', {
         value_of(schedulerServiceException).should_be_null();
     }
 })
+
+//////////////////////////////////////////////////////////////////////// accountservice
+function MockFfLoginManager() {
+    this.findLogins = function(count, hostName, url, realm, stuffs) {}
+    this.addLogin = function(loginInfo) {}
+    this.modifyLogin = function(oldLoginInfo, newLoginInfo) {}
+}
+function MockFfLoginInfo() {
+}
+var mockControl = new MockControl();
+var mockFfLoginManager = mockControl.createMock(MockFfLoginManager);
+var mockFfLoginInfo1 = mockControl.createMock(MockFfLoginInfo);
+var mockFfLoginInfo2 = mockControl.createMock(MockFfLoginInfo);
+var mockFfLoginInfo3 = mockControl.createMock(MockFfLoginInfo);
+var foundMultiLogins = [mockFfLoginInfo1, mockFfLoginInfo2, mockFfLoginInfo3];
+var foundSingleLogin = [mockFfLoginInfo1];
+var foundEmpty = [];
+var foundNull = null;
+mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundSingleLogin);
+var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
+var foundLoadSingleLogin = accountService.load('HTTP Basic Auth', 'dummyusername');
+var accountServiceException = null;
+try { mockControl.verify(); } catch (e) { accountServiceException = e; }
+describe('AccountService S Load', {
+    'should call account service methods': function() {
+        value_of(accountServiceException).should_be_null();
+    },
+    'should return single login': function() {
+        value_of(foundLoadSingleLogin).should_be(foundSingleLogin[0]);
+    }
+})
+mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundMultiLogins);
+var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
+var foundLoadMultiLogins = accountService.load('HTTP Basic Auth', 'dummyusername');
+var accountServiceException = null;
+try { mockControl.verify(); } catch (e) { accountServiceException = e; }
+describe('AccountService M Load', {
+    'should call account service methods': function() {
+        value_of(accountServiceException).should_be_null();
+    },
+    'should return single login': function() {
+        value_of(foundLoadMultiLogins).should_be(foundMultiLogins[0]);
+    }
+})
+mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundEmpty);
+var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
+var foundLoadEmpty = accountService.load('HTTP Basic Auth', 'dummyusername');
+var accountServiceException = null;
+try { mockControl.verify(); } catch (e) { accountServiceException = e; }
+describe('AccountService E Load', {
+    'should call account service methods': function() {
+        value_of(accountServiceException).should_be_null();
+    },
+    'should return null': function() {
+        value_of(foundLoadEmpty).should_be_null();
+    }
+})
+mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundNull);
+var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
+var foundLoadNull = accountService.load('HTTP Basic Auth', 'dummyusername');
+var accountServiceException = null;
+try { mockControl.verify(); } catch (e) { accountServiceException = e; }
+describe('AccountService N Load', {
+    'should call account service methods': function() {
+        value_of(accountServiceException).should_be_null();
+    },
+    'should return null': function() {
+        value_of(foundLoadNull).should_be_null();
+    }
+})
+
+
+/***
+///mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundNull);
+var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
+var foundLoadNull = accountService.save('HTTP Basic Auth', 'dummyusername', 'dummypassword');
+var accountServiceException = null;
+try { mockControl.verify(); } catch (e) { accountServiceException = e; }
+describe('AccountService Save', {
+    'should call account service methods': function() {
+        value_of(accountServiceException).should_be_null();
+    },
+    'should return null': function() {
+        value_of(foundLoadNull).should_be_null();
+    }
+})
+*///
 
 // ]]></script>
 </head>

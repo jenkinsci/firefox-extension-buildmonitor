@@ -1,7 +1,7 @@
 org_hudsonci.NotificationService = Base.extend ({
-	constructor: function(ffAlertsService, ffSoundService, ffIoService) {
+	constructor: function(ffAlertsService, ffSound, ffIoService) {
 		this.ffAlertsService = ffAlertsService;
-		this.ffSoundService = ffSoundService;
+		this.ffSound = ffSound;
 		this.ffIoService = ffIoService;
 		this.uiUtil = new org_hudsonci.UiUtil();
 	},
@@ -9,6 +9,6 @@ org_hudsonci.NotificationService = Base.extend ({
 		this.ffAlertsService.showAlertNotification('chrome://buildmonitor/skin/status/' + this.uiUtil.getStatusSkinType(type) + '/' + build.getStatus() + '.png', title + ' [' + feed.getName() + ']', build.getDetails(), false);
 	},
 	playSound: function(build) {
-		this.ffSoundService.play(this.ffIoService.newURI('chrome://buildmonitor/skin/audio/' + build.getStatus() + '.wav', null, null));
+		this.ffSound.play(this.ffIoService.newURI('chrome://buildmonitor/skin/audio/' + build.getStatus() + '.wav', null, null));
 	}
 });
