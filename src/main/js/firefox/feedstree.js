@@ -52,7 +52,8 @@ org_hudsonci.FeedsTree = Base.extend({
             },
             getRowProperties: function(row, props) {},
             getCellProperties: function(row, col, props) {},
-            getColumnProperties: function(colid, col, props) {}
+            getColumnProperties: function(colid, col, props) {},
+            cycleHeader: function(col) {}
         };
         document.getElementById('buildmonitor-prefs-feeds').view = this.treeView;
     },
@@ -68,13 +69,15 @@ org_hudsonci.FeedsTree = Base.extend({
         var row = { }, col = { }, child = { };
         tbo.getCellAt(event.clientX, event.clientY, row, col, child);
     
-        var cellText = tree.view.getCellText(row.value, col.value);
-        if (col.value.id == 'buildmonitor-prefs-feeds-remove' && !treeFeeds[row.value].isIgnored()) {
-            this._removeFeed(row.value);
-        } else if (col.value.id == 'buildmonitor-prefs-feeds-up' && !treeFeeds[row.value].isIgnored() && row.value > 0) {
-            this._swapFeeds(row.value - 1, row.value);
-        } else if (col.value.id == 'buildmonitor-prefs-feeds-down' && !treeFeeds[row.value].isIgnored() && row.value < NUM_OF_FEEDS - 1) {
-            this._swapFeeds(row.value, row.value + 1);
+        if (row.value != null && col.value != null) {
+            var cellText = tree.view.getCellText(row.value, col.value);
+            if (col.value.id == 'buildmonitor-prefs-feeds-remove' && !treeFeeds[row.value].isIgnored()) {
+                this._removeFeed(row.value);
+            } else if (col.value.id == 'buildmonitor-prefs-feeds-up' && !treeFeeds[row.value].isIgnored() && row.value > 0) {
+                this._swapFeeds(row.value - 1, row.value);
+            } else if (col.value.id == 'buildmonitor-prefs-feeds-down' && !treeFeeds[row.value].isIgnored() && row.value < NUM_OF_FEEDS - 1) {
+                this._swapFeeds(row.value, row.value + 1);
+            }
         }
     },
     _removeFeed: function(index) {
