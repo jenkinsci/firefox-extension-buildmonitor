@@ -1,6 +1,7 @@
 org_hudsonci.Preferences = Base.extend({
-	constructor: function(service, numOfFeeds) {
+	constructor: function(service, numOfFeeds, account) {
 		this.service = service;
+		this.account = account;
 		this.numOfFeeds = numOfFeeds;
 	},
 	getDebug: function() {
@@ -33,11 +34,19 @@ org_hudsonci.Preferences = Base.extend({
 	getExecutor: function() {	
 	    return this.service.getBoolean('hudson.executor');
 	},
-	getNetworkUsername: function() {	
-	    return this.service.getString('hudson.networkusername');
-	},
-	getNetworkPassword: function() {	
-	    return this.service.getString('hudson.networkpassword');
+    getNetworkUsername: function() {    
+        return this.service.getString('hudson.networkusername');
+    },
+	getNetworkPassword: function() {
+	    var networkUsername = this.getNetworkUsername();
+	    var networkPassword = '';
+	    if (networkUsername != null && networkUsername != '') {
+    	    var account = this.account.load('realm-buildmonitor', networkUsername);
+    	    if (account != null) {
+    	        networkPassword = account.password;
+    	    }
+    	}
+        return networkPassword;
 	},
 	getIdentifyRssPattern: function() {	
 	    return this.service.getBoolean('hudson.identifyrsspattern');
@@ -69,6 +78,9 @@ org_hudsonci.Preferences = Base.extend({
 	    var emptyLastFeed = new org_hudsonci.Feed(feeds.length - 1, '', '', null);
 	    this.setFeed(emptyLastFeed);
 	},
+    setNetworkPassword: function(networkUsername, networkPassword) {
+        this.account.save('realm-buildmonitor', networkUsername, networkPassword);
+    },
 	setFeed: function(feed) {
 		var id = feed.getId();
 		this.service.setString('hudson.feeds.' + id + '.name', feed.getName());

@@ -491,9 +491,17 @@ function MockPreferencesService() {
 	this.getString = function(key) {}
 	this.getInteger = function(key) {}
 }
+function MockAccount() {
+    this.load = function(realm, username) {}
+}
+function MockLoginInfo() {
+    this.password = 'mypassword';
+}
 var mockControl = new MockControl();
 var mockPreferencesService = mockControl.createMock(MockPreferencesService);
-var preferences = new org_hudsonci.Preferences(mockPreferencesService, 2);
+var mockAccount = mockControl.createMock(MockAccount);
+var mockLoginInfo = mockControl.createMock(MockLoginInfo);
+var preferences = new org_hudsonci.Preferences(mockPreferencesService, 2, mockAccount);
 mockPreferencesService.expects().getBoolean('hudson.debug').andReturn(false);
 mockPreferencesService.expects().getString('hudson.successcolor').andReturn('green');
 mockPreferencesService.expects().getString('hudson.feedstatustype').andReturn('health');
@@ -505,7 +513,11 @@ mockPreferencesService.expects().getBoolean('hudson.alert').andReturn(true);
 mockPreferencesService.expects().getBoolean('hudson.hidename').andReturn(false);
 mockPreferencesService.expects().getBoolean('hudson.executor').andReturn(true);
 mockPreferencesService.expects().getString('hudson.networkusername').andReturn('myusername');
-mockPreferencesService.expects().getString('hudson.networkpassword').andReturn('mypassword');
+mockPreferencesService.expects().getString('hudson.networkusername').andReturn('myusername');
+mockLoginInfo.password = 'mypassword';
+mockAccount.expects().load('realm-buildmonitor', 'myusername').andReturn(mockLoginInfo);
+mockPreferencesService.expects().getString('hudson.networkusername').andReturn('yourusername');
+mockAccount.expects().load('realm-buildmonitor', 'yourusername').andReturn(null);
 mockPreferencesService.expects().getBoolean('hudson.identifyrsspattern').andReturn(true);
 mockPreferencesService.expects().getString('hudson.feeds.0.name').andReturn('My Feed');
 mockPreferencesService.expects().getString('hudson.feeds.0.url').andReturn('http://localhost/hudson/job/MyJob/rssAll');
@@ -524,7 +536,8 @@ var alert = preferences.getAlert();
 var hideName = preferences.getHideName();
 var executor = preferences.getExecutor();
 var networkUsername = preferences.getNetworkUsername();
-var networkPassword = preferences.getNetworkPassword();
+var myNetworkPassword = preferences.getNetworkPassword();
+var yourNetworkPassword = preferences.getNetworkPassword();
 var identifyRssPattern = preferences.getIdentifyRssPattern();
 var feeds = preferences.getFeeds();
 var preferencesException = null;
@@ -566,9 +579,12 @@ describe('Preferences', {
 	'should return correct network username': function() {
 		value_of(networkUsername).should_be('myusername');
 	},
-	'should return correct network password': function() {
-		value_of(networkPassword).should_be('mypassword');
+	'should return correct network password when login exists': function() {
+		value_of(myNetworkPassword).should_be('mypassword');
 	},
+    'should return empty network password when login does not exist': function() {
+        value_of(yourNetworkPassword).should_be('');
+    },
 	'should return correct identify RSS pattern status': function() {
 		value_of(identifyRssPattern).should_be_true();
 	},
@@ -818,6 +834,9 @@ describe('SchedulerService', {
 })
 
 //////////////////////////////////////////////////////////////////////// accountservice
+/*
+// NOTE: the first arg of MockFfLoginManager, i.e. {}, needs to be passed as a param of
+// AccountService's load() and save() before the following four tests can be completed.
 function MockFfLoginManager() {
     this.findLogins = function(count, hostName, url, realm, stuffs) {}
     this.addLogin = function(loginInfo) {}
@@ -827,15 +846,15 @@ function MockFfLoginInfo() {
 }
 var mockControl = new MockControl();
 var mockFfLoginManager = mockControl.createMock(MockFfLoginManager);
-var mockFfLoginInfo1 = mockControl.createMock(MockFfLoginInfo);
-var mockFfLoginInfo2 = mockControl.createMock(MockFfLoginInfo);
-var mockFfLoginInfo3 = mockControl.createMock(MockFfLoginInfo);
-var foundMultiLogins = [mockFfLoginInfo1, mockFfLoginInfo2, mockFfLoginInfo3];
-var foundSingleLogin = [mockFfLoginInfo1];
-var foundEmpty = [];
-var foundNull = null;
-mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundSingleLogin);
-var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
+var mockFfLoginInfo = mockControl.createMock(MockFfLoginInfo);
+//var mockFfLoginInfo2 = mockControl.createMock(MockFfLoginInfo);
+//var mockFfLoginInfo3 = mockControl.createMock(MockFfLoginInfo);
+//var foundMultiLogins = [mockFfLoginInfo1, mockFfLoginInfo2, mockFfLoginInfo3];
+var foundSingleLogin = [mockFfLoginInfo];
+//var foundEmpty = [];
+//var foundNull = null;
+mockFfLoginManager.expects().findLogins({}, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundSingleLogin);
+var accountService = new org_hudsonci.AccountService(mockFfLoginManager, mockFfLoginInfo, 'chrome://buildmonitor');
 var foundLoadSingleLogin = accountService.load('HTTP Basic Auth', 'dummyusername');
 var accountServiceException = null;
 try { mockControl.verify(); } catch (e) { accountServiceException = e; }
@@ -886,24 +905,7 @@ describe('AccountService N Load', {
         value_of(foundLoadNull).should_be_null();
     }
 })
-
-
-/***
-///mockFfLoginManager.expects().findLogins(1, 'chrome://buildmonitor', null, 'HTTP Basic Auth', null).andReturn(foundNull);
-var accountService = new org_hudsonci.AccountService(mockFfLoginManager, 'chrome://buildmonitor');
-var foundLoadNull = accountService.save('HTTP Basic Auth', 'dummyusername', 'dummypassword');
-var accountServiceException = null;
-try { mockControl.verify(); } catch (e) { accountServiceException = e; }
-describe('AccountService Save', {
-    'should call account service methods': function() {
-        value_of(accountServiceException).should_be_null();
-    },
-    'should return null': function() {
-        value_of(foundLoadNull).should_be_null();
-    }
-})
-*///
-
+*/
 // ]]></script>
 </head>
 <body></body>

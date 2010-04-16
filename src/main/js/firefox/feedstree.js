@@ -85,7 +85,7 @@ org_hudsonci.FeedsTree = Base.extend({
             treeFeeds[i].setName(treeFeeds[i + 1].getName());
             treeFeeds[i].setUrl(treeFeeds[i + 1].getUrl());
         }
-        treeFeeds[treeFeeds.length - 1].clear();
+        ///treeFeeds[treeFeeds.length - 1].clear();
     },
     _swapFeeds: function(index1, index2) {
         var tempName = treeFeeds[index1].getName();

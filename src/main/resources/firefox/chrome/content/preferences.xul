@@ -30,6 +30,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/notification.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/preferences.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/scheduler.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/account.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feednotifier.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeednotifier.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeednotifier.js"/>
@@ -38,6 +39,7 @@
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/notificationservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/schedulerservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/accountservice.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/feedstree.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
 	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
@@ -70,7 +72,6 @@
 	    	<preference id="hudson-prefs-hidename" name="hudson.hidename" type="bool"/>
 	    	<preference id="hudson-prefs-executor" name="hudson.executor" type="bool"/>
 	    	<preference id="hudson-prefs-networkusername" name="hudson.networkusername" type="string"/>
-	    	<preference id="hudson-prefs-networkpassword" name="hudson.networkpassword" type="string"/>
 		</preferences>
 		<tabbox>
 			<tabs>
@@ -156,7 +157,7 @@
 						</hbox>
 						<hbox>
 							<label value="&prefs.networkpassword;" tooltiptext="&prefs.help.networkusername;"/>
-							<textbox id="buildmonitor-prefs-networkpassword" size="8" preference="hudson-prefs-networkpassword" type="password"/>
+							<textbox id="buildmonitor-prefs-networkpassword" size="8" type="password"/>
 						</hbox>
 					</vbox>
 				</tabpanel>
