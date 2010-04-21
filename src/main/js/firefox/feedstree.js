@@ -21,11 +21,11 @@ org_hudsonci.FeedsTree = Base.extend({
                 }
             },
             isEditable: function isEditable(row, column) {
-                var isEditable = true;
+                var isIsEditable = true;
                 if (column.id == 'buildmonitor-prefs-feeds-remove' || column.id == 'buildmonitor-prefs-feeds-up' || column.id == 'buildmonitor-prefs-feeds-down') {
-                    isEditable = false;
+                    isIsEditable = false;
                 }
-                return isEditable;
+                return isIsEditable;
             },
             setCellText : function(row, column, value) {
                 if (column.id == 'buildmonitor-prefs-feeds-name') {
@@ -69,7 +69,7 @@ org_hudsonci.FeedsTree = Base.extend({
         var row = { }, col = { }, child = { };
         tbo.getCellAt(event.clientX, event.clientY, row, col, child);
     
-        if (row.value != null && col.value != null) {
+        if (row.value !== null && col.value !== null) {
             var cellText = tree.view.getCellText(row.value, col.value);
             if (col.value.id == 'buildmonitor-prefs-feeds-remove' && !treeFeeds[row.value].isIgnored()) {
                 this._removeFeed(row.value);

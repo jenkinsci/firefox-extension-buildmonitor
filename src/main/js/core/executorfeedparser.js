@@ -2,7 +2,7 @@ org_hudsonci.ExecutorFeedParser = org_hudsonci.FeedParser.extend ({
 	parse: function(xml) {
 		var util = new org_hudsonci.Util();
 		var root = new DOMParser().parseFromString(xml, "text/xml");
-		var builds = new Array();
+		var builds = [];
 		var computers = root.getElementsByTagName('computer');
 		var size = Math.min(this.size, computers.length);
 		var buildCount = 0;
@@ -18,14 +18,14 @@ org_hudsonci.ExecutorFeedParser = org_hudsonci.FeedParser.extend ({
 				var url = null;
 				var name = null;
 				var currentExecutableElement = executors[j].getElementsByTagName('currentExecutable')[0];
-				if (currentExecutableElement != null) {
+				if (currentExecutableElement !== null && currentExecutableElement !== undefined) {
 					url = this.getElementValue(currentExecutableElement, 'url');
-					name = new String(url.match('/job/[^/]+/[^/]+')).replace(/\/job\//, '').replace(/\//, '#');
+					name = String(url.match('/job/[^/]+/[^/]+')).replace(/\/job\//, '').replace(/\//, '#');
 				}
 				builds[buildCount++] = new org_hudsonci.ExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
-        		if (isStuck == true) {
+        		if (isStuck === true) {
         			status = 'stuck';
-        		} else if (status != 'stuck' && currentExecutableElement != null) {
+        		} else if (status != 'stuck' && currentExecutableElement !== null) {
         			status = 'running';
         		}
 			}

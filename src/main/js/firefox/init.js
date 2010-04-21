@@ -1,4 +1,4 @@
-const NUM_OF_FEEDS = 15;
+var NUM_OF_FEEDS = 15;
 
 var ffAlertsService = Components.classes['@mozilla.org/alerts-service;1'].getService(Components.interfaces.nsIAlertsService);
 var ffConsoleService = Components.classes['@mozilla.org/consoleservice;1'].getService(Components.interfaces.nsIConsoleService);

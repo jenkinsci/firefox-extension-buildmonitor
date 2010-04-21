@@ -40,9 +40,9 @@ org_hudsonci.Preferences = Base.extend({
 	getNetworkPassword: function() {
 	    var networkUsername = this.getNetworkUsername();
 	    var networkPassword = '';
-	    if (networkUsername != null && networkUsername != '') {
+	    if (networkUsername !== null && networkUsername !== '') {
     	    var account = this.account.load('realm-buildmonitor', networkUsername);
-    	    if (account != null) {
+    	    if (account !== null) {
     	        networkPassword = account.password;
     	    }
     	}
@@ -52,14 +52,14 @@ org_hudsonci.Preferences = Base.extend({
 	    return this.service.getBoolean('hudson.identifyrsspattern');
 	},
 	getFeeds: function() {
-		var feeds = new Array();
+		var feeds = [];
 	    for (var i = 0; i < this.numOfFeeds; i++) {
 	    	var name = this.service.getString('hudson.feeds.' + i + '.name');
 	    	var url = this.service.getString('hudson.feeds.' + i + '.url');
 	    	
 	    	var lastFail = null;
 	    	var lastFailISOString = this.service.getString('hudson.feeds.' + i + '.lastfail');
-	    	if (lastFailISOString != null && lastFailISOString.length > 0) {
+	    	if (lastFailISOString !== null && lastFailISOString.length > 0) {
 	    		lastFail = getDateFromFormat(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
 	    	}
 	    	feeds[i] = new org_hudsonci.Feed(i, name, url, lastFail);
@@ -87,7 +87,7 @@ org_hudsonci.Preferences = Base.extend({
 		this.service.setString('hudson.feeds.' + id + '.url', feed.getUrl());
 		
 		var lastFail = '';
-		if (feed.getLastFail() != null) {
+		if (feed.getLastFail() !== null) {
 			lastFail = formatDate(feed.getLastFail(), 'yyyy-MM-ddTHH:mm:ssZ');
 		}
 		this.service.setString('hudson.feeds.' + id + '.lastfail', lastFail);

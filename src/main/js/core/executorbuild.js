@@ -20,9 +20,9 @@ org_hudsonci.ExecutorBuild = org_hudsonci.Build.extend ({
 	},
 	getStatus: function() {
 		var status;
-		if (this.isIdle == true) {
+		if (this.isIdle === true) {
 			status = 'idle';
-		} else if (this.isStuck == true) {
+		} else if (this.isStuck === true) {
 			status = 'stuck';
 		} else {
 			status = 'running';
@@ -31,9 +31,9 @@ org_hudsonci.ExecutorBuild = org_hudsonci.Build.extend ({
 	},
 	getDetails: function() {
 		var details = '';
-		if (this.isOffline == true) {
+		if (this.isOffline === true) {
 			details += 'Offline';
-		} else if (this.isIdle == true) {
+		} else if (this.isIdle === true) {
 			details += 'Idle';
 		} else if (this.progress >= 0) {
 			details += this.progress + '% - ' + this.name;

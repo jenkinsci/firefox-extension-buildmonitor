@@ -31,27 +31,27 @@ org_hudsonci.Feed = Base.extend({
 	},
 	isJob: function() {
 		var isJob = false;
-		if (this.url.match('/job/[^/]+') != null) {
+		if (this.url.match('/job/[^/]+') !== null) {
 			isJob = true;
 		}
 		return isJob;
 	},
 	isView: function() {
 		var isView = false;
-		if (this.url.match('/view/[^/]+') != null) {
+		if (this.url.match('/view/[^/]+') !== null) {
 			isView = true;
 		}
 		return isView;
 	},
 	getHostName: function() {
-		return new String(this.url.match('http://[^/]+')).replace(/http:\/\//, '');
+		return String(this.url.match('http://[^/]+')).replace(/http:\/\//, '');
 	},
 	getItemName: function() {
 		var itemName = null;
 		if (this.isJob()) {
-			itemName = new String(this.url.match('/job/[^/]+')).replace(/\/job\//, '');
+			itemName = String(this.url.match('/job/[^/]+')).replace(/\/job\//, '');
 		} else if (this.isView()) {
-			itemName = new String(this.url.match('/view/[^/]+')).replace(/\/view\//, '');
+			itemName = String(this.url.match('/view/[^/]+')).replace(/\/view\//, '');
 		}
 		return itemName;
 	},
@@ -66,14 +66,14 @@ org_hudsonci.Feed = Base.extend({
 	},
 	isIgnored: function() {
 		var isIgnored = true;
-		if (this.url != null && this.url.length > 0) {
+		if (this.url !== null && this.url.length > 0) {
 			isIgnored = false;
 		}
 		return isIgnored;
 	},
 	isEmpty: function() {
 		var isEmpty = false;
-		if ((this.name == null || this.name.length == 0) && (this.url == null || this.url.length == 0)) {
+		if ((this.name === null || this.name.length === 0) && (this.url === null || this.url.length === 0)) {
 			isEmpty = true;
 		}
 		return isEmpty;

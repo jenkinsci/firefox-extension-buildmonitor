@@ -2,7 +2,7 @@ org_hudsonci.Downloader = Base.extend({
 	download: function(callback, url, feed, networkUsername, networkPassword) {
 		var request = new XMLHttpRequest();
 	    request.open("GET", url, true);
-		if (networkUsername != null && networkUsername != "") {
+		if (networkUsername !== null && networkUsername !== '') {
 			var auth = "Basic " + Base64.encode(networkUsername + ':' + networkPassword);
 			request.setRequestHeader("Authorization", auth);
 		}

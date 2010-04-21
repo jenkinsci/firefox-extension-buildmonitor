@@ -5,7 +5,7 @@ org_hudsonci.HistoricFeedParser = org_hudsonci.FeedParser.extend ({
 	},
 	parse: function(xml) {
 		var root = new DOMParser().parseFromString(xml, "text/xml");
-		var builds = new Array();
+		var builds = [];
 		var title = this.getElementValue(root, 'title');
 		var entries = root.getElementsByTagName('entry');
 		var successCount = 0;

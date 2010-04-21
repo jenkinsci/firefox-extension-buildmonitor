@@ -7,7 +7,7 @@ org_hudsonci.Ui = Base.extend({
 		this.executorUiElementSet = new org_hudsonci.UiElementSet(TYPE_EXECUTOR);
 		this.historicUiElementSet = new org_hudsonci.UiElementSet(TYPE_HISTORIC);
 		
-		this.uiElementSets = new Array(this.executorUiElementSet, this.historicUiElementSet);
+		this.uiElementSets = [this.executorUiElementSet, this.historicUiElementSet];
 	},
 	prepare: function(feeds) {
 		var panelContainer = document.getElementById('hudson-panel-feeds');
@@ -33,9 +33,9 @@ org_hudsonci.Ui = Base.extend({
 					this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
 				}
 				this._setStatusQueued(TYPE_HISTORIC, feeds[i]);
-				for (var j = 0; j < this.uiElementSets.length; j++) {
-					var container = this.uiElementSets[j].getPanel().getPanelElement(feeds[i]);
-					this.uiElementSets[j].getMenusPopup().set(container, feeds[i]);
+				for (var k = 0; k < this.uiElementSets.length; k++) {
+					var container = this.uiElementSets[k].getPanel().getPanelElement(feeds[i]);
+					this.uiElementSets[k].getMenusPopup().set(container, feeds[i]);
 				}
 			}
 		}
@@ -44,23 +44,24 @@ org_hudsonci.Ui = Base.extend({
 		this._getUiElementSet(type).getPanel().set('status/downloading', feed);
 		this._getUiElementSet(type).getTooltip().set(
 			this._getUiElementSet(type).getPanel().getPanelElement(feed),
-			new Array(
+			[
 				this.localiser.getText('feed.process.downloading.message1'),
 				'url: ' + this.uiUtil.getUrl(type, feed),
-				this.localiser.getText('feed.process.downloading.message2')),
+				this.localiser.getText('feed.process.downloading.message2')
+		    ],
 			this.localiser.getText('feed.process.downloading.title'),
 			feed,
 			this.preferences.getSuccessColor());
 		// reset builds popup
 		var container = this._getUiElementSet(type).getPanel().getPanelElement(feed);
-		this._getUiElementSet(type).getBuildsPopup().set(container, feed, new Array(), this.preferences.getSuccessColor());
+		this._getUiElementSet(type).getBuildsPopup().set(container, feed, [], this.preferences.getSuccessColor());
 	},
 	setStatusDownloadError: function(type, feed) {
 		var uiElementSet = this._getUiElementSet(type);
 		uiElementSet.getPanel().set('status/error', feed);
 		uiElementSet.getTooltip().set(
 			this.historicUiElementSet.getPanel().getPanelElement(feed),
-			new Array(this.localiser.getText('feed.process.error.message'), 'url: ' + this.uiUtil.getUrl(type, feed)),
+			[this.localiser.getText('feed.process.error.message'), 'url: ' + this.uiUtil.getUrl(type, feed)],
 			this.localiser.getText('feed.process.error.title'),
 			feed,
 			this.preferences.getSuccessColor());
@@ -76,7 +77,7 @@ org_hudsonci.Ui = Base.extend({
 		this._getUiElementSet(type).getPanel().set('status/queued', feed);
 		this._getUiElementSet(type).getTooltip().set(
 			this._getUiElementSet(type).getPanel().getPanelElement(feed),
-			new Array(this.localiser.getText('feed.queued.message'), 'url: ' + this.uiUtil.getUrl(type, feed)),
+			[this.localiser.getText('feed.queued.message'), 'url: ' + this.uiUtil.getUrl(type, feed)],
 			this.localiser.getText('feed.queued.title'),
 			feed,
 			this.preferences.getSuccessColor());

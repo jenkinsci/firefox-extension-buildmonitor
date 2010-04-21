@@ -1,0 +1,8 @@
+<project xmlns:jsl="antlib:com.googlecode.jslint4java">
+  <target name="jslint">
+    <jsl:jslint>
+      <formatter type="plain" destfile="${basedir}/target/jslint.txt"/>
+      <fileset dir="${basedir}/src/main/js" includes="**/*.js" />
+    </jsl:jslint>
+  </target>
+</project>

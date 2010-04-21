@@ -15,7 +15,7 @@ org_hudsonci.Util = Base.extend({
 	},
 	isHudsonRss: function(url) {
 		var isHudsonRss = true;
-		if (url.match('/rss') == null) {
+		if (url.match('/rss') === null) {
 			isHudsonRss = false;
 		}
 		return isHudsonRss;

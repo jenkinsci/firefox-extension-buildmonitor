@@ -18,9 +18,10 @@ org_hudsonci.Tooltip = org_hudsonci.UiElement.extend({
 			titleLabel.setAttribute("class", "title");
 			vbox.appendChild(titleLabel);
 		}
-		if (items != null && items.length > 0) {
+		var itemLabel;
+		if (items !== null && items.length > 0) {
 			for (i = 0; i < items.length; i++) {
-				var itemLabel = document.createElement("label");
+				itemLabel = document.createElement("label");
 				var text;
 				if (typeof items[i] == "object") {
 				    text = items[i].getDetails();
@@ -32,7 +33,7 @@ org_hudsonci.Tooltip = org_hudsonci.UiElement.extend({
 			   	vbox.appendChild(itemLabel);
 			}
 		} else {
-			var itemLabel = document.createElement("label");
+			itemLabel = document.createElement("label");
 			itemLabel.setAttribute("value", "No item found");
 			vbox.appendChild(itemLabel);
 		}
