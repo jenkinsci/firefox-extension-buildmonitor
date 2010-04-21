@@ -2,6 +2,7 @@
   <target name="jslint">
     <jsl:jslint>
       <formatter type="plain" destfile="${basedir}/target/jslint.txt"/>
+      <formatter type="xml" destfile="${basedir}/target/jslint.xml"/>
       <fileset dir="${basedir}/src/main/js" includes="**/*.js" />
     </jsl:jslint>
   </target>
