@@ -1,9 +1,7 @@
-var TYPE_EXECUTOR = 'executor';
-var TYPE_HISTORIC = 'historic';
 org_hudsonci.UiUtil = Base.extend({
 	getStatusSkinType: function(type) {
 		var statusSkinType;
-		if (type == TYPE_EXECUTOR) {
+		if (type == org_hudsonci_buildMonitorConst.TYPE_EXECUTOR()) {
 			statusSkinType = 'executor';
 		} else {
 			statusSkinType = 'build';
@@ -21,7 +19,7 @@ org_hudsonci.UiUtil = Base.extend({
 	},
 	getUrl: function(type, feed) {
 		var url;
-		if (type == TYPE_EXECUTOR) {
+		if (type == org_hudsonci_buildMonitorConst.TYPE_EXECUTOR()) {
 			url = feed.getExecutorUrl();
 		} else {
 			url = feed.getUrl();

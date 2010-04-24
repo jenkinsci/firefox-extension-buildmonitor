@@ -13,14 +13,14 @@ org_hudsonci.UiElement = Base.extend({
 	},
 	isHistoric: function() {
 		var isHistoric = false;
-		if (this.type == TYPE_HISTORIC) {
+		if (this.type == org_hudsonci_buildMonitorConst.TYPE_HISTORIC()) {
 			isHistoric = true;
 		}
 		return isHistoric;
 	},
 	isExecutor: function() {
 		var isExecutor = false;
-		if (this.type == TYPE_EXECUTOR) {
+		if (this.type == org_hudsonci_buildMonitorConst.TYPE_EXECUTOR()) {
 			isExecutor = true;
 		}
 		return isExecutor;

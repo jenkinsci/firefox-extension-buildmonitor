@@ -42,6 +42,7 @@
 //////////////////////////////////////////////////////////////////////// core
 ////////////////////////////////////////////////////////////////////////
 
+var org_hudsonci_buildMonitorConst = new org_hudsonci.Const();
 var lastFailDate = getDateFromFormat('2009-08-22T03:27:41Z', 'yyyy-MM-ddTHH:mm:ssZ');
 
 //////////////////////////////////////////////////////////////////////// historicbuild
@@ -357,7 +358,7 @@ var hfnHistoricBuild2 = new org_hudsonci.HistoricBuild('MyJob2 (SUCCESS)', 'http
 var hfnHistoricBuild3 = new org_hudsonci.HistoricBuild('MyJob3 (FAILURE)', 'http://localhost/hudson/job/MyJob3/138/', historicBuildDate);
 var hfnFeedResult = new org_hudsonci.FeedResult('EFN Title', new Array(hfnHistoricBuild1, hfnHistoricBuild2, hfnHistoricBuild3), 'failure');
 mockPreferences.expects().addFeed(hfnFeed);
-mockNotification.expects().displayAlert(TYPE_HISTORIC, hfnFeed, hfnFeedResult.getBuilds()[2], hfnFeedResult.getTitle());
+mockNotification.expects().displayAlert(org_hudsonci_buildMonitorConst.TYPE_HISTORIC(), hfnFeed, hfnFeedResult.getBuilds()[2], hfnFeedResult.getTitle());
 mockNotification.expects().playSound(hfnFeedResult.getBuilds()[2]);
 historicFeedNotifier.process(hfnFeed, hfnFeedResult);
 var hfnException = null;
@@ -382,7 +383,7 @@ var efnExecutorBuild1 = new org_hudsonci.ExecutorBuild('MyJob1', 'http://localho
 var efnExecutorBuild2 = new org_hudsonci.ExecutorBuild('MyJob2', 'http://localhost/hudson/job/MyJob2/128/', 88, false, true, 'master#2');
 var efnExecutorBuild3 = new org_hudsonci.ExecutorBuild('MyJob3', 'http://localhost/hudson/job/MyJob3/228/', 78, false, true, 'master#3');
 var efnFeedResult = new org_hudsonci.FeedResult('EFN Title', new Array(efnExecutorBuild1, efnExecutorBuild2, efnExecutorBuild3), 'stuck');
-mockNotification.expects().displayAlert(TYPE_EXECUTOR, efnFeed, efnFeedResult.getBuilds()[1], efnFeedResult.getTitle());
+mockNotification.expects().displayAlert(org_hudsonci_buildMonitorConst.TYPE_EXECUTOR(), efnFeed, efnFeedResult.getBuilds()[1], efnFeedResult.getTitle());
 mockNotification.expects().playSound(efnFeedResult.getBuilds()[1]);
 executorFeedNotifier.process(efnFeed, efnFeedResult);
 var efnException = null;
@@ -469,7 +470,7 @@ var mockPreferences = mockControl.createMock(org_hudsonci.Preferences);
 var mockNotificationService = mockControl.createMock(MockNotificationService);
 var mockFeed = mockControl.createMock(org_hudsonci.Feed);
 var mockBuild = mockControl.createMock(org_hudsonci.Build);
-var type = TYPE_EXECUTOR;
+var type = org_hudsonci_buildMonitorConst.TYPE_EXECUTOR();
 mockPreferences.expects().getAlert().andReturn(true);
 mockNotificationService.expects().displayAlert(type, 'some title', mockFeed, mockBuild);
 mockPreferences.expects().getSound().andReturn(true);
@@ -764,7 +765,7 @@ mockFfAlertsService.expects().showAlertNotification('chrome://buildmonitor/skin/
 mockBuild.expects().getStatus().andReturn('stuck');
 mockFfIoService.expects().newURI('chrome://buildmonitor/skin/audio/stuck.wav', null, null).andReturn(mockUri);
 mockFfSound.expects().play(mockUri); 
-notificationService.displayAlert(TYPE_HISTORIC, 'some title', mockFeed, mockBuild);
+notificationService.displayAlert(org_hudsonci_buildMonitorConst.TYPE_HISTORIC(), 'some title', mockFeed, mockBuild);
 notificationService.playSound(mockBuild);
 var notificationServiceException = null;
 try { mockControl.verify(); } catch (e) { notificationServiceException = e; }

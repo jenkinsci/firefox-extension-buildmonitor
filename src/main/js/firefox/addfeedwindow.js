@@ -13,7 +13,7 @@ org_hudsonci.AddFeedWindow = Base.extend({
 	// NOTE: 'this' in the context is the document, not org_hudsonci.AddFeedWindow instance
 	_setMenuVisibility: function() {
 		if (gContextMenu) {
-			document.getElementById('hudson-context-menu-addlink').hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink && util.isHudsonRss(gContextMenu.linkURL));
+			document.getElementById('hudson-context-menu-addlink').hidden = !(gContextMenu.onLink && !gContextMenu.onMailtoLink && org_hudsonci_buildMonitorManager.getUtil().isHudsonRss(gContextMenu.linkURL));
 		}
 	},
 	prepare: function() {

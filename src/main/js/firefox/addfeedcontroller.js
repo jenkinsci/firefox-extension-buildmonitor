@@ -1,8 +1,8 @@
 org_hudsonci.prepare = function() {
-	addFeedWindow.prepare();
+	org_hudsonci_buildMonitorManager.getAddFeedWindow().prepare();
 };
 org_hudsonci.submit = function() {
-	addFeedWindow.save();
+	org_hudsonci_buildMonitorManager.getAddFeedWindow().save();
 	var parent = window.arguments[0];
-	parent.buildMonitor.runAll();
+	parent.org_hudsonci_buildMonitorManager.getBuildMonitor().runAll();
 };

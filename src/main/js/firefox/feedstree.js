@@ -8,7 +8,7 @@ org_hudsonci.FeedsTree = Base.extend({
     initView: function() {
         treeFeeds = this.preferences.getFeeds();
         this.treeView = {
-            rowCount : NUM_OF_FEEDS,
+            rowCount : this.numOfFeeds,
             getCellText : function(row, column) {
                 if (row < treeFeeds.length) {
                     var text = null;
@@ -45,7 +45,7 @@ org_hudsonci.FeedsTree = Base.extend({
                     imageSrc = 'chrome://buildmonitor/skin/menu/remove.png';
                 } else if (column.id == 'buildmonitor-prefs-feeds-up' && !treeFeeds[row].isIgnored() && row > 0) {
                     imageSrc = 'chrome://buildmonitor/skin/menu/up.png';
-                } else if (column.id == 'buildmonitor-prefs-feeds-down' && !treeFeeds[row].isIgnored() && row < NUM_OF_FEEDS - 1) {
+                } else if (column.id == 'buildmonitor-prefs-feeds-down' && !treeFeeds[row].isIgnored() && row < 15 - 1) {
                     imageSrc = 'chrome://buildmonitor/skin/menu/down.png';
                 }
                 return imageSrc;
@@ -59,7 +59,7 @@ org_hudsonci.FeedsTree = Base.extend({
     },
     saveView: function() {
         for (var i = 0; i < treeFeeds.length; i++) {
-            preferences.setFeed(treeFeeds[i], '');
+            this.preferences.setFeed(treeFeeds[i], '');
         }
     },
     updateView: function(event) {
@@ -75,7 +75,7 @@ org_hudsonci.FeedsTree = Base.extend({
                 this._removeFeed(row.value);
             } else if (col.value.id == 'buildmonitor-prefs-feeds-up' && !treeFeeds[row.value].isIgnored() && row.value > 0) {
                 this._swapFeeds(row.value - 1, row.value);
-            } else if (col.value.id == 'buildmonitor-prefs-feeds-down' && !treeFeeds[row.value].isIgnored() && row.value < NUM_OF_FEEDS - 1) {
+            } else if (col.value.id == 'buildmonitor-prefs-feeds-down' && !treeFeeds[row.value].isIgnored() && row.value < this.numOfFeeds - 1) {
                 this._swapFeeds(row.value, row.value + 1);
             }
         }
@@ -85,7 +85,6 @@ org_hudsonci.FeedsTree = Base.extend({
             treeFeeds[i].setName(treeFeeds[i + 1].getName());
             treeFeeds[i].setUrl(treeFeeds[i + 1].getUrl());
         }
-        ///treeFeeds[treeFeeds.length - 1].clear();
     },
     _swapFeeds: function(index1, index2) {
         var tempName = treeFeeds[index1].getName();

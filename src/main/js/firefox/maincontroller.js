@@ -1,36 +1,36 @@
 org_hudsonci.initialise = function() {
-	buildMonitor.prepare();
-    addFeedWindow.setMenuVisibility();
+	org_hudsonci_buildMonitorManager.getBuildMonitor().prepare();
+    org_hudsonci_buildMonitorManager.getAddFeedWindow().setMenuVisibility();
     org_hudsonci.schedule();
 };
 org_hudsonci.runAll = function() {
-	buildMonitor.runAll();
+	org_hudsonci_buildMonitorManager.getBuildMonitor().runAll();
 };
 org_hudsonci.run = function(i) {
-    buildMonitor.run(i);
+    org_hudsonci_buildMonitorManager.getBuildMonitor().run(i);
 };
 org_hudsonci.schedule = function() {
 	org_hudsonci.runAll();
-	var interval = preferences.getInterval();
-	logger.debug(localiser.getText('monitor.schedule', [interval]));
+	var interval = org_hudsonci_buildMonitorManager.getPreferences().getInterval();
+	org_hudsonci_buildMonitorManager.getLogger().debug(org_hudsonci_buildMonitorManager.getLocaliser().getText('monitor.schedule', [interval]));
     var callback = { notify: function(ffTimerService) { org_hudsonci.schedule(); } };
-    scheduler.schedule(callback, interval);
+    org_hudsonci_buildMonitorManager.getScheduler().schedule(callback, interval);
 };
 org_hudsonci.goToDashboard = function(i) {
-	org_hudsonci.goTo(buildMonitor.getFeeds()[i].getDashboardUrl());
+	org_hudsonci.goTo(org_hudsonci_buildMonitorManager.getBuildMonitor().getFeeds()[i].getDashboardUrl());
 };
 org_hudsonci.goTo = function(url) {
-	if (preferences.getOpenPage() == 'newtab') {
+	if (org_hudsonci_buildMonitorManager.getPreferences().getOpenPage() == 'newtab') {
 		getBrowser().addTab(url);
 	} else {
 		getBrowser().loadURI(url);
 	}
 };
 org_hudsonci.build = function(i) {
-	org_hudsonci.goTo(buildMonitor.getFeeds()[i].getBuildUrl());
+	org_hudsonci.goTo(org_hudsonci_buildMonitorManager.getBuildMonitor().getFeeds()[i].getBuildUrl());
 };
 org_hudsonci.removeFeed = function(i) {
-	buildMonitor.removeFeed(i);
+	org_hudsonci_buildMonitorManager.getBuildMonitor().removeFeed(i);
 	org_hudsonci.runAll();
 };
 org_hudsonci_openAddFeedWindow = function(url) {

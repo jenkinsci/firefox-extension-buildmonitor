@@ -3,10 +3,8 @@ org_hudsonci.Ui = Base.extend({
 		this.localiser = localiser;
 		this.preferences = preferences;
 		this.uiUtil = new org_hudsonci.UiUtil();
-		
-		this.executorUiElementSet = new org_hudsonci.UiElementSet(TYPE_EXECUTOR);
-		this.historicUiElementSet = new org_hudsonci.UiElementSet(TYPE_HISTORIC);
-		
+		this.executorUiElementSet = new org_hudsonci.UiElementSet(org_hudsonci_buildMonitorConst.TYPE_EXECUTOR(), this.localiser);
+		this.historicUiElementSet = new org_hudsonci.UiElementSet(org_hudsonci_buildMonitorConst.TYPE_HISTORIC(), this.localiser);
 		this.uiElementSets = [this.executorUiElementSet, this.historicUiElementSet];
 	},
 	prepare: function(feeds) {
@@ -30,9 +28,9 @@ org_hudsonci.Ui = Base.extend({
 					this.uiElementSets[j].getPanel().prepare(panelContainer, feeds[i], this.preferences.getHideName());
 				}
 				if (this.preferences.getExecutor()) {
-					this._setStatusQueued(TYPE_EXECUTOR, feeds[i]);
+					this._setStatusQueued(org_hudsonci_buildMonitorConst.TYPE_EXECUTOR(), feeds[i]);
 				}
-				this._setStatusQueued(TYPE_HISTORIC, feeds[i]);
+				this._setStatusQueued(org_hudsonci_buildMonitorConst.TYPE_HISTORIC(), feeds[i]);
 				for (var k = 0; k < this.uiElementSets.length; k++) {
 					var container = this.uiElementSets[k].getPanel().getPanelElement(feeds[i]);
 					this.uiElementSets[k].getMenusPopup().set(container, feeds[i]);
@@ -84,7 +82,7 @@ org_hudsonci.Ui = Base.extend({
 	},
 	_getUiElementSet: function(type) {
 		var uiElementSet;
-		if (type == TYPE_EXECUTOR) {
+		if (type == org_hudsonci_buildMonitorConst.TYPE_EXECUTOR()) {
 			uiElementSet = this.executorUiElementSet;
 		} else {
 			uiElementSet = this.historicUiElementSet;

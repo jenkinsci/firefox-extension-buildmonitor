@@ -21,3 +21,11 @@ org_hudsonci.Util = Base.extend({
 		return isHudsonRss;
 	}
 });
+org_hudsonci.Const = Base.extend({
+    TYPE_EXECUTOR: function() {
+        return 'executor';
+    },
+    TYPE_HISTORIC: function() {
+        return 'historic';
+    }
+});
