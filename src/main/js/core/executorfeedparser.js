@@ -25,7 +25,7 @@ org_hudsonci.ExecutorFeedParser = org_hudsonci.FeedParser.extend ({
 				builds[buildCount++] = new org_hudsonci.ExecutorBuild(name, url, progress, isIdle, isStuck, executorName);
         		if (isStuck === true) {
         			status = 'stuck';
-        		} else if (status != 'stuck' && currentExecutableElement !== null) {
+        		} else if (status != 'stuck' && currentExecutableElement !== null && currentExecutableElement !== undefined) {
         			status = 'running';
         		}
 			}
