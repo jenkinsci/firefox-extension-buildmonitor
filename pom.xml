@@ -8,7 +8,7 @@
   </parent>
   <groupId>org.jvnet.hudson.plugins</groupId>
   <artifactId>buildmonitor</artifactId>
-  <version>1.5.4-SNAPSHOT</version>
+  <version>1.5.4</version>
   <description>Monitor Hudson builds and display the status on Firefox status bar.</description>
   <inceptionYear>2008</inceptionYear>
   <name>BuildMonitor</name>
@@ -52,8 +52,8 @@
             <configuration>
               <tasks>
                 <ant antfile="${basedir}/jslint.xml">
-                  <property name="basedir" location="${basedir}"/>
-                  <target name="jslint"/>
+                  <property name="basedir" location="${basedir}" />
+                  <target name="jslint" />
                 </ant>
               </tasks>
             </configuration>
@@ -98,8 +98,8 @@
     </plugins>
   </build>
   <scm>
-    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/firefox-extension-buildmonitor-1.5.3</connection>
-    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/firefox-extension-buildmonitor-1.5.3</developerConnection>
-    <url>https://hudson.dev.java.net/source/browse/hudson/hudson/plugins/buildmonitor/tags/firefox-extension-buildmonitor-1.5.3</url>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/firefox-extension-buildmonitor-1.5.4</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/firefox-extension-buildmonitor-1.5.4</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/hudson/plugins/buildmonitor/tags/firefox-extension-buildmonitor-1.5.4</url>
   </scm>
 </project>
