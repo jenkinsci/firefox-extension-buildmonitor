@@ -1,0 +1,57 @@
+<!ENTITY init.title "Monitor Build Hudson">
+<!ENTITY init.message.1 "Tambahkan feeds dari halaman Hudson anda, klik kanan di link RSS, pilih Tambah Tautan di Monitor Build Hudson.">
+<!ENTITY init.message.2 "Atau konfigurasi feed secara manual melalui menu Preferensi.">
+<!ENTITY menu.add.link "Tambah Tautan Di Monitor Build Hudson">
+<!ENTITY menu.preferences "Preferensi">
+<!ENTITY menu.refresh.all "Refresh Semua">
+<!ENTITY link.title "Tambah tautan di Monitor Build Hudson">
+<!ENTITY link.url "URL">
+<!ENTITY link.name "Nama">
+<!ENTITY link.help.name "Nama akan ditampilkan di status bar di samping ikon status feed.">
+<!ENTITY link.full.1 "Tidak dapat menambah tautan di Monitor Build Hudson.">
+<!ENTITY link.full.2 "Harap hapus salah satu feed.">
+<!ENTITY prefs.title "Preferensi Monitor Build Hudson">
+<!ENTITY prefs.feeds.name "Nama">
+<!ENTITY prefs.feeds.url "URL Feed">
+<!ENTITY prefs.successcolor.1 "Gunakan">
+<!ENTITY prefs.successcolor.2 "untuk menandakan sukses">
+<!ENTITY prefs.successcolor.blue "biru">
+<!ENTITY prefs.successcolor.green "hijau">
+<!ENTITY prefs.feedstatustype.1 "Tampilkan">
+<!ENTITY prefs.feedstatustype.2 "di status bar">
+<!ENTITY prefs.feedstatustype.health "kesehatan feed">
+<!ENTITY prefs.feedstatustype.latest "build terkini">
+<!ENTITY prefs.interval "Selang waktu pengambilan data (dalam menit)">
+<!ENTITY prefs.size "Jumlah build untuk ditampilkan">
+<!ENTITY prefs.openpage "Buka halaman build di">
+<!ENTITY prefs.openpage.newtab "tab baru">
+<!ENTITY prefs.openpage.currenttab "tab yang aktif">
+<!ENTITY prefs.debug "Aktifkan debug">
+<!ENTITY prefs.sound "Aktifkan suara">
+<!ENTITY prefs.alert "Aktifkan alert">
+<!ENTITY prefs.hidename "Sembunyikan nama feed di status bar">
+<!ENTITY prefs.executor "Aktifkan monitor eksekutor">
+<!ENTITY prefs.networkdesc "HTTP Basic Auth">
+<!ENTITY prefs.networkusername "Username">
+<!ENTITY prefs.networkpassword "Password">
+<!ENTITY prefs.group.feeds "Feed">
+<!ENTITY prefs.group.display "Tampilan">
+<!ENTITY prefs.group.notification "Notifikasi">
+<!ENTITY prefs.group.network "Jaringan">
+<!ENTITY prefs.group.misc "Lain-lain">
+<!ENTITY prefs.help.feeds.name "Nama feed yang akan ditampilkan di statusbar dan tooltip.">
+<!ENTITY prefs.help.feeds.url "URL feed Hudson yang ingin anda monitor, anda dapat menemukan URL ini di halaman dashboard Hudson.">
+<!ENTITY prefs.help.feeds.remove "Hapus feed dari preferensi.">
+<!ENTITY prefs.help.feeds.up "Pindahkan ke atas.">
+<!ENTITY prefs.help.feeds.down "Pindahkan ke bawah.">
+<!ENTITY prefs.help.successcolor "Warna yang digunakan untuk menandakan build sukses, Hudson menggunakan biru sebagai default.">
+<!ENTITY prefs.help.feedstatustype "Ikon yang akan ditampilkan di status bar Firefox. Kesehatan feed akan menggunakan ikon cuaca yang menandakan kesehatan dari keseluruhan feed. Build terkini menggunakan ikon bola dengan warna yang mengindikasikan status build.">
+<!ENTITY prefs.help.interval "Seberapa sering add-on ini akan mengambil data dari URL feed, dalam satuan menit.">
+<!ENTITY prefs.help.size "Berapa banyak builds terbaru yang ingin anda monitor.">
+<!ENTITY prefs.help.openpage "Buka halaman build di tab baru atau di tab yang aktif.">
+<!ENTITY prefs.help.debug "Jika checkbox ditandai, maka pesan debug akan ditulis ke Firefox Error Console.">
+<!ENTITY prefs.help.sound "Jika diaktifkan, notifikasi suara akan dimainkan jika ada build yang gagal.">
+<!ENTITY prefs.help.alert "Tampilkan window alert di ujung kanan bawah desktop anda, dengan informasi tentang build yang gagal.">
+<!ENTITY prefs.help.hidename "Dengan menyembunyikan nama feed, anda hanya akan melihat ikon di status bar. Berguna bila anda memonitor banyak feed.">
+<!ENTITY prefs.help.executor "Jika diaktifkan, status eksekutor build di master dan slave akan dimonitor. Fungsi ini hanya tersedia untuk feed instance Hudson (bukan feed spesifik untuk job tertentu).">
+<!ENTITY prefs.help.networkusername "Username dan password digunakan untuk feeds yang dilindungi password, biarkan kosong jika tidak diperlukan. Harap diingat bahwa username password ini bukan untuk akun Hudson anda.">

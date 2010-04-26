@@ -1,0 +1,57 @@
+<!ENTITY init.title "Hudson Build Monitor">
+<!ENTITY init.message.1 "Add feeds from your Hudson web page, right click on an RSS link, select Add Link To Hudson Build Monitor.">
+<!ENTITY init.message.2 "Or configure the feeds manually via Preferences menu.">
+<!ENTITY menu.add.link "Add Link To Hudson Build Monitor">
+<!ENTITY menu.preferences "Preferences">
+<!ENTITY menu.refresh.all "Refresh All">
+<!ENTITY link.title "Add link to Hudson Build Monitor">
+<!ENTITY link.url "URL">
+<!ENTITY link.name "Name">
+<!ENTITY link.help.name "Name will be displayed on status bar next to the feed status icon.">
+<!ENTITY link.full.1 "Unable to add link to Hudson Build Monitor.">
+<!ENTITY link.full.2 "Please remove one of the existing feeds.">
+<!ENTITY prefs.title "">
+<!ENTITY prefs.feeds.name "Name">
+<!ENTITY prefs.feeds.url "Feed URL">
+<!ENTITY prefs.successcolor.1 "Use">
+<!ENTITY prefs.successcolor.2 "to indicate success">
+<!ENTITY prefs.successcolor.blue "blue">
+<!ENTITY prefs.successcolor.green "green">
+<!ENTITY prefs.feedstatustype.1 "Display">
+<!ENTITY prefs.feedstatustype.2 "on status bar">
+<!ENTITY prefs.feedstatustype.health "overall health">
+<!ENTITY prefs.feedstatustype.latest "latest build">
+<!ENTITY prefs.interval "Poll Interval (in minutes)">
+<!ENTITY prefs.size "Number of builds to display">
+<!ENTITY prefs.openpage "Open page in">
+<!ENTITY prefs.openpage.newtab "new tab">
+<!ENTITY prefs.openpage.currenttab "current tab">
+<!ENTITY prefs.debug "Enable debug">
+<!ENTITY prefs.sound "Enable sound">
+<!ENTITY prefs.alert "Enable alert">
+<!ENTITY prefs.hidename "Hide feed name on status bar">
+<!ENTITY prefs.executor "Enable executor monitoring">
+<!ENTITY prefs.networkdesc "HTTP Basic Auth">
+<!ENTITY prefs.networkusername "Username">
+<!ENTITY prefs.networkpassword "Password">
+<!ENTITY prefs.group.feeds "Feeds">
+<!ENTITY prefs.group.display "Display">
+<!ENTITY prefs.group.notification "Notification">
+<!ENTITY prefs.group.network "Network">
+<!ENTITY prefs.group.misc "Misc">
+<!ENTITY prefs.help.feeds.name "The feed name that will be displayed on the status bar and tooltips.">
+<!ENTITY prefs.help.feeds.url "The URL of the Hudson feed that you want to monitor, you can find this URL from Hudson dashboard/job pages.">
+<!ENTITY prefs.help.feeds.remove "Remove the feed from preferences.">
+<!ENTITY prefs.help.feeds.up "Move up.">
+<!ENTITY prefs.help.feeds.down "Move down.">
+<!ENTITY prefs.help.successcolor "The color used for successful build, by default Hudson uses blue.">
+<!ENTITY prefs.help.feedstatustype "The icon to display on Firefox statusbar. Feed health uses weather icon to indicate the overall health of the feed. Latest build uses the orb icon with the color indicating the build status.">
+<!ENTITY prefs.help.interval "How often do you want the add-on to check the feed, value is in minutes.">
+<!ENTITY prefs.help.size "How many latest builds do you want to monitor.">
+<!ENTITY prefs.help.openpage "Open build page on a new tab or the current tab.">
+<!ENTITY prefs.help.debug "Ticking the checkbox allows debug messages to be written to Firefox Error Console.">
+<!ENTITY prefs.help.sound "When activated, sound notification will be played when there's a build failure.">
+<!ENTITY prefs.help.alert "Displays alert window at the bottom right corner of your desktop, showing the failure build information.">
+<!ENTITY prefs.help.hidename "By hiding feed name, you'll only see the icons on the status bar. Handy when you're monitoring many feeds.">
+<!ENTITY prefs.help.executor "When enabled, build executor status on master and slaves will also be monitored. This feature is only available for Hudson instance feed (non job-specific feed).">
+<!ENTITY prefs.help.networkusername "Username and password are used for basic access authentication against password protected feeds, leave empty if you don't need to authenticate. Please note that this is not your Hudson account username and password.">

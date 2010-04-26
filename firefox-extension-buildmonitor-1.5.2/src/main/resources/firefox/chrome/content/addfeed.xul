@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://communicator/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://buildmonitor/skin/buildmonitor.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://buildmonitor/locale/buildmonitor.dtd">
+<dialog xmlns:html="http://www.w3.org/1999/xhtml"
+      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      onload="org_hudsonci.prepare();"
+      ondialogaccept="org_hudsonci.submit();"
+      buttons="accept,cancel"
+      title="&link.title;">
+
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/base64.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/date.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/pretty.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/Base.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/lib/namespace.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/util.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/build.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicbuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorbuild.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feed.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedresult.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeedparser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/downloader.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/logger.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/notification.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/preferences.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/scheduler.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/feednotifier.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/historicfeednotifier.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/core/executorfeednotifier.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/localiser.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/loggerservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/notificationservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/preferencesservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/schedulerservice.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/feedstree.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uiutil.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielement.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/panel.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/tooltip.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildspopup.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/menuspopup.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/uielementset.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/ui.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/downloadercallback.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/addfeedwindow.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/buildmonitor.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/init.js"/>
+	<script type="application/x-javascript" src="chrome://buildmonitor/content/firefox/addfeedcontroller.js"/>
+	
+	<stringbundleset>
+		<stringbundle id="hudson-stringbundle" src="chrome://buildmonitor/locale/buildmonitor.properties"/>
+	</stringbundleset>
+
+	<vbox id="hudson-link-add">
+		<hbox>
+			<vbox>
+				<label value="&link.url;"/>
+				<label value="&link.name;" tooltiptext="&link.help.name;"/>
+			</vbox>
+			<vbox>
+				<label id="hudson-link-url"/>
+				<textbox id="hudson-link-name" size="25"/>
+				<label id="hudson-link-id"/>
+			</vbox>
+		</hbox>
+	</vbox>
+	<vbox id="hudson-link-full">
+		<label value="&link.full.1;"/>
+		<label value="&link.full.2;"/>
+	</vbox>
+
+</dialog>

@@ -1,0 +1,6 @@
+content	buildmonitor	jar:chrome/buildmonitor.jar!/content/
+locale	buildmonitor	en-US	jar:chrome/buildmonitor.jar!/locale/en-US/
+locale	buildmonitor	id-ID	jar:chrome/buildmonitor.jar!/locale/id-ID/
+locale	buildmonitor	ja-JP	jar:chrome/buildmonitor.jar!/locale/ja-JP/
+skin	buildmonitor	classic	jar:chrome/buildmonitor.jar!/skin/
+overlay	chrome://browser/content/browser.xul	chrome://buildmonitor/content/main.xul
