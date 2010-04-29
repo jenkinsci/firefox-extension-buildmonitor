@@ -1,4 +1,4 @@
-namespace('org_hudsonci');
+org_hudsonci_namespace('org_hudsonci');
 org_hudsonci.Util = Base.extend({
 	getBoolean: function(stringValue) {
 		var booleanValue = Boolean(false);

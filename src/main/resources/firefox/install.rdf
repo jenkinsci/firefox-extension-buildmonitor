@@ -16,9 +16,9 @@
 		</em:targetApplication>
 
 		<em:name>Hudson Build Monitor</em:name>
-		<em:description>Build Monitor displays the status of your Hudson builds on Firefox status bar panel.</em:description>
+		<em:description>@description@</em:description>
 		<em:creator>Cliffano Subagio</em:creator>
-		<em:homepageURL>http://wiki.hudson-ci.org/display/HUDSON/Firefox+Add-on+Build+Monitor</em:homepageURL>
+		<em:homepageURL>@url@</em:homepageURL>
 		<em:iconURL>chrome://buildmonitor/skin/icon_32.png</em:iconURL>
 
 	</Description>
