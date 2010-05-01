@@ -1,4 +1,4 @@
-org_hudsonci.UiElementSet = Base.extend({
+org_hudsonci.UiElementSet = name_edwards_dean_Base.extend({
 	constructor: function(type, localiser) {
 		this.panel = new org_hudsonci.Panel(type);
 		this.tooltip = new org_hudsonci.Tooltip(type);

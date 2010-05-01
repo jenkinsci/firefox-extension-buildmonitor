@@ -1,4 +1,4 @@
-org_hudsonci.Logger = Base.extend({
+org_hudsonci.Logger = name_edwards_dean_Base.extend({
 	constructor: function(service, util, preferences) {
 		this.service = service;
 		this.util = util;

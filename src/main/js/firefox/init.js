@@ -1,4 +1,4 @@
-org_hudsonci.BuildMonitorManager = Base.extend({
+org_hudsonci.BuildMonitorManager = name_edwards_dean_Base.extend({
     constructor: function(numOfFeeds) {
         this.numOfFeeds = numOfFeeds;
 

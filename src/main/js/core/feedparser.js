@@ -1,4 +1,4 @@
-org_hudsonci.FeedParser = Base.extend({
+org_hudsonci.FeedParser = name_edwards_dean_Base.extend({
 	constructor: function(size) {
 		this.size = size;
 	},

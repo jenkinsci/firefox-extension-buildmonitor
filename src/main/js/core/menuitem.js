@@ -1,4 +1,4 @@
-org_hudsonci.MenuItem = Base.extend({
+org_hudsonci.MenuItem = name_edwards_dean_Base.extend({
 	constructor: function(title, url, icon) {
 		this.title = title;
 		this.url = url;

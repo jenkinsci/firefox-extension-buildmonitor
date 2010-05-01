@@ -1,4 +1,4 @@
-org_hudsonci.FeedsTree = Base.extend({
+org_hudsonci.FeedsTree = name_edwards_dean_Base.extend({
     constructor: function(preferences, numOfFeeds) {
         this.preferences = preferences;
         this.numOfFeeds = numOfFeeds;

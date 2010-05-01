@@ -1,4 +1,4 @@
-org_hudsonci.LoggerService = Base.extend ({
+org_hudsonci.LoggerService = name_edwards_dean_Base.extend ({
 	constructor: function(ffConsoleService) {
 		this.ffConsoleService = ffConsoleService;
 	},

@@ -1,4 +1,4 @@
-org_hudsonci.Ui = Base.extend({
+org_hudsonci.Ui = name_edwards_dean_Base.extend({
 	constructor: function(localiser, preferences) {
 		this.localiser = localiser;
 		this.preferences = preferences;

@@ -1,4 +1,4 @@
-org_hudsonci.Build = Base.extend({
+org_hudsonci.Build = name_edwards_dean_Base.extend({
 	constructor: function(name, url) {
 		this.name = name;
 		this.url = url;

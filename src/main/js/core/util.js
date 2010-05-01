@@ -1,5 +1,5 @@
 org_hudsonci_namespace('org_hudsonci');
-org_hudsonci.Util = Base.extend({
+org_hudsonci.Util = name_edwards_dean_Base.extend({
 	getBoolean: function(stringValue) {
 		var booleanValue = Boolean(false);
 		if (stringValue == 'true') {
@@ -21,7 +21,7 @@ org_hudsonci.Util = Base.extend({
 		return isHudsonRss;
 	}
 });
-org_hudsonci.Const = Base.extend({
+org_hudsonci.Const = name_edwards_dean_Base.extend({
     TYPE_EXECUTOR: function() {
         return 'executor';
     },

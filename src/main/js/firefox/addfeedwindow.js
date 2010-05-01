@@ -1,4 +1,4 @@
-org_hudsonci.AddFeedWindow = Base.extend({
+org_hudsonci.AddFeedWindow = name_edwards_dean_Base.extend({
 	constructor: function(util, preferences) {
 		this.util = util;
 		this.preferences = preferences;

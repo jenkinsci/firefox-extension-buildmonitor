@@ -1,4 +1,4 @@
-org_hudsonci.FeedResult = Base.extend({
+org_hudsonci.FeedResult = name_edwards_dean_Base.extend({
 	constructor: function(title, builds, status) {
 		this.title = title;
 		this.builds = builds;

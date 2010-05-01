@@ -1,4 +1,4 @@
-org_hudsonci.Feed = Base.extend({
+org_hudsonci.Feed = name_edwards_dean_Base.extend({
 	constructor: function(id, name, url, lastFail) {
 		this.id = id;
 		this.name = name;

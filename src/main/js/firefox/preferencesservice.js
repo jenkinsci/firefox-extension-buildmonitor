@@ -1,4 +1,4 @@
-org_hudsonci.PreferencesService = Base.extend ({
+org_hudsonci.PreferencesService = name_edwards_dean_Base.extend ({
 	constructor: function(ffPreferencesService) {
 		this.ffPreferencesService = ffPreferencesService;
 	},

@@ -1,4 +1,4 @@
-org_hudsonci.Notification = Base.extend({
+org_hudsonci.Notification = name_edwards_dean_Base.extend({
 	constructor: function(service, preferences) {
 		this.service = service;
 		this.preferences = preferences;

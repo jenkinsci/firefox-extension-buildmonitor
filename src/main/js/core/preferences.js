@@ -1,4 +1,4 @@
-org_hudsonci.Preferences = Base.extend({
+org_hudsonci.Preferences = name_edwards_dean_Base.extend({
 	constructor: function(service, numOfFeeds, account) {
 		this.service = service;
 		this.account = account;
@@ -60,7 +60,7 @@ org_hudsonci.Preferences = Base.extend({
 	    	var lastFail = null;
 	    	var lastFailISOString = this.service.getString('hudson.feeds.' + i + '.lastfail');
 	    	if (lastFailISOString !== null && lastFailISOString.length > 0) {
-	    		lastFail = getDateFromFormat(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
+	    		lastFail = com_mattkruse_getDateFromFormat(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
 	    	}
 	    	feeds[i] = new org_hudsonci.Feed(i, name, url, lastFail);
 	    }
@@ -88,7 +88,7 @@ org_hudsonci.Preferences = Base.extend({
 		
 		var lastFail = '';
 		if (feed.getLastFail() !== null) {
-			lastFail = formatDate(feed.getLastFail(), 'yyyy-MM-ddTHH:mm:ssZ');
+			lastFail = com_mattkruse_formatDate(feed.getLastFail(), 'yyyy-MM-ddTHH:mm:ssZ');
 		}
 		this.service.setString('hudson.feeds.' + id + '.lastfail', lastFail);
 	}

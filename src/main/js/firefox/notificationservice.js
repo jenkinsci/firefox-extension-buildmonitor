@@ -1,4 +1,4 @@
-org_hudsonci.NotificationService = Base.extend ({
+org_hudsonci.NotificationService = name_edwards_dean_Base.extend ({
 	constructor: function(ffAlertsService, ffSound, ffIoService) {
 		this.ffAlertsService = ffAlertsService;
 		this.ffSound = ffSound;

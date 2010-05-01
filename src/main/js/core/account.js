@@ -1,4 +1,4 @@
-org_hudsonci.Account = Base.extend({
+org_hudsonci.Account = name_edwards_dean_Base.extend({
     constructor: function(service) {
         this.service = service;
     },

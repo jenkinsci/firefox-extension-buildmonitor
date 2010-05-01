@@ -1,9 +1,9 @@
-org_hudsonci.Downloader = Base.extend({
+org_hudsonci.Downloader = name_edwards_dean_Base.extend({
 	download: function(callback, url, feed, networkUsername, networkPassword) {
 		var request = new XMLHttpRequest();
 	    request.open("GET", url, true);
 		if (networkUsername !== null && networkUsername !== '') {
-			var auth = "Basic " + Base64.encode(networkUsername + ':' + networkPassword);
+			var auth = "Basic " + info_webtoolkit_Base64.encode(networkUsername + ':' + networkPassword);
 			request.setRequestHeader("Authorization", auth);
 		}
 	    request.onreadystatechange = function () {

@@ -1,4 +1,4 @@
-org_hudsonci.Scheduler = Base.extend({
+org_hudsonci.Scheduler = name_edwards_dean_Base.extend({
     constructor: function(service) {
         this.service = service;
     },

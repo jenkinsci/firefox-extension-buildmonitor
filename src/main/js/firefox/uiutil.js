@@ -1,4 +1,4 @@
-org_hudsonci.UiUtil = Base.extend({
+org_hudsonci.UiUtil = name_edwards_dean_Base.extend({
 	getStatusSkinType: function(type) {
 		var statusSkinType;
 		if (type == org_hudsonci_buildMonitorConst.TYPE_EXECUTOR()) {

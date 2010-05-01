@@ -1,4 +1,4 @@
-org_hudsonci.SchedulerService = Base.extend ({
+org_hudsonci.SchedulerService = name_edwards_dean_Base.extend ({
     constructor: function(ffTimer) {
         this.ffTimer = ffTimer;
     },

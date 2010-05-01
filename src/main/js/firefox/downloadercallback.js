@@ -1,4 +1,4 @@
-org_hudsonci.DownloaderCallback = Base.extend({
+org_hudsonci.DownloaderCallback = name_edwards_dean_Base.extend({
 	constructor: function(type, parser, notifier, logger, localiser, ui) {
 		this.type = type;
 		this.parser = parser;

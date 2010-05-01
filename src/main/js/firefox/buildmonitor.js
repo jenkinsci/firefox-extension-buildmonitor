@@ -1,4 +1,4 @@
-org_hudsonci.BuildMonitor = Base.extend({
+org_hudsonci.BuildMonitor = name_edwards_dean_Base.extend({
 	constructor: function(preferences, ui, downloader, logger, localiser, notification) {
 		this.preferences = preferences;
 		this.ui = ui;

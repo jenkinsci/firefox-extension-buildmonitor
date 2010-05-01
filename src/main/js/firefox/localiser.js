@@ -1,4 +1,4 @@
-org_hudsonci.Localiser = Base.extend({
+org_hudsonci.Localiser = name_edwards_dean_Base.extend({
 	setBundle: function(bundle) {
 		this.bundle = bundle;
 	},

@@ -1,4 +1,4 @@
-org_hudsonci.AccountService = Base.extend ({
+org_hudsonci.AccountService = name_edwards_dean_Base.extend ({
     constructor: function(ffLoginManager, ffLoginInfo, hostName) {
         this.ffLoginManager = ffLoginManager;
         this.ffLoginInfo = ffLoginInfo;

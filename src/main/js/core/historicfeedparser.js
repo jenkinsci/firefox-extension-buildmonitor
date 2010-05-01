@@ -13,7 +13,7 @@ org_hudsonci.HistoricFeedParser = org_hudsonci.FeedParser.extend ({
 		for (var i = 0; i < size; i++) {
 			var name = this.getElementValue(entries[i], 'title');
 			var url = this.getAttributeValue(entries[i], 'link', 'href');
-			var date = getDateFromFormat(this.getElementValue(entries[i], 'published'), 'yyyy-MM-ddTHH:mm:ssZ');
+			var date = com_mattkruse_getDateFromFormat(this.getElementValue(entries[i], 'published'), 'yyyy-MM-ddTHH:mm:ssZ');
 			builds[i] = new org_hudsonci.HistoricBuild(name, url, date);
 			if (builds[i].isSuccess()) {
 				successCount++;

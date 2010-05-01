@@ -1,4 +1,4 @@
-org_hudsonci.UiElement = Base.extend({
+org_hudsonci.UiElement = name_edwards_dean_Base.extend({
 	constructor: function(type) {
 		this.type = type;
 		this.uiUtil = new org_hudsonci.UiUtil();
