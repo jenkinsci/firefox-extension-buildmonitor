@@ -27,7 +27,7 @@ org_hudsonci.Ui = name_edwards_dean_Base.extend({
 					this.uiElementSets[j].getMenusPopup().prepare(menusPopupContainer, feeds[i]);
 					this.uiElementSets[j].getPanel().prepare(panelContainer, feeds[i], this.preferences.getHideName());
 				}
-				if (this.preferences.getExecutor()) {
+				if (this.preferences.getExecutor() && !feeds[i].isJob()) {
 					this._setStatusQueued(org_hudsonci_buildMonitorConst.TYPE_EXECUTOR(), feeds[i]);
 				}
 				this._setStatusQueued(org_hudsonci_buildMonitorConst.TYPE_HISTORIC(), feeds[i]);

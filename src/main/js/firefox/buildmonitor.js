@@ -33,7 +33,7 @@ org_hudsonci.BuildMonitor = name_edwards_dean_Base.extend({
 		this.preferences.removeFeed(this.feeds[i]);
 	},
 	run: function(i) {
-		if (this.preferences.getExecutor()) {
+		if (this.preferences.getExecutor() && !this.feeds[i].isJob()) {
 			this.downloader.download(this.executorCallback, this.feeds[i].getExecutorUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
 		}
 		this.downloader.download(this.historicCallback, this.feeds[i].getUrl(), this.feeds[i], this.preferences.getNetworkUsername(), this.preferences.getNetworkPassword());
