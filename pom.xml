@@ -8,7 +8,7 @@
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>buildmonitor</artifactId>
-    <version>1.5.6-SNAPSHOT</version>
+    <version>1.5.6</version>
     <description>Monitors Hudson builds and displays the status on Firefox status bar.</description>
     <inceptionYear>2008</inceptionYear>
     <name>BuildMonitor</name>
