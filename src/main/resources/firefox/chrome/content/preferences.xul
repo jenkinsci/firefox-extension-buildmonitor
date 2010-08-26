@@ -61,17 +61,17 @@
 	
 	<prefpane id="hudson-prefpane" onpaneload="org_hudsonci.initView();">
 		<preferences>
-			<preference id="hudson-prefs-debug" name="hudson.debug" type="bool"/>
-	    	<preference id="hudson-prefs-successcolor" name="hudson.successcolor" type="string"/>
-	    	<preference id="hudson-prefs-feedstatustype" name="hudson.feedstatustype" type="string"/>
-	    	<preference id="hudson-prefs-interval" name="hudson.interval" type="int"/>
-	    	<preference id="hudson-prefs-openpage" name="hudson.openpage" type="string"/>
-	    	<preference id="hudson-prefs-size" name="hudson.size" type="int"/>
-	    	<preference id="hudson-prefs-sound" name="hudson.sound" type="bool"/>
-	    	<preference id="hudson-prefs-alert" name="hudson.alert" type="bool"/>
-	    	<preference id="hudson-prefs-hidename" name="hudson.hidename" type="bool"/>
-	    	<preference id="hudson-prefs-executor" name="hudson.executor" type="bool"/>
-	    	<preference id="hudson-prefs-networkusername" name="hudson.networkusername" type="string"/>
+			<preference id="hudson-prefs-debug" name="extensions.hudson.buildmonitor.debug" type="bool"/>
+	    	<preference id="hudson-prefs-successcolor" name="extensions.hudson.buildmonitor.successcolor" type="string"/>
+	    	<preference id="hudson-prefs-feedstatustype" name="extensions.hudson.buildmonitor.feedstatustype" type="string"/>
+	    	<preference id="hudson-prefs-interval" name="extensions.hudson.buildmonitor.interval" type="int"/>
+	    	<preference id="hudson-prefs-openpage" name="extensions.hudson.buildmonitor.openpage" type="string"/>
+	    	<preference id="hudson-prefs-size" name="extensions.hudson.buildmonitor.size" type="int"/>
+	    	<preference id="hudson-prefs-sound" name="extensions.hudson.buildmonitor.sound" type="bool"/>
+	    	<preference id="hudson-prefs-alert" name="extensions.hudson.buildmonitor.alert" type="bool"/>
+	    	<preference id="hudson-prefs-hidename" name="extensions.hudson.buildmonitor.hidename" type="bool"/>
+	    	<preference id="hudson-prefs-executor" name="extensions.hudson.buildmonitor.executor" type="bool"/>
+	    	<preference id="hudson-prefs-networkusername" name="extensions.hudson.buildmonitor.networkusername" type="string"/>
 		</preferences>
 		<tabbox>
 			<tabs>

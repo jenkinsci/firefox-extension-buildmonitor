@@ -19,5 +19,11 @@ org_hudsonci.PreferencesService = name_edwards_dean_Base.extend ({
 	},
 	setInteger: function(key, value) {
 		this.ffPreferencesService.setIntPref(key, value);
+	},
+	exist: function(key) {
+	    return this.ffPreferencesService.prefHasUserValue(key);
+	},
+	remove: function(key) {
+	    this.ffPreferencesService.clearUserPref(key);
 	}
 });

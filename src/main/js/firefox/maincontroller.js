@@ -1,4 +1,5 @@
 org_hudsonci.initialise = function() {
+    org_hudsonci_buildMonitorManager.getPreferences().upgrade();
 	org_hudsonci_buildMonitorManager.getBuildMonitor().prepare();
     org_hudsonci_buildMonitorManager.getAddFeedWindow().setMenuVisibility();
     org_hudsonci.schedule();
@@ -20,7 +21,7 @@ org_hudsonci.goToDashboard = function(i) {
 	org_hudsonci.goTo(org_hudsonci_buildMonitorManager.getBuildMonitor().getFeeds()[i].getDashboardUrl());
 };
 org_hudsonci.goTo = function(url) {
-	if (org_hudsonci_buildMonitorManager.getPreferences().getOpenPage() == 'newtab') {
+	if (org_hudsonci_buildMonitorManager.getPreferences().getOpenPage() === 'newtab') {
 		getBrowser().addTab(url);
 	} else {
 		getBrowser().loadURI(url);

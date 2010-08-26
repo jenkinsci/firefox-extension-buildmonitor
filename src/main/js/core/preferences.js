@@ -5,37 +5,37 @@ org_hudsonci.Preferences = name_edwards_dean_Base.extend({
 		this.numOfFeeds = numOfFeeds;
 	},
 	getDebug: function() {
-		return this.service.getBoolean('hudson.debug');
+		return this.service.getBoolean('extensions.hudson.buildmonitor.debug');
 	},
 	getSuccessColor: function() {	
-	    return this.service.getString('hudson.successcolor');
+	    return this.service.getString('extensions.hudson.buildmonitor.successcolor');
 	},
 	getFeedStatusType: function() {	
-	    return this.service.getString('hudson.feedstatustype');
+	    return this.service.getString('extensions.hudson.buildmonitor.feedstatustype');
 	},
 	getInterval: function() {	
-	    return this.service.getInteger('hudson.interval');
+	    return this.service.getInteger('extensions.hudson.buildmonitor.interval');
 	},
 	getOpenPage: function() {	
-	    return this.service.getString('hudson.openpage');
+	    return this.service.getString('extensions.hudson.buildmonitor.openpage');
 	},
 	getSize: function() {	
-	    return this.service.getInteger('hudson.size');
+	    return this.service.getInteger('extensions.hudson.buildmonitor.size');
 	},
 	getSound: function() {	
-	    return this.service.getBoolean('hudson.sound');
+	    return this.service.getBoolean('extensions.hudson.buildmonitor.sound');
 	},
 	getAlert: function() {	
-	    return this.service.getBoolean('hudson.alert');
+	    return this.service.getBoolean('extensions.hudson.buildmonitor.alert');
 	},
 	getHideName: function() {	
-	    return this.service.getBoolean('hudson.hidename');
+	    return this.service.getBoolean('extensions.hudson.buildmonitor.hidename');
 	},
 	getExecutor: function() {	
-	    return this.service.getBoolean('hudson.executor');
+	    return this.service.getBoolean('extensions.hudson.buildmonitor.executor');
 	},
     getNetworkUsername: function() {    
-        return this.service.getString('hudson.networkusername');
+        return this.service.getString('extensions.hudson.buildmonitor.networkusername');
     },
 	getNetworkPassword: function() {
 	    var networkUsername = this.getNetworkUsername();
@@ -49,16 +49,16 @@ org_hudsonci.Preferences = name_edwards_dean_Base.extend({
         return networkPassword;
 	},
 	getIdentifyRssPattern: function() {	
-	    return this.service.getBoolean('hudson.identifyrsspattern');
+	    return this.service.getBoolean('extensions.hudson.buildmonitor.identifyrsspattern');
 	},
 	getFeeds: function() {
 		var feeds = [];
 	    for (var i = 0; i < this.numOfFeeds; i++) {
-	    	var name = this.service.getString('hudson.feeds.' + i + '.name');
-	    	var url = this.service.getString('hudson.feeds.' + i + '.url');
+	    	var name = this.service.getString('extensions.hudson.buildmonitor.feeds.' + i + '.name');
+	    	var url = this.service.getString('extensions.hudson.buildmonitor.feeds.' + i + '.url');
 	    	
 	    	var lastFail = null;
-	    	var lastFailISOString = this.service.getString('hudson.feeds.' + i + '.lastfail');
+	    	var lastFailISOString = this.service.getString('extensions.hudson.buildmonitor.feeds.' + i + '.lastfail');
 	    	if (lastFailISOString !== null && lastFailISOString.length > 0) {
 	    		lastFail = com_mattkruse_getDateFromFormat(lastFailISOString, 'yyyy-MM-ddTHH:mm:ssZ');
 	    	}
@@ -83,13 +83,34 @@ org_hudsonci.Preferences = name_edwards_dean_Base.extend({
     },
 	setFeed: function(feed) {
 		var id = feed.getId();
-		this.service.setString('hudson.feeds.' + id + '.name', feed.getName());
-		this.service.setString('hudson.feeds.' + id + '.url', feed.getUrl());
+		this.service.setString('extensions.hudson.buildmonitor.feeds.' + id + '.name', feed.getName());
+		this.service.setString('extensions.hudson.buildmonitor.feeds.' + id + '.url', feed.getUrl());
 		
 		var lastFail = '';
 		if (feed.getLastFail() !== null) {
 			lastFail = com_mattkruse_formatDate(feed.getLastFail(), 'yyyy-MM-ddTHH:mm:ssZ');
 		}
-		this.service.setString('hudson.feeds.' + id + '.lastfail', lastFail);
-	}
+		this.service.setString('extensions.hudson.buildmonitor.feeds.' + id + '.lastfail', lastFail);
+	},
+    upgrade: function() {
+        var self = this;
+        function renamePrefs(names, type) {
+            for (var i = 0, max = names.length; i < max; i++) {
+                var oldKey = 'hudson.' + names[i];
+                var newKey = 'extensions.hudson.buildmonitor.' + names[i];
+                if (self.service.exist(oldKey)) {
+                    self.service['set' + type](newKey, self.service['get' + type](oldKey));
+                    self.service.remove(oldKey);
+                }
+            }
+        }
+        // from v1.5.6 to v1.5.7 or newer, preference names were changed
+        // from hudson.<name> to extensions.hudson.buildmonitor.<name>
+        renamePrefs(['debug', 'sound', 'alert', 'hidename', 'executor'], 'Boolean');
+        renamePrefs(['successcolor', 'feedstatustype', 'openpage', 'networkusername'], 'String');
+        renamePrefs(['interval', 'size'], 'Integer');
+        for (var i = 0; i < this.numOfFeeds; i++) {
+            renamePrefs(['feeds.' + i + '.lastfail', 'feeds.' + i + '.name', 'feeds.' + i + '.url'], 'String');
+        }
+    }
 });
