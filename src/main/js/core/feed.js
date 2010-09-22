@@ -44,7 +44,7 @@ org_hudsonci.Feed = name_edwards_dean_Base.extend({
 		return isView;
 	},
 	getHostName: function() {
-		return String(this.url.match('http://[^/]+')).replace(/http:\/\//, '');
+		return String(this.url.match('https?://[^/]+')).replace(/https?:\/\//, '');
 	},
 	getItemName: function() {
 		var itemName = null;

@@ -169,6 +169,15 @@ describe('Instance Feed', {
 		value_of(instanceFeed.isIgnored()).should_be_false();
 	}
 })
+var instanceFeedWithHttps = new org_hudsonci.Feed(0, 'Instance Feed', 'https://awesome/hudson/rssAll', lastFailDate);
+describe('Instance Feed w/ https', {
+    'should return correct url': function() {
+        value_of(instanceFeedWithHttps.getUrl()).should_be('https://awesome/hudson/rssAll');
+    },
+    'should return correct host name': function() {
+        value_of(instanceFeedWithHttps.getHostName()).should_be('awesome');
+    }
+})
 var updatedFeed = new org_hudsonci.Feed(0, 'Original Instance Feed', 'http://localhost/hudson/rssAll', lastFailDate);
 updatedFeed.setName('Updated Instance Feed');
 updatedFeed.setUrl('http://updatedlocalhost/hudson/rssAll');
