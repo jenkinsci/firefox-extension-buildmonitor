@@ -7,7 +7,15 @@ org_hudsonci.HistoricBuild = org_hudsonci.Build.extend ({
 		return this.date;
 	},
 	getStatus: function() {
-		return String(this.name.match('[(][_A-Za-z]+[)]')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
+	    var status = String(this.name.match('[(].+[)]$')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
+	    if (status === 'stable' || status === 'back to normal') {
+	        status = 'success';
+	    } else if (status.match(/^broken.*/) || status.match(/failure$/)) {
+	        status = 'failure';
+        } else if (status.match(/.*failing.*/) || status.match(/fail$/)) {
+            status = 'unstable';
+        }
+		return status;
 	},
 	getDetails: function() {
 		return this.name + ' - ' + org_ejohn_prettyDateUTC(this.date);

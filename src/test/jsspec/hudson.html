@@ -68,6 +68,43 @@ describe('HistoricBuild', {
 		value_of(historicBuild.isFailure()).should_be_false();
 	}
 })
+// new names since Hudson 1.376
+var historicBuildWithStable = new org_hudsonci.HistoricBuild('Blender #615 (stable)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ stable', {
+    'should return correct status': function() {
+        value_of(historicBuildWithStable.getStatus()).should_be('success');
+    }
+})
+var historicBuildWithBackToNormal = new org_hudsonci.HistoricBuild('Blender #453 (back to normal)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ b2normal', {
+    'should return correct status': function() {
+        value_of(historicBuildWithBackToNormal.getStatus()).should_be('success');
+    }
+})
+var historicBuildWithBroken = new org_hudsonci.HistoricBuild('Blender #110 (broken for a long time)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ broken', {
+    'should return correct status': function() {
+        value_of(historicBuildWithBroken.getStatus()).should_be('failure');
+    }
+})
+var historicBuildWithFail = new org_hudsonci.HistoricBuild('Blender #110 (1 test started to fail)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ fail', {
+    'should return correct status': function() {
+        value_of(historicBuildWithFail.getStatus()).should_be('unstable');
+    }
+})
+var historicBuildWithFailing = new org_hudsonci.HistoricBuild('Blender #110 (15 less tests are failing (total 31))', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ failing', {
+    'should return correct status': function() {
+        value_of(historicBuildWithFailing.getStatus()).should_be('unstable');
+    }
+})
+var historicBuildWithFailure = new org_hudsonci.HistoricBuild('Blender #110 (1 test failure)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ failure', {
+    'should return correct status': function() {
+        value_of(historicBuildWithFailure.getStatus()).should_be('failure');
+    }
+})
 
 //////////////////////////////////////////////////////////////////////// executorbuild
 var executorBuild = new org_hudsonci.ExecutorBuild('MyJob', 'http://localhost/hudson/job/MyJob/118/', 42, false, false, 'master#1');
