@@ -68,7 +68,7 @@
                                 <property name="resources.dir" value="src/main/resources/firefox"/>
                                 <property name="target.dir" value="target"/>
                                 <property name="stage.dir" value="target/stage"/>
-                                <property name="max_ff_version" value="3.7a1pre"/>
+                                <property name="max_ff_version" value="4.0b6"/>
 
                                 <mkdir dir="${stage.dir}"/>
                                 <copy todir="${stage.dir}">
