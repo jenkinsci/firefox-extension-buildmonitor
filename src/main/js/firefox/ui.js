@@ -66,10 +66,14 @@ org_hudsonci.Ui = name_edwards_dean_Base.extend({
 	},
 	setStatusProcessed: function(type, feed, result) {
 		var container = this._getUiElementSet(type).getPanel().getPanelElement(feed);
-		var builds = result.getBuilds();
-		this._getUiElementSet(type).getPanel().set('status/' + this.uiUtil.getStatusSkinType(type) + '/' + this.uiUtil.getVisualStatus(result.getStatus(), this.preferences.getSuccessColor()), feed);
-		this._getUiElementSet(type).getBuildsPopup().set(container, feed, builds, this.preferences.getSuccessColor());
-		this._getUiElementSet(type).getTooltip().set(container, builds, result.getTitle(), feed, this.preferences.getSuccessColor());
+		// when a feed was deleted after an asynchronous feed request was made,
+		// then the panel element is no longer there
+		if (container) {
+    		var builds = result.getBuilds();
+    		this._getUiElementSet(type).getPanel().set('status/' + this.uiUtil.getStatusSkinType(type) + '/' + this.uiUtil.getVisualStatus(result.getStatus(), this.preferences.getSuccessColor()), feed);
+    		this._getUiElementSet(type).getBuildsPopup().set(container, feed, builds, this.preferences.getSuccessColor());
+    		this._getUiElementSet(type).getTooltip().set(container, builds, result.getTitle(), feed, this.preferences.getSuccessColor());
+    	}
 	},
 	_setStatusQueued: function(type, feed) {
 		this._getUiElementSet(type).getPanel().set('status/queued', feed);
