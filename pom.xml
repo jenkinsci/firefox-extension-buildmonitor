@@ -3,16 +3,16 @@
     <parent>
     	<groupId>org.jvnet.hudson.plugins</groupId>
     	<artifactId>plugin</artifactId>
-    	<version>1.319</version>
+    	<version>1.377</version>
     	<relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>buildmonitor</artifactId>
-    <version>1.6.1</version>
-    <description>Monitors Hudson builds and displays the status on Firefox status bar.</description>
+    <version>1.6.2</version>
+    <description>Monitors Jenkins builds and displays the status on Firefox status bar.</description>
     <inceptionYear>2008</inceptionYear>
     <name>BuildMonitor</name>
-    <url>http://wiki.hudson-ci.org/display/HUDSON/Firefox+Add-on+Build+Monitor</url>
+    <url>http://wiki.jenkins-ci.org/display/Jenkins/Firefox+Add-on+Build+Monitor</url>
     <developers>
         <developer>
             <id>cliffano</id>
@@ -68,7 +68,7 @@
                                 <property name="resources.dir" value="src/main/resources/firefox"/>
                                 <property name="target.dir" value="target"/>
                                 <property name="stage.dir" value="target/stage"/>
-                                <property name="max_ff_version" value="4.0b6"/>
+                                <property name="max_ff_version" value="4.0b11"/>
 
                                 <mkdir dir="${stage.dir}"/>
                                 <copy todir="${stage.dir}">
@@ -103,4 +103,10 @@
             </plugin>
         </plugins>
     </build>
+	
+    <scm>
+      <connection>scm:git:git://github.com/jenkinsci/firefox-extension-buildmonitor.git</connection>
+      <developerConnection>scm:git:git@github.com:jenkinsci/firefox-extension-buildmonitor.git</developerConnection>
+      <url>https://github.com/jenkinsci/firefox-extension-buildmonitor</url>
+    </scm>
 </project>
