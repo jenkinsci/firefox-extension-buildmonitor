@@ -159,6 +159,8 @@
 							<label value="&prefs.networkpassword;" tooltiptext="&prefs.help.networkusername;"/>
 							<textbox id="buildmonitor-prefs-networkpassword" size="8" type="password"/>
 						</hbox>
+						<caption label="&prefs.networkdesc.1;"/>
+						<caption label="&prefs.networkdesc.2;"/>
 					</vbox>
 				</tabpanel>
 				<tabpanel>

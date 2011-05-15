@@ -31,7 +31,9 @@
 <!ENTITY prefs.alert "Enable alert">
 <!ENTITY prefs.hidename "Hide feed name on status bar">
 <!ENTITY prefs.executor "Enable executor monitoring">
-<!ENTITY prefs.networkdesc "HTTP Basic Auth">
+<!ENTITY prefs.networkdesc "HTTP Basic Auth- Username and Password will be used by all configured feeds">
+<!ENTITY prefs.networkdesc.1 "Feed-specific authentication can be configured in feed URL (Feeds tab)">
+<!ENTITY prefs.networkdesc.2 "e.g. http://username:password@host:port/path">
 <!ENTITY prefs.networkusername "Username">
 <!ENTITY prefs.networkpassword "Password">
 <!ENTITY prefs.group.feeds "Feeds">

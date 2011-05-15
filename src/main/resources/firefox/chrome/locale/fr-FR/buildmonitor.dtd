@@ -32,6 +32,8 @@
 <!ENTITY prefs.hidename "Cacher le nom du flux dans la barre de statut">
 <!ENTITY prefs.executor "Activer le monitoring d'exécuteur">
 <!ENTITY prefs.networkdesc "Authentification HTTP Basic">
+<!ENTITY prefs.networkdesc.1 "">
+<!ENTITY prefs.networkdesc.2 "">
 <!ENTITY prefs.networkusername "Nom d'utilisateur">
 <!ENTITY prefs.networkpassword "Mot de passe">
 <!ENTITY prefs.group.feeds "Flux">

@@ -32,6 +32,8 @@
 <!ENTITY prefs.hidename "ステータスバーのフィード名を隠す">
 <!ENTITY prefs.executor "エグゼキューターの監視を有効">
 <!ENTITY prefs.networkdesc "BASIC認証">
+<!ENTITY prefs.networkdesc.1 "">
+<!ENTITY prefs.networkdesc.2 "">
 <!ENTITY prefs.networkusername "ユーザー名">
 <!ENTITY prefs.networkpassword "パスワード">
 <!ENTITY prefs.group.feeds "フィード">

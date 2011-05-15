@@ -31,7 +31,9 @@
 <!ENTITY prefs.alert "Aktifkan alert">
 <!ENTITY prefs.hidename "Sembunyikan nama feed di status bar">
 <!ENTITY prefs.executor "Aktifkan monitor eksekutor">
-<!ENTITY prefs.networkdesc "HTTP Basic Auth">
+<!ENTITY prefs.networkdesc "HTTP Basic Auth- Username dan Password akan digunakan pada semua feed">
+<!ENTITY prefs.networkdesc.1 "Spesifik username dan password pada setiap feed dapat dikonfigurasi di tab Feeds">
+<!ENTITY prefs.networkdesc.2 "contoh http://username:password@host:port/path">
 <!ENTITY prefs.networkusername "Username">
 <!ENTITY prefs.networkpassword "Password">
 <!ENTITY prefs.group.feeds "Feed">

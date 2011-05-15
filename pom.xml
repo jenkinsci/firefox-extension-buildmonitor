@@ -8,7 +8,7 @@
     </parent>
     <groupId>org.jvnet.hudson.plugins</groupId>
     <artifactId>buildmonitor</artifactId>
-    <version>1.6.2</version>
+    <version>1.6.3</version>
     <description>Monitors Jenkins builds and displays the status on Firefox status bar.</description>
     <inceptionYear>2008</inceptionYear>
     <name>BuildMonitor</name>
@@ -68,7 +68,7 @@
                                 <property name="resources.dir" value="src/main/resources/firefox"/>
                                 <property name="target.dir" value="target"/>
                                 <property name="stage.dir" value="target/stage"/>
-                                <property name="max_ff_version" value="4.0b11"/>
+                                <property name="max_ff_version" value="4.*"/>
 
                                 <mkdir dir="${stage.dir}"/>
                                 <copy todir="${stage.dir}">

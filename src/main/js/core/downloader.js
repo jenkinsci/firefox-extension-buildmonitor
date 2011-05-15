@@ -1,9 +1,20 @@
 org_hudsonci.Downloader = name_edwards_dean_Base.extend({
 	download: function(callback, url, feed, networkUsername, networkPassword) {
-		var request = new XMLHttpRequest();
+	    var request = new XMLHttpRequest();
+	    
+	    if (url && url.match(/^https?:\/\/.+:.+@.+/)) {
+		var usernamePassword = url.match(/^https?:\/\/.+@/).toString()
+			.replace(/^https?:\/\//, '').replace(/@$/, '').split(':');
+		username = usernamePassword[0];
+		password = usernamePassword[1];
+		url = url.replace(/^https?:\/\/.*@/, (url.match(/^https/)) ? 'https://' : 'http://');
+	    } else {
+		username = networkUsername;
+		password = networkPassword;
+	    }
 	    request.open("GET", url, true);
-		if (networkUsername !== null && networkUsername !== '') {
-			var auth = "Basic " + info_webtoolkit_Base64.encode(networkUsername + ':' + networkPassword);
+		if (username !== null && username !== '') {
+			var auth = "Basic " + info_webtoolkit_Base64.encode(username + ':' + password);
 			request.setRequestHeader("Authorization", auth);
 		}
 	    request.onreadystatechange = function () {
