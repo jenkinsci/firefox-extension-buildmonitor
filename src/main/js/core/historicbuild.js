@@ -7,14 +7,17 @@ org_hudsonci.HistoricBuild = org_hudsonci.Build.extend ({
 		return this.date;
 	},
 	getStatus: function() {
-	    var status = String(this.name.match('[(].+[)]$')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
-	    if (status === 'stable' || status === 'back to normal') {
-	        status = 'success';
-	    } else if (status.match(/^broken.*/) || status.match(/failure$/)) {
-	        status = 'failure';
-        } else if (status.match(/.*failing.*/) || status.match(/fail$/)) {
-            status = 'unstable';
-        }
+		var status = String(this.name.match('[(][^(]+[)]$')).replace(/[(]/, '').replace(/[)]/, '').toLowerCase();
+		if (status === 'stable' || status === 'back to normal') {
+			status = 'success';
+		} else if (status.match(/^broken.*/) || status.match(/failure$/)) {
+			status = 'failure';
+		} else if (status.match(/.*failing.*/) || status.match(/fail$/)) {
+			status = 'unstable';
+		} else if (this.name.match(/broken since/)) {
+			// Couldn't match, might be including the build name in the status
+			status = 'failure';
+		}
 		return status;
 	},
 	getDetails: function() {
