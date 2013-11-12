@@ -75,16 +75,40 @@ describe('HistoricBuild w/ stable', {
         value_of(historicBuildWithStable.getStatus()).should_be('success');
     }
 })
+var historicBuildWithStableParens = new org_hudsonci.HistoricBuild('Blender #615 Fix NULL pointer exception (v2) (stable)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ stable and parentheses', {
+    'should return correct status': function() {
+        value_of(historicBuildWithStableParens.getStatus()).should_be('success');
+    }
+})
 var historicBuildWithBackToNormal = new org_hudsonci.HistoricBuild('Blender #453 (back to normal)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
 describe('HistoricBuild w/ b2normal', {
     'should return correct status': function() {
         value_of(historicBuildWithBackToNormal.getStatus()).should_be('success');
     }
 })
+var historicBuildWithBackToNormalParens = new org_hudsonci.HistoricBuild('Blender #453 Optimize render (v3) (back to normal)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ b2normal and parentheses', {
+    'should return correct status': function() {
+        value_of(historicBuildWithBackToNormalParens.getStatus()).should_be('success');
+    }
+})
 var historicBuildWithBroken = new org_hudsonci.HistoricBuild('Blender #110 (broken for a long time)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
 describe('HistoricBuild w/ broken', {
     'should return correct status': function() {
         value_of(historicBuildWithBroken.getStatus()).should_be('failure');
+    }
+})
+var historicBuildBrokenSince = new org_hudsonci.HistoricBuild('Blender #111 (broken since this build)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ broken since', {
+    'should return correct status': function() {
+        value_of(historicBuildBrokenSince.getStatus()).should_be('failure');
+    }
+})
+var historicBuildBrokenSinceParens = new org_hudsonci.HistoricBuild('Blender #111 (broken since build #109 Major rewrite (v4))', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ broken since and parentheses', {
+    'should return correct status': function() {
+        value_of(historicBuildBrokenSinceParens.getStatus()).should_be('failure');
     }
 })
 var historicBuildWithFail = new org_hudsonci.HistoricBuild('Blender #110 (1 test started to fail)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
@@ -103,6 +127,18 @@ var historicBuildWithFailure = new org_hudsonci.HistoricBuild('Blender #110 (1 t
 describe('HistoricBuild w/ failure', {
     'should return correct status': function() {
         value_of(historicBuildWithFailure.getStatus()).should_be('failure');
+    }
+})
+var historicBuildWithUnstable = new org_hudsonci.HistoricBuild('Blender #118 Fix pesky warnings (v1) (unstable)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ unstable', {
+    'should return correct status': function() {
+        value_of(historicBuildWithUnstable.getStatus()).should_be('unstable');
+    }
+})
+var historicBuildAborted = new org_hudsonci.HistoricBuild('Blender #118 (aborted)', 'http://localhost/hudson/job/Blender/118/', historicBuildDate);
+describe('HistoricBuild w/ aborted', {
+    'should return correct status': function() {
+        value_of(historicBuildAborted.getStatus()).should_be('aborted');
     }
 })
 
