@@ -17,6 +17,9 @@ org_hudsonci.HistoricBuild = org_hudsonci.Build.extend ({
 		} else if (this.name.match(/broken since/)) {
 			// Couldn't match, might be including the build name in the status
 			status = 'failure';
+		} else if (this.name.match(/.*failing.*/)) {
+			// Couldn't match, fall back to checking the whole name
+			status = 'unstable';
 		}
 		return status;
 	},
